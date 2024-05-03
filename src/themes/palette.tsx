@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 
 // assets
-import defaultColor from '@/styles/_themes-vars.module.scss';
+import defaultColor from '@/app/styles/_themes-vars.module.scss';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 

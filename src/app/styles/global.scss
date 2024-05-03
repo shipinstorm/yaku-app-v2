@@ -184,7 +184,7 @@ html > body {
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    // background-color: theme('colors.surface');
+    background-color: theme('colors.surface');
 }
 
 // ==============================|| PERFECT SCROLLBAR ||============================== //
@@ -199,7 +199,7 @@ html > body {
         }
     }
     .ps__thumb-y {
-        // background-color: theme('colors.surface');
+        background-color: theme('colors.surface');
         border-radius: 6px;
         width: 5px;
         right: 0;

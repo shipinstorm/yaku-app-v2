@@ -103,7 +103,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-const MainLayout = () => {
+const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const theme = useTheme();
   const auth = useAuth();
   const matchDownMd = useMediaQuery(theme.breakpoints.down("lg"));
@@ -396,6 +396,7 @@ const MainLayout = () => {
                 divider={false}
               />
               <Outlet />
+              {children}
             </Container>
           ) : (
             <>
@@ -407,6 +408,7 @@ const MainLayout = () => {
                 divider={false}
               />
               <Outlet />
+              {children}
             </>
           )}
           {/* {isOpen && <Cart />} */}

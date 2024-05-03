@@ -70,8 +70,8 @@ export default function Providers({
         <ApolloProvider client={client}>
           <BrowserRouter>
             <Composer components={contexts}>
-              <MainLayout />
-              {children}
+              <MainLayout children={children} />
+              {/* {children} */}
             </Composer>
           </BrowserRouter>
         </ApolloProvider>
