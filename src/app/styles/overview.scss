@@ -1,0 +1,44 @@
+.profile-box {
+    .banner {
+        height: 124px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    button:focus-visible {
+        outline: 0;
+    }
+}
+
+.community-item {
+    img,
+    img.yaku-icon {
+        width: 68px;
+        height: 68px;
+        aspect-ratio: 1 / 1;
+        flex: 0 0 68px;
+    }
+    img.yaku-icon {
+        &[alt]:after {
+            width: 68px;
+            height: 68px;
+        }
+    }
+}
+
+.activity-box {
+    @media (min-width: 768px) {
+        height: calc(100vh - 195px);
+    }
+
+    div::-webkit-scrollbar {
+        display: none;
+    }
+
+    .activity-item {
+        padding: 12px;
+    }
+}
