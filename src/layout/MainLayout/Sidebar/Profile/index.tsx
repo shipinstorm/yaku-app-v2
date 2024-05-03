@@ -1,6 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useRef, useState, memo } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useRouter } from "next/navigation";
+
 import { isEmpty } from "lodash";
 
 // material-ui
@@ -46,7 +48,7 @@ import { useEthcontext } from "@/contexts/EthWalletProvider";
 const Profile = ({ noPopper, asButton = false }: any) => {
   const theme = useTheme();
   const auth = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const mainWallet = useWallet();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { ethAddress, ethConnected } = useEthcontext();
@@ -118,7 +120,7 @@ const Profile = ({ noPopper, asButton = false }: any) => {
     dispatch(setPage("Profile"));
     dispatch(activeItem(["profile"]));
     dispatch(openDrawer(true));
-    navigate("/account");
+    router.push("/account");
   };
 
   return (
@@ -155,7 +157,7 @@ const Profile = ({ noPopper, asButton = false }: any) => {
                     aria-controls={open ? "menu-list-grow" : undefined}
                     aria-haspopup="true"
                     color="inherit"
-                    onClick={() => navigate(`/bundle`)}
+                    onClick={() => router.push(`/bundle`)}
                   />
                   <Stack
                     direction="column"

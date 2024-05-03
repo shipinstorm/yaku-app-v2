@@ -1,4 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { map } from "lodash";
 import {
   Box,
   CircularProgress,
@@ -12,21 +16,20 @@ import {
   Typography,
 } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useEffect, useState } from "react";
-import useAuth from "@/hooks/useAuth";
-import { map } from "lodash";
-import MainCard from "../MainCard";
-import SearchBox from "../inputs/SearchBox";
 import { PublicKey } from "@solana/web3.js";
 import { IconX } from "@tabler/icons-react";
-import { LockOutlined } from "@mui/icons-material";
 import { EyeOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { LockOutlined } from "@mui/icons-material";
+
+import useAuth from "@/hooks/useAuth";
 import { useToasts } from "@/hooks/useToasts";
 import { useRequests } from "@/hooks/useRequests";
 
+import MainCard from "../MainCard";
+import SearchBox from "../inputs/SearchBox";
+
 const BundleSection = ({ open, onClose }: any) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const wallet = useWallet();
   const auth = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -171,7 +174,7 @@ const BundleSection = ({ open, onClose }: any) => {
                   }}
                 >
                   <Tooltip title="View Wallet">
-                    <IconButton onClick={() => navigate(`/account/${w}`)}>
+                    <IconButton onClick={() => router.push(`/account/${w}`)}>
                       <EyeOutlined />
                     </IconButton>
                   </Tooltip>

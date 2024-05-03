@@ -1,6 +1,9 @@
 "use client";
 
 /* eslint-disable react-hooks/exhaustive-deps */
+
+import { useRouter } from "next/navigation";
+
 // material-ui
 import { Box, Grid } from "@mui/material";
 
@@ -10,7 +13,6 @@ import { gridSpacing } from "@/store/constant";
 // assets
 import ProjectCard from "@/components/cards/ProjectCard";
 import { round } from "lodash";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "@/store";
 import { activeItem } from "@/store/slices/menu";
 import { useSolPrice } from "@/contexts/CoinGecko";
@@ -29,7 +31,7 @@ const Home = () => {
   const TOP_FLOOR_CAP = 1;
   const solPrice = useSolPrice();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const {
     getLeaderboards,
     getYakuStats,
@@ -218,7 +220,7 @@ const Home = () => {
                 nameTag={estateType}
                 useProxy={false}
                 height={200}
-                onClick={() => navigate(href)}
+                onClick={() => router.push(href)}
               >
                 <TowerView
                   height={height}

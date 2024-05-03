@@ -1,5 +1,6 @@
 import { memo, useMemo, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
+
 import { IconBuildingSkyscraper } from "@tabler/icons-react";
 
 // material-ui
@@ -50,7 +51,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
   const anchorRef = useRef<any>(null);
   const wallet = useWallet();
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const workspace = JSON.parse(localStorage.getItem("workspace") || "{}");
@@ -65,13 +66,13 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
     dispatch(setPage("Workspace"));
     dispatch(activeItem(["workspace"]));
     dispatch(openDrawer(true));
-    navigate("/workspaces/home");
+    router.push("/workspaces/home");
   };
   const handleMyWorkspacesClick = () => {
     dispatch(setPage("Workspace"));
     dispatch(activeItem(["workspace"]));
     dispatch(openDrawer(true));
-    navigate("/workspaces");
+    router.push("/workspaces");
   };
 
   const logo = useMemo(
@@ -236,7 +237,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
         ModalProps={{ keepMounted: true }}
         color="inherit"
         onMouseLeave={(e) => {
-          console.log("Leave");
           e.preventDefault();
           if (matchUpMd) {
             setTimeout(() => {
@@ -302,7 +302,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
             }}
             onMouseEnter={(e) => {
               e.preventDefault();
-              console.log("Enter");
               dispatch(openDrawer(!drawerOpen));
               setOpen(true);
             }}

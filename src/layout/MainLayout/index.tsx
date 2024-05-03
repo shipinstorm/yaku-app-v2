@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useMemo, useState } from "react";
-import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 // material-ui
 import { styled, useTheme, Theme } from "@mui/material/styles";
@@ -122,7 +123,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const { sticky } = useMeta();
 
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [exCode, setExCode] = useState("");
   const { csrf, connectDiscord, connectTwitter, getDashboardSlides } =
     useRequests();
@@ -227,9 +228,9 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
     if (window.location.pathname !== "/") {
       console.log(window.location.pathname);
-      navigate(`${window.location.pathname}${queryString}`, { replace: true });
+      router.push(`${window.location.pathname}${queryString}`);
     } else {
-      navigate(`home${queryString}`, { replace: true });
+      router.push(`home${queryString}`);
     }
   }, [wallet.connected]);
 

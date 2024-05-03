@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -69,7 +70,7 @@ const ProfilePopperContext = ({
   const { setShowBundleView } = useBundleView();
   const theme = useTheme();
   const auth = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const mainWallet = useWallet();
   const { publicKey, wallet, disconnect } = mainWallet;
   const { showInfoToast } = useToasts();
@@ -109,7 +110,7 @@ const ProfilePopperContext = ({
           setIsInited(false);
           setStakedYakuNfts([]);
           setNftList([]);
-          navigate("/home");
+          router.push("/home");
         })
         .catch(() => {
           // silent catch
@@ -173,18 +174,18 @@ const ProfilePopperContext = ({
   const { workspaces } = useWallets();
   const [workspace, setWorkspace] = useLocalStorage("workspace", "");
   const createWorkspaceButton = {
-    onClick: () => navigate("/workspaces/create"),
+    onClick: () => router.push("/workspaces/create"),
     icon: <IconPlus stroke={1.5} size="1.3rem" />,
     label: "Create Workspace",
   };
   const myWorkspaceButton = {
-    onClick: () => navigate("/workspaces"),
+    onClick: () => router.push("/workspaces"),
     icon: <IconBriefcase stroke={1.5} size="1.3rem" />,
     label: "Other Workspace",
   };
   const stackButtons = [
     {
-      onClick: () => navigate("/bundle"),
+      onClick: () => router.push("/bundle"),
       icon: <IconBook stroke={1.5} size="1.3rem" />,
       label: "View Bundle",
     },
@@ -216,7 +217,7 @@ const ProfilePopperContext = ({
               spacing={1.5}
               alignItems="center"
               justifyContent="flex-start"
-              onClick={() => navigate("/account")}
+              onClick={() => router.push("/account")}
               className={`${
                 window.location.pathname.includes("workspaces")
                   ? "selected"
@@ -318,7 +319,7 @@ const ProfilePopperContext = ({
                       } flex items-center gap-2 rounded-2xl w-full py-2 px-1 cursor-pointer duration-100 bg-transparent`}
                       onClick={() => {
                         setWorkspace(workspaceItem);
-                        navigate("/workspaces/home");
+                        router.push("/workspaces/home");
                       }}
                     >
                       <div className="avatar-img !w-8 !h-8 flex-shrink-0">
@@ -511,7 +512,7 @@ const ProfilePopperContext = ({
                                 gap: 1,
                               }}
                               onClick={() =>
-                                navigate(`/account/${auth.user?.wallet}`)
+                                router.push(`/account/${auth.user?.wallet}`)
                               }
                             >
                               <IconEye />
