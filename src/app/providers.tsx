@@ -6,6 +6,9 @@ import Locales from "@/providers/Locales";
 import NavigationScroll from "@/layout/NavigationScroll";
 import ThemeCustomization from "@/themes";
 
+// third-party
+import { ToastContainer } from "react-toastify";
+
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -72,6 +75,16 @@ export default function Providers({
             <Composer components={contexts}>
               <MainLayout children={children} />
               {/* {children} */}
+              <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                draggable={false}
+                pauseOnHover={false}
+                theme="colored"
+                limit={5}
+              />
             </Composer>
           </BrowserRouter>
         </ApolloProvider>
