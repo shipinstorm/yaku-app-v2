@@ -20,7 +20,7 @@ import { setPage } from "@/store/slices/subpageSlice";
 import { useRequests } from "@/hooks/useRequests";
 import { useRequest } from "ahooks";
 import useLocalStorage from "@/hooks/useLocalStorage";
-// import SwiperList from "@/components/SwiperList";
+import SwiperList from "@/components/SwiperList";
 import BannerSpace from "@/components/home/BannerSpace";
 import PartnerLogos from "@/components/home/PartnerLogos";
 import TowerView from "@/components/home/TowerView";
@@ -193,7 +193,7 @@ const Home = () => {
         </Box>
       </Grid>
 
-      {/* <Grid item xs={12} className="py-[20px]">
+      <Grid item xs={12} className="py-[20px]">
         <Grid container spacing={gridSpacing}>
           <SwiperList
             items={yakuTowers}
@@ -238,7 +238,7 @@ const Home = () => {
             slideCss="!h-auto sm:!w-[220px] !w-[90%]"
           />
         </Grid>
-      </Grid> */}
+      </Grid>
 
       {/* collection stats */}
       <Grid item xs={12}>
@@ -261,7 +261,7 @@ const Home = () => {
           }}
         />
       </div>
-      {/* <Grid item xs={12} className="py-[20px]">
+      <Grid item xs={12} className="py-[20px]">
         <Grid container spacing={gridSpacing}>
           <SwiperList
             items={[...yakuCollectionsStats]}
@@ -296,7 +296,7 @@ const Home = () => {
             slideCss="!h-auto sm:!w-[360px] !w-[90%]"
           />
         </Grid>
-      </Grid> */}
+      </Grid>
 
       <Grid item xs={12} className="py-24 sm:py-32">
         <Box

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { map } from "lodash";
 import { isMobile } from "react-device-detect";
-import Pagination from "swiper";
+import { Pagination } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 const PreviewSlide = ({ slide, idx }: any) => {

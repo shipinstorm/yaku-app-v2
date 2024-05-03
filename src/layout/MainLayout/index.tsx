@@ -41,7 +41,7 @@ import { useRequests } from "@/hooks/useRequests";
 import ProfileSection from "./Header/ProfileSection";
 // import MobileFooter from './MobileFooter';
 import { setPage } from "@/store/slices/subpageSlice";
-// import VideoSlidesBackground from "./VideoSlidesBackground";
+import VideoSlidesBackground from "./VideoSlidesBackground";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useRequest } from "ahooks";
 import useRelay from "@/hooks/useRelay";
@@ -289,9 +289,9 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             : ""
         }
       >
-        {/* {window.location.pathname === "/home" && (
+        {window.location.pathname === "/home" && (
           <VideoSlidesBackground {...dashboardSlides} />
-        )} */}
+        )}
         <CssBaseline />
 
         {/* header */}
