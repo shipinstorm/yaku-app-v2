@@ -78,7 +78,7 @@ function AreaChart({
 
       const dateStr = isBusinessDay(param.time)
         ? businessDayToString(param.time)
-        : new Date(param.time * 1000).toLocaleDateString();
+        : new Date(Number(param.time) * 1000).toLocaleDateString();
 
       toolTip.style.display = "flex";
       const price = find(chartData, ({ time }: any) => time === param?.time);

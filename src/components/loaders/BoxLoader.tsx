@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 // material-ui
 import { styled } from "@mui/material/styles";
@@ -21,9 +21,13 @@ const LoaderWrapper = styled("div")({
   background: "rgba(9, 8, 13, 0.6)",
 });
 
+interface LoaderProviderProps {
+  children: ReactNode;
+}
+
 // ==============================|| BOX LOADER ||============================== //
 
-export const LoaderProvider: FC = ({ children }) => {
+export const LoaderProvider: FC<LoaderProviderProps> = ({ children }) => {
   const { isLoading } = useMeta();
 
   return (
