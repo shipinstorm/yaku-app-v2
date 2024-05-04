@@ -12,13 +12,9 @@ import { gridSpacing } from "@/store/constant";
 
 // assets
 import ProjectCard from "@/components/cards/ProjectCard";
-import { round } from "lodash";
-import { useDispatch } from "@/store";
-import { activeItem } from "@/store/slices/menu";
 import { useSolPrice } from "@/contexts/CoinGecko";
 import DetailView from "@/components/home/DetailView";
 import SiteStats from "@/components/home/SiteStats";
-import { setPage } from "@/store/slices/subpageSlice";
 import { useRequests } from "@/hooks/useRequests";
 import { useRequest } from "ahooks";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -28,51 +24,14 @@ import PartnerLogos from "@/components/home/PartnerLogos";
 import TowerView from "@/components/home/TowerView";
 
 const Home = () => {
-  const TOP_FLOOR_CAP = 1;
   const solPrice = useSolPrice();
-  const dispatch = useDispatch();
   const router = useRouter();
-  const {
-    getLeaderboards,
-    getYakuStats,
-    getNFTLeaderBoards,
-    getInspectorCollections,
-    getYakuTowersInfo,
-  } = useRequests();
+  const { getYakuStats, getYakuTowersInfo } = useRequests();
 
-  const [cacheLeaderboard, setCacheLeaderboard] = useLocalStorage(
-    "leaderboards",
-    {}
-  );
-  const [cacheRankedWallets, setCacheRankedWallets] = useLocalStorage(
-    "rankedWallets",
-    {}
-  );
-  const [cacheCollectionsRank, setCacheCollectionsRank] = useLocalStorage(
-    "collectionsRank",
-    {}
-  );
   const [cacheYakuStats, setCacheYakuStats] = useLocalStorage("yakuStats", {});
   const [cacheYakuTowers, setCacheYakuTowers] = useLocalStorage(
     "yakuTowers",
     {}
-  );
-  const type = "SOL";
-
-  const { data: leaderboards, loading: isLoadingLeaderboards } = useRequest(
-    getLeaderboards,
-    {
-      cacheKey: "leaderboards",
-      setCache: (data) => setCacheLeaderboard(data),
-      getCache: () => cacheLeaderboard,
-      defaultParams: [
-        {
-          condition: {
-            volume_1day: round(TOP_FLOOR_CAP * solPrice, 0),
-          },
-        },
-      ],
-    }
   );
   const { data: yakuCollections, loading: isLoadingYakuStats } = useRequest(
     getYakuStats,
@@ -83,22 +42,6 @@ const Home = () => {
     }
   );
 
-  const { data: rankedWallets, loading: isLoadingRankedWallets } = useRequest(
-    getNFTLeaderBoards,
-    {
-      cacheKey: "rankedWallets",
-      setCache: (data) => setCacheRankedWallets(data),
-      getCache: () => cacheRankedWallets,
-    }
-  );
-
-  const { data: collectionsRank, loading: isLoadingCollectionsRank } =
-    useRequest(() => getInspectorCollections("SOL"), {
-      cacheKey: "collectionsRank",
-      setCache: (data) => setCacheCollectionsRank(data),
-      getCache: () => cacheCollectionsRank,
-    });
-
   const { data: yakuTowers, loading: isLoadingYakuTowers } = useRequest(
     getYakuTowersInfo,
     {
@@ -107,12 +50,6 @@ const Home = () => {
       getCache: () => cacheYakuTowers,
     }
   );
-
-  // const handleNavigate = (projectId: string) => {
-  //   navigate(`/explore/collection/${type}/${projectId}`);
-  //   dispatch(setPage("Collection"));
-  //   dispatch(activeItem(["collection"]));
-  // };
 
   const handleUrl = (url: string) => {
     window.open(url, "_blank");
