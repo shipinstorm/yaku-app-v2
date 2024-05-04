@@ -73,8 +73,9 @@ export default function Providers({
         <ApolloProvider client={client}>
           <BrowserRouter>
             <Composer components={contexts}>
-              <MainLayout children={children} />
-              {/* {children} */}
+              <MainLayout>
+                {children}
+              </MainLayout>
               <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

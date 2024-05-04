@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
@@ -186,7 +185,6 @@ const SearchSection = () => {
   // Bonfida search
   const { connection } = useConnections();
 
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleBonfidaResolve = async (domains: string) => {
     let names: BonfidaFetched[] = domains
       .split(/[\s,]+/)

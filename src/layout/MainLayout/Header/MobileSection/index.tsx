@@ -6,10 +6,10 @@ import { AppBar, Box, IconButton, ClickAwayListener, Grid, Paper, Popper, Toolba
 
 // project imports
 import LocalizationSection from '../LocalizationSection';
-import Transitions from 'components/Transitions';
+import Transitions from '@/components/Transitions';
 
 // assets
-import { IconDotsVertical } from '@tabler/icons';
+import { IconDotsVertical } from '@tabler/icons-react';
 
 // ==============================|| MOBILE HEADER ||============================== //
 

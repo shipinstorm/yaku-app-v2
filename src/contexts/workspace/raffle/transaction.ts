@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as anchor from '@project-serum/anchor';
 import { Program } from '@project-serum/anchor';
 import { WalletContextState } from '@solana/wallet-adapter-react';

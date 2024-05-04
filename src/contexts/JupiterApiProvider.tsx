@@ -13,7 +13,6 @@ interface JupiterApiContextType {
     routeMap: RouteMap;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 const JupiterApiContext = React.createContext<JupiterApiContextType | null>(null);
 
 export const JupiterApiProvider: React.FC<{}> = ({ children }) => {

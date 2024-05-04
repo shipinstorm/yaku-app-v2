@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";

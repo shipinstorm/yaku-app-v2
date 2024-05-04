@@ -297,7 +297,6 @@ const WalletLogin = ({
     setStep(STEPS.SELECT_WALLET);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleBack = async (step: number) => {
     if (step === 1) {
       handleReset();

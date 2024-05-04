@@ -47,7 +47,7 @@ export const getUnstakedNfts = async ({
     const list: Array<any> = await Promise.mapSeries(nftsList, async (item: NFTType) => {
         try {
             const creators = get(item, 'data.creators', []);
-            if (!!get(creators, '[0].verified') && YAKU_COLLECTION_CREATORS.includes(get(creators, '[0].address'))) {
+            if (!!get(creators, '[0].verified') && YAKU_COLLECTION_CREATORS.includes(get(creators, '[0].address') || '')) {
                 const result = await fetchMetadata(item.data.uri, item.mint, undefined, shouldfetchJson);
                 return result;
             }

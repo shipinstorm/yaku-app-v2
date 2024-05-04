@@ -1,23 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-await-in-loop */
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { Button, Avatar, Typography, Box, Grid, TextField } from '@mui/material';
-import { IconX } from '@tabler/icons';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Message, PublicKey, Transaction } from '@solana/web3.js';
-import { DEFAULT_BUYER_BROKER } from 'config/config';
-import { useToasts } from 'hooks/useToasts';
-import useConnections from 'hooks/useConnetions';
-import { maxCartItems } from 'store/constant';
-import { useCartItems } from 'contexts/CartContext';
-import { useEthcontext } from 'contexts/EthWalletProvider';
-import { useMeta } from 'contexts/meta/meta';
-import MainCard from 'components/cards/MainCard';
-import SwitchList from 'components/lists/SwitchList';
-import { useParams } from 'react-router-dom';
+import { IconX } from '@tabler/icons-react';
+
+import { DEFAULT_BUYER_BROKER } from '@/config/config';
+import MainCard from '@/components/cards/MainCard';
+import SwitchList from '@/components/lists/SwitchList';
+import { useCartItems } from '@/contexts/CartContext';
+import { useEthcontext } from '@/contexts/EthWalletProvider';
+import { useMeta } from '@/contexts/meta/meta';
+import { useToasts } from '@/hooks/useToasts';
+import useConnections from '@/hooks/useConnetions';
+import { useRequests } from '@/hooks/useRequests';
+import { maxCartItems } from '@/store/constant';
+
 import SelectedTab from './SelectedTab';
 import Sell from './Sell';
-import { useRequests } from 'hooks/useRequests';
 
 export interface SelectedItemType {
     tokenAddress: string;
@@ -55,7 +58,6 @@ export default function Cart() {
     const { showSuccessToast, showErrorToast, showTxErrorToast } = useToasts();
 
     const [solBalance, setSolBalance] = useState(0);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [collectionPage, setCollectionPage] = useState(false);
 
     /** currently stop the Bid */

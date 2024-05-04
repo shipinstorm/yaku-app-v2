@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useMemo, useState } from "react";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
@@ -374,7 +373,11 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               <YakuBuyLink />
             )}
           </Container>
-          {matchUpMd ? header : <MobileHeader buttons={[<ProfileSection />]} />}
+          {matchUpMd ? (
+            header
+          ) : (
+            <MobileHeader buttons={[<ProfileSection key="profile" />]} />
+          )}
         </AppBar>
         {/* drawer */}
         {/* <Sidebar sticky={sticky > 108} isPro={isPro} /> */}

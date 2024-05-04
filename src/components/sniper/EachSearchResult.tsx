@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Avatar, Box, Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { showSearchAtom } from 'views/yaku/sniping/recoil/atom/HaloLabsAtom';
+import { showSearchAtom } from '@app/sniping/recoil/atom/HaloLabsAtom';
 import { AddOutlined } from '@mui/icons-material';
-import { IMAGE_PROXY } from 'config/config';
+import { IMAGE_PROXY } from '@/config/config';
 
 const EachSearchResult = ({ collectionData, addCollection }: any) => {
     const [addingCollection] = useState(false);

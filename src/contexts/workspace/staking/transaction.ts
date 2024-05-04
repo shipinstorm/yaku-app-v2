@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as anchor from '@project-serum/anchor';
 import { Program } from '@project-serum/anchor';
 import {
@@ -6,7 +5,7 @@ import {
     createTransferCheckedInstruction,
     getAssociatedTokenAddress,
     getMint
-} from '@solana/spl-token-v2';
+} from '@solana/spl-token';
 import { WalletContextState } from '@solana/wallet-adapter-react';
 import { Commitment, Connection, PublicKey, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction } from '@solana/web3.js';
 import { toast } from 'react-toastify';
@@ -162,7 +161,6 @@ export const getGlobalSate = async (connection: Connection, wallet: PublicKey, v
         program.programId
     );
     // console.log(globalAuthority.toString());
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const globalData: any = await program.account.globalPool.fetchNullable(globalAuthority);
     return globalData;
 };

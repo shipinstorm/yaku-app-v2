@@ -50,7 +50,6 @@ const Profile = ({ noPopper, asButton = false }: any) => {
   const auth = useAuth();
   const router = useRouter();
   const mainWallet = useWallet();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { ethAddress, ethConnected } = useEthcontext();
   const { publicKey } = mainWallet;
   const { showInfoToast } = useToasts();

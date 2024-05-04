@@ -37,7 +37,6 @@ const NotificationItem = ({
     });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDelete = () => {
     deleteNotification({
       variables: { id },

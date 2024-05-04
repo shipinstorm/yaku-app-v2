@@ -79,7 +79,6 @@ const ChainWalletSelect = ({ setIsConnecting, handleClick, handleEtherLogin, hid
                     </Box>
                 </Grid>
 
-                {/* eslint-disable-next-line @typescript-eslint/no-shadow */}
                 {listWallets.map((wallet, index) => (
                     <WalletButton
                         key={index}

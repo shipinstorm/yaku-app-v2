@@ -74,22 +74,23 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtag/js?id=G-CVG5PKHBB7"
         ></script>
         <script>
-          console.log("%cHold Up!", "color: #d63827; text-shadow: 2px 2px #000;
-          padding-left: 40px; font-size: 5rem;");
+          console.log(&quot;%cHold Up!&quot;, &quot;color: #d63827; text-shadow:
+          2px 2px #000; padding-left: 40px; font-size: 5rem;&quot;);
         </script>
         <script>
-          console.log("%cPasting anything in here could result in your account
-          being disabled.", "color: #d63827; font-weight: bold; padding-left:
-          5px; font-size: 1.5rem;");
+          console.log(&quot;%cPasting anything in here could result in your
+          account being disabled.&quot;, &quot;color: #d63827; font-weight:
+          bold; padding-left: 5px; font-size: 1.5rem;&quot;);
         </script>
         <script>
-          console.log("%cUnless you understand exactly what you are doing, close
-          this window and stay safe.", "padding-left: 5px; font-size: 15px;");
+          console.log(&quot;%cUnless you understand exactly what you are doing,
+          close this window and stay safe.&quot;, &quot;padding-left: 5px;
+          font-size: 15px;&quot;);
         </script>
         <script>
-          console.log("%cIf you do understand exactly what you are doing, you
-          should come work with us https://yaku.ai", "padding-left: 5px;
-          font-size: 15px;");
+          console.log(&quot;%cIf you do understand exactly what you are doing,
+          you should come work with us https://yaku.ai&quot;, &quot;padding-left: 5px;
+          font-size: 15px;&quot;);
         </script>
       </body>
     </html>

@@ -3,12 +3,17 @@ import { useTheme } from '@mui/material/styles';
 import { Card, CardContent, Grid, Typography, useMediaQuery } from '@mui/material';
 
 // types
-import { GenericCardProps } from 'types';
+import { GenericCardProps } from '@/types';
 
 // =============================|| REVENUE CARD ||============================= //
 
 interface RevenueCardProps extends GenericCardProps {
+    primary: any;
+    secondary: string;
+    content: any;
+    iconPrimary: any;
     iconSx?: any;
+    color: any;
 }
 
 const RevenueCard = ({ primary, secondary, content, iconPrimary, iconSx, color }: RevenueCardProps) => {

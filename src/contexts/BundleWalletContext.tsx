@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, ReactNode, useState, createContext, useContext } from 'react';
 
 import BundleSection from '@/components/profiles/BundleSection';

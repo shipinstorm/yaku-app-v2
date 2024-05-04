@@ -1,6 +1,6 @@
 import { Grid, Skeleton, Typography } from "@mui/material";
 import { round } from "lodash";
-import { numberFormatter } from "utils/utils";
+import { numberFormatter } from "@/utils/utils";
 
 const CollectionView = ({ holders, floorPrice, loading }: any) => {
   if (loading) {

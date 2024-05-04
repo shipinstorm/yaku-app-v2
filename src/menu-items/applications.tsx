@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // third-party
 import { FormattedMessage } from "react-intl";
 

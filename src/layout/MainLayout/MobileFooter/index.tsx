@@ -14,7 +14,6 @@ const Icon = ({ icon, ...props }: any) => {
 };
 
 const MobileFooter = ({ show }: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { activePage } = useSelector<any>((state: any) => state.subpage);
   const { openItem } = useSelector<any>((state: any) => state.menu);
   const dispatch = useDispatch();

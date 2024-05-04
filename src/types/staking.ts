@@ -1,4 +1,4 @@
-import { KeyedObject } from 'types';
+import { KeyedObject } from '@/types';
 
 export type NFT = {
     name: string;
@@ -70,4 +70,6 @@ export interface YakuStakedNftCardProps extends KeyedObject {
     startLoading: Function;
     stopLoading: Function;
     updatePage: Function;
+    isSelected: boolean;
+    onSelect: Function;
 }
