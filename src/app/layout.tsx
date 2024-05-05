@@ -89,8 +89,8 @@ export default function RootLayout({
         </script>
         <script>
           console.log(&quot;%cIf you do understand exactly what you are doing,
-          you should come work with us https://yaku.ai&quot;, &quot;padding-left: 5px;
-          font-size: 15px;&quot;);
+          you should come work with us https://yaku.ai&quot;,
+          &quot;padding-left: 5px; font-size: 15px;&quot;);
         </script>
       </body>
     </html>
