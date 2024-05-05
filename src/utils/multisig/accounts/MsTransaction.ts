@@ -5,10 +5,13 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
-import { MsTransactionStatus, msTransactionStatusBeet } from '../types/MsTransactionStatus';
+import * as web3 from "@solana/web3.js";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
+import * as beet from "@metaplex-foundation/beet";
+import {
+  MsTransactionStatus,
+  msTransactionStatusBeet,
+} from "../types/MsTransactionStatus";
 
 /**
  * Arguments used to create {@link MsTransaction}
@@ -16,18 +19,18 @@ import { MsTransactionStatus, msTransactionStatusBeet } from '../types/MsTransac
  * @category generated
  */
 export type MsTransactionArgs = {
-    creator: web3.PublicKey;
-    ms: web3.PublicKey;
-    transactionIndex: number;
-    authorityIndex: number;
-    authorityBump: number;
-    status: MsTransactionStatus;
-    instructionIndex: number;
-    bump: number;
-    approved: web3.PublicKey[];
-    rejected: web3.PublicKey[];
-    cancelled: web3.PublicKey[];
-    executedIndex: number;
+  creator: web3.PublicKey;
+  ms: web3.PublicKey;
+  transactionIndex: number;
+  authorityIndex: number;
+  authorityBump: number;
+  status: MsTransactionStatus;
+  instructionIndex: number;
+  bump: number;
+  approved: web3.PublicKey[];
+  rejected: web3.PublicKey[];
+  cancelled: web3.PublicKey[];
+  executedIndex: number;
 };
 
 export const msTransactionDiscriminator = [182, 151, 104, 216, 255, 1, 19, 157];
@@ -39,147 +42,160 @@ export const msTransactionDiscriminator = [182, 151, 104, 216, 255, 1, 19, 157];
  * @category generated
  */
 export class MsTransaction implements MsTransactionArgs {
-    private constructor(
-        readonly creator: web3.PublicKey,
-        readonly ms: web3.PublicKey,
-        readonly transactionIndex: number,
-        readonly authorityIndex: number,
-        readonly authorityBump: number,
-        readonly status: MsTransactionStatus,
-        readonly instructionIndex: number,
-        readonly bump: number,
-        readonly approved: web3.PublicKey[],
-        readonly rejected: web3.PublicKey[],
-        readonly cancelled: web3.PublicKey[],
-        readonly executedIndex: number
-    ) {}
+  private constructor(
+    readonly creator: web3.PublicKey,
+    readonly ms: web3.PublicKey,
+    readonly transactionIndex: number,
+    readonly authorityIndex: number,
+    readonly authorityBump: number,
+    readonly status: MsTransactionStatus,
+    readonly instructionIndex: number,
+    readonly bump: number,
+    readonly approved: web3.PublicKey[],
+    readonly rejected: web3.PublicKey[],
+    readonly cancelled: web3.PublicKey[],
+    readonly executedIndex: number
+  ) {}
 
-    /**
-     * Creates a {@link MsTransaction} instance from the provided args.
-     */
-    static fromArgs(args: MsTransactionArgs) {
-        return new MsTransaction(
-            args.creator,
-            args.ms,
-            args.transactionIndex,
-            args.authorityIndex,
-            args.authorityBump,
-            args.status,
-            args.instructionIndex,
-            args.bump,
-            args.approved,
-            args.rejected,
-            args.cancelled,
-            args.executedIndex
-        );
-    }
+  /**
+   * Creates a {@link MsTransaction} instance from the provided args.
+   */
+  static fromArgs(args: MsTransactionArgs) {
+    return new MsTransaction(
+      args.creator,
+      args.ms,
+      args.transactionIndex,
+      args.authorityIndex,
+      args.authorityBump,
+      args.status,
+      args.instructionIndex,
+      args.bump,
+      args.approved,
+      args.rejected,
+      args.cancelled,
+      args.executedIndex
+    );
+  }
 
-    /**
-     * Deserializes the {@link MsTransaction} from the data of the provided {@link web3.AccountInfo}.
-     * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
-     */
-    static fromAccountInfo(accountInfo: web3.AccountInfo<Buffer>, offset = 0): [MsTransaction, number] {
-        return MsTransaction.deserialize(accountInfo.data, offset);
-    }
+  /**
+   * Deserializes the {@link MsTransaction} from the data of the provided {@link web3.AccountInfo}.
+   * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
+   */
+  static fromAccountInfo(
+    accountInfo: web3.AccountInfo<Buffer>,
+    offset = 0
+  ): [MsTransaction, number] {
+    return MsTransaction.deserialize(accountInfo.data, offset);
+  }
 
-    /**
-     * Retrieves the account info from the provided address and deserializes
-     * the {@link MsTransaction} from its data.
-     *
-     * @throws Error if no account info is found at the address or if deserialization fails
-     */
-    static async fromAccountAddress(
-        connection: web3.Connection,
-        address: web3.PublicKey,
-        commitmentOrConfig?: web3.Commitment | web3.GetAccountInfoConfig
-    ): Promise<MsTransaction> {
-        const accountInfo = await connection.getAccountInfo(address, commitmentOrConfig);
-        if (accountInfo == null) {
-            throw new Error(`Unable to find MsTransaction account at ${address}`);
-        }
-        return MsTransaction.fromAccountInfo(accountInfo, 0)[0];
+  /**
+   * Retrieves the account info from the provided address and deserializes
+   * the {@link MsTransaction} from its data.
+   *
+   * @throws Error if no account info is found at the address or if deserialization fails
+   */
+  static async fromAccountAddress(
+    connection: web3.Connection,
+    address: web3.PublicKey,
+    commitmentOrConfig?: web3.Commitment | web3.GetAccountInfoConfig
+  ): Promise<MsTransaction> {
+    const accountInfo = await connection.getAccountInfo(
+      address,
+      commitmentOrConfig
+    );
+    if (accountInfo == null) {
+      throw new Error(`Unable to find MsTransaction account at ${address}`);
     }
+    return MsTransaction.fromAccountInfo(accountInfo, 0)[0];
+  }
 
-    /**
-     * Provides a {@link web3.Connection.getProgramAccounts} config builder,
-     * to fetch accounts matching filters that can be specified via that builder.
-     *
-     * @param programId - the program that owns the accounts we are filtering
-     */
-    static gpaBuilder(programId: web3.PublicKey = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')) {
-        return beetSolana.GpaBuilder.fromStruct(programId, msTransactionBeet);
-    }
+  /**
+   * Provides a {@link web3.Connection.getProgramAccounts} config builder,
+   * to fetch accounts matching filters that can be specified via that builder.
+   *
+   * @param programId - the program that owns the accounts we are filtering
+   */
+  static gpaBuilder(
+    programId: web3.PublicKey = new web3.PublicKey(
+      "SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu"
+    )
+  ) {
+    return beetSolana.GpaBuilder.fromStruct(programId, msTransactionBeet);
+  }
 
-    /**
-     * Deserializes the {@link MsTransaction} from the provided data Buffer.
-     * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
-     */
-    static deserialize(buf: Buffer, offset = 0): [MsTransaction, number] {
-        return msTransactionBeet.deserialize(buf, offset);
-    }
+  /**
+   * Deserializes the {@link MsTransaction} from the provided data Buffer.
+   * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
+   */
+  static deserialize(buf: Buffer, offset = 0): [MsTransaction, number] {
+    return msTransactionBeet.deserialize(buf, offset);
+  }
 
-    /**
-     * Serializes the {@link MsTransaction} into a Buffer.
-     * @returns a tuple of the created Buffer and the offset up to which the buffer was written to store it.
-     */
-    serialize(): [Buffer, number] {
-        return msTransactionBeet.serialize({
-            accountDiscriminator: msTransactionDiscriminator,
-            ...this
-        });
-    }
+  /**
+   * Serializes the {@link MsTransaction} into a Buffer.
+   * @returns a tuple of the created Buffer and the offset up to which the buffer was written to store it.
+   */
+  serialize(): [Buffer, number] {
+    return msTransactionBeet.serialize({
+      accountDiscriminator: msTransactionDiscriminator,
+      ...this,
+    });
+  }
 
-    /**
-     * Returns the byteSize of a {@link Buffer} holding the serialized data of
-     * {@link MsTransaction} for the provided args.
-     *
-     * @param args need to be provided since the byte size for this account
-     * depends on them
-     */
-    static byteSize(args: MsTransactionArgs) {
-        const instance = MsTransaction.fromArgs(args);
-        return msTransactionBeet.toFixedFromValue({
-            accountDiscriminator: msTransactionDiscriminator,
-            ...instance
-        }).byteSize;
-    }
+  /**
+   * Returns the byteSize of a {@link Buffer} holding the serialized data of
+   * {@link MsTransaction} for the provided args.
+   *
+   * @param args need to be provided since the byte size for this account
+   * depends on them
+   */
+  static byteSize(args: MsTransactionArgs) {
+    const instance = MsTransaction.fromArgs(args);
+    return msTransactionBeet.toFixedFromValue({
+      accountDiscriminator: msTransactionDiscriminator,
+      ...instance,
+    }).byteSize;
+  }
 
-    /**
-     * Fetches the minimum balance needed to exempt an account holding
-     * {@link MsTransaction} data from rent
-     *
-     * @param args need to be provided since the byte size for this account
-     * depends on them
-     * @param connection used to retrieve the rent exemption information
-     */
-    static async getMinimumBalanceForRentExemption(
-        args: MsTransactionArgs,
-        connection: web3.Connection,
-        commitment?: web3.Commitment
-    ): Promise<number> {
-        return connection.getMinimumBalanceForRentExemption(MsTransaction.byteSize(args), commitment);
-    }
+  /**
+   * Fetches the minimum balance needed to exempt an account holding
+   * {@link MsTransaction} data from rent
+   *
+   * @param args need to be provided since the byte size for this account
+   * depends on them
+   * @param connection used to retrieve the rent exemption information
+   */
+  static async getMinimumBalanceForRentExemption(
+    args: MsTransactionArgs,
+    connection: web3.Connection,
+    commitment?: web3.Commitment
+  ): Promise<number> {
+    return connection.getMinimumBalanceForRentExemption(
+      MsTransaction.byteSize(args),
+      commitment
+    );
+  }
 
-    /**
-     * Returns a readable version of {@link MsTransaction} properties
-     * and can be used to convert to JSON and/or logging
-     */
-    pretty() {
-        return {
-            creator: this.creator.toBase58(),
-            ms: this.ms.toBase58(),
-            transactionIndex: this.transactionIndex,
-            authorityIndex: this.authorityIndex,
-            authorityBump: this.authorityBump,
-            status: `MsTransactionStatus.${MsTransactionStatus[this.status]}`,
-            instructionIndex: this.instructionIndex,
-            bump: this.bump,
-            approved: this.approved,
-            rejected: this.rejected,
-            cancelled: this.cancelled,
-            executedIndex: this.executedIndex
-        };
-    }
+  /**
+   * Returns a readable version of {@link MsTransaction} properties
+   * and can be used to convert to JSON and/or logging
+   */
+  pretty() {
+    return {
+      creator: this.creator.toBase58(),
+      ms: this.ms.toBase58(),
+      transactionIndex: this.transactionIndex,
+      authorityIndex: this.authorityIndex,
+      authorityBump: this.authorityBump,
+      status: `MsTransactionStatus.${MsTransactionStatus[this.status]}`,
+      instructionIndex: this.instructionIndex,
+      bump: this.bump,
+      approved: this.approved,
+      rejected: this.rejected,
+      cancelled: this.cancelled,
+      executedIndex: this.executedIndex,
+    };
+  }
 }
 
 /**
@@ -187,26 +203,26 @@ export class MsTransaction implements MsTransactionArgs {
  * @category generated
  */
 export const msTransactionBeet = new beet.FixableBeetStruct<
-    MsTransaction,
-    MsTransactionArgs & {
-        accountDiscriminator: number[] /* size: 8 */;
-    }
+  MsTransaction,
+  MsTransactionArgs & {
+    accountDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['creator', beetSolana.publicKey],
-        ['ms', beetSolana.publicKey],
-        ['transactionIndex', beet.u32],
-        ['authorityIndex', beet.u32],
-        ['authorityBump', beet.u8],
-        ['status', msTransactionStatusBeet],
-        ['instructionIndex', beet.u8],
-        ['bump', beet.u8],
-        ['approved', beet.array(beetSolana.publicKey)],
-        ['rejected', beet.array(beetSolana.publicKey)],
-        ['cancelled', beet.array(beetSolana.publicKey)],
-        ['executedIndex', beet.u8]
-    ],
-    MsTransaction.fromArgs,
-    'MsTransaction'
+  [
+    ["accountDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["creator", beetSolana.publicKey],
+    ["ms", beetSolana.publicKey],
+    ["transactionIndex", beet.u32],
+    ["authorityIndex", beet.u32],
+    ["authorityBump", beet.u8],
+    ["status", msTransactionStatusBeet],
+    ["instructionIndex", beet.u8],
+    ["bump", beet.u8],
+    ["approved", beet.array(beetSolana.publicKey)],
+    ["rejected", beet.array(beetSolana.publicKey)],
+    ["cancelled", beet.array(beetSolana.publicKey)],
+    ["executedIndex", beet.u8],
+  ],
+  MsTransaction.fromArgs,
+  "MsTransaction"
 );

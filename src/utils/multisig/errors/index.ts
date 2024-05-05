@@ -19,20 +19,23 @@ const createErrorFromNameLookup: Map<string, () => ErrorWithCode> = new Map();
  * @category generated
  */
 export class KeyNotInMultisigError extends Error {
-    readonly code: number = 0x1770;
+  readonly code: number = 0x1770;
 
-    readonly name: string = 'KeyNotInMultisig';
+  readonly name: string = "KeyNotInMultisig";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, KeyNotInMultisigError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, KeyNotInMultisigError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1770, () => new KeyNotInMultisigError());
-createErrorFromNameLookup.set('KeyNotInMultisig', () => new KeyNotInMultisigError());
+createErrorFromNameLookup.set(
+  "KeyNotInMultisig",
+  () => new KeyNotInMultisigError()
+);
 
 /**
  * InvalidTransactionState: ''
@@ -41,20 +44,23 @@ createErrorFromNameLookup.set('KeyNotInMultisig', () => new KeyNotInMultisigErro
  * @category generated
  */
 export class InvalidTransactionStateError extends Error {
-    readonly code: number = 0x1771;
+  readonly code: number = 0x1771;
 
-    readonly name: string = 'InvalidTransactionState';
+  readonly name: string = "InvalidTransactionState";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, InvalidTransactionStateError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, InvalidTransactionStateError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1771, () => new InvalidTransactionStateError());
-createErrorFromNameLookup.set('InvalidTransactionState', () => new InvalidTransactionStateError());
+createErrorFromNameLookup.set(
+  "InvalidTransactionState",
+  () => new InvalidTransactionStateError()
+);
 
 /**
  * InvalidNumberOfAccounts: ''
@@ -63,20 +69,23 @@ createErrorFromNameLookup.set('InvalidTransactionState', () => new InvalidTransa
  * @category generated
  */
 export class InvalidNumberOfAccountsError extends Error {
-    readonly code: number = 0x1772;
+  readonly code: number = 0x1772;
 
-    readonly name: string = 'InvalidNumberOfAccounts';
+  readonly name: string = "InvalidNumberOfAccounts";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, InvalidNumberOfAccountsError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, InvalidNumberOfAccountsError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1772, () => new InvalidNumberOfAccountsError());
-createErrorFromNameLookup.set('InvalidNumberOfAccounts', () => new InvalidNumberOfAccountsError());
+createErrorFromNameLookup.set(
+  "InvalidNumberOfAccounts",
+  () => new InvalidNumberOfAccountsError()
+);
 
 /**
  * InvalidInstructionAccount: ''
@@ -85,20 +94,26 @@ createErrorFromNameLookup.set('InvalidNumberOfAccounts', () => new InvalidNumber
  * @category generated
  */
 export class InvalidInstructionAccountError extends Error {
-    readonly code: number = 0x1773;
+  readonly code: number = 0x1773;
 
-    readonly name: string = 'InvalidInstructionAccount';
+  readonly name: string = "InvalidInstructionAccount";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, InvalidInstructionAccountError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, InvalidInstructionAccountError);
     }
+  }
 }
 
-createErrorFromCodeLookup.set(0x1773, () => new InvalidInstructionAccountError());
-createErrorFromNameLookup.set('InvalidInstructionAccount', () => new InvalidInstructionAccountError());
+createErrorFromCodeLookup.set(
+  0x1773,
+  () => new InvalidInstructionAccountError()
+);
+createErrorFromNameLookup.set(
+  "InvalidInstructionAccount",
+  () => new InvalidInstructionAccountError()
+);
 
 /**
  * InvalidAuthorityIndex: ''
@@ -107,20 +122,23 @@ createErrorFromNameLookup.set('InvalidInstructionAccount', () => new InvalidInst
  * @category generated
  */
 export class InvalidAuthorityIndexError extends Error {
-    readonly code: number = 0x1774;
+  readonly code: number = 0x1774;
 
-    readonly name: string = 'InvalidAuthorityIndex';
+  readonly name: string = "InvalidAuthorityIndex";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, InvalidAuthorityIndexError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, InvalidAuthorityIndexError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1774, () => new InvalidAuthorityIndexError());
-createErrorFromNameLookup.set('InvalidAuthorityIndex', () => new InvalidAuthorityIndexError());
+createErrorFromNameLookup.set(
+  "InvalidAuthorityIndex",
+  () => new InvalidAuthorityIndexError()
+);
 
 /**
  * TransactionAlreadyExecuted: ''
@@ -129,20 +147,26 @@ createErrorFromNameLookup.set('InvalidAuthorityIndex', () => new InvalidAuthorit
  * @category generated
  */
 export class TransactionAlreadyExecutedError extends Error {
-    readonly code: number = 0x1775;
+  readonly code: number = 0x1775;
 
-    readonly name: string = 'TransactionAlreadyExecuted';
+  readonly name: string = "TransactionAlreadyExecuted";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, TransactionAlreadyExecutedError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, TransactionAlreadyExecutedError);
     }
+  }
 }
 
-createErrorFromCodeLookup.set(0x1775, () => new TransactionAlreadyExecutedError());
-createErrorFromNameLookup.set('TransactionAlreadyExecuted', () => new TransactionAlreadyExecutedError());
+createErrorFromCodeLookup.set(
+  0x1775,
+  () => new TransactionAlreadyExecutedError()
+);
+createErrorFromNameLookup.set(
+  "TransactionAlreadyExecuted",
+  () => new TransactionAlreadyExecutedError()
+);
 
 /**
  * CannotRemoveSoloMember: ''
@@ -151,20 +175,23 @@ createErrorFromNameLookup.set('TransactionAlreadyExecuted', () => new Transactio
  * @category generated
  */
 export class CannotRemoveSoloMemberError extends Error {
-    readonly code: number = 0x1776;
+  readonly code: number = 0x1776;
 
-    readonly name: string = 'CannotRemoveSoloMember';
+  readonly name: string = "CannotRemoveSoloMember";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, CannotRemoveSoloMemberError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, CannotRemoveSoloMemberError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1776, () => new CannotRemoveSoloMemberError());
-createErrorFromNameLookup.set('CannotRemoveSoloMember', () => new CannotRemoveSoloMemberError());
+createErrorFromNameLookup.set(
+  "CannotRemoveSoloMember",
+  () => new CannotRemoveSoloMemberError()
+);
 
 /**
  * InvalidThreshold: ''
@@ -173,20 +200,23 @@ createErrorFromNameLookup.set('CannotRemoveSoloMember', () => new CannotRemoveSo
  * @category generated
  */
 export class InvalidThresholdError extends Error {
-    readonly code: number = 0x1777;
+  readonly code: number = 0x1777;
 
-    readonly name: string = 'InvalidThreshold';
+  readonly name: string = "InvalidThreshold";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, InvalidThresholdError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, InvalidThresholdError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1777, () => new InvalidThresholdError());
-createErrorFromNameLookup.set('InvalidThreshold', () => new InvalidThresholdError());
+createErrorFromNameLookup.set(
+  "InvalidThreshold",
+  () => new InvalidThresholdError()
+);
 
 /**
  * DeprecatedTransaction: ''
@@ -195,20 +225,23 @@ createErrorFromNameLookup.set('InvalidThreshold', () => new InvalidThresholdErro
  * @category generated
  */
 export class DeprecatedTransactionError extends Error {
-    readonly code: number = 0x1778;
+  readonly code: number = 0x1778;
 
-    readonly name: string = 'DeprecatedTransaction';
+  readonly name: string = "DeprecatedTransaction";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, DeprecatedTransactionError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, DeprecatedTransactionError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1778, () => new DeprecatedTransactionError());
-createErrorFromNameLookup.set('DeprecatedTransaction', () => new DeprecatedTransactionError());
+createErrorFromNameLookup.set(
+  "DeprecatedTransaction",
+  () => new DeprecatedTransactionError()
+);
 
 /**
  * InstructionFailed: ''
@@ -217,20 +250,23 @@ createErrorFromNameLookup.set('DeprecatedTransaction', () => new DeprecatedTrans
  * @category generated
  */
 export class InstructionFailedError extends Error {
-    readonly code: number = 0x1779;
+  readonly code: number = 0x1779;
 
-    readonly name: string = 'InstructionFailed';
+  readonly name: string = "InstructionFailed";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, InstructionFailedError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, InstructionFailedError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x1779, () => new InstructionFailedError());
-createErrorFromNameLookup.set('InstructionFailed', () => new InstructionFailedError());
+createErrorFromNameLookup.set(
+  "InstructionFailed",
+  () => new InstructionFailedError()
+);
 
 /**
  * MaxMembersReached: ''
@@ -239,20 +275,23 @@ createErrorFromNameLookup.set('InstructionFailed', () => new InstructionFailedEr
  * @category generated
  */
 export class MaxMembersReachedError extends Error {
-    readonly code: number = 0x177a;
+  readonly code: number = 0x177a;
 
-    readonly name: string = 'MaxMembersReached';
+  readonly name: string = "MaxMembersReached";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, MaxMembersReachedError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, MaxMembersReachedError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x177a, () => new MaxMembersReachedError());
-createErrorFromNameLookup.set('MaxMembersReached', () => new MaxMembersReachedError());
+createErrorFromNameLookup.set(
+  "MaxMembersReached",
+  () => new MaxMembersReachedError()
+);
 
 /**
  * EmptyMembers: ''
@@ -261,20 +300,20 @@ createErrorFromNameLookup.set('MaxMembersReached', () => new MaxMembersReachedEr
  * @category generated
  */
 export class EmptyMembersError extends Error {
-    readonly code: number = 0x177b;
+  readonly code: number = 0x177b;
 
-    readonly name: string = 'EmptyMembers';
+  readonly name: string = "EmptyMembers";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, EmptyMembersError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, EmptyMembersError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x177b, () => new EmptyMembersError());
-createErrorFromNameLookup.set('EmptyMembers', () => new EmptyMembersError());
+createErrorFromNameLookup.set("EmptyMembers", () => new EmptyMembersError());
 
 /**
  * PartialExecution: ''
@@ -283,20 +322,23 @@ createErrorFromNameLookup.set('EmptyMembers', () => new EmptyMembersError());
  * @category generated
  */
 export class PartialExecutionError extends Error {
-    readonly code: number = 0x177c;
+  readonly code: number = 0x177c;
 
-    readonly name: string = 'PartialExecution';
+  readonly name: string = "PartialExecution";
 
-    constructor() {
-        super('');
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, PartialExecutionError);
-        }
+  constructor() {
+    super("");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, PartialExecutionError);
     }
+  }
 }
 
 createErrorFromCodeLookup.set(0x177c, () => new PartialExecutionError());
-createErrorFromNameLookup.set('PartialExecution', () => new PartialExecutionError());
+createErrorFromNameLookup.set(
+  "PartialExecution",
+  () => new PartialExecutionError()
+);
 
 /**
  * Attempts to resolve a custom program error from the provided error code.
@@ -304,8 +346,8 @@ createErrorFromNameLookup.set('PartialExecution', () => new PartialExecutionErro
  * @category generated
  */
 export function errorFromCode(code: number): MaybeErrorWithCode {
-    const createError = createErrorFromCodeLookup.get(code);
-    return createError != null ? createError() : null;
+  const createError = createErrorFromCodeLookup.get(code);
+  return createError != null ? createError() : null;
 }
 
 /**
@@ -314,6 +356,6 @@ export function errorFromCode(code: number): MaybeErrorWithCode {
  * @category generated
  */
 export function errorFromName(name: string): MaybeErrorWithCode {
-    const createError = createErrorFromNameLookup.get(name);
-    return createError != null ? createError() : null;
+  const createError = createErrorFromNameLookup.get(name);
+  return createError != null ? createError() : null;
 }

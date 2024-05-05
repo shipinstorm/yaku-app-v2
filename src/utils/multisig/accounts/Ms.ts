@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from "@solana/web3.js";
+import * as beet from "@metaplex-foundation/beet";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
 
 /**
  * Arguments used to create {@link Ms}
@@ -15,14 +15,14 @@ import * as beetSolana from '@metaplex-foundation/beet-solana';
  * @category generated
  */
 export type MsArgs = {
-    threshold: number;
-    authorityIndex: number;
-    transactionIndex: number;
-    msChangeIndex: number;
-    bump: number;
-    createKey: web3.PublicKey;
-    allowExternalExecute: boolean;
-    keys: web3.PublicKey[];
+  threshold: number;
+  authorityIndex: number;
+  transactionIndex: number;
+  msChangeIndex: number;
+  bump: number;
+  createKey: web3.PublicKey;
+  allowExternalExecute: boolean;
+  keys: web3.PublicKey[];
 };
 
 export const msDiscriminator = [70, 118, 9, 108, 254, 215, 31, 120];
@@ -34,135 +34,148 @@ export const msDiscriminator = [70, 118, 9, 108, 254, 215, 31, 120];
  * @category generated
  */
 export class Ms implements MsArgs {
-    private constructor(
-        readonly threshold: number,
-        readonly authorityIndex: number,
-        readonly transactionIndex: number,
-        readonly msChangeIndex: number,
-        readonly bump: number,
-        readonly createKey: web3.PublicKey,
-        readonly allowExternalExecute: boolean,
-        readonly keys: web3.PublicKey[]
-    ) {}
+  private constructor(
+    readonly threshold: number,
+    readonly authorityIndex: number,
+    readonly transactionIndex: number,
+    readonly msChangeIndex: number,
+    readonly bump: number,
+    readonly createKey: web3.PublicKey,
+    readonly allowExternalExecute: boolean,
+    readonly keys: web3.PublicKey[]
+  ) {}
 
-    /**
-     * Creates a {@link Ms} instance from the provided args.
-     */
-    static fromArgs(args: MsArgs) {
-        return new Ms(
-            args.threshold,
-            args.authorityIndex,
-            args.transactionIndex,
-            args.msChangeIndex,
-            args.bump,
-            args.createKey,
-            args.allowExternalExecute,
-            args.keys
-        );
-    }
+  /**
+   * Creates a {@link Ms} instance from the provided args.
+   */
+  static fromArgs(args: MsArgs) {
+    return new Ms(
+      args.threshold,
+      args.authorityIndex,
+      args.transactionIndex,
+      args.msChangeIndex,
+      args.bump,
+      args.createKey,
+      args.allowExternalExecute,
+      args.keys
+    );
+  }
 
-    /**
-     * Deserializes the {@link Ms} from the data of the provided {@link web3.AccountInfo}.
-     * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
-     */
-    static fromAccountInfo(accountInfo: web3.AccountInfo<Buffer>, offset = 0): [Ms, number] {
-        return Ms.deserialize(accountInfo.data, offset);
-    }
+  /**
+   * Deserializes the {@link Ms} from the data of the provided {@link web3.AccountInfo}.
+   * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
+   */
+  static fromAccountInfo(
+    accountInfo: web3.AccountInfo<Buffer>,
+    offset = 0
+  ): [Ms, number] {
+    return Ms.deserialize(accountInfo.data, offset);
+  }
 
-    /**
-     * Retrieves the account info from the provided address and deserializes
-     * the {@link Ms} from its data.
-     *
-     * @throws Error if no account info is found at the address or if deserialization fails
-     */
-    static async fromAccountAddress(
-        connection: web3.Connection,
-        address: web3.PublicKey,
-        commitmentOrConfig?: web3.Commitment | web3.GetAccountInfoConfig
-    ): Promise<Ms> {
-        const accountInfo = await connection.getAccountInfo(address, commitmentOrConfig);
-        if (accountInfo == null) {
-            throw new Error(`Unable to find Ms account at ${address}`);
-        }
-        return Ms.fromAccountInfo(accountInfo, 0)[0];
+  /**
+   * Retrieves the account info from the provided address and deserializes
+   * the {@link Ms} from its data.
+   *
+   * @throws Error if no account info is found at the address or if deserialization fails
+   */
+  static async fromAccountAddress(
+    connection: web3.Connection,
+    address: web3.PublicKey,
+    commitmentOrConfig?: web3.Commitment | web3.GetAccountInfoConfig
+  ): Promise<Ms> {
+    const accountInfo = await connection.getAccountInfo(
+      address,
+      commitmentOrConfig
+    );
+    if (accountInfo == null) {
+      throw new Error(`Unable to find Ms account at ${address}`);
     }
+    return Ms.fromAccountInfo(accountInfo, 0)[0];
+  }
 
-    /**
-     * Provides a {@link web3.Connection.getProgramAccounts} config builder,
-     * to fetch accounts matching filters that can be specified via that builder.
-     *
-     * @param programId - the program that owns the accounts we are filtering
-     */
-    static gpaBuilder(programId: web3.PublicKey = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')) {
-        return beetSolana.GpaBuilder.fromStruct(programId, msBeet);
-    }
+  /**
+   * Provides a {@link web3.Connection.getProgramAccounts} config builder,
+   * to fetch accounts matching filters that can be specified via that builder.
+   *
+   * @param programId - the program that owns the accounts we are filtering
+   */
+  static gpaBuilder(
+    programId: web3.PublicKey = new web3.PublicKey(
+      "SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu"
+    )
+  ) {
+    return beetSolana.GpaBuilder.fromStruct(programId, msBeet);
+  }
 
-    /**
-     * Deserializes the {@link Ms} from the provided data Buffer.
-     * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
-     */
-    static deserialize(buf: Buffer, offset = 0): [Ms, number] {
-        return msBeet.deserialize(buf, offset);
-    }
+  /**
+   * Deserializes the {@link Ms} from the provided data Buffer.
+   * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
+   */
+  static deserialize(buf: Buffer, offset = 0): [Ms, number] {
+    return msBeet.deserialize(buf, offset);
+  }
 
-    /**
-     * Serializes the {@link Ms} into a Buffer.
-     * @returns a tuple of the created Buffer and the offset up to which the buffer was written to store it.
-     */
-    serialize(): [Buffer, number] {
-        return msBeet.serialize({
-            accountDiscriminator: msDiscriminator,
-            ...this
-        });
-    }
+  /**
+   * Serializes the {@link Ms} into a Buffer.
+   * @returns a tuple of the created Buffer and the offset up to which the buffer was written to store it.
+   */
+  serialize(): [Buffer, number] {
+    return msBeet.serialize({
+      accountDiscriminator: msDiscriminator,
+      ...this,
+    });
+  }
 
-    /**
-     * Returns the byteSize of a {@link Buffer} holding the serialized data of
-     * {@link Ms} for the provided args.
-     *
-     * @param args need to be provided since the byte size for this account
-     * depends on them
-     */
-    static byteSize(args: MsArgs) {
-        const instance = Ms.fromArgs(args);
-        return msBeet.toFixedFromValue({
-            accountDiscriminator: msDiscriminator,
-            ...instance
-        }).byteSize;
-    }
+  /**
+   * Returns the byteSize of a {@link Buffer} holding the serialized data of
+   * {@link Ms} for the provided args.
+   *
+   * @param args need to be provided since the byte size for this account
+   * depends on them
+   */
+  static byteSize(args: MsArgs) {
+    const instance = Ms.fromArgs(args);
+    return msBeet.toFixedFromValue({
+      accountDiscriminator: msDiscriminator,
+      ...instance,
+    }).byteSize;
+  }
 
-    /**
-     * Fetches the minimum balance needed to exempt an account holding
-     * {@link Ms} data from rent
-     *
-     * @param args need to be provided since the byte size for this account
-     * depends on them
-     * @param connection used to retrieve the rent exemption information
-     */
-    static async getMinimumBalanceForRentExemption(
-        args: MsArgs,
-        connection: web3.Connection,
-        commitment?: web3.Commitment
-    ): Promise<number> {
-        return connection.getMinimumBalanceForRentExemption(Ms.byteSize(args), commitment);
-    }
+  /**
+   * Fetches the minimum balance needed to exempt an account holding
+   * {@link Ms} data from rent
+   *
+   * @param args need to be provided since the byte size for this account
+   * depends on them
+   * @param connection used to retrieve the rent exemption information
+   */
+  static async getMinimumBalanceForRentExemption(
+    args: MsArgs,
+    connection: web3.Connection,
+    commitment?: web3.Commitment
+  ): Promise<number> {
+    return connection.getMinimumBalanceForRentExemption(
+      Ms.byteSize(args),
+      commitment
+    );
+  }
 
-    /**
-     * Returns a readable version of {@link Ms} properties
-     * and can be used to convert to JSON and/or logging
-     */
-    pretty() {
-        return {
-            threshold: this.threshold,
-            authorityIndex: this.authorityIndex,
-            transactionIndex: this.transactionIndex,
-            msChangeIndex: this.msChangeIndex,
-            bump: this.bump,
-            createKey: this.createKey.toBase58(),
-            allowExternalExecute: this.allowExternalExecute,
-            keys: this.keys
-        };
-    }
+  /**
+   * Returns a readable version of {@link Ms} properties
+   * and can be used to convert to JSON and/or logging
+   */
+  pretty() {
+    return {
+      threshold: this.threshold,
+      authorityIndex: this.authorityIndex,
+      transactionIndex: this.transactionIndex,
+      msChangeIndex: this.msChangeIndex,
+      bump: this.bump,
+      createKey: this.createKey.toBase58(),
+      allowExternalExecute: this.allowExternalExecute,
+      keys: this.keys,
+    };
+  }
 }
 
 /**
@@ -170,22 +183,22 @@ export class Ms implements MsArgs {
  * @category generated
  */
 export const msBeet = new beet.FixableBeetStruct<
-    Ms,
-    MsArgs & {
-        accountDiscriminator: number[] /* size: 8 */;
-    }
+  Ms,
+  MsArgs & {
+    accountDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['threshold', beet.u16],
-        ['authorityIndex', beet.u16],
-        ['transactionIndex', beet.u32],
-        ['msChangeIndex', beet.u32],
-        ['bump', beet.u8],
-        ['createKey', beetSolana.publicKey],
-        ['allowExternalExecute', beet.bool],
-        ['keys', beet.array(beetSolana.publicKey)]
-    ],
-    Ms.fromArgs,
-    'Ms'
+  [
+    ["accountDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["threshold", beet.u16],
+    ["authorityIndex", beet.u16],
+    ["transactionIndex", beet.u32],
+    ["msChangeIndex", beet.u32],
+    ["bump", beet.u8],
+    ["createKey", beetSolana.publicKey],
+    ["allowExternalExecute", beet.bool],
+    ["keys", beet.array(beetSolana.publicKey)],
+  ],
+  Ms.fromArgs,
+  "Ms"
 );

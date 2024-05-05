@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import { isPlainObject, map } from "lodash";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+// import { Navigation } from "swiper";
 
 const SwiperList = ({
   items,
@@ -23,7 +23,7 @@ const SwiperList = ({
     navigation
     observer
     observeParents
-    modules={[Navigation]}
+    // modules={[Navigation]}
     className={css}
     slidesPerView={
       isPlainObject(slidesPerView) ? slidesPerView.lg : slidesPerView

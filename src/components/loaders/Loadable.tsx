@@ -17,7 +17,7 @@ const Loadable = (
 ) => {
   const SubLoadable = (props: LoaderProps) => (
     <Suspense fallback={<Loader />}>
-      <Component {...props} />
+      {/* <Component {...props} /> */}
     </Suspense>
   );
   SubLoadable.displayName = "SubLoadable";

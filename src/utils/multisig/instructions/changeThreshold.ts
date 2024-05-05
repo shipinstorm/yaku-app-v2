@@ -5,8 +5,8 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -14,7 +14,7 @@ import * as web3 from '@solana/web3.js';
  * @category generated
  */
 export type ChangeThresholdInstructionArgs = {
-    newThreshold: number;
+  newThreshold: number;
 };
 /**
  * @category Instructions
@@ -22,15 +22,15 @@ export type ChangeThresholdInstructionArgs = {
  * @category generated
  */
 export const changeThresholdStruct = new beet.BeetArgsStruct<
-    ChangeThresholdInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  ChangeThresholdInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['newThreshold', beet.u16]
-    ],
-    'ChangeThresholdInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["newThreshold", beet.u16],
+  ],
+  "ChangeThresholdInstructionArgs"
 );
 /**
  * Accounts required by the _changeThreshold_ instruction
@@ -42,12 +42,14 @@ export const changeThresholdStruct = new beet.BeetArgsStruct<
  * @category generated
  */
 export type ChangeThresholdInstructionAccounts = {
-    multisig: web3.PublicKey;
-    multisigAuth: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  multisigAuth: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const changeThresholdInstructionDiscriminator = [146, 151, 213, 63, 121, 79, 9, 29];
+export const changeThresholdInstructionDiscriminator = [
+  146, 151, 213, 63, 121, 79, 9, 29,
+];
 
 /**
  * Creates a _ChangeThreshold_ instruction.
@@ -60,37 +62,37 @@ export const changeThresholdInstructionDiscriminator = [146, 151, 213, 63, 121, 
  * @category generated
  */
 export function createChangeThresholdInstruction(
-    accounts: ChangeThresholdInstructionAccounts,
-    args: ChangeThresholdInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: ChangeThresholdInstructionAccounts,
+  args: ChangeThresholdInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = changeThresholdStruct.serialize({
-        instructionDiscriminator: changeThresholdInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.multisigAuth,
-            isWritable: true,
-            isSigner: true
-        }
-    ];
+  const [data] = changeThresholdStruct.serialize({
+    instructionDiscriminator: changeThresholdInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.multisigAuth,
+      isWritable: true,
+      isSigner: true,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

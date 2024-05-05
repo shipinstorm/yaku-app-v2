@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
+import * as web3 from "@solana/web3.js";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
+import * as beet from "@metaplex-foundation/beet";
 
 /**
  * @category Instructions
@@ -15,7 +15,7 @@ import * as beet from '@metaplex-foundation/beet';
  * @category generated
  */
 export type AddMemberInstructionArgs = {
-    newMember: web3.PublicKey;
+  newMember: web3.PublicKey;
 };
 /**
  * @category Instructions
@@ -23,15 +23,15 @@ export type AddMemberInstructionArgs = {
  * @category generated
  */
 export const addMemberStruct = new beet.BeetArgsStruct<
-    AddMemberInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  AddMemberInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['newMember', beetSolana.publicKey]
-    ],
-    'AddMemberInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["newMember", beetSolana.publicKey],
+  ],
+  "AddMemberInstructionArgs"
 );
 /**
  * Accounts required by the _addMember_ instruction
@@ -44,15 +44,17 @@ export const addMemberStruct = new beet.BeetArgsStruct<
  * @category generated
  */
 export type AddMemberInstructionAccounts = {
-    multisig: web3.PublicKey;
-    multisigAuth: web3.PublicKey;
-    member: web3.PublicKey;
-    rent?: web3.PublicKey;
-    systemProgram?: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  multisigAuth: web3.PublicKey;
+  member: web3.PublicKey;
+  rent?: web3.PublicKey;
+  systemProgram?: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const addMemberInstructionDiscriminator = [13, 116, 123, 130, 126, 198, 57, 34];
+export const addMemberInstructionDiscriminator = [
+  13, 116, 123, 130, 126, 198, 57, 34,
+];
 
 /**
  * Creates a _AddMember_ instruction.
@@ -65,52 +67,52 @@ export const addMemberInstructionDiscriminator = [13, 116, 123, 130, 126, 198, 5
  * @category generated
  */
 export function createAddMemberInstruction(
-    accounts: AddMemberInstructionAccounts,
-    args: AddMemberInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: AddMemberInstructionAccounts,
+  args: AddMemberInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = addMemberStruct.serialize({
-        instructionDiscriminator: addMemberInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.multisigAuth,
-            isWritable: true,
-            isSigner: true
-        },
-        {
-            pubkey: accounts.member,
-            isWritable: true,
-            isSigner: true
-        },
-        {
-            pubkey: accounts.rent ?? web3.SYSVAR_RENT_PUBKEY,
-            isWritable: false,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false
-        }
-    ];
+  const [data] = addMemberStruct.serialize({
+    instructionDiscriminator: addMemberInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.multisigAuth,
+      isWritable: true,
+      isSigner: true,
+    },
+    {
+      pubkey: accounts.member,
+      isWritable: true,
+      isSigner: true,
+    },
+    {
+      pubkey: accounts.rent ?? web3.SYSVAR_RENT_PUBKEY,
+      isWritable: false,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
+      isWritable: false,
+      isSigner: false,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

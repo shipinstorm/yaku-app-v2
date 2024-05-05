@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
+import * as web3 from "@solana/web3.js";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
+import * as beet from "@metaplex-foundation/beet";
 
 /**
  * @category Instructions
@@ -15,7 +15,7 @@ import * as beet from '@metaplex-foundation/beet';
  * @category generated
  */
 export type RemoveMemberInstructionArgs = {
-    oldMember: web3.PublicKey;
+  oldMember: web3.PublicKey;
 };
 /**
  * @category Instructions
@@ -23,15 +23,15 @@ export type RemoveMemberInstructionArgs = {
  * @category generated
  */
 export const removeMemberStruct = new beet.BeetArgsStruct<
-    RemoveMemberInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  RemoveMemberInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['oldMember', beetSolana.publicKey]
-    ],
-    'RemoveMemberInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["oldMember", beetSolana.publicKey],
+  ],
+  "RemoveMemberInstructionArgs"
 );
 /**
  * Accounts required by the _removeMember_ instruction
@@ -43,12 +43,14 @@ export const removeMemberStruct = new beet.BeetArgsStruct<
  * @category generated
  */
 export type RemoveMemberInstructionAccounts = {
-    multisig: web3.PublicKey;
-    multisigAuth: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  multisigAuth: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const removeMemberInstructionDiscriminator = [171, 57, 231, 150, 167, 128, 18, 55];
+export const removeMemberInstructionDiscriminator = [
+  171, 57, 231, 150, 167, 128, 18, 55,
+];
 
 /**
  * Creates a _RemoveMember_ instruction.
@@ -61,37 +63,37 @@ export const removeMemberInstructionDiscriminator = [171, 57, 231, 150, 167, 128
  * @category generated
  */
 export function createRemoveMemberInstruction(
-    accounts: RemoveMemberInstructionAccounts,
-    args: RemoveMemberInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: RemoveMemberInstructionAccounts,
+  args: RemoveMemberInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = removeMemberStruct.serialize({
-        instructionDiscriminator: removeMemberInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.multisigAuth,
-            isWritable: true,
-            isSigner: true
-        }
-    ];
+  const [data] = removeMemberStruct.serialize({
+    instructionDiscriminator: removeMemberInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.multisigAuth,
+      isWritable: true,
+      isSigner: true,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

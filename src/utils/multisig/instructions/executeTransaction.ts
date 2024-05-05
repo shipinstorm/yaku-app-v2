@@ -5,8 +5,8 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -14,7 +14,7 @@ import * as web3 from '@solana/web3.js';
  * @category generated
  */
 export type ExecuteTransactionInstructionArgs = {
-    accountList: Uint8Array;
+  accountList: Uint8Array;
 };
 /**
  * @category Instructions
@@ -22,15 +22,15 @@ export type ExecuteTransactionInstructionArgs = {
  * @category generated
  */
 export const executeTransactionStruct = new beet.FixableBeetArgsStruct<
-    ExecuteTransactionInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  ExecuteTransactionInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['accountList', beet.bytes]
-    ],
-    'ExecuteTransactionInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["accountList", beet.bytes],
+  ],
+  "ExecuteTransactionInstructionArgs"
 );
 /**
  * Accounts required by the _executeTransaction_ instruction
@@ -43,13 +43,15 @@ export const executeTransactionStruct = new beet.FixableBeetArgsStruct<
  * @category generated
  */
 export type ExecuteTransactionInstructionAccounts = {
-    multisig: web3.PublicKey;
-    transaction: web3.PublicKey;
-    member: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  transaction: web3.PublicKey;
+  member: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const executeTransactionInstructionDiscriminator = [231, 173, 49, 91, 235, 24, 68, 19];
+export const executeTransactionInstructionDiscriminator = [
+  231, 173, 49, 91, 235, 24, 68, 19,
+];
 
 /**
  * Creates a _ExecuteTransaction_ instruction.
@@ -62,42 +64,42 @@ export const executeTransactionInstructionDiscriminator = [231, 173, 49, 91, 235
  * @category generated
  */
 export function createExecuteTransactionInstruction(
-    accounts: ExecuteTransactionInstructionAccounts,
-    args: ExecuteTransactionInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: ExecuteTransactionInstructionAccounts,
+  args: ExecuteTransactionInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = executeTransactionStruct.serialize({
-        instructionDiscriminator: executeTransactionInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.transaction,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.member,
-            isWritable: true,
-            isSigner: true
-        }
-    ];
+  const [data] = executeTransactionStruct.serialize({
+    instructionDiscriminator: executeTransactionInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.transaction,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.member,
+      isWritable: true,
+      isSigner: true,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

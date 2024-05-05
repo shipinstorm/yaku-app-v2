@@ -1,41 +1,45 @@
-import { useRecoilValue } from 'recoil';
-import { filteredListingAtom } from 'views/yaku/sniping/recoil/atom/HaloLabsAtom';
-import FilteredEachListings from './FilteredEachListings';
-import { Transition } from '@headlessui/react';
-import { List } from '@mui/material';
-import './transitionStyles.css';
+import { useRecoilValue } from "recoil";
+import { filteredListingAtom } from "@/app/applications/sniping/recoil/atom/HaloLabsAtom";
+import FilteredEachListings from "./FilteredEachListings";
+import { Transition } from "@headlessui/react";
+import { List } from "@mui/material";
+import "./transitionStyles.css";
 
 const FilteredListings = ({ buyNow }: any) => {
-    const filteredListing = useRecoilValue(filteredListingAtom);
+  const filteredListing = useRecoilValue(filteredListingAtom);
 
-    return (
-        <List
-            sx={{
-                width: '100%',
-                height: '100%',
-                maxHeight: '100%',
-                overflowY: 'auto',
-                overflowX: 'hidden',
-                '& .MuiListItem-root:hover': {
-                    backgroundColor: '#bb86fc22'
-                }
-            }}
-            className="scrollbar-hide"
+  return (
+    <List
+      sx={{
+        width: "100%",
+        height: "100%",
+        maxHeight: "100%",
+        overflowY: "auto",
+        overflowX: "hidden",
+        "& .MuiListItem-root:hover": {
+          backgroundColor: "#bb86fc22",
+        },
+      }}
+      className="scrollbar-hide"
+    >
+      {filteredListing.map((curr, index) => (
+        <Transition
+          show
+          appear
+          enter="transition duration-300 ease"
+          enterFrom="transform scale-95 opacity-0"
+          enterTo="transform scale-100  opacity-100"
+          key={`${
+            curr?.MEData?.tokenMint +
+            String(curr?.MEData?.price) +
+            String(curr?.timeListed)
+          }Filtered`}
         >
-            {filteredListing.map((curr, index) => (
-                <Transition
-                    show
-                    appear
-                    enter="transition duration-300 ease"
-                    enterFrom="transform scale-95 opacity-0"
-                    enterTo="transform scale-100  opacity-100"
-                    key={`${curr?.MEData?.tokenMint + String(curr?.MEData?.price) + String(curr?.timeListed)}Filtered`}
-                >
-                    <FilteredEachListings NFTData={curr} buyNow={buyNow} />
-                </Transition>
-            ))}
-        </List>
-    );
+          <FilteredEachListings NFTData={curr} buyNow={buyNow} />
+        </Transition>
+      ))}
+    </List>
+  );
 };
 
 export default FilteredListings;

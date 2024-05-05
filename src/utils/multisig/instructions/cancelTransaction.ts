@@ -5,8 +5,8 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -14,8 +14,11 @@ import * as web3 from '@solana/web3.js';
  * @category generated
  */
 export const cancelTransactionStruct = new beet.BeetArgsStruct<{
-    instructionDiscriminator: number[] /* size: 8 */;
-}>([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'CancelTransactionInstructionArgs');
+  instructionDiscriminator: number[] /* size: 8 */;
+}>(
+  [["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)]],
+  "CancelTransactionInstructionArgs"
+);
 /**
  * Accounts required by the _cancelTransaction_ instruction
  *
@@ -27,14 +30,16 @@ export const cancelTransactionStruct = new beet.BeetArgsStruct<{
  * @category generated
  */
 export type CancelTransactionInstructionAccounts = {
-    multisig: web3.PublicKey;
-    transaction: web3.PublicKey;
-    member: web3.PublicKey;
-    systemProgram?: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  transaction: web3.PublicKey;
+  member: web3.PublicKey;
+  systemProgram?: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const cancelTransactionInstructionDiscriminator = [65, 191, 19, 127, 230, 26, 214, 142];
+export const cancelTransactionInstructionDiscriminator = [
+  65, 191, 19, 127, 230, 26, 214, 142,
+];
 
 /**
  * Creates a _CancelTransaction_ instruction.
@@ -45,45 +50,45 @@ export const cancelTransactionInstructionDiscriminator = [65, 191, 19, 127, 230,
  * @category generated
  */
 export function createCancelTransactionInstruction(
-    accounts: CancelTransactionInstructionAccounts,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: CancelTransactionInstructionAccounts,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = cancelTransactionStruct.serialize({
-        instructionDiscriminator: cancelTransactionInstructionDiscriminator
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.transaction,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.member,
-            isWritable: true,
-            isSigner: true
-        },
-        {
-            pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false
-        }
-    ];
+  const [data] = cancelTransactionStruct.serialize({
+    instructionDiscriminator: cancelTransactionInstructionDiscriminator,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.transaction,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.member,
+      isWritable: true,
+      isSigner: true,
+    },
+    {
+      pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
+      isWritable: false,
+      isSigner: false,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

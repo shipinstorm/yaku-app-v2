@@ -14,12 +14,9 @@ import {
   localCollectionDataPriceAtom,
   rarityDataAtom,
   fpAtom,
-} from "views/yaku/sniping/recoil/atom/HaloLabsAtom";
+} from "@/app/applications/sniping/recoil/atom/HaloLabsAtom";
 import { useEffect, useState } from "react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import SolanaLogo from "assets/images/blockchains/solana-icon.svg";
-import MEMarketLogo from "assets/images/icons/MEMarketLogo.png";
-import FilterIcon from "assets/images/icons/FilterIcon.png";
 import FilteredListings from "./FilteredListings";
 import SelectedCollection from "./SelectedCollection";
 import SearchResults from "./SearchResults";
@@ -40,15 +37,15 @@ import {
 import { IconSearch } from "@tabler/icons-react";
 import { shouldForwardProp } from "@mui/system";
 import { DeleteOutline, RefreshOutlined } from "@mui/icons-material";
-import { SNIPER_SOCKET } from "config/config";
+import { SNIPER_SOCKET } from "@/config/config";
 import { LoadingButton } from "@mui/lab";
 import { FormattedMessage } from "react-intl";
-import useConnections from "hooks/useConnetions";
-import { useMECollections } from "contexts/MECollectionsContext";
+import useConnections from "@/hooks/useConnetions";
+import { useMECollections } from "@/contexts/MECollectionsContext";
 import axios from "axios";
 import "./rainbow.css";
-import { useRequests } from "hooks/useRequests";
-import useLocalStorage from "hooks/useLocalStorage";
+import { useRequests } from "@/hooks/useRequests";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(
   ({ theme }) => ({
@@ -736,7 +733,7 @@ const Sniper = ({ buyNow }: any) => {
             {(+walletBalance || 0).toFixed(3)}
           </Typography>
           <img
-            src={SolanaLogo}
+            src="/images/blockchains/solana-icon.svg"
             alt="SOL"
             style={{
               height: 15,
@@ -781,7 +778,7 @@ const Sniper = ({ buyNow }: any) => {
             noWrap
           >
             <img
-              src={MEMarketLogo}
+              src="/images/icons/MEMarketLogo.png"
               alt="ME"
               style={{
                 height: 20,
@@ -1024,8 +1021,8 @@ const Sniper = ({ buyNow }: any) => {
                   disabled
                 >
                   <img
-                    src={FilterIcon}
-                    alt={FilterIcon}
+                    src="/images/icons/FilterIcon.png"
+                    alt="FilterIcon"
                     style={{ height: 10, width: 8.4 }}
                   />
                   <Typography

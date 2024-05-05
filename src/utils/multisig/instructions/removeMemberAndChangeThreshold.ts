@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
+import * as web3 from "@solana/web3.js";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
+import * as beet from "@metaplex-foundation/beet";
 
 /**
  * @category Instructions
@@ -15,8 +15,8 @@ import * as beet from '@metaplex-foundation/beet';
  * @category generated
  */
 export type RemoveMemberAndChangeThresholdInstructionArgs = {
-    oldMember: web3.PublicKey;
-    newThreshold: number;
+  oldMember: web3.PublicKey;
+  newThreshold: number;
 };
 /**
  * @category Instructions
@@ -24,16 +24,16 @@ export type RemoveMemberAndChangeThresholdInstructionArgs = {
  * @category generated
  */
 export const removeMemberAndChangeThresholdStruct = new beet.BeetArgsStruct<
-    RemoveMemberAndChangeThresholdInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  RemoveMemberAndChangeThresholdInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['oldMember', beetSolana.publicKey],
-        ['newThreshold', beet.u16]
-    ],
-    'RemoveMemberAndChangeThresholdInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["oldMember", beetSolana.publicKey],
+    ["newThreshold", beet.u16],
+  ],
+  "RemoveMemberAndChangeThresholdInstructionArgs"
 );
 /**
  * Accounts required by the _removeMemberAndChangeThreshold_ instruction
@@ -45,12 +45,14 @@ export const removeMemberAndChangeThresholdStruct = new beet.BeetArgsStruct<
  * @category generated
  */
 export type RemoveMemberAndChangeThresholdInstructionAccounts = {
-    multisig: web3.PublicKey;
-    multisigAuth: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  multisigAuth: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const removeMemberAndChangeThresholdInstructionDiscriminator = [230, 97, 183, 248, 43, 190, 154, 29];
+export const removeMemberAndChangeThresholdInstructionDiscriminator = [
+  230, 97, 183, 248, 43, 190, 154, 29,
+];
 
 /**
  * Creates a _RemoveMemberAndChangeThreshold_ instruction.
@@ -63,37 +65,38 @@ export const removeMemberAndChangeThresholdInstructionDiscriminator = [230, 97, 
  * @category generated
  */
 export function createRemoveMemberAndChangeThresholdInstruction(
-    accounts: RemoveMemberAndChangeThresholdInstructionAccounts,
-    args: RemoveMemberAndChangeThresholdInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: RemoveMemberAndChangeThresholdInstructionAccounts,
+  args: RemoveMemberAndChangeThresholdInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = removeMemberAndChangeThresholdStruct.serialize({
-        instructionDiscriminator: removeMemberAndChangeThresholdInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.multisigAuth,
-            isWritable: true,
-            isSigner: true
-        }
-    ];
+  const [data] = removeMemberAndChangeThresholdStruct.serialize({
+    instructionDiscriminator:
+      removeMemberAndChangeThresholdInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.multisigAuth,
+      isWritable: true,
+      isSigner: true,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

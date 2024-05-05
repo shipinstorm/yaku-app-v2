@@ -5,26 +5,27 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
-import { MsAccountMeta, msAccountMetaBeet } from './MsAccountMeta';
+import * as web3 from "@solana/web3.js";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
+import * as beet from "@metaplex-foundation/beet";
+import { MsAccountMeta, msAccountMetaBeet } from "./MsAccountMeta";
 
 export type IncomingInstruction = {
-    programId: web3.PublicKey;
-    keys: MsAccountMeta[];
-    data: Uint8Array;
+  programId: web3.PublicKey;
+  keys: MsAccountMeta[];
+  data: Uint8Array;
 };
 
 /**
  * @category userTypes
  * @category generated
  */
-export const incomingInstructionBeet = new beet.FixableBeetArgsStruct<IncomingInstruction>(
+export const incomingInstructionBeet =
+  new beet.FixableBeetArgsStruct<IncomingInstruction>(
     [
-        ['programId', beetSolana.publicKey],
-        ['keys', beet.array(msAccountMetaBeet)],
-        ['data', beet.bytes]
+      ["programId", beetSolana.publicKey],
+      ["keys", beet.array(msAccountMetaBeet)],
+      ["data", beet.bytes],
     ],
-    'IncomingInstruction'
-);
+    "IncomingInstruction"
+  );

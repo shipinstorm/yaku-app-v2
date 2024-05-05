@@ -5,8 +5,8 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -14,8 +14,11 @@ import * as web3 from '@solana/web3.js';
  * @category generated
  */
 export const approveTransactionStruct = new beet.BeetArgsStruct<{
-    instructionDiscriminator: number[] /* size: 8 */;
-}>([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'ApproveTransactionInstructionArgs');
+  instructionDiscriminator: number[] /* size: 8 */;
+}>(
+  [["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)]],
+  "ApproveTransactionInstructionArgs"
+);
 /**
  * Accounts required by the _approveTransaction_ instruction
  *
@@ -27,14 +30,16 @@ export const approveTransactionStruct = new beet.BeetArgsStruct<{
  * @category generated
  */
 export type ApproveTransactionInstructionAccounts = {
-    multisig: web3.PublicKey;
-    transaction: web3.PublicKey;
-    member: web3.PublicKey;
-    systemProgram?: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  transaction: web3.PublicKey;
+  member: web3.PublicKey;
+  systemProgram?: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const approveTransactionInstructionDiscriminator = [224, 39, 88, 181, 36, 59, 155, 122];
+export const approveTransactionInstructionDiscriminator = [
+  224, 39, 88, 181, 36, 59, 155, 122,
+];
 
 /**
  * Creates a _ApproveTransaction_ instruction.
@@ -45,45 +50,45 @@ export const approveTransactionInstructionDiscriminator = [224, 39, 88, 181, 36,
  * @category generated
  */
 export function createApproveTransactionInstruction(
-    accounts: ApproveTransactionInstructionAccounts,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: ApproveTransactionInstructionAccounts,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = approveTransactionStruct.serialize({
-        instructionDiscriminator: approveTransactionInstructionDiscriminator
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: false,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.transaction,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.member,
-            isWritable: true,
-            isSigner: true
-        },
-        {
-            pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false
-        }
-    ];
+  const [data] = approveTransactionStruct.serialize({
+    instructionDiscriminator: approveTransactionInstructionDiscriminator,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: false,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.transaction,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.member,
+      isWritable: true,
+      isSigner: true,
+    },
+    {
+      pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
+      isWritable: false,
+      isSigner: false,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

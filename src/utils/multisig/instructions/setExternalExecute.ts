@@ -5,8 +5,8 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
 
 /**
  * @category Instructions
@@ -14,7 +14,7 @@ import * as web3 from '@solana/web3.js';
  * @category generated
  */
 export type SetExternalExecuteInstructionArgs = {
-    setting: boolean;
+  setting: boolean;
 };
 /**
  * @category Instructions
@@ -22,15 +22,15 @@ export type SetExternalExecuteInstructionArgs = {
  * @category generated
  */
 export const setExternalExecuteStruct = new beet.BeetArgsStruct<
-    SetExternalExecuteInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  SetExternalExecuteInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['setting', beet.bool]
-    ],
-    'SetExternalExecuteInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["setting", beet.bool],
+  ],
+  "SetExternalExecuteInstructionArgs"
 );
 /**
  * Accounts required by the _setExternalExecute_ instruction
@@ -42,12 +42,14 @@ export const setExternalExecuteStruct = new beet.BeetArgsStruct<
  * @category generated
  */
 export type SetExternalExecuteInstructionAccounts = {
-    multisig: web3.PublicKey;
-    multisigAuth: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  multisigAuth: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const setExternalExecuteInstructionDiscriminator = [28, 57, 161, 204, 253, 3, 18, 183];
+export const setExternalExecuteInstructionDiscriminator = [
+  28, 57, 161, 204, 253, 3, 18, 183,
+];
 
 /**
  * Creates a _SetExternalExecute_ instruction.
@@ -60,37 +62,37 @@ export const setExternalExecuteInstructionDiscriminator = [28, 57, 161, 204, 253
  * @category generated
  */
 export function createSetExternalExecuteInstruction(
-    accounts: SetExternalExecuteInstructionAccounts,
-    args: SetExternalExecuteInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: SetExternalExecuteInstructionAccounts,
+  args: SetExternalExecuteInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = setExternalExecuteStruct.serialize({
-        instructionDiscriminator: setExternalExecuteInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.multisigAuth,
-            isWritable: true,
-            isSigner: true
-        }
-    ];
+  const [data] = setExternalExecuteStruct.serialize({
+    instructionDiscriminator: setExternalExecuteInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.multisigAuth,
+      isWritable: true,
+      isSigner: true,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

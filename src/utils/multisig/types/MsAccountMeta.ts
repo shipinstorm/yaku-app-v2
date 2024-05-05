@@ -5,14 +5,14 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
+import * as web3 from "@solana/web3.js";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
+import * as beet from "@metaplex-foundation/beet";
 
 export type MsAccountMeta = {
-    pubkey: web3.PublicKey;
-    isSigner: boolean;
-    isWritable: boolean;
+  pubkey: web3.PublicKey;
+  isSigner: boolean;
+  isWritable: boolean;
 };
 
 /**
@@ -20,10 +20,10 @@ export type MsAccountMeta = {
  * @category generated
  */
 export const msAccountMetaBeet = new beet.BeetArgsStruct<MsAccountMeta>(
-    [
-        ['pubkey', beetSolana.publicKey],
-        ['isSigner', beet.bool],
-        ['isWritable', beet.bool]
-    ],
-    'MsAccountMeta'
+  [
+    ["pubkey", beetSolana.publicKey],
+    ["isSigner", beet.bool],
+    ["isWritable", beet.bool],
+  ],
+  "MsAccountMeta"
 );

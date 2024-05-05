@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from "@solana/web3.js";
+import * as beet from "@metaplex-foundation/beet";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
 
 /**
  * @category Instructions
@@ -15,10 +15,10 @@ import * as beetSolana from '@metaplex-foundation/beet-solana';
  * @category generated
  */
 export type CreateInstructionArgs = {
-    threshold: number;
-    createKey: web3.PublicKey;
-    members: web3.PublicKey[];
-    meta: string;
+  threshold: number;
+  createKey: web3.PublicKey;
+  members: web3.PublicKey[];
+  meta: string;
 };
 /**
  * @category Instructions
@@ -26,18 +26,18 @@ export type CreateInstructionArgs = {
  * @category generated
  */
 export const createStruct = new beet.FixableBeetArgsStruct<
-    CreateInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  CreateInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['threshold', beet.u16],
-        ['createKey', beetSolana.publicKey],
-        ['members', beet.array(beetSolana.publicKey)],
-        ['meta', beet.utf8String]
-    ],
-    'CreateInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["threshold", beet.u16],
+    ["createKey", beetSolana.publicKey],
+    ["members", beet.array(beetSolana.publicKey)],
+    ["meta", beet.utf8String],
+  ],
+  "CreateInstructionArgs"
 );
 /**
  * Accounts required by the _create_ instruction
@@ -49,10 +49,10 @@ export const createStruct = new beet.FixableBeetArgsStruct<
  * @category generated
  */
 export type CreateInstructionAccounts = {
-    multisig: web3.PublicKey;
-    creator: web3.PublicKey;
-    systemProgram?: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  creator: web3.PublicKey;
+  systemProgram?: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
 export const createInstructionDiscriminator = [24, 30, 200, 40, 5, 28, 7, 119];
@@ -68,42 +68,42 @@ export const createInstructionDiscriminator = [24, 30, 200, 40, 5, 28, 7, 119];
  * @category generated
  */
 export function createCreateInstruction(
-    accounts: CreateInstructionAccounts,
-    args: CreateInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: CreateInstructionAccounts,
+  args: CreateInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = createStruct.serialize({
-        instructionDiscriminator: createInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.creator,
-            isWritable: true,
-            isSigner: true
-        },
-        {
-            pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false
-        }
-    ];
+  const [data] = createStruct.serialize({
+    instructionDiscriminator: createInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.creator,
+      isWritable: true,
+      isSigner: true,
+    },
+    {
+      pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
+      isWritable: false,
+      isSigner: false,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

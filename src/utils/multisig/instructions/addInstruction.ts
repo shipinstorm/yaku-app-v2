@@ -5,9 +5,12 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import { IncomingInstruction, incomingInstructionBeet } from '../types/IncomingInstruction';
+import * as beet from "@metaplex-foundation/beet";
+import * as web3 from "@solana/web3.js";
+import {
+  IncomingInstruction,
+  incomingInstructionBeet,
+} from "../types/IncomingInstruction";
 
 /**
  * @category Instructions
@@ -15,7 +18,7 @@ import { IncomingInstruction, incomingInstructionBeet } from '../types/IncomingI
  * @category generated
  */
 export type AddInstructionInstructionArgs = {
-    incomingInstruction: IncomingInstruction;
+  incomingInstruction: IncomingInstruction;
 };
 /**
  * @category Instructions
@@ -23,15 +26,15 @@ export type AddInstructionInstructionArgs = {
  * @category generated
  */
 export const addInstructionStruct = new beet.FixableBeetArgsStruct<
-    AddInstructionInstructionArgs & {
-        instructionDiscriminator: number[] /* size: 8 */;
-    }
+  AddInstructionInstructionArgs & {
+    instructionDiscriminator: number[] /* size: 8 */;
+  }
 >(
-    [
-        ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-        ['incomingInstruction', incomingInstructionBeet]
-    ],
-    'AddInstructionInstructionArgs'
+  [
+    ["instructionDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["incomingInstruction", incomingInstructionBeet],
+  ],
+  "AddInstructionInstructionArgs"
 );
 /**
  * Accounts required by the _addInstruction_ instruction
@@ -45,15 +48,17 @@ export const addInstructionStruct = new beet.FixableBeetArgsStruct<
  * @category generated
  */
 export type AddInstructionInstructionAccounts = {
-    multisig: web3.PublicKey;
-    transaction: web3.PublicKey;
-    instruction: web3.PublicKey;
-    creator: web3.PublicKey;
-    systemProgram?: web3.PublicKey;
-    anchorRemainingAccounts?: web3.AccountMeta[];
+  multisig: web3.PublicKey;
+  transaction: web3.PublicKey;
+  instruction: web3.PublicKey;
+  creator: web3.PublicKey;
+  systemProgram?: web3.PublicKey;
+  anchorRemainingAccounts?: web3.AccountMeta[];
 };
 
-export const addInstructionInstructionDiscriminator = [11, 70, 136, 166, 202, 55, 246, 74];
+export const addInstructionInstructionDiscriminator = [
+  11, 70, 136, 166, 202, 55, 246, 74,
+];
 
 /**
  * Creates a _AddInstruction_ instruction.
@@ -66,52 +71,52 @@ export const addInstructionInstructionDiscriminator = [11, 70, 136, 166, 202, 55
  * @category generated
  */
 export function createAddInstructionInstruction(
-    accounts: AddInstructionInstructionAccounts,
-    args: AddInstructionInstructionArgs,
-    programId = new web3.PublicKey('SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu')
+  accounts: AddInstructionInstructionAccounts,
+  args: AddInstructionInstructionArgs,
+  programId = new web3.PublicKey("SMPLecH534NA9acpos4G6x7uf3LWbCAwZQE9e8ZekMu")
 ) {
-    const [data] = addInstructionStruct.serialize({
-        instructionDiscriminator: addInstructionInstructionDiscriminator,
-        ...args
-    });
-    const keys: web3.AccountMeta[] = [
-        {
-            pubkey: accounts.multisig,
-            isWritable: false,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.transaction,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.instruction,
-            isWritable: true,
-            isSigner: false
-        },
-        {
-            pubkey: accounts.creator,
-            isWritable: true,
-            isSigner: true
-        },
-        {
-            pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false
-        }
-    ];
+  const [data] = addInstructionStruct.serialize({
+    instructionDiscriminator: addInstructionInstructionDiscriminator,
+    ...args,
+  });
+  const keys: web3.AccountMeta[] = [
+    {
+      pubkey: accounts.multisig,
+      isWritable: false,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.transaction,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.instruction,
+      isWritable: true,
+      isSigner: false,
+    },
+    {
+      pubkey: accounts.creator,
+      isWritable: true,
+      isSigner: true,
+    },
+    {
+      pubkey: accounts.systemProgram ?? web3.SystemProgram.programId,
+      isWritable: false,
+      isSigner: false,
+    },
+  ];
 
-    if (accounts.anchorRemainingAccounts != null) {
-        for (const acc of accounts.anchorRemainingAccounts) {
-            keys.push(acc);
-        }
+  if (accounts.anchorRemainingAccounts != null) {
+    for (const acc of accounts.anchorRemainingAccounts) {
+      keys.push(acc);
     }
+  }
 
-    const ix = new web3.TransactionInstruction({
-        programId,
-        keys,
-        data
-    });
-    return ix;
+  const ix = new web3.TransactionInstruction({
+    programId,
+    keys,
+    data,
+  });
+  return ix;
 }

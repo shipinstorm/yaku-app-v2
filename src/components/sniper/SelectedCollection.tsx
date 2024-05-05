@@ -3,7 +3,7 @@
 import {
   localCollectionDataAtom,
   localCollectionDataPriceAtom,
-} from "@/components/sniping/recoil/atom/HaloLabsAtom";
+} from "@/app/applications/sniping/recoil/atom/HaloLabsAtom";
 import { useRecoilState } from "recoil";
 import SolanaLogo from "assets/images/blockchains/solana-icon.svg";
 import { Transition } from "@headlessui/react";

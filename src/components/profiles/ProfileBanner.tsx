@@ -12,7 +12,7 @@ import { useToasts } from "@/hooks/useToasts";
 import { useCallback, useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import getCroppedImg from "@/utils/cropImage";
-import { useTheme } from "@mui/styles";
+// import { useTheme } from "@mui/styles";
 import CropDialogContent from "./CropDialogContent";
 
 const ProfileBanner = ({
@@ -21,7 +21,7 @@ const ProfileBanner = ({
   upload,
   url,
 }: any) => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [images, setImages] = useState<ImageListType>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { showErrorToast, showSuccessToast } = useToasts();
@@ -101,7 +101,7 @@ const ProfileBanner = ({
                   >
                     <DialogContent>
                       <CropDialogContent
-                        theme={theme}
+                        // theme={theme}
                         image={imageList[0].dataURL}
                         onCropComplete={onCropComplete}
                         crop={crop}

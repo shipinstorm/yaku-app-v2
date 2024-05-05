@@ -5,25 +5,24 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
+import * as beet from "@metaplex-foundation/beet";
 /**
  * @category enums
  * @category generated
  */
 export enum MsTransactionStatus {
-    Draft,
-    Active,
-    ExecuteReady,
-    Executed,
-    Rejected,
-    Cancelled
+  Draft,
+  Active,
+  ExecuteReady,
+  Executed,
+  Rejected,
+  Cancelled,
 }
 
 /**
  * @category userTypes
  * @category generated
  */
-export const msTransactionStatusBeet = beet.fixedScalarEnum(MsTransactionStatus) as beet.FixedSizeBeet<
-    MsTransactionStatus,
-    MsTransactionStatus
->;
+export const msTransactionStatusBeet = beet.fixedScalarEnum(
+  MsTransactionStatus
+) as beet.FixedSizeBeet<MsTransactionStatus, MsTransactionStatus>;
