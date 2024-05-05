@@ -100,6 +100,6 @@ const MainCard = React.forwardRef(
   )
 );
 
-MainCard.displayName = 'MainCard';
+MainCard.displayName = "MainCard";
 
 export default MainCard;

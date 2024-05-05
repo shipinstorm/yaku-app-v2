@@ -1,14 +1,14 @@
-import { FormikValues } from 'formik';
+import { FormikValues } from "formik";
 
 export type SpacesProps = {
-    id: string;
-    avatar: string;
-    name: string;
-    symbol: string;
-    members: number;
+  id: string;
+  avatar: string;
+  name: string;
+  symbol: string;
+  members: number;
 };
 
 export interface SpaceStateProps {
-    spaces: FormikValues[];
-    error: object | string | null;
+  spaces: FormikValues[];
+  error: object | string | null;
 }

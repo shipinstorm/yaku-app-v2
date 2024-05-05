@@ -16,9 +16,7 @@ const Loadable = (
     | ComponentType<React.ReactNode>
 ) => {
   const SubLoadable = (props: LoaderProps) => (
-    <Suspense fallback={<Loader />}>
-      {/* <Component {...props} /> */}
-    </Suspense>
+    <Suspense fallback={<Loader />}>{/* <Component {...props} /> */}</Suspense>
   );
   SubLoadable.displayName = "SubLoadable";
   return SubLoadable;

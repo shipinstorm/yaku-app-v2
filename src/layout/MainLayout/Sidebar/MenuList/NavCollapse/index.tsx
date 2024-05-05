@@ -75,10 +75,14 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
   const Icon = menu.icon!;
   const menuIcon = menu.icon ? (
     <Icon
-      strokeWidth={1.5}
-      size="1.3rem"
+      strokeWidth="1.5"
       style={{ marginTop: "auto", marginBottom: "auto" }}
     />
+    // <Icon
+    //   strokeWidth={1.5}
+    //   size="1.3rem"
+    //   style={{ marginTop: "auto", marginBottom: "auto" }}
+    // />
   ) : (
     <FiberManualRecordIcon
       sx={{

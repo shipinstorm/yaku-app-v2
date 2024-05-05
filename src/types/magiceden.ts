@@ -1,12 +1,12 @@
 export type ListingInfo = {
-    price: number;
+  price: number;
 };
 
 export type METoken = {
-    mintAddress: string;
-    supply: number;
-    name: string;
-    image: string;
-    price: number;
-    listStatus: string;
+  mintAddress: string;
+  supply: number;
+  name: string;
+  image: string;
+  price: number;
+  listStatus: string;
 };

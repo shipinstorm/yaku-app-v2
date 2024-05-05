@@ -1,8 +1,8 @@
 // ==============================|| MENU TYPES  ||============================== //
 
 export type MenuProps = {
-    openItem: string[];
-    drawerOpen: boolean;
-    hasWorkspace: boolean;
-    currentWS: string;
+  openItem: string[];
+  drawerOpen: boolean;
+  hasWorkspace: boolean;
+  currentWS: string;
 };

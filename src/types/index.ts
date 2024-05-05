@@ -7,7 +7,7 @@ import { SvgIconTypeMap, ChipProps, TableCellProps } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 // project imports
-import { TablerIcon } from "@tabler/icons-react";
+// import { TablerIcon } from "@tabler/icons-react";
 import { CalendarStateProps } from "./calendar";
 import { RarityStateProps } from "./rarity";
 import { ProposalStateProps } from "./proposals";
@@ -17,9 +17,9 @@ import { SnackbarProps } from "./snackbar";
 import { StringPublicKey } from "@/utils/ids";
 import { Connection } from "@solana/web3.js";
 
-declare module "@mui/styles/defaultTheme" {
-  interface DefaultTheme extends Theme {}
-}
+// declare module "@mui/styles/defaultTheme" {
+//   interface DefaultTheme extends Theme {}
+// }
 
 export type ArrangementOrder = "asc" | "desc" | undefined;
 
@@ -53,8 +53,8 @@ export interface GenericCardProps {
 export type OverrideIcon =
   | (OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string })
   | React.ComponentClass<any>
-  | FunctionComponent<any>
-  | TablerIcon;
+  | FunctionComponent<any>;
+// | TablerIcon;
 
 export interface EnhancedTableHeadProps extends TableCellProps {
   onSelectAllClick: (e: React.ChangeEvent<HTMLInputElement>) => void;

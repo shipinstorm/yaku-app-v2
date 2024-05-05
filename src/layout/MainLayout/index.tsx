@@ -178,28 +178,28 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       !!get(window, "chrome") &&
       (!!get(window, "chrome.webstore") || !!get(window, "chrome.runtime"));
 
-    if (isChrome && typeof get(window, "chrome") !== "undefined") {
-      const chrome = get(window, "chrome");
-      if (isFunction(chrome?.runtime?.sendMessage)) {
-        chrome?.runtime?.sendMessage(
-          EXTENSION_ID,
-          { command: "start_host" },
-          (response: any) => {
-            console.log({ response });
-            setHasExtension(true);
-          }
-        );
-      } else {
-        console.debug("Chrome runtime has not found.", {
-          isChrome,
-          chrome: get(window, "chrome"),
-        });
-        setHasExtension(false);
-      }
-    } else {
-      console.debug({ isChrome, chrome: get(window, "chrome") });
-      setHasExtension(false);
-    }
+    // if (isChrome && typeof get(window, "chrome") !== "undefined") {
+    //   const chrome = get(window, "chrome");
+    //   if (isFunction(chrome?.runtime?.sendMessage)) {
+    //     chrome?.runtime?.sendMessage(
+    //       EXTENSION_ID,
+    //       { command: "start_host" },
+    //       (response: any) => {
+    //         console.log({ response });
+    //         setHasExtension(true);
+    //       }
+    //     );
+    //   } else {
+    //     console.debug("Chrome runtime has not found.", {
+    //       isChrome,
+    //       chrome: get(window, "chrome"),
+    //     });
+    //     setHasExtension(false);
+    //   }
+    // } else {
+    //   console.debug({ isChrome, chrome: get(window, "chrome") });
+    //   setHasExtension(false);
+    // }
   }, []);
 
   useEffect(() => {

@@ -117,7 +117,8 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
                 alignItems: "center",
               }}
             >
-              {item?.icon && <Icon stroke={1.5} className="ml-1" size="24px" />}
+              {item?.icon && <Icon stroke="1.5" className="ml-1" />}
+              {/* {item?.icon && <Icon stroke="1.5" className="ml-1" size="24px" />} */}
             </Grid>
             <Grid
               item

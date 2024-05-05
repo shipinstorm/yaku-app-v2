@@ -1,17 +1,17 @@
-import { FormikValues } from 'formik';
+import { FormikValues } from "formik";
 
 export type ProposalsProps = {
-    id: string;
-    title: string;
-    description: string;
-    tags: string[];
-    status: boolean;
-    type: boolean;
-    created: Date;
-    end: Date;
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  status: boolean;
+  type: boolean;
+  created: Date;
+  end: Date;
 };
 
 export interface ProposalStateProps {
-    proposals: FormikValues[];
-    error: object | string | null;
+  proposals: FormikValues[];
+  error: object | string | null;
 }

@@ -405,7 +405,7 @@ const SearchSection = () => {
   };
 
   const handleSearchDebounced = debounce(handleSearch, 500);
-  const handleSearchCallback = useCallback((v) => handleSearchDebounced(v), []);
+  const handleSearchCallback = useCallback((v: any) => handleSearchDebounced(v), []);
 
   return (
     <>

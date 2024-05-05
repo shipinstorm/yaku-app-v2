@@ -1,41 +1,41 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from "react";
 
 export type AuthContextType = {
-    signin: (address: string, publicKey?: string) => Promise<void>;
-    logout: () => void;
-    token?: String;
-    pass: () => void;
-    yakuPass: boolean;
-    myPublic?: string;
-    sign: () => void;
-    signed: boolean;
-    isAttempting: boolean;
-    attempting: (value: boolean) => void;
-    user: any;
-    setUserData: (data: any) => void;
-    isOnline: boolean;
-    onlineUsers: any[];
-    hasExtension: boolean;
-    setHasExtension: Dispatch<SetStateAction<boolean>>;
+  signin: (address: string, publicKey?: string) => Promise<void>;
+  logout: () => void;
+  token?: String;
+  pass: () => void;
+  yakuPass: boolean;
+  myPublic?: string;
+  sign: () => void;
+  signed: boolean;
+  isAttempting: boolean;
+  attempting: (value: boolean) => void;
+  user: any;
+  setUserData: (data: any) => void;
+  isOnline: boolean;
+  onlineUsers: any[];
+  hasExtension: boolean;
+  setHasExtension: Dispatch<SetStateAction<boolean>>;
 };
 
 // new test
 export enum AccountConfig {
-    Partner = 'partner',
-    Staff = 'staff'
+  Partner = "partner",
+  Staff = "staff",
 }
 
 enum BadgeType {
-    PartnerBadge = 'partner_badge',
-    StaffBadge = 'staff_badge'
+  PartnerBadge = "partner_badge",
+  StaffBadge = "staff_badge",
 }
 
 export interface Account {
-    id?: string;
-    address?: string;
-    config?: AccountConfig;
-    badgeType?: BadgeType;
-    user?: User;
+  id?: string;
+  address?: string;
+  config?: AccountConfig;
+  badgeType?: BadgeType;
+  user?: User;
 }
 
 // used for reducer
@@ -52,10 +52,10 @@ export interface Account {
 //     isLoggedIn: boolean;
 // };
 export type User = {
-    id?: string;
-    wallet?: string;
-    isStaff?: boolean;
-    registered?: boolean;
-    username?: string;
-    vanityUrl?: string;
+  id?: string;
+  wallet?: string;
+  isStaff?: boolean;
+  registered?: boolean;
+  username?: string;
+  vanityUrl?: string;
 };

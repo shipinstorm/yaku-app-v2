@@ -24,8 +24,9 @@ const NavItem = ({ item, level }: NavItemProps) => {
 
   const Icon = item?.icon!;
   const itemIcon = item?.icon ? (
-    <Icon stroke={1.5} size="24px" />
+    <Icon stroke="1.5" />
   ) : (
+    // <Icon stroke="1.5" size="24px" />
     <FiberManualRecordIcon
       sx={{
         width: openItem.findIndex((id: any) => id === item?.id) > -1 ? 8 : 6,

@@ -44,11 +44,11 @@ const NavItem = ({ item, level }: NavItemProps) => {
     itemTarget = "_blank";
   }
 
-  const MyComponent = forwardRef((props, ref) => (
+  const MyComponent = forwardRef((props, ref: React.Ref<HTMLAnchorElement>) => (
     <Link ref={ref} {...props} to={item.url!} target={itemTarget} />
   ));
-  
-  MyComponent.displayName = 'MyComponent';
+
+  MyComponent.displayName = "MyComponent";
 
   let listItemProps: {
     component:
@@ -101,7 +101,8 @@ const NavItem = ({ item, level }: NavItemProps) => {
       onClick={() => itemHandler(item.id!, item.title as string)}
     >
       {level === 0 && item?.icon && (
-        <Icon stroke={1.5} className="ml-1" size="24px" />
+        <Icon stroke="1.5" className="ml-1" />
+        // <Icon stroke="1.5" className="ml-1" size="24px" />
       )}
       <ListItemText
         primary={
