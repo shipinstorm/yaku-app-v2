@@ -57,6 +57,8 @@ const Breadcrumbs = ({
   const [item, setItem] = useState<NavItemType>();
   const [subItem, setSubItem] = useState<string>();
 
+  const isClient = typeof window !== "undefined";
+
   const iconSX = {
     marginRight: theme.spacing(0.75),
     marginTop: `-${theme.spacing(0.25)}`,
@@ -72,7 +74,7 @@ const Breadcrumbs = ({
         if (collapse.type && collapse.type === "collapse") {
           getCollapse(collapse as { children: NavItemType[]; type?: string });
         } else if (collapse.type && collapse.type === "item") {
-          if (document.location.pathname === BASE_PATH + collapse.url) {
+          if (isClient && document.location.pathname === BASE_PATH + collapse.url) {
             setMain(menu);
             setItem(collapse);
           }

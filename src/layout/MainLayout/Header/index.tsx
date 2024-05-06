@@ -28,35 +28,17 @@ const Header = () => {
     <>
       {/* logo & toggler button */}
       <YakuBuyLink />
-      <Box
-        sx={{
-          display: "flex",
-          position: "absolute",
-          alignItems: "center",
-          // [theme.breakpoints.down('md')]: {
-          //     width: 'auto'
-          // }
-          width: "100%",
-          flexGrow: 1,
-        }}
-      >
-        <Box
-          component="span"
-          sx={{
-            display: { xs: "none", md: "block" },
-            alignItems: "center",
-            flexGrow: 1,
-          }}
-        >
+      <div className="flex items-center w-full absolute">
+        <div className="hidden md:flex items-center flex-grow justify-center">
           <LogoSection />
-        </Box>
+        </div>
         {!matchUpMd && <ProfileAvatar />}
-      </Box>
+      </div>
 
       {/* header search */}
       {/*<SearchSection />*/}
-      <Box sx={{ flexGrow: 1 }} />
-      <Box sx={{ flexGrow: 1 }} />
+      <div className="flex-grow"></div>
+      <div className="flex-grow"></div>
 
       {/*{connected && <CartSection />}*/}
       {/* notification & profile */}

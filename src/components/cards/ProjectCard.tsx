@@ -1,9 +1,6 @@
 /* eslint-disable */
 import { useEffect, useState } from "react";
 
-// material-ui
-import { CardContent, CardMedia, Box, Typography, Chip } from "@mui/material";
-
 // project-imports
 import { KeyedObject } from "@/types";
 import MainCard from "@/components/MainCard";
@@ -51,22 +48,15 @@ const ProjectCard = ({
           sx={{ cursor: "pointer", minWidth: `calc(${height}px + 1rem)` }}
           onClick={onClick}
         >
-          <CardMedia
-            className={`rounded-3xl m-2 ${sqaure ? "aspect-square" : ""}`}
-            sx={{ height, width: sqaure ? height : "auto" }}
-            image={`${useProxy ? IMAGE_PROXY : ""}${image}`}
-            title={name}
-          />
-          <CardContent
-            className={!truncate ? "" : "!pb-[4px]"}
-            sx={{ px: !truncate ? 2 : 0, pb: !truncate ? 2 : 0, pt: 0 }}
-          >
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              className="pt-2 px-2 overflow-hidden"
-            >
+          <div className={`m-2 ${sqaure ? "aspect-square" : ""} h-[200px] w-auto pt-2`}>
+            <img
+              className="object-cover w-full h-full rounded-3xl"
+              src={`${useProxy ? IMAGE_PROXY : ""}${image}`}
+              alt={name}
+            />
+          </div>
+          <div className={!truncate ? "" : "pb-1"}>
+            <div className="flex flex-col items-center pt-2 px-2 overflow-hidden">
               <h4
                 className={`text-primary text-base ${
                   truncate ? "truncate" : ""
@@ -74,7 +64,11 @@ const ProjectCard = ({
               >
                 {name}
               </h4>
-              {nameTag && <Chip size="small" label={nameTag} />}
+              {nameTag && (
+                <span className="inline-block px-2 py-1 text-xs font-medium leading-none text-gray-800 bg-gray-200 rounded">
+                  {nameTag}
+                </span>
+              )}
               <h6
                 className={`text-terciary text-center w-[90%] overflow-hidden text-xs ${
                   truncate ? "truncate" : ""
@@ -84,8 +78,8 @@ const ProjectCard = ({
                 {description}
               </h6>
               {children}
-            </Box>
-          </CardContent>
+            </div>
+          </div>
         </MainCard>
       )}
     </>

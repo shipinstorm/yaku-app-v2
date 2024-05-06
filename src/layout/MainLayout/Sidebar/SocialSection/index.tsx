@@ -1,6 +1,5 @@
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import { Box, Grid } from "@mui/material";
 
 // assets
 import {
@@ -43,27 +42,21 @@ const SocialSection = () => {
     },
   ];
   return (
-    <>
-      <Box
-        sx={{
-          mx: 2,
-        }}
-      >
-        <Grid container spacing={1}>
-          {map(socials, ({ title, link, icon, label }: any, idx) => (
-            <Grid item xs={6} key={idx}>
-              <SocialButton
-                title={title}
-                link={link}
-                icon={icon}
-                label={label}
-                theme={theme}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </>
+    <div className="mx-2">
+      <div className="flex flex-wrap -mx-1">
+        {map(socials, ({ title, link, icon, label }: any, idx) => (
+          <div className="w-1/2 pt-2 pl-2">
+            <SocialButton
+              title={title}
+              link={link}
+              icon={icon}
+              label={label}
+              theme={theme}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

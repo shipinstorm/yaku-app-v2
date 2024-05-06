@@ -1,40 +1,37 @@
-// material-ui
-import { CardContent, Grid, Skeleton, Divider } from "@mui/material";
-
 // project import
 import MainCard from "@/components/MainCard";
 
 const CardPlaceholder = () => (
   <MainCard content={false} boxShadow>
-    <Skeleton variant="rectangular" animation="wave" height={220} />
-    <CardContent sx={{ p: 2 }}>
-      <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <Skeleton variant="text" animation="wave" height={30} />
-        </Grid>
+    <div className="animate-pulse h-220 w-full bg-gray-300 rounded"></div>
+    <div className="p-2">
+      <div className="flex flex-wrap -mx-1">
+        <div className="w-full">
+          <div className="animate-pulse h-8 w-full bg-gray-300 rounded"></div>
+        </div>
 
-        <Grid item xs={12} sx={{ pt: "0px !important" }}>
-          <Grid item>
-            <Skeleton variant="text" animation="wave" height={50} />
-          </Grid>
+        <div className="pt-0">
+          <div>
+            <div className="animate-pulse h-12 w-full bg-gray-300 rounded"></div>
+          </div>
 
-          <Divider sx={{ mb: "10px" }} />
-        </Grid>
+          <hr className="my-2" />
+        </div>
 
-        <Grid item xs={12} sx={{ pt: "0px !important" }}>
-          <Skeleton variant="text" animation="wave" height={30} />
-          <Skeleton variant="text" animation="wave" height={30} />
-        </Grid>
+        <div className="pt-0">
+          <div className="animate-pulse h-8 w-full bg-gray-300 rounded"></div>
+          <div className="animate-pulse h-8 w-full bg-gray-300 rounded"></div>
+        </div>
 
-        <Grid item xs={12}>
-          <Grid item>
-            <Skeleton variant="text" animation="wave" height={50} />
-          </Grid>
+        <div className="w-full">
+          <div>
+            <div className="animate-pulse h-12 w-full bg-gray-300 rounded"></div>
+          </div>
 
-          <Skeleton variant="text" animation="wave" height={30} />
-        </Grid>
-      </Grid>
-    </CardContent>
+          <div className="animate-pulse h-8 w-full bg-gray-300 rounded"></div>
+        </div>
+      </div>
+    </div>
   </MainCard>
 );
 

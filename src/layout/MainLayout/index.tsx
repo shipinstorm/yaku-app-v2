@@ -3,21 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
 
+import dynamic from "next/dynamic";
+
 // material-ui
 import { styled, useTheme, Theme } from "@mui/material/styles";
-import {
-  AppBar,
-  Box,
-  Container,
-  CssBaseline,
-  Toolbar,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 // import { Menu } from '@mui/icons-material';
 
 // project imports
-import Breadcrumbs from "@/components/Breadcrumbs";
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 import Sidebar from "./Sidebar";
@@ -46,6 +39,10 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useRequest } from "ahooks";
 import useRelay from "@/hooks/useRelay";
 import YakuBuyLink from "./YakuBuyLink";
+
+const BreadcrumbsNoSSR = dynamic(() => import("@/components/Breadcrumbs"), {
+  ssr: false,
+});
 
 interface MainStyleProps {
   theme: Theme;
@@ -242,9 +239,9 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
   const header = useMemo(
     () => (
-      <Toolbar sx={{ paddingTop: 0 }}>
+      <div className="px-4 py-2 flex">
         <Header />
-      </Toolbar>
+      </div>
     ),
     []
   );
@@ -281,104 +278,60 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
   return (
     <>
-      <Box
-        sx={{ display: "flex", mb: "1rem" }}
-        className={
-          window.location.pathname === "/home"
-            ? `video-main ${scrolling ? "scrolling" : "init"}`
-            : ""
-        }
+      <div
+        className={`flex mb-4 ${
+          window.location.pathname === "/home" ? "video-main" : ""
+        } ${scrolling ? "scrolling" : "init"}`}
       >
         {window.location.pathname === "/home" && (
           <VideoSlidesBackground {...dashboardSlides} />
         )}
-        <CssBaseline />
+        <div className="font-sans antialiased text-gray-900 bg-white"></div>
 
         {/* header */}
-        <AppBar
-          enableColorOnDark
-          position="fixed"
-          color="inherit"
-          elevation={0}
-          sx={{
-            bgcolor: theme.palette.background.default,
-            transition: drawerOpen ? theme.transitions.create("width") : "none",
-            ".MuiToolbar-root": {
-              paddingLeft: "18px",
-              paddingRight: "18px",
-              paddingTop: "16px",
-              paddingBottom: "16px",
-            },
-          }}
+        <header
+          className={`fixed w-full ${drawerOpen ? "transition-width" : ""} bg-${
+            theme.palette.background.default
+          } z-[1100]`}
         >
-          <Container
-            className="bg-[#000]"
-            maxWidth="xl"
-            sx={{
-              display: "flex",
-              maxWidth: "100% !important",
-              py: 1,
-              justifyContent: "center",
-              gap: 2,
-              marginTop: sticky > 108 ? "-30px" : "0px",
-              transition: "margin-top .2s",
-            }}
-          >
+          <div className="bg-black container mx-auto flex justify-center py-4 gap-8">
             {matchUpMd ? (
               <>
-                <Typography component="p" fontSize={10}>
+                <p className="text-base">
                   Solana:{" "}
-                  <Typography component="span" color="secondary" fontSize={10}>
-                    ${solPrice}
-                  </Typography>
-                </Typography>
-                <Typography
-                  component="p"
-                  sx={{ display: "none" }}
-                  fontSize={10}
-                >
+                  <span className="text-secondary text-xs">${solPrice}</span>
+                </p>
+                <p className="hidden">
                   Yaku/Sol:{" "}
-                  <Typography component="span" color="secondary" fontSize={10}>
+                  <span className="text-secondary text-xs">
                     {yakuPrice.toFixed(6)} ◎
-                  </Typography>
-                </Typography>
-                <Typography component="p" fontSize={10}>
+                  </span>
+                </p>
+                <p className="text-base">
                   Yaku/USDC:{" "}
-                  <Typography component="span" color="secondary" fontSize={10}>
+                  <span className="text-secondary text-xs">
                     ${yakuUSDCPrice.toFixed(4)}
-                  </Typography>
-                </Typography>
-                <Typography
-                  component="p"
-                  sx={{ display: { xs: "none", sm: "block" } }}
-                  fontSize={10}
-                >
+                  </span>
+                </p>
+                <p className="hidden sm:block text-base">
                   Ethereum:{" "}
-                  <Typography component="span" color="secondary" fontSize={10}>
-                    ${ethPrice}
-                  </Typography>
-                </Typography>
-                <Typography
-                  component="p"
-                  sx={{ display: { xs: "none", sm: "block" } }}
-                  fontSize={10}
-                >
+                  <span className="text-secondary text-xs">${ethPrice}</span>
+                </p>
+                <p className="hidden sm:block text-base">
                   Gas Fee:{" "}
-                  <Typography component="span" color="secondary" fontSize={10}>
-                    {ethGas} gwei
-                  </Typography>
-                </Typography>
+                  <span className="text-secondary text-xs">{ethGas} gwei</span>
+                </p>
               </>
             ) : (
               <YakuBuyLink />
             )}
-          </Container>
+          </div>
           {matchUpMd ? (
             header
           ) : (
             <MobileHeader buttons={[<ProfileSection key="profile" />]} />
           )}
-        </AppBar>
+        </header>
         {/* drawer */}
         {/* <Sidebar sticky={sticky > 108} isPro={isPro} /> */}
         <Sidebar sticky={sticky > 108} isPro={false} />
@@ -391,8 +344,8 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         >
           {/* breadcrumb */}
           {container ? (
-            <Container maxWidth="lg">
-              <Breadcrumbs
+            <div className="container mx-auto max-w-lg">
+              <BreadcrumbsNoSSR
                 navigation={navigation}
                 title={false}
                 titleBottom={false}
@@ -401,10 +354,10 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               />
               <Outlet />
               {children}
-            </Container>
+            </div>
           ) : (
             <>
-              <Breadcrumbs
+              <BreadcrumbsNoSSR
                 navigation={navigation}
                 title={false}
                 titleBottom={false}
@@ -418,15 +371,12 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           {/* {isOpen && <Cart />} */}
         </Main>
         {/* <MobileFooter show={!matchUpMd} /> */}
-      </Box>
-      <Box className="max-md:mb-14 w-full pb-2">
-        <Typography
-          fontSize={10}
-          sx={{ px: 2, textAlign: "center", width: "100%" }}
-        >
+      </div>
+      <div className="md:max-h-14 w-full pb-2">
+        <p className="text-base px-2 text-center w-full">
           © {dayjs().get("y")} Yakushima Corp. All right reserved.
-        </Typography>
-      </Box>
+        </p>
+      </div>
     </>
   );
 };

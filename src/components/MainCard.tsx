@@ -2,15 +2,7 @@ import { forwardRef, Ref } from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-  CardProps,
-  CardContentProps,
-} from "@mui/material";
+import { CardProps, CardContentProps } from "@mui/material";
 
 // project-imports
 import { KeyedObject } from "@/types";
@@ -68,62 +60,42 @@ const MainCard = forwardRef(
     boxShadow = theme.palette.mode === "dark" ? boxShadow || true : boxShadow;
 
     return (
-      <Card
-        elevation={elevation || 0}
-        ref={ref}
-        className={`card relative${useBackdropFilter ? "" : " no-filter"}`}
+      <div
+        className={`relative card${useBackdropFilter ? "" : " no-filter"} ${
+          elevation === 0 ? "shadow-none" : "shadow-md"
+        } ${border ? "border border-purple-900" : ""}`}
         {...others}
-        sx={{
-          border: border ? "1px solid rgba(51, 39, 63, 1)" : "none",
-          boxShadow:
-            boxShadow && (!border || theme.palette.mode === "dark")
-              ? shadow || theme.customShadows.z1
-              : theme.customShadows.z1,
-          "& pre": {
-            m: 0,
-            p: "12px !important",
-            fontFamily: theme.typography.fontFamily,
-            fontSize: "0.75rem",
-          },
-          ...sx,
-        }}
       >
         {/* card header & action */}
         {!darkTitle && title && (
-          <CardHeader
-            sx={{
-              p: 1.5,
-              "& .MuiCardHeader-action": { m: "0px auto", alignSelf: "center" },
-              ...titleSX,
-            }}
-            titleTypographyProps={{ variant: "subtitle1" }}
-            title={title}
-            avatar={primary}
-            action={secondary}
-            subheader={subheader}
-          />
+          <div className="p-6 flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <div>{primary}</div>
+              <div className="text-sm">{title}</div>
+            </div>
+            <div>{secondary}</div>
+          </div>
         )}
 
         {darkTitle && title && (
-          <CardHeader
-            sx={headerSX}
-            title={<Typography variant="h3">{title}</Typography>}
-            avatar={primary}
-            action={secondary}
-          />
+          <div className="flex items-center justify-between px-4 py-2 bg-white border-b border-gray-200">
+            <div className="flex items-center space-x-2">
+              <div>{primary}</div>
+              <div>
+                <h3 className="text-xl font-bold">{title}</h3>
+              </div>
+            </div>
+            <div>{secondary}</div>
+          </div>
         )}
 
         {/* content & header divider */}
-        {title && divider && <Divider />}
+        {title && divider && <hr className="border-t border-gray-200 my-4" />}
 
         {/* card content */}
-        {content && (
-          <CardContent sx={{ ...contentSX, p: { xs: 0, md: "24px" } }}>
-            {children}
-          </CardContent>
-        )}
+        {content && <div className="p-0 md:p-6">{children}</div>}
         {!content && children}
-      </Card>
+      </div>
     );
   }
 );

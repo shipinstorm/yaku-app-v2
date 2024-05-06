@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -32,7 +32,7 @@ const AppstoreData = [
   },
 ];
 
-const Applications = () => (
+const Appstore = () => (
   <div className="vault-container flex">
     <div className="w-full">
       <div className="mb-6">
@@ -43,17 +43,6 @@ const Applications = () => (
       </div>
 
       <div className="flex flex-col md:flex-row gap-2 lg:gap-6">
-        {/* <Link to="/applications/swap" className="card app-box w-full md:w-1/3 p-2">
-                    <YakuIcon cssClass="w-full h-40 rounded-3xl object-cover" />
-
-                    <div className="mx-4 my-5">
-                        <h3 className="secondary-title">
-                            <FormattedMessage id="Swap" />
-                        </h3>
-                        <p className="detail-text text-muted mt-2">Swap tokens easily</p>
-                    </div>
-                </Link> */}
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-6 w-100 md:w-2/3">
           {AppstoreData.map((el, idx) => (
             <Link key={idx} to={el.url} className="card app-box flex h-full">
@@ -73,4 +62,4 @@ const Applications = () => (
   </div>
 );
 
-export default Applications;
+export default Appstore;

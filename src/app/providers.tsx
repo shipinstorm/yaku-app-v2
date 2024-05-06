@@ -1,7 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 // project imports
-import MainLayout from "@/layout/MainLayout";
 import Locales from "@/providers/Locales";
 import NavigationScroll from "@/layout/NavigationScroll";
 import ThemeCustomization from "@/themes";
@@ -40,6 +41,10 @@ import { SolPriorityProvider } from "@/contexts/SolPriorityContext";
 
 import "./styles/global.scss";
 
+const MainLayoutNoSSR = dynamic(() => import("@/layout/MainLayout"), {
+  ssr: false,
+});
+
 const contexts = [
   AuthProvider,
   WalletContext,
@@ -73,7 +78,7 @@ export default function Providers({
         <ApolloProvider client={client}>
           <BrowserRouter>
             <Composer components={contexts}>
-              <MainLayout>{children}</MainLayout>
+              <MainLayoutNoSSR>{children}</MainLayoutNoSSR>
               <ToastContainer
                 position="bottom-right"
                 autoClose={5000}

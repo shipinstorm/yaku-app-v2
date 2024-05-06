@@ -4,21 +4,14 @@
 
 import { useRouter } from "next/navigation";
 
-// material-ui
-import { Box, Grid } from "@mui/material";
-
 // project imports
 import { gridSpacing } from "@/store/constant";
 
 // assets
 import ProjectCard from "@/components/cards/ProjectCard";
-import { round } from "lodash";
-import { useDispatch } from "@/store";
-import { activeItem } from "@/store/slices/menu";
 import { useSolPrice } from "@/contexts/CoinGecko";
 import DetailView from "@/components/home/DetailView";
 import SiteStats from "@/components/home/SiteStats";
-import { setPage } from "@/store/slices/subpageSlice";
 import { useRequests } from "@/hooks/useRequests";
 import { useRequest } from "ahooks";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -28,52 +21,16 @@ import PartnerLogos from "@/components/home/PartnerLogos";
 import TowerView from "@/components/home/TowerView";
 
 const Home = () => {
-  const TOP_FLOOR_CAP = 1;
   const solPrice = useSolPrice();
-  const dispatch = useDispatch();
   const router = useRouter();
-  const {
-    getLeaderboards,
-    getYakuStats,
-    getNFTLeaderBoards,
-    getInspectorCollections,
-    getYakuTowersInfo,
-  } = useRequests();
+  const { getYakuStats, getYakuTowersInfo } = useRequests();
 
-  const [cacheLeaderboard, setCacheLeaderboard] = useLocalStorage(
-    "leaderboards",
-    {}
-  );
-  const [cacheRankedWallets, setCacheRankedWallets] = useLocalStorage(
-    "rankedWallets",
-    {}
-  );
-  const [cacheCollectionsRank, setCacheCollectionsRank] = useLocalStorage(
-    "collectionsRank",
-    {}
-  );
   const [cacheYakuStats, setCacheYakuStats] = useLocalStorage("yakuStats", {});
   const [cacheYakuTowers, setCacheYakuTowers] = useLocalStorage(
     "yakuTowers",
     {}
   );
-  const type = "SOL";
 
-  const { data: leaderboards, loading: isLoadingLeaderboards } = useRequest(
-    getLeaderboards,
-    {
-      cacheKey: "leaderboards",
-      setCache: (data) => setCacheLeaderboard(data),
-      getCache: () => cacheLeaderboard,
-      defaultParams: [
-        {
-          condition: {
-            volume_1day: round(TOP_FLOOR_CAP * solPrice, 0),
-          },
-        },
-      ],
-    }
-  );
   const { data: yakuCollections, loading: isLoadingYakuStats } = useRequest(
     getYakuStats,
     {
@@ -83,22 +40,6 @@ const Home = () => {
     }
   );
 
-  const { data: rankedWallets, loading: isLoadingRankedWallets } = useRequest(
-    getNFTLeaderBoards,
-    {
-      cacheKey: "rankedWallets",
-      setCache: (data) => setCacheRankedWallets(data),
-      getCache: () => cacheRankedWallets,
-    }
-  );
-
-  const { data: collectionsRank, loading: isLoadingCollectionsRank } =
-    useRequest(() => getInspectorCollections("SOL"), {
-      cacheKey: "collectionsRank",
-      setCache: (data) => setCacheCollectionsRank(data),
-      getCache: () => cacheCollectionsRank,
-    });
-
   const { data: yakuTowers, loading: isLoadingYakuTowers } = useRequest(
     getYakuTowersInfo,
     {
@@ -107,12 +48,6 @@ const Home = () => {
       getCache: () => cacheYakuTowers,
     }
   );
-
-  // const handleNavigate = (projectId: string) => {
-  //   navigate(`/explore/collection/${type}/${projectId}`);
-  //   dispatch(setPage("Collection"));
-  //   dispatch(activeItem(["collection"]));
-  // };
 
   const handleUrl = (url: string) => {
     window.open(url, "_blank");
@@ -151,19 +86,14 @@ const Home = () => {
   ];
 
   return (
-    <Grid
-      container
-      rowSpacing={4.5}
-      columnSpacing={2.75}
-      sx={{ pt: 2, paddingLeft: "1rem" }}
-    >
+    <div className="grid grid-cols-1 gap-y-4.5 gap-x-2.75 pt-8 pl-4">
       <BannerSpace
         title="Craft Your Reality."
         title2=""
         description="Next-Gen Action MMO/Metaverse. Dream, Create, Own, Conquer & Forge Your Destiny in the Shadows of Yakushima"
       />
-      <Grid className="z-10" item xs={12}>
-        <Box display="flex" flexDirection="row" alignItems="center">
+      <div className="z-10 w-full">
+        <div className="flex flex-row items-center">
           <div className="pb-14 sm:pb-32 w-full sm:max-w-xl max-w-7xl m-auto">
             <div className="opacity-50 m-auto max-w-7xl px-6 lg:px-8">
               <div className="m-auto mt-16 grid max-w-lg grid-cols-1 md:grid-cols-2 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:gap-x-10 lg:mx-0">
@@ -184,19 +114,19 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </Box>
-      </Grid>
+        </div>
+      </div>
 
-      <Grid item xs={12}>
-        <Box display="flex" flexDirection="row" alignItems="center">
+      <div className="w-full">
+        <div className="flex flex-row items-center">
           <h2 className="text-xl font-akirabold sm:text-3xl font-bold z-10">
             Yaku Estates
           </h2>
-        </Box>
-      </Grid>
+        </div>
+      </div>
 
-      <Grid item xs={12} className="py-[20px]">
-        <Grid container spacing={gridSpacing}>
+      <div className="py-5">
+        <div className="grid grid-cols-1 gap-x-{gridSpacing}">
           <SwiperList
             items={yakuTowers}
             css="!w-full pl-4 pt-4"
@@ -239,17 +169,18 @@ const Home = () => {
             spaceBetween={16}
             slideCss="!h-auto sm:!w-[220px] !w-[90%]"
           />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
       {/* collection stats */}
-      <Grid item xs={12}>
-        <Box display="flex" flexDirection="row" alignItems="center">
+      <div className="w-full">
+        <div className="flex flex-row items-center">
           <h2 className="text-xl font-akirabold sm:text-3xl font-bold">
             Yaku Gaming Assets
           </h2>
-        </Box>
-      </Grid>
+        </div>
+      </div>
+
       <div
         className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
         style={{ filter: "blur(64px)", paddingTop: "600px" }}
@@ -263,8 +194,8 @@ const Home = () => {
           }}
         />
       </div>
-      <Grid item xs={12} className="py-[20px]">
-        <Grid container spacing={gridSpacing}>
+      <div className="py-5">
+        <div className="grid grid-cols-1 gap-{gridSpacing}">
           <SwiperList
             items={[...yakuCollectionsStats]}
             css="!w-full pl-4 pt-4"
@@ -297,34 +228,30 @@ const Home = () => {
             spaceBetween="1.33%"
             slideCss="!h-auto sm:!w-[360px] !w-[90%]"
           />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
-      <Grid item xs={12} className="py-24 sm:py-32">
-        <Box
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <h2 className="text-xl font-akirabold sm:text-4xl font-bold py-[20px]">
+      <div className="py-24 sm:py-32">
+        <div className="flex flex-row items-center justify-center">
+          <h2 className="text-xl font-akirabold sm:text-4xl font-bold py-20">
             Our Partners love Yaku
           </h2>
-        </Box>
-        <Grid container spacing={gridSpacing}>
-          <Grid item xs={12}>
+        </div>
+        <div className="grid grid-cols-1 gap-x-{gridSpacing}">
+          <div className="col-span-1">
             <PartnerLogos />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} className="py-[20px] hidden">
-        <Grid container spacing={gridSpacing}>
-          <Grid item xs={12}>
+          </div>
+        </div>
+      </div>
+
+      <div className="py-20 hidden">
+        <div className="grid grid-cols-1 gap-x-{gridSpacing}">
+          <div className="col-span-1">
             <SiteStats />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

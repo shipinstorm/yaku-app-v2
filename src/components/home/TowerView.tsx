@@ -1,43 +1,23 @@
-import { Grid, Skeleton, Typography } from "@mui/material";
-
 const TowerView = ({ height, type, surface, loading }: any) => {
   if (loading) {
     return (
-      <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid item xs={6}>
-          <Skeleton variant="rounded" width="100%" height={16} />
-        </Grid>
-        <Grid item xs={6}>
-          <Skeleton variant="rounded" width="100%" height={16} />
-        </Grid>
-      </Grid>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-8">
+        <div className="w-1/2">
+          <div className="rounded bg-gray-300 h-16"></div>
+        </div>
+        <div className="w-1/2">
+          <div className="rounded bg-gray-300 h-16"></div>
+        </div>
+      </div>
     );
   }
   return (
     <>
-      <Grid
-        container
-        columnSpacing={1}
-        rowSpacing={1}
-        sx={{ my: 1 }}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Grid
-          item
-          xs={12}
-          className="!p-0"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography
-            component="p"
-            className="text-terciary font-bold text-[14px]"
-          >
+      <div className="flex flex-wrap gap-1 my-4 justify-between items-center">
+        <div className="p-0 flex flex-col justify-center items-center">
+          <p className="text-terciary font-bold text-xs">
             {type === "Tower" ? "Height" : "Surface"}
-          </Typography>
+          </p>
           <p className="text-lg font-bold">
             {`${type === "Tower" ? height : surface}`}
             {type === "Tower" ? (
@@ -48,8 +28,8 @@ const TowerView = ({ height, type, surface, loading }: any) => {
               </>
             )}
           </p>
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </>
   );
 };

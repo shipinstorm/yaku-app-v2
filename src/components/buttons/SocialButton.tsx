@@ -14,7 +14,7 @@ const SocialButton = ({ title, link, icon, label, theme }: any) => (
       onClick={() => window.open(link)}
       startIcon={icon}
     >
-      <Typography>{label}</Typography>
+      <p className="text-base">{label}</p>
     </Button>
   </Tooltip>
 );

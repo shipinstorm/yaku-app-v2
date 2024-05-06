@@ -6,11 +6,9 @@ import { useRequests } from "@/hooks/useRequests";
 const ValueSpan = ({ val }: any) => (
   <>
     {!val ? (
-      <Skeleton width={32} height={10} />
+      <div className="animate-pulse h-10 w-32 bg-gray-300 rounded-md"></div>
     ) : (
-      <Typography component="span" color="secondary" fontSize={10}>
-        {(+val).toLocaleString()}
-      </Typography>
+      <span className="text-secondary text-xs">{(+val).toLocaleString()}</span>
     )}
   </>
 );
@@ -28,32 +26,23 @@ const SiteStats = () => {
     updateView();
   }, []);
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: { xs: "start", sm: "center", md: "center" },
-        alignItems: "center",
-        gap: 1,
-      }}
-    >
-      <Typography component="p" fontSize={10}>
+    <div className="container mx-auto flex flex-wrap justify-start sm:justify-center md:justify-center items-center gap-4">
+      <p className="text-base">
         Total users: <ValueSpan val={stats.total} />
-      </Typography>
-      <Typography component="p" fontSize={10}>
+      </p>
+      <p className="text-base">
         Total active users: <ValueSpan val={stats.activeCount} />
-      </Typography>
-      <Typography component="p" fontSize={10}>
+      </p>
+      <p className="text-base">
         Total linked twitter: <ValueSpan val={stats.twitterCount} />
-      </Typography>
-      <Typography component="p" fontSize={10}>
+      </p>
+      <p className="text-base">
         Total linked discord: <ValueSpan val={stats.discordCount} />
-      </Typography>
-      <Typography component="p" fontSize={10}>
+      </p>
+      <p className="text-base">
         Total linked ETH address: <ValueSpan val={stats.ethCount} />
-      </Typography>
-    </Container>
+      </p>
+    </div>
   );
 };
 
