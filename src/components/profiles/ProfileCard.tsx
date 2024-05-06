@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { IconButton, Avatar, useTheme, Skeleton } from "@mui/material";
 import { FileUpload } from "@mui/icons-material";
 import ProfileBanner from "./ProfileBanner";
@@ -68,8 +66,7 @@ const ProfileCard = ({
   return (
     <section className="profile-box bg-surface mb-5 p-0 card overflow-hidden">
       <div className="banner bg-high-bg relative">
-        <Image
-          fill
+        <img
           className="w-full h-full object-cover"
           src={profileBanner || `${IMAGE_PROXY_BANNER}${DEFAULT_BANNER}`}
           alt="banner"
@@ -93,8 +90,7 @@ const ProfileCard = ({
 
           <div className="avatar relative z-10 flex-shrink-0 -mt-14 mx-2 rounded-3xl shadow-sm overflow-hidden">
             {!loading ? (
-              <Image
-                fill
+              <img
                 className="icon-lg w-full h-full object-cover"
                 src={profileAvatar || LOGO_BLACK}
                 alt="avatar"
@@ -215,8 +211,7 @@ const ProfileCard = ({
                               target="_blank"
                               rel="noreferrer"
                             >
-                              <Image
-                                fill
+                              <img
                                 src={content.img}
                                 alt={content.alt}
                                 className={content.class}
@@ -224,8 +219,7 @@ const ProfileCard = ({
                             </a>
                           ) : (
                             <CopyToClipboard value={content.value}>
-                              <Image
-                                fill
+                              <img
                                 src={content.img}
                                 alt={content.alt}
                                 className={content.class}

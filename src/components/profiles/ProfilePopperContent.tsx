@@ -1,6 +1,4 @@
 /* eslint-disable no-nested-ternary */
-import Image from "next/image";
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRouter } from "next/navigation";
@@ -325,8 +323,7 @@ const ProfilePopperContext = ({
                     >
                       <div className="avatar-img !w-8 !h-8 flex-shrink-0">
                         {workspaceItem?.image && (
-                          <Image
-                            fill
+                          <img
                             src={workspaceItem?.image}
                             alt={workspaceItem?.name}
                           />

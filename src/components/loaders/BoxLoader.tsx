@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { FC, ReactNode } from "react";
 
 // material-ui
@@ -42,7 +40,7 @@ export const LoaderProvider: FC<LoaderProviderProps> = ({ children }) => {
 
 const BoxLoader = () => (
   <LoaderWrapper>
-    <Image fill src="/images/x-loader.gif" alt="loader" />
+    <img src="/images/x-loader.gif" alt="loader" />
   </LoaderWrapper>
 );
 

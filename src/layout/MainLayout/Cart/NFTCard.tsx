@@ -36,7 +36,7 @@ const NFTCard = (props: {
           alt={token.name}
           width={42}
           height={42}
-          className="rounded-3"
+          style={{ borderRadius: "12px" }}
         />
         <div>
           <Tooltip title={token.name}>

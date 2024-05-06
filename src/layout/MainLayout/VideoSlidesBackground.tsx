@@ -76,8 +76,7 @@ const VideoSlidesBackground = ({ slides, delay = 27000 }: any) => (
                 />
               </video>
             ) : (
-              <Image
-                fill
+              <img
                 className="w-full h-full object-cover"
                 src={slide.src}
                 alt={`main-slide-${idx}`}

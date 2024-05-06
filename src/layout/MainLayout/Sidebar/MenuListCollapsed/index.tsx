@@ -1,6 +1,4 @@
 /* eslint-disable no-nested-ternary */
-import Image from "next/image";
-
 import { memo } from "react";
 
 // project imports
@@ -70,16 +68,7 @@ const MenuListCollapsed = ({ isPro }: any) => {
           }}
         >
           {avatar && avatar !== null ? (
-            <Image
-              className="w-7 rounded-full"
-              src={avatar}
-              alt="avatar"
-              sizes="28px"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-            />
+            <img className="w-7 rounded-full" src={avatar} alt="avatar" />
           ) : (
             <Box
               sx={{
