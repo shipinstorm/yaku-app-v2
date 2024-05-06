@@ -280,32 +280,38 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             theme.palette.background.default
           } z-[1100]`}
         >
-          <div className="bg-black container mx-auto flex justify-center py-4 gap-8">
+          <div className="w-full mx-auto box-border px-4 py-2 flex justify-center gap-16 transition-all duration-200 ease-in-out max-w-full md:px-6">
             {matchUpMd ? (
               <>
-                <p className="text-base">
+                <p className="m-0 font-normal leading-1.334 font-inter text-[10px]">
                   Solana:{" "}
-                  <span className="text-secondary text-xs">${solPrice}</span>
+                  <span className="m-0 font-normal leading-1.334 font-inter text-[10px] text-[#F38AFF]">
+                    ${solPrice}
+                  </span>
                 </p>
                 <p className="hidden">
                   Yaku/Sol:{" "}
-                  <span className="text-secondary text-xs">
+                  <span className="m-0 font-normal leading-1.334 font-inter text-[10px] text-[#F38AFF]">
                     {yakuPrice.toFixed(6)} ◎
                   </span>
                 </p>
-                <p className="text-base">
+                <p className="m-0 font-normal leading-1.334 font-inter text-[10px]">
                   Yaku/USDC:{" "}
-                  <span className="text-secondary text-xs">
+                  <span className="m-0 font-normal leading-1.334 font-inter text-[10px] text-[#F38AFF]">
                     ${yakuUSDCPrice.toFixed(4)}
                   </span>
                 </p>
-                <p className="hidden sm:block text-base">
+                <p className="hidden sm:block m-0 font-normal leading-1.334 font-inter text-[10px]">
                   Ethereum:{" "}
-                  <span className="text-secondary text-xs">${ethPrice}</span>
+                  <span className="m-0 font-normal leading-1.334 font-inter text-[10px] text-[#F38AFF]">
+                    ${ethPrice}
+                  </span>
                 </p>
-                <p className="hidden sm:block text-base">
+                <p className="hidden sm:block m-0 font-normal leading-1.334 font-inter text-[10px]">
                   Gas Fee:{" "}
-                  <span className="text-secondary text-xs">{ethGas} gwei</span>
+                  <span className="m-0 font-normal leading-1.334 font-inter text-[10px] text-[#F38AFF]">
+                    {ethGas} gwei
+                  </span>
                 </p>
               </>
             ) : (
@@ -322,7 +328,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         {/* drawer */}
         {/* <Sidebar sticky={sticky > 108} isPro={isPro} /> */}
         <Sidebar sticky={sticky > 108} isPro={false} />
-        
+
         {/* main content */}
         <Main
           theme={theme}
@@ -361,7 +367,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         {/* <MobileFooter show={!matchUpMd} /> */}
       </div>
       <div className="md:max-h-14 w-full pb-2">
-        <p className="text-base px-2 text-center w-full">
+        <p className="text-[10px] px-2 text-center w-full">
           © {dayjs().get("y")} Yakushima Corp. All right reserved.
         </p>
       </div>

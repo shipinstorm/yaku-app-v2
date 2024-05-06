@@ -429,10 +429,8 @@ function Staking() {
 
   return (
     <>
-      <div
-        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-${gridSpacing} pb-2`}
-      >
-        <div className="w-full lg:w-1/4 sm:w-1/2">
+      <div className="box-border flex flex-wrap mt-[-24px] w-[calc(100% + 24px)] ml-[-24px] pb-4">
+        <div className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full md:w-1/2 md:max-w-1/2 lg:w-1/4 lg:max-w-1/4">
           <RevenueCard
             primary={<FormattedMessage id="total-staked" />}
             secondary={formatNumber.format(totalStaked)}
@@ -450,7 +448,7 @@ function Staking() {
           />
         </div>
 
-        <div className="w-full lg:w-1/4 sm:w-1/2">
+        <div className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full md:w-1/2 md:max-w-1/2 lg:w-1/4 lg:max-w-1/4">
           <RevenueCard
             primary={<FormattedMessage id="tvl" />}
             secondary={formatUSD.format(valueLocked)}
@@ -468,7 +466,7 @@ function Staking() {
           />
         </div>
 
-        <div className="w-full lg:w-1/4 sm:w-1/2">
+        <div className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full md:w-1/2 md:max-w-1/2 lg:w-1/4 lg:max-w-1/4">
           <RevenueCard
             primary={<FormattedMessage id="distributed" />}
             secondary={formatNumber.format(tokenDistributed)}
@@ -486,7 +484,7 @@ function Staking() {
           />
         </div>
 
-        <div className="w-full lg:w-1/4 sm:w-1/2">
+        <div className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full md:w-1/2 md:max-w-1/2 lg:w-1/4 lg:max-w-1/4">
           <RevenueCard
             primary={<FormattedMessage id="daily-yield" />}
             secondary={formatNumber.format(dailyYield)}
@@ -505,9 +503,9 @@ function Staking() {
         </div>
       </div>
 
-      <Grid container spacing={gridSpacing} sx={{ pb: 2 }}>
-        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
-          <div className="border p-4 rounded-md">
+      <div className="box-border flex flex-wrap mt-[-24px] w-[calc(100% + 24px)] ml-[-24px] pb-4">
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
+          <div className="flex flex-col">
             <Item>
               Your Assets
               <br />
@@ -515,8 +513,8 @@ function Staking() {
             </Item>
           </div>
         </div>
-        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
-          <div className="border p-4 rounded-md">
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
+          <div className="flex flex-col">
             <Item>
               Yaku X
               <br />
@@ -530,8 +528,8 @@ function Staking() {
             </Item>
           </div>
         </div>
-        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
-          <div className="border p-4 rounded-md">
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
+          <div className="flex flex-col">
             <Item>
               Capsule X
               <br />
@@ -545,8 +543,8 @@ function Staking() {
             </Item>
           </div>
         </div>
-        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
-          <div className="border p-4 rounded-md">
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
+          <div className="flex flex-col">
             <Item>
               ONI S-01
               <br />
@@ -560,8 +558,8 @@ function Staking() {
             </Item>
           </div>
         </div>
-        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
-          <div className="border p-4 rounded-md">
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
+          <div className="flex flex-col">
             <Item>
               Mansion
               <br />
@@ -575,8 +573,8 @@ function Staking() {
             </Item>
           </div>
         </div>
-        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
-          <div className="border p-4 rounded-md">
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
+          <div className="flex flex-col">
             <Item>
               Sets
               <br />
@@ -590,7 +588,7 @@ function Staking() {
             </Item>
           </div>
         </div>
-      </Grid>
+      </div>
       {showCAConvert && <CAConversion />}
       <TabContext value={tabIdx}>
         <MainCard

@@ -48,7 +48,11 @@ const ProjectCard = ({
           sx={{ cursor: "pointer", minWidth: `calc(${height}px + 1rem)` }}
           onClick={onClick}
         >
-          <div className={`m-2 ${sqaure ? "aspect-square" : ""} h-[200px] w-auto pt-2`}>
+          <div
+            className={`m-2 ${
+              sqaure ? "aspect-square" : ""
+            } h-[200px] w-auto pt-2`}
+          >
             <img
               className="object-cover w-full h-full rounded-3xl"
               src={`${useProxy ? IMAGE_PROXY : ""}${image}`}
@@ -65,9 +69,11 @@ const ProjectCard = ({
                 {name}
               </h4>
               {nameTag && (
-                <span className="inline-block px-2 py-1 text-xs font-medium leading-none text-gray-800 bg-gray-200 rounded">
-                  {nameTag}
-                </span>
+                <div className="max-w-full font-inter text-xs inline-flex items-center justify-center h-6 text-gray-300 bg-opacity-40 rounded-full whitespace-nowrap transition duration-300 ease-in-out cursor-default focus:outline-none bg-white">
+                  <span className="overflow-hidden truncate px-2">
+                    {nameTag}
+                  </span>
+                </div>
               )}
               <h6
                 className={`text-terciary text-center w-[90%] overflow-hidden text-xs ${

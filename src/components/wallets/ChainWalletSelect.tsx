@@ -1,11 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Image from "next/image";
-import {
-  Button,
-  styled,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Button, styled, useMediaQuery, useTheme } from "@mui/material";
 import { WalletReadyState } from "@solana/wallet-adapter-base";
 import { useWallet, Wallet } from "@solana/wallet-adapter-react";
 import useConfig from "@/hooks/useConfig";
@@ -49,7 +44,7 @@ const ChainWalletSelect = ({
   }, [wallets]);
   return (
     <>
-      <div className="w-full">
+      <div className="pl-4 pt-4 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">
         <div
           className={`flex ${
             matchDownSM ? "flex-col-reverse" : "flex-row"
@@ -65,19 +60,19 @@ const ChainWalletSelect = ({
         </div>
       </div>
 
-      <div className="w-full">
-        <div className="w-full">
+      <div className="pl-4 pt-4 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">
           <div className="flex items-center">
-            <hr className="w-full border-t border-gray-300" />
+            <hr className="m-0 flex-shrink-0 border-t border-gray-300 border-solid opacity-20 flex-grow" />
 
             <button
-              className="border border-gray-200 dark:border-dark-lighter bg-transparent text-gray-900 dark:text-gray-300 py-2 px-7 font-medium rounded-md cursor-not-allowed"
+              className="inline-flex items-center justify-center relative box-border bg-transparent outline-none select-none align-middle appearance-none capitalize font-inter text-sm font-semibold leading-7 min-w-[64px] px-14 py-1 text-gray-300 border-solid border border-[#D5D9E920] rounded-md cursor-default m-4"
               disabled
             >
               SOLANA
             </button>
 
-            <hr className="flex-grow border-t border-gray-300" />
+            <hr className="m-0 flex-shrink-0 border-t border-gray-300 border-solid opacity-20 flex-grow" />
           </div>
         </div>
 
@@ -105,16 +100,16 @@ const ChainWalletSelect = ({
         {!hideEthButton && (
           <div className="w-full">
             <div className="flex items-center">
-              <hr className="flex-grow border-t border-gray-300" />
+              <hr className="m-0 flex-shrink-0 border-t border-gray-300 border-solid opacity-20 flex-grow" />
 
               <button
-                className="border border-gray-200 dark:border-dark-lighter bg-transparent text-gray-900 dark:text-gray-300 py-2 px-7 font-medium rounded-md cursor-not-allowed"
+                className="inline-flex items-center justify-center relative box-border bg-transparent outline-none select-none align-middle appearance-none capitalize font-inter text-sm font-semibold leading-7 min-w-[64px] px-14 py-1 text-gray-300 border-solid border border-[#D5D9E920] rounded-md cursor-default m-4"
                 disabled
               >
                 ETHEREUM
               </button>
 
-              <hr className="flex-grow border-t border-gray-300" />
+              <hr className="m-0 flex-shrink-0 border-t border-gray-300 border-solid opacity-20 flex-grow" />
             </div>
           </div>
         )}

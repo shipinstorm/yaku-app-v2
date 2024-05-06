@@ -1,7 +1,7 @@
 const BannerSpace = ({ title, title2, description }: any) => {
   return (
     <div
-      className="h-[70vh] w-full flex items-center mx-4 p-4 z-50"
+      className="h-[70vh] w-full flex items-center md:mx-4 p-4 z-50"
       style={{ pointerEvents: "none" }}
     >
       <div className="mt-16 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6">

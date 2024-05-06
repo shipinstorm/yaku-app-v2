@@ -127,7 +127,7 @@ const Home = () => {
       </div>
 
       <div className="py-5">
-        <div className="grid grid-cols-1 gap-x-{gridSpacing}">
+        <div className="grid grid-cols-1 gap-x-{gridSpacing} ml-[-24px]">
           <SwiperList
             items={yakuTowers}
             css="!w-full pl-4 pt-4"
@@ -196,7 +196,7 @@ const Home = () => {
         />
       </div>
       <div className="py-5">
-        <div className="grid grid-cols-1 gap-{gridSpacing}">
+        <div className="grid grid-cols-1 gap-{gridSpacing} ml-[-24px]">
           <SwiperList
             items={[...yakuCollectionsStats]}
             css="!w-full pl-4 pt-4"
@@ -234,7 +234,7 @@ const Home = () => {
 
       <div className="py-24 sm:py-32">
         <div className="flex flex-row items-center justify-center">
-          <h2 className="text-xl font-akirabold sm:text-4xl font-bold py-20">
+          <h2 className="text-xl font-akirabold sm:text-4xl font-bold py-5">
             Our Partners love Yaku
           </h2>
         </div>
