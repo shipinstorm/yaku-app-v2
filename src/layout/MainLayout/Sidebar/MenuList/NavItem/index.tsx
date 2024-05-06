@@ -6,6 +6,8 @@ import {
 } from "react";
 import { Link } from "react-router-dom";
 
+import { useRouter, redirect } from "next/navigation";
+
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -34,6 +36,8 @@ interface NavItemProps {
 
 const NavItem = ({ item, level }: NavItemProps) => {
   const theme = useTheme();
+
+  const router = useRouter();
 
   const { borderRadius } = useConfig();
   const dispatch = useDispatch();
@@ -67,6 +71,8 @@ const NavItem = ({ item, level }: NavItemProps) => {
     dispatch(setPage(title));
     dispatch(activeItem([id]));
     dispatch(openDrawer(true));
+    // router.push("/applications");
+    redirect("/applications");
   };
 
   // active menu item on page load

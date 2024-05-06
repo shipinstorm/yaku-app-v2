@@ -1,4 +1,6 @@
-"use client"
+"use client";
+
+import { redirect } from "next/navigation";
 
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -32,6 +34,11 @@ const AppstoreData = [
   },
 ];
 
+const itemHandler = (url: string) => {
+  // router.push("/applications");
+  redirect(url);
+};
+
 const Appstore = () => (
   <div className="vault-container flex">
     <div className="w-full">
@@ -45,7 +52,12 @@ const Appstore = () => (
       <div className="flex flex-col md:flex-row gap-2 lg:gap-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-6 w-100 md:w-2/3">
           {AppstoreData.map((el, idx) => (
-            <Link key={idx} to={el.url} className="card app-box flex h-full">
+            <Link
+              key={idx}
+              to={el.url}
+              className="card app-box flex h-full"
+              onClick={() => itemHandler(el.url)}
+            >
               <div className="flex-shrink-0">
                 <YakuIcon icon={el.icon} />
               </div>
