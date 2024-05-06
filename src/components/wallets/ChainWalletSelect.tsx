@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import Image from 'next/image'
 import {
   Box,
   Button,
@@ -110,7 +111,7 @@ const ChainWalletSelect = ({
             fullWidth
           >
             {/* eslint-disable-next-line */}
-            <img
+            <Image
               src={wallet.adapter.icon}
               alt="Wallet Image"
               width={24}
@@ -160,7 +161,7 @@ const ChainWalletSelect = ({
             onClick={() => handleEtherLogin()}
             fullWidth
           >
-            <img
+            <Image
               src="/images/icons/metamask.png"
               alt="MetaMask"
               width={24}

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { memo, useMemo, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
@@ -125,7 +127,16 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
               onClick={handleClick}
             >
               {avatar && avatar !== null ? (
-                <img className="w-7 rounded-full" src={avatar} alt="avatar" />
+                <Image
+                  className="w-7 rounded-full"
+                  src={avatar}
+                  alt="avatar"
+                  sizes="28px"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
+                />
               ) : (
                 <Box
                   sx={{

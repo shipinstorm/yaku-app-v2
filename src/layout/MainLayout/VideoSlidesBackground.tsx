@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+import Image from "next/image";
+
 import { map } from "lodash";
 import { isMobile } from "react-device-detect";
 // import { Pagination } from "swiper";
@@ -30,7 +32,9 @@ const PreviewSlide = ({ slide, idx }: any) => {
           />
         </video>
       ) : (
-        <img
+        <Image
+          width={360}
+          height={202}
           className="w-[360px] h-[202.5px] object-cover shadow-2xl rounded-3xl"
           src={slide.src}
           alt={`preview-slide-${idx}`}
@@ -72,7 +76,8 @@ const VideoSlidesBackground = ({ slides, delay = 27000 }: any) => (
                 />
               </video>
             ) : (
-              <img
+              <Image
+                fill
                 className="w-full h-full object-cover"
                 src={slide.src}
                 alt={`main-slide-${idx}`}

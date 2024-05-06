@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   Typography,
   FormControl,
@@ -29,12 +31,12 @@ const NFTCard = (props: {
       }}
     >
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <img
+        <Image
           src={token.image}
           alt={token.name}
-          width="42"
-          height="42"
-          style={{ borderRadius: "12px" }}
+          width={42}
+          height={42}
+          className="rounded-3"
         />
         <div>
           <Tooltip title={token.name}>

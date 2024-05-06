@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import {
   Button,
   Divider,
@@ -223,7 +225,8 @@ const SelectedTab = (props: {
           selectedNfts.map((item: any, key: any) => (
             <div className="selected-nft" key={key}>
               <div className="nft-name">
-                <img
+                <Image
+                  fill
                   src={`${item.chain === "SOL" ? IMAGE_PROXY : ""}${
                     item.metaDataImg
                   }`}

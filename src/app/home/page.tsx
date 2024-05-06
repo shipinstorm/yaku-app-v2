@@ -2,6 +2,7 @@
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
+import Image from 'next/image'
 import { useRouter } from "next/navigation";
 
 // project imports
@@ -97,19 +98,19 @@ const Home = () => {
           <div className="pb-14 sm:pb-32 w-full sm:max-w-xl max-w-7xl m-auto">
             <div className="opacity-50 m-auto max-w-7xl px-6 lg:px-8">
               <div className="m-auto mt-16 grid max-w-lg grid-cols-1 md:grid-cols-2 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:gap-x-10 lg:mx-0">
-                <img
+                <Image
                   className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
                   src="/images/partners/Epic_Games_logo.png"
                   alt="Reform"
-                  width="158"
-                  height="48"
+                  width={158}
+                  height={48}
                 />
-                <img
+                <Image
                   className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
                   src="/images/partners/Unreal_Engine_Logo.png"
                   alt="Tuple"
-                  width="158"
-                  height="48"
+                  width={158}
+                  height={48}
                 />
               </div>
             </div>

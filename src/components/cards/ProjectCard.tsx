@@ -1,4 +1,5 @@
 /* eslint-disable */
+import Image from 'next/image'
 import { useEffect, useState } from "react";
 
 // project-imports
@@ -49,7 +50,8 @@ const ProjectCard = ({
           onClick={onClick}
         >
           <div className={`m-2 ${sqaure ? "aspect-square" : ""} h-[200px] w-auto pt-2`}>
-            <img
+            <Image
+              fill
               className="object-cover w-full h-full rounded-3xl"
               src={`${useProxy ? IMAGE_PROXY : ""}${image}`}
               alt={name}

@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-nested-ternary */
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 import { find, isPlainObject } from "lodash";
 import dayjs from "dayjs";
@@ -116,7 +117,9 @@ const ActivityCard = (props: any) => {
                 {getTxTypeLabel(type).value === "buyer" &&
                   buyerSocialWallet?.twitterHandler &&
                   buyerSocialWallet.avatar && (
-                    <img
+                    <Image
+                      width={24}
+                      height={24}
                       className="rounded-3xl w-6 h-6 object-cover"
                       src={buyerSocialWallet.avatar}
                       alt={buyerSocialWallet.twitterHandler}
@@ -125,7 +128,9 @@ const ActivityCard = (props: any) => {
                 {getTxTypeLabel(type).value === "seller" &&
                   sellerSocialWallet?.twitterHandler &&
                   sellerSocialWallet.avatar && (
-                    <img
+                    <Image
+                      width={24}
+                      height={24}
                       className="rounded-3xl w-6 h-6 object-cover"
                       src={sellerSocialWallet.avatar}
                       alt={sellerSocialWallet.twitterHandler}
@@ -170,7 +175,7 @@ const ActivityCard = (props: any) => {
             sx={{ cursor: "pointer" }}
             arrow
           >
-            <img
+            <Image
               src={
                 chain === "SOL"
                   ? "/images/icons/solscan.png"

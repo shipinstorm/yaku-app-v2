@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@mui/material";
 import { useRequest } from "ahooks";
 import useConnections from "@/hooks/useConnetions";
@@ -71,8 +72,8 @@ const StatusBar: React.FC<Props> = ({ tx, isPanelShown, onToggle }) => {
         <span className="description-info flex items-center">
           {tx.mint && !!mintInfo && (
             <div className="flex items-center mr-3">
-              <img
-                src={mintInfo.image}
+              <Image
+                src={mintInfo.image || ""}
                 alt={mintInfo.symbol}
                 className="mint-img mr-2"
               />

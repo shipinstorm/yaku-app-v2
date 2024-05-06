@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable react-hooks/exhaustive-deps */
+import Image from "next/image";
+
 import { useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { map } from "lodash";
@@ -350,7 +352,7 @@ const WalletLogin = ({
                   {step === 3 ? (
                     <Grid item>
                       <Link to="#">
-                        <img
+                        <Image
                           src="/images/icons/confetti.png"
                           alt="Complete"
                           width={120}

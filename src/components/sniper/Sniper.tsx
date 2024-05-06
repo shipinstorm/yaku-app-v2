@@ -2,6 +2,8 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable react/button-has-type */
+import Image from "next/image";
+
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRecoilState } from "recoil";
 import {
@@ -732,15 +734,12 @@ const Sniper = ({ buyNow }: any) => {
           >
             {(+walletBalance || 0).toFixed(3)}
           </Typography>
-          <img
+          <Image
             src="/images/blockchains/solana-icon.svg"
             alt="SOL"
-            style={{
-              height: 15,
-              width: 15,
-              padding: 0,
-              margin: 0,
-            }}
+            width={15}
+            height={15}
+            className="p-0 m-0"
           />
         </Box>
         <Box
@@ -777,16 +776,12 @@ const Sniper = ({ buyNow }: any) => {
             }}
             noWrap
           >
-            <img
+            <Image
               src="/images/icons/MEMarketLogo.png"
               alt="ME"
-              style={{
-                height: 20,
-                width: 20,
-                padding: 0,
-                margin: 0,
-                marginRight: "5px",
-              }}
+              width={20}
+              height={20}
+              className="m-0 mr-1 p-0"
             />
             {MECollections.length}
             <Typography
@@ -1020,10 +1015,11 @@ const Sniper = ({ buyNow }: any) => {
                   color="secondary"
                   disabled
                 >
-                  <img
+                  <Image
                     src="/images/icons/FilterIcon.png"
                     alt="FilterIcon"
-                    style={{ height: 10, width: 8.4 }}
+                    width={8.4}
+                    height={10}
                   />
                   <Typography
                     component="div"

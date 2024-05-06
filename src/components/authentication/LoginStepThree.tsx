@@ -21,7 +21,6 @@ const LoginStepThree = ({ handleProfileVisit }: any) => {
         >
           <Grid item>
             <Stack alignItems="center" justifyContent="center" spacing={1}>
-              {/* <img src={Confetti} alt="Complete" width={120} height={120} /> */}
               <Typography variant="h1" fontSize="16px" textAlign="center">
                 Congratulations!
               </Typography>

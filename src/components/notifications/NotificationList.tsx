@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 // material-ui
+import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import { Avatar, Chip, IconButton, Tooltip, Typography } from "@mui/material";
 
@@ -119,7 +120,7 @@ const NotificationItem = ({
                 sx={{ cursor: "pointer" }}
                 arrow
               >
-                <img
+                <Image
                   src="/images/icons/solscan.png"
                   alt=""
                   width={16}
