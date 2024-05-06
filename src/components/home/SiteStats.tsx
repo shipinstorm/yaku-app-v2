@@ -6,7 +6,7 @@ import { useRequests } from "@/hooks/useRequests";
 const ValueSpan = ({ val }: any) => (
   <>
     {!val ? (
-      <div className="animate-pulse h-10 w-32 bg-gray-300 rounded-md"></div>
+      <span className="animate-pulse h-10 w-32 bg-gray-300 rounded-md"></span>
     ) : (
       <span className="text-secondary text-xs">{(+val).toLocaleString()}</span>
     )}

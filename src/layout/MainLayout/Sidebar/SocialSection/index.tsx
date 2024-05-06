@@ -45,7 +45,7 @@ const SocialSection = () => {
     <div className="mx-2">
       <div className="flex flex-wrap -mx-1">
         {map(socials, ({ title, link, icon, label }: any, idx) => (
-          <div className="w-1/2 pt-2 pl-2">
+          <div className="w-1/2 pt-2 pl-2" key={label}>
             <SocialButton
               title={title}
               link={link}

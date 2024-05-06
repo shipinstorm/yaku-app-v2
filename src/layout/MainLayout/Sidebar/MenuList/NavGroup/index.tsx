@@ -47,7 +47,7 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
   // menu list collapse & items
   const items = item.children?.map((menu) => {
     if (menu.hidden) {
-      return <></>;
+      return <div key={menu.id}></div>;
     }
     switch (menu.type) {
       case "collapse":

@@ -339,7 +339,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <Main
           theme={theme}
           open={drawerOpen}
-          openedcart={isOpen}
+          openedcart={isOpen ? 1 : 0}
           className="max-sm:px-4 max-sm:mx-0"
         >
           {/* breadcrumb */}

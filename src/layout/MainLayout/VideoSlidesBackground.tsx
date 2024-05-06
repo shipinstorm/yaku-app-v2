@@ -66,7 +66,7 @@ const VideoSlidesBackground = ({ slides, delay = 27000 }: any) => (
       {slides &&
         slides.length > 0 &&
         map(slides, (slide, idx: number) => (
-          <SwiperSlide>
+          <SwiperSlide key={idx}>
             <div className="absolute w-full h-full overlay">&nbsp;</div>
             {slide.type === "video" ? (
               <video autoPlay muted loop id={`main-slide-${idx}`} playsInline>
