@@ -64,7 +64,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ...(!open && {
       [theme.breakpoints.up("md")]: {
         marginLeft: -drawerWidth + drawerWidthCollapsed,
-        marginRight: openedcart && cartWidth,
+        marginRight: openedcart ? cartWidth : 0,
         width: `calc(100% - ${drawerWidthCollapsed}px - ${
           openedcart ? cartWidth : 0
         }px)`,
@@ -339,7 +339,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <Main
           theme={theme}
           open={drawerOpen}
-          openedcart={isOpen ? 1 : 0}
+          openedcart={isOpen}
           className="max-sm:px-4 max-sm:mx-0"
         >
           {/* breadcrumb */}

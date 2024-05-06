@@ -25,8 +25,6 @@ export default function RootLayout({
       <head>
         <title>Yaku Hub</title>
 
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#f38aff" />
