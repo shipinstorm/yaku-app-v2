@@ -8,18 +8,17 @@ import dynamic from "next/dynamic";
 // material-ui
 import { styled, useTheme, Theme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
-// import { Menu } from '@mui/icons-material';
 
 // project imports
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 import Sidebar from "./Sidebar";
-// import Cart from './Cart';
 import navigation from "@/menu-items";
 import useConfig from "@/hooks/useConfig";
 import { drawerWidth, cartWidth, drawerWidthCollapsed } from "@/store/constant";
 import { activeItem } from "@/store/slices/menu";
 import { useDispatch, useSelector } from "@/store";
+
 // assets
 import { useEthPrice, useSolPrice } from "@/contexts/CoinGecko";
 import { useYakuPrice, useYakuUSDCPrice } from "@/contexts/JupitarContext";
@@ -29,10 +28,9 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import useAuth from "@/hooks/useAuth";
 import dayjs from "dayjs";
 import { useMeta } from "@/contexts/meta/meta";
-import { get, isFunction } from "lodash";
+import { get } from "lodash";
 import { useRequests } from "@/hooks/useRequests";
 import ProfileSection from "./Header/ProfileSection";
-// import MobileFooter from './MobileFooter';
 import { setPage } from "@/store/slices/subpageSlice";
 import VideoSlidesBackground from "./VideoSlidesBackground";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -114,7 +112,6 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const yakuUSDCPrice = useYakuUSDCPrice() || 0;
   const { drawerOpen } = useSelector<any>((state: any) => state.menu);
   const { container } = useConfig();
-  const tps = useTPSValue();
   const ethGas = useETHGasFee();
   const { sticky } = useMeta();
 
@@ -129,7 +126,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     "dashboardSlides",
     {}
   );
-  const { EXTENSION_ID, processWalletConnection, setHasExtension } = useRelay();
+  const { processWalletConnection } = useRelay();
 
   const { data: dashboardSlides, loading: isLoading } = useRequest(
     getDashboardSlides,
@@ -246,17 +243,6 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     []
   );
 
-  // Switch Sidebar
-  // const [isPro, setPro] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //     if (window.location.pathname.includes('workspaces/') && !window.location.pathname.includes('create')) {
-  //         setPro(true);
-  //     } else {
-  //         setPro(false);
-  //     }
-  // }, [window.location.pathname]);
-
   useEffect(() => {
     csrf();
   }, []);
@@ -332,9 +318,11 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             <MobileHeader buttons={[<ProfileSection key="profile" />]} />
           )}
         </header>
+
         {/* drawer */}
         {/* <Sidebar sticky={sticky > 108} isPro={isPro} /> */}
         <Sidebar sticky={sticky > 108} isPro={false} />
+        
         {/* main content */}
         <Main
           theme={theme}

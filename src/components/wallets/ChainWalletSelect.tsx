@@ -1,13 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Image from 'next/image'
+import Image from "next/image";
 import {
-  Box,
   Button,
-  Divider,
-  Grid,
-  Stack,
   styled,
-  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -54,52 +49,37 @@ const ChainWalletSelect = ({
   }, [wallets]);
   return (
     <>
-      <Grid item xs={12}>
-        <Grid
-          container
-          direction={matchDownSM ? "column-reverse" : "row"}
-          alignItems="center"
-          justifyContent="center"
+      <div className="w-full">
+        <div
+          className={`flex ${
+            matchDownSM ? "flex-col-reverse" : "flex-row"
+          } items-center justify-center`}
         >
-          <Grid item>
-            <Stack alignItems="center" justifyContent="center" spacing={1}>
-              <Typography variant="caption" fontSize="16px" textAlign="center">
+          <div className="flex">
+            <div className="flex flex-col items-center justify-center space-y-1">
+              <p className="text-xs md:text-base text-center">
                 Please connect your wallet which has access to the Yaku Hub
-              </Typography>
-            </Stack>
-          </Grid>
-        </Grid>
-      </Grid>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <Grid item xs={12}>
-        <Grid item xs={12}>
-          <Box sx={{ alignItems: "center", display: "flex" }}>
-            <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+      <div className="w-full">
+        <div className="w-full">
+          <div className="flex items-center">
+            <hr className="w-full border-t border-gray-300" />
 
-            <Button
-              variant="outlined"
-              sx={{
-                cursor: "unset",
-                m: 2,
-                py: 0.5,
-                px: 7,
-                borderColor:
-                  theme.palette.mode === "dark"
-                    ? `${theme.palette.dark.light + 20} !important`
-                    : `${theme.palette.grey[100]} !important`,
-                color: `${theme.palette.grey[900]}!important`,
-                fontWeight: 500,
-                borderRadius: `${borderRadius}px`,
-              }}
-              disableRipple
+            <button
+              className="border border-gray-200 dark:border-dark-lighter bg-transparent text-gray-900 dark:text-gray-300 py-2 px-7 font-medium rounded-md cursor-not-allowed"
               disabled
             >
               SOLANA
-            </Button>
+            </button>
 
-            <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-          </Box>
-        </Grid>
+            <hr className="flex-grow border-t border-gray-300" />
+          </div>
+        </div>
 
         {listWallets.map((wallet, index) => (
           <WalletButton
@@ -123,34 +103,20 @@ const ChainWalletSelect = ({
 
         {/* ETH WALLETS */}
         {!hideEthButton && (
-          <Grid item xs={12}>
-            <Box sx={{ alignItems: "center", display: "flex" }}>
-              <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+          <div className="w-full">
+            <div className="flex items-center">
+              <hr className="flex-grow border-t border-gray-300" />
 
-              <Button
-                variant="outlined"
-                sx={{
-                  cursor: "unset",
-                  m: 2,
-                  py: 0.5,
-                  px: 7,
-                  borderColor:
-                    theme.palette.mode === "dark"
-                      ? `${theme.palette.dark.light + 20} !important`
-                      : `${theme.palette.grey[100]} !important`,
-                  color: `${theme.palette.grey[900]}!important`,
-                  fontWeight: 500,
-                  borderRadius: `${borderRadius}px`,
-                }}
-                disableRipple
+              <button
+                className="border border-gray-200 dark:border-dark-lighter bg-transparent text-gray-900 dark:text-gray-300 py-2 px-7 font-medium rounded-md cursor-not-allowed"
                 disabled
               >
                 ETHEREUM
-              </Button>
+              </button>
 
-              <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-            </Box>
-          </Grid>
+              <hr className="flex-grow border-t border-gray-300" />
+            </div>
+          </div>
         )}
 
         {!hideEthButton && (
@@ -170,7 +136,7 @@ const ChainWalletSelect = ({
             MetaMask
           </WalletButton>
         )}
-      </Grid>
+      </div>
     </>
   );
 };

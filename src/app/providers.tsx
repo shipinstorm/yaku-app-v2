@@ -35,7 +35,6 @@ import { BundleWalletProvider } from "@/contexts/BundleWalletContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { StakedProvider } from "@/contexts/StakedContext";
 import { NotificationsProvider } from "@/contexts/NotificationsContext";
-// import { MECollectionsProvider } from '@/contexts/MECollectionsContext';
 import EthWalletProvider from "@/contexts/EthWalletProvider";
 import { SolPriorityProvider } from "@/contexts/SolPriorityContext";
 
@@ -66,7 +65,6 @@ const contexts = [
   CartProvider,
   StakedProvider,
   SolPriorityProvider,
-  // MECollectionsProvider
 ];
 
 export default function Providers({

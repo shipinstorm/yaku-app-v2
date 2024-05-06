@@ -12,10 +12,8 @@ import {
   Tab,
   Box,
   IconButton,
-  Stack,
   styled,
   Paper,
-  Skeleton,
 } from "@mui/material";
 
 // web3 imports
@@ -431,8 +429,10 @@ function Staking() {
 
   return (
     <>
-      <Grid container spacing={gridSpacing} sx={{ pb: 2 }}>
-        <Grid item xs={12} lg={3} sm={6}>
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-${gridSpacing} pb-2`}
+      >
+        <div className="w-full lg:w-1/4 sm:w-1/2">
           <RevenueCard
             primary={<FormattedMessage id="total-staked" />}
             secondary={formatNumber.format(totalStaked)}
@@ -448,9 +448,9 @@ function Staking() {
             }}
             color={theme.palette.secondary.dark}
           />
-        </Grid>
+        </div>
 
-        <Grid item xs={12} lg={3} sm={6}>
+        <div className="w-full lg:w-1/4 sm:w-1/2">
           <RevenueCard
             primary={<FormattedMessage id="tvl" />}
             secondary={formatUSD.format(valueLocked)}
@@ -466,9 +466,9 @@ function Staking() {
             }}
             color={theme.palette.primary.dark}
           />
-        </Grid>
+        </div>
 
-        <Grid item xs={12} lg={3} sm={6}>
+        <div className="w-full lg:w-1/4 sm:w-1/2">
           <RevenueCard
             primary={<FormattedMessage id="distributed" />}
             secondary={formatNumber.format(tokenDistributed)}
@@ -484,9 +484,9 @@ function Staking() {
             }}
             color={theme.palette.warning.main}
           />
-        </Grid>
+        </div>
 
-        <Grid item xs={12} lg={3} sm={6}>
+        <div className="w-full lg:w-1/4 sm:w-1/2">
           <RevenueCard
             primary={<FormattedMessage id="daily-yield" />}
             secondary={formatNumber.format(dailyYield)}
@@ -502,109 +502,94 @@ function Staking() {
             }}
             color={theme.palette.info.dark}
           />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
       <Grid container spacing={gridSpacing} sx={{ pb: 2 }}>
-        <Grid item xs={6} lg={2} md={3} sm={4}>
-          <Stack>
+        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
+          <div className="border p-4 rounded-md">
             <Item>
               Your Assets
               <br />
               {totalCount}
             </Item>
-          </Stack>
-        </Grid>
-        <Grid item xs={6} lg={2} md={3} sm={4}>
-          <Stack>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
+          <div className="border p-4 rounded-md">
             <Item>
               Yaku X
               <br />
               {isLoading ? (
-                <Skeleton
-                  variant="rounded"
-                  sx={{ mx: "auto" }}
-                  width={60}
-                  height={16}
-                />
+                <div className="mx-auto">
+                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                </div>
               ) : (
                 assetsCount?.yakuXCnt ?? 0
               )}
             </Item>
-          </Stack>
-        </Grid>
-        <Grid item xs={6} lg={2} md={3} sm={4}>
-          <Stack>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
+          <div className="border p-4 rounded-md">
             <Item>
               Capsule X
               <br />
               {isLoading ? (
-                <Skeleton
-                  variant="rounded"
-                  sx={{ mx: "auto" }}
-                  width={60}
-                  height={16}
-                />
+                <div className="mx-auto">
+                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                </div>
               ) : (
                 assetsCount?.capsuleCnt ?? 0
               )}
             </Item>
-          </Stack>
-        </Grid>
-        <Grid item xs={6} lg={2} md={3} sm={4}>
-          <Stack>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
+          <div className="border p-4 rounded-md">
             <Item>
               ONI S-01
               <br />
               {isLoading ? (
-                <Skeleton
-                  variant="rounded"
-                  sx={{ mx: "auto" }}
-                  width={60}
-                  height={16}
-                />
+                <div className="mx-auto">
+                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                </div>
               ) : (
                 assetsCount?.bikeCnt ?? 0
               )}
             </Item>
-          </Stack>
-        </Grid>
-        <Grid item xs={6} lg={2} md={3} sm={4}>
-          <Stack>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
+          <div className="border p-4 rounded-md">
             <Item>
               Mansion
               <br />
               {isLoading ? (
-                <Skeleton
-                  variant="rounded"
-                  sx={{ mx: "auto" }}
-                  width={60}
-                  height={16}
-                />
+                <div className="mx-auto">
+                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                </div>
               ) : (
                 assetsCount?.mansionCnt ?? 0
               )}
             </Item>
-          </Stack>
-        </Grid>
-        <Grid item xs={6} lg={2} md={3} sm={4}>
-          <Stack>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/6 md:w-1/4 sm:w-1/3">
+          <div className="border p-4 rounded-md">
             <Item>
               Sets
               <br />
               {isLoading ? (
-                <Skeleton
-                  variant="rounded"
-                  sx={{ mx: "auto" }}
-                  width={60}
-                  height={16}
-                />
+                <div className="mx-auto">
+                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                </div>
               ) : (
                 assetsCount?.setCnt ?? 0
               )}
             </Item>
-          </Stack>
-        </Grid>
+          </div>
+        </div>
       </Grid>
       {showCAConvert && <CAConversion />}
       <TabContext value={tabIdx}>
