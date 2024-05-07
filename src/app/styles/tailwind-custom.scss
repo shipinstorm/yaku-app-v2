@@ -16,7 +16,8 @@
 }
 
 .tabbed ul li {
-  // @apply bg-elevation2;
+  --tw-bg-opacity: 1;
+  background-color: rgb(54 57 63 / var(--tw-bg-opacity));
   display: block;
   float: right;
   padding: 10px 24px 8px;
@@ -30,7 +31,8 @@
 
 .tabbed ul li:before,
 .tabbed ul li:after {
-  // @apply bg-elevation2;
+  --tw-bg-opacity: 1;
+  background-color: rgb(54 57 63 / var(--tw-bg-opacity));
   display: block;
   content: " ";
   position: absolute;
@@ -68,7 +70,8 @@
 .tabbed ul li.active,
 .tabbed ul li.active:before,
 .tabbed ul li.active:after {
-  // @apply bg-surface;
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
   color: #fff;
 }
 

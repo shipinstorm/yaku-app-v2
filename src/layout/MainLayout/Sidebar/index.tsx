@@ -77,7 +77,14 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
 
   const logo = useMemo(
     () => (
-      <Box sx={{ display: { xs: "block", md: "none" } }}>
+      <Box
+        sx={{ display: { xs: "block", md: "none" } }}
+        onMouseEnter={(e) => {
+          e.preventDefault();
+          dispatch(openDrawer(!drawerOpen));
+          setOpen(true);
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -177,6 +184,11 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
             : "calc(100vh - 140px - 56px)",
           paddingLeft: "10px",
           paddingRight: "10px",
+        }}
+        onMouseEnter={(e) => {
+          e.preventDefault();
+          dispatch(openDrawer(!drawerOpen));
+          setOpen(true);
         }}
       >
         <MenuListCollapsed isPro={isPro} />
@@ -300,11 +312,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
               justifyContent: "space-between",
               flexDirection: "column",
             }}
-            onMouseEnter={(e) => {
-              e.preventDefault();
-              dispatch(openDrawer(!drawerOpen));
-              setOpen(true);
-            }}
           >
             <>
               {drawerOpen && logo}
@@ -319,6 +326,11 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
                 margin: "10px auto 10px auto !important",
                 cursor: "pointer",
                 backgroundColor: "transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.preventDefault();
+                dispatch(openDrawer(!drawerOpen));
+                setOpen(true);
               }}
             >
               <MoreHorizRounded

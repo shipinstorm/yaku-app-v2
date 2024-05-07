@@ -33,11 +33,6 @@ const config: Config = {
         "blue-main": "rgb(0, 163, 255)",
         "pink-main": "#f38aff",
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
     },
   },
   plugins: [],

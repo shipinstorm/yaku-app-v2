@@ -1571,7 +1571,12 @@ html > body {
     align-items: center;
 }
 .card {
-    // @apply bg-surface rounded-3xl border border-line border-solid;
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+    border-radius: 1.5rem/* 24px */;
+    border-width: 1px;
+    border-color: rgba(224,224,255,.12);
+    border-style: solid;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
     border-radius: 1rem;
     position: relative;
@@ -1586,30 +1591,91 @@ html > body {
     backdrop-filter: unset !important;
 }
 .button-small {
-    // @apply bg-elevation1 hover:bg-elevation1-hover hover:text-terciary rounded-xl text-primary h-9 w-9 shadow-none cursor-pointer;
+    --tw-bg-opacity: 1;
+    background-color: rgb(45 47 51 / var(--tw-bg-opacity));
+    border-radius: 0.75rem/* 12px */;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    height: 2.25rem/* 36px */;
+    width: 2.25rem/* 36px */;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    cursor: pointer;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.4);
+    }
 }
 .button-main {
-    // @apply bg-elevation1 hover:bg-elevation1-hover hover:text-terciary rounded-xl text-sm font-medium w-full h-9 duration-300 shadow-none cursor-pointer;
+    --tw-bg-opacity: 1;
+    background-color: rgb(45 47 51 / var(--tw-bg-opacity));
+    border-radius: 0.75rem/* 12px */;
+    font-size: 0.875rem/* 14px */;
+    line-height: 1.25rem/* 20px */;
+    font-weight: 500;
+    width: 100%;
+    height: 2.25rem/* 36px */;
+    transition-duration: 300ms;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    cursor: pointer;
     max-width: 300px;
     margin: auto;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.4);
+    }
 }
 .button-main-pink {
-    // @apply bg-elevation1 hover:bg-white text-white hover:text-black rounded-xl text-sm font-thin w-full h-9 duration-300 shadow-none cursor-pointer;
+    --tw-bg-opacity: 1;
+    background-color: rgb(45 47 51 / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    border-radius: 0.75rem/* 12px */;
+    font-size: 0.875rem/* 14px */;
+    line-height: 1.25rem/* 20px */;
+    font-weight: 100;
+    width: 100%;
+    height: 2.25rem/* 36px */;
+    transition-duration: 300ms;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    cursor: pointer;
+    &:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+        --tw-text-opacity: 1;
+        color: rgb(0 0 0 / var(--tw-text-opacity));
+    }
 }
 .icon-lg {
     border: 5px;
-    // @apply rounded-3xl border-solid border-white/5;
+    border-radius: 1.5rem/* 24px */;
+    border-style: solid;
+    border-color: rgb(255 255 255 / 0.05);
 }
 .icon-md {
-    // @apply rounded-3xl border-solid border-4 border-white/5;
+    border-radius: 1.5rem/* 24px */;
+    border-style: solid;
+    border-width: 4px;
+    border-color: rgb(255 255 255 / 0.05);
 }
 .icon-sm {
-    // @apply rounded-2xl border-solid border-2 border-white/5;
+    border-radius: 1rem/* 16px */;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(255 255 255 / 0.05);
 }
 .selected {
-    // @apply border-solid border-2 border-transparent;
+    border-color: transparent;
+    border-width: 2px;
+    border-style: solid;
     &:hover {
-        // @apply border-blue-main;
+        --tw-border-opacity: 1;
+        border-color: rgb(0 163 255 / var(--tw-border-opacity));
         background-color: rgba(0, 163, 255, 0.06);
     }
 }
@@ -1642,7 +1708,9 @@ html > body {
 }
 
 .yaku-icon {
-    // @apply h-12 w-12 rounded-2xl;
+    height: 3rem/* 48px */;
+    width: 3rem/* 48px */;
+    border-radius: 1rem/* 16px */;
     position: relative;
 
     &[alt]:after {
@@ -1797,7 +1865,7 @@ html > body {
     cursor: pointer;
 }
 .swiper-pagination-bullet > div {
-    // @apply rounded-2xl;
+    border-radius: 1rem/* 16px */;
     --swiper-pagination-bullet-width: 100px;
     --swiper-pagination-bullet-height: 5px;
     --swiper-pagination-bullet-inactive-color: #ffffff66;

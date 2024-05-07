@@ -21,7 +21,12 @@
   }
 
   .dt-bg-\[\#24182F\] {
-    @apply bg-elevation1 border border-solid border-line;
+    --tw-bg-opacity: 1;
+    background-color: rgb(45 47 51 / var(--tw-bg-opacity));
+    border-width: 1px;
+    border-style: solid;
+    border-style: solid;
+
   }
 
   .dt-text-green-600 {

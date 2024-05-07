@@ -2,7 +2,7 @@
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import Image from 'next/image'
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 // project imports
@@ -118,7 +118,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full">
+      <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full pl-[22px] pt-9 ml-[-24px]">
         <div className="flex flex-row items-center">
           <h2 className="text-xl font-akirabold sm:text-3xl font-bold z-10">
             Yaku Estates
@@ -174,7 +174,7 @@ const Home = () => {
       </div>
 
       {/* collection stats */}
-      <div className="w-full">
+      <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full pl-[22px] pt-9 ml-[-24px]">
         <div className="flex flex-row items-center">
           <h2 className="text-xl font-akirabold sm:text-3xl font-bold">
             Yaku Gaming Assets
@@ -188,10 +188,11 @@ const Home = () => {
         aria-hidden="true"
       >
         <div
-          className="aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+          className="aspect-[1155/678] w-[36.125rem] -translate-x-1/2 from-[#ff80b5] to-[#9089fc] bg-gradient-to-tr opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
           style={{
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            backgroundImage: "linear-gradient(to top right, #ff80b5, #9089fc)",
           }}
         />
       </div>
@@ -232,7 +233,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="py-24 sm:py-32">
+      <div className="!pt-9 py-24 sm:py-32 pl-[22px]">
         <div className="flex flex-row items-center justify-center">
           <h2 className="text-xl font-akirabold sm:text-4xl font-bold py-5">
             Our Partners love Yaku
