@@ -327,14 +327,8 @@ const WalletLogin = ({
 
   return (
     <AuthWrapper>
-      <Grid
-        className="card"
-        container
-        direction="column"
-        justifyContent="flex-end"
-        sx={{ minHeight: "70vh" }}
-      >
-        <Grid item xs={12}>
+      <div className="box-border flex flex-col justify-end min-h-[70vh] card">
+        <div className="box-border m-0">
           <Grid
             container
             justifyContent="center"
@@ -422,11 +416,11 @@ const WalletLogin = ({
               </AuthCardWrapper>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
+        </div>
+        <div className="box-border flex-grow-0 flex-shrink-0 flex-basis-full m-6 mt-2">
           <AuthFooter />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </AuthWrapper>
   );
 };

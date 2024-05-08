@@ -1,8 +1,6 @@
 import { memo, useMemo, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-import { IconBuildingSkyscraper } from "@tabler/icons-react";
-
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -12,11 +10,9 @@ import {
   Popper,
   Paper,
   ClickAwayListener,
-  Divider,
   Avatar,
-  Button,
 } from "@mui/material";
-import { MoreHorizRounded, Workspaces } from "@mui/icons-material";
+import { MoreHorizRounded } from "@mui/icons-material";
 
 // third-party
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -252,19 +248,13 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
         }}
       >
         {true && (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "column",
-            }}
-          >
+          <div className="flex flex-col justify-between">
             {logo}
             {drawer}
-            <Box>
+            <div className="MuiBox-root css-0">
               <SocialSection />
-            </Box>
-          </Box>
+            </div>
+          </div>
         )}
       </Drawer>
 
@@ -299,27 +289,14 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
           ModalProps={{ keepMounted: true }}
           color="inherit"
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "column",
-            }}
-          >
+          <div className="flex flex-col justify-between">
             <>
               {drawerOpen && logo}
               {!drawerOpen && drawerClosed}
             </>
 
-            <Avatar
-              sx={{
-                ...theme.typography.largeAvatar,
-                width: 24,
-                height: 24,
-                margin: "10px auto 10px auto !important",
-                cursor: "pointer",
-                backgroundColor: "transparent",
-              }}
+            <div
+              className="relative flex items-center justify-center flex-shrink-0 font-inter rounded-full overflow-hidden select-none text-gray-900 bg-transparent w-6 h-6 text-3xl cursor-pointer mx-auto"
               onMouseEnter={(e) => {
                 e.preventDefault();
                 dispatch(openDrawer(!drawerOpen));
@@ -329,8 +306,8 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
               <MoreHorizRounded
                 htmlColor={theme.palette.mode === "dark" ? "white" : "black"}
               />{" "}
-            </Avatar>
-          </Box>
+            </div>
+          </div>
         </Drawer>
       )}
 
@@ -353,7 +330,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
       >
         {({ TransitionProps }) => (
           <ClickAwayListener onClickAway={handleClose}>
-            {/* <Transitions in={open} {...TransitionProps}> */}
             <Paper style={{ borderRadius: 0 }}>
               {open && (
                 <MainCard border content={false}>
@@ -361,7 +337,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
                 </MainCard>
               )}
             </Paper>
-            {/* </Transitions> */}
           </ClickAwayListener>
         )}
       </Popper>
