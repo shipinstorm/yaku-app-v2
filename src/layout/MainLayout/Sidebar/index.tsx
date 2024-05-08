@@ -212,14 +212,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
   };
 
   return (
-    <Box
-      component="nav"
-      sx={{
-        flexShrink: { md: 0 },
-        width: matchUpMd ? drawerWidth : "auto",
-      }}
-      aria-label="mailbox folders"
-    >
+    <nav className="w-[260px] md:flex-shrink-0" aria-label="mailbox folders">
       <Drawer
         container={container}
         variant={matchUpMd ? "persistent" : "temporary"}
@@ -372,7 +365,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
           </ClickAwayListener>
         )}
       </Popper>
-    </Box>
+    </nav>
   );
 };
 
