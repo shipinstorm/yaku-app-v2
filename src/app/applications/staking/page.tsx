@@ -470,7 +470,7 @@ function Staking() {
               <br />
               {isLoading ? (
                 <div className="mx-auto">
-                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                  <div className="w-15 h-4 bg-gray-800 rounded-full"></div>
                 </div>
               ) : (
                 assetsCount?.yakuXCnt ?? 0
@@ -485,7 +485,7 @@ function Staking() {
               <br />
               {isLoading ? (
                 <div className="mx-auto">
-                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                  <div className="w-15 h-4 bg-gray-800 rounded-full"></div>
                 </div>
               ) : (
                 assetsCount?.capsuleCnt ?? 0
@@ -500,7 +500,7 @@ function Staking() {
               <br />
               {isLoading ? (
                 <div className="mx-auto">
-                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                  <div className="w-15 h-4 bg-gray-800 rounded-full"></div>
                 </div>
               ) : (
                 assetsCount?.bikeCnt ?? 0
@@ -515,7 +515,7 @@ function Staking() {
               <br />
               {isLoading ? (
                 <div className="mx-auto">
-                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                  <div className="w-15 h-4 bg-gray-800 rounded-full"></div>
                 </div>
               ) : (
                 assetsCount?.mansionCnt ?? 0
@@ -530,7 +530,7 @@ function Staking() {
               <br />
               {isLoading ? (
                 <div className="mx-auto">
-                  <div className="w-60 h-16 bg-gray-300 rounded-full"></div>
+                  <div className="w-15 h-4 bg-gray-800 rounded-full"></div>
                 </div>
               ) : (
                 assetsCount?.setCnt ?? 0
