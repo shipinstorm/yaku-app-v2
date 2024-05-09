@@ -18,9 +18,8 @@ const RevenueCard = ({
   iconPrimary,
   color,
 }: RevenueCardProps) => {
-  const IconPrimary = iconPrimary!;
   const primaryIcon = iconPrimary ? (
-    <IconPrimary className="w-8 h-8 sm:w-12 sm:h-12" fontSize="large" />
+    <img src={iconPrimary} className="w-8 h-8 sm:w-12 sm:h-12" />
   ) : null;
 
   return (

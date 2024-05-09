@@ -21,12 +21,6 @@ import { formatNumber, formatUSD } from "@/utils/utils";
 import { useMeta } from "@/contexts/meta/meta";
 import { useToasts } from "@/hooks/useToasts";
 
-// assets
-import MonetizationOnTwoToneIcon from "@mui/icons-material/MonetizationOnTwoTone";
-import AccountBalanceTwoToneIcon from "@mui/icons-material/AccountBalanceTwoTone";
-import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
-import EqualizerTwoToneIcon from "@mui/icons-material/EqualizerTwoTone";
-
 import { calculateAllYakuRewards } from "./fetchData";
 import YakuStakeNftCard from "./YakuStakedNftCard";
 import {
@@ -37,7 +31,6 @@ import {
 } from "@/actions/yakuStake";
 import { get, isEmpty, map, pull } from "lodash";
 import { PublicKey } from "@solana/web3.js";
-import { RefreshOutlined } from "@mui/icons-material";
 import { FormattedMessage } from "react-intl";
 import useConnections from "@/hooks/useConnetions";
 import useStaked from "@/hooks/useStaked";
@@ -424,7 +417,7 @@ function Staking() {
             primary={<FormattedMessage id="total-staked" />}
             secondary={formatNumber.format(totalStaked)}
             content={<FormattedMessage id="vault-holdings" />}
-            iconPrimary={AccountBalanceTwoToneIcon}
+            iconPrimary="/images/icons-material/AccountBalanceTwoToneIcon.svg"
             color={theme.palette.secondary.dark}
           />
         </div>
@@ -434,7 +427,7 @@ function Staking() {
             primary={<FormattedMessage id="tvl" />}
             secondary={formatUSD.format(valueLocked)}
             content={<FormattedMessage id="tvl-desc" />}
-            iconPrimary={MonetizationOnTwoToneIcon}
+            iconPrimary="/images/icons-material/MonetizationOnTwoToneIcon.svg"
             color={theme.palette.primary.dark}
           />
         </div>
@@ -444,7 +437,7 @@ function Staking() {
             primary={<FormattedMessage id="distributed" />}
             secondary={formatNumber.format(tokenDistributed)}
             content={<FormattedMessage id="est-circular-supply" />}
-            iconPrimary={EqualizerTwoToneIcon}
+            iconPrimary="/images/icons-material/EqualizerTwoToneIcon.svg"
             color={theme.palette.warning.main}
           />
         </div>
@@ -454,7 +447,7 @@ function Staking() {
             primary={<FormattedMessage id="daily-yield" />}
             secondary={formatNumber.format(dailyYield)}
             content={<FormattedMessage id="daily-yield-desc" />}
-            iconPrimary={FormatListBulletedTwoToneIcon}
+            iconPrimary="/images/icons-material/FormatListBulletedTwoToneIcon.svg"
             color={theme.palette.info.dark}
           />
         </div>
@@ -674,7 +667,7 @@ function Staking() {
                 className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none text-center flex-none text-2xl p-2 rounded-full overflow-visible text-white transition duration-150 ease-in-out bg-transparent"
                 onClick={() => updatePage()}
               >
-                <RefreshOutlined />
+                <img src="/images/icons-material/RefreshOutlined.svg" />
               </button>
               <button
                 className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none capitalize font-inter text-sm font-medium leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-black bg-[#F38AFF] shadow-md rounded-md"
