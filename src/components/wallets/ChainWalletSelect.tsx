@@ -1,15 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Image from "next/image";
-import { Button, styled, useMediaQuery, useTheme } from "@mui/material";
 import { WalletReadyState } from "@solana/wallet-adapter-base";
 import { useWallet, Wallet } from "@solana/wallet-adapter-react";
-import useConfig from "@/hooks/useConfig";
 import { useMemo } from "react";
 import { isMobile } from "react-device-detect";
-
-const WalletButton = styled(Button)({
-  gap: "5px",
-});
 
 const ChainWalletSelect = ({
   setIsConnecting,
@@ -17,11 +11,8 @@ const ChainWalletSelect = ({
   handleEtherLogin,
   hideEthButton = false,
 }: any) => {
-  const theme = useTheme();
   const wallet = useWallet();
   const { wallets } = wallet;
-  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
-  const { borderRadius } = useConfig();
 
   const [listWallets] = useMemo(() => {
     const detected: Wallet[] = [];
@@ -46,9 +37,9 @@ const ChainWalletSelect = ({
     <>
       <div className="pl-4 pt-4 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">
         <div
-          className={`flex ${
-            matchDownSM ? "flex-col-reverse" : "flex-row"
-          } items-center justify-center`}
+          className={
+            "flex flex-col-reverse sm:flex-row items-center justify-center"
+          }
         >
           <div className="flex">
             <div className="flex flex-col items-center justify-center space-y-1">
@@ -77,13 +68,12 @@ const ChainWalletSelect = ({
         </div>
 
         {listWallets.map((wallet, index) => (
-          <WalletButton
+          <button
             key={index}
-            sx={{ mb: 1 }}
-            className="button-main-pink"
-            variant="contained"
+            className="button-main-pink inline-flex items-center justify-center relative box-border select-none align-middle text-decoration-none capitalize min-w-16 px-4 py-[6px] transition-all duration-250 ease-in-out gap-1 mb-2 !font-normal"
+            tabIndex={0}
+            type="button"
             onClick={() => handleClick(wallet.adapter)}
-            fullWidth
           >
             {/* eslint-disable-next-line */}
             <Image
@@ -93,7 +83,7 @@ const ChainWalletSelect = ({
               height={24}
             />
             {wallet.adapter.name}
-          </WalletButton>
+          </button>
         ))}
 
         {/* ETH WALLETS */}
@@ -115,12 +105,11 @@ const ChainWalletSelect = ({
         )}
 
         {!hideEthButton && (
-          <WalletButton
-            variant="contained"
-            sx={{ mb: 1 }}
-            className="button-main-pink"
+          <button
+            className="button-main-pink inline-flex items-center justify-center relative box-border select-none align-middle text-decoration-none capitalize min-w-16 px-4 py-[6px] transition-all duration-250 ease-in-out gap-1 mb-2 !font-normal"
+            tabIndex={0}
+            type="button"
             onClick={() => handleEtherLogin()}
-            fullWidth
           >
             <Image
               src="/images/icons/metamask.png"
@@ -129,7 +118,7 @@ const ChainWalletSelect = ({
               height={24}
             />
             MetaMask
-          </WalletButton>
+          </button>
         )}
       </div>
     </>
