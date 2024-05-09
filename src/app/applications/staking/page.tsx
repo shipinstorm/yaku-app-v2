@@ -3,8 +3,7 @@
 /* eslint-disable */
 import { ReactElement, useState, useEffect } from "react";
 
-// material-ui
-import { useTheme } from "@mui/material/styles";
+import defaultColor from "@/app/styles/_themes-vars.module.scss";
 
 // web3 imports
 import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
@@ -39,7 +38,7 @@ import { usePriority } from "@/contexts/SolPriorityContext";
 
 function Staking() {
   const { connection } = useConnections();
-  const theme = useTheme();
+  const colors = defaultColor;
   const showCAConvert = true;
   const {
     totalStaked,
@@ -409,6 +408,10 @@ function Staking() {
     );
   }
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <>
       <div className="box-border flex flex-wrap mt-[-24px] w-[calc(100% + 24px)] ml-[-24px] pb-4">
@@ -418,7 +421,7 @@ function Staking() {
             secondary={formatNumber.format(totalStaked)}
             content={<FormattedMessage id="vault-holdings" />}
             iconPrimary="/images/icons-material/AccountBalanceTwoToneIcon.svg"
-            color={theme.palette.secondary.dark}
+            color={paletteMode === "dark" ? colors.darkSecondaryDark : colors.secondaryDark}
           />
         </div>
 
@@ -428,7 +431,7 @@ function Staking() {
             secondary={formatUSD.format(valueLocked)}
             content={<FormattedMessage id="tvl-desc" />}
             iconPrimary="/images/icons-material/MonetizationOnTwoToneIcon.svg"
-            color={theme.palette.primary.dark}
+            color={paletteMode === "dark" ? colors.darkPrimaryDark : colors.primaryDark}
           />
         </div>
 
@@ -438,7 +441,7 @@ function Staking() {
             secondary={formatNumber.format(tokenDistributed)}
             content={<FormattedMessage id="est-circular-supply" />}
             iconPrimary="/images/icons-material/EqualizerTwoToneIcon.svg"
-            color={theme.palette.warning.main}
+            color={colors.warningMain}
           />
         </div>
 
@@ -448,7 +451,7 @@ function Staking() {
             secondary={formatNumber.format(dailyYield)}
             content={<FormattedMessage id="daily-yield-desc" />}
             iconPrimary="/images/icons-material/FormatListBulletedTwoToneIcon.svg"
-            color={theme.palette.info.dark}
+            color="#0288D1"
           />
         </div>
       </div>
