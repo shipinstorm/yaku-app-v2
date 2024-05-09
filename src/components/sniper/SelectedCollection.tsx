@@ -363,17 +363,7 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
             pt: "4px",
           }}
         >
-          <Grid
-            item
-            xs={12}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "10px",
-              position: "relative",
-            }}
-          >
+          <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6 flex items-center justify-between gap-10 relative">
             <Box
               sx={{
                 display: "flex",
@@ -424,30 +414,7 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
                 }
               />
             </FormGroup>
-
-            {/* <LoadingButton
-                            color="secondary"
-                            loading={localCollectionData[collectionData.id]?.autoSnipe}
-                            variant="contained"
-                            sx={{
-                                lineHeight: 1
-                            }}
-                            startIcon={
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        fillRule="evenodd"
-                                        clipRule="evenodd"
-                                        d="M0 7.5C0 3.63401 3.13401 0.5 7 0.5C10.866 0.5 14 3.63401 14 7.5C14 11.366 10.866 14.5 7 14.5C3.13401 14.5 0 11.366 0 7.5ZM6.36364 1.80768V3.36364C6.36364 3.71509 6.64855 4 7 4C7.35145 4 7.63636 3.71509 7.63636 3.36364V1.80768C10.291 2.10114 12.3989 4.20897 12.6923 6.86364H10.8182C10.4667 6.86364 10.1818 7.14855 10.1818 7.5C10.1818 7.85145 10.4667 8.13636 10.8182 8.13636H12.6923C12.3989 10.791 10.291 12.8989 7.63636 13.1923V11.6364C7.63636 11.2849 7.35145 11 7 11C6.64855 11 6.36364 11.2849 6.36364 11.6364V13.1923C3.70897 12.8989 1.60114 10.791 1.30768 8.13636H2.86364C3.21509 8.13636 3.5 7.85145 3.5 7.5C3.5 7.14855 3.21509 6.86364 2.86364 6.86364H1.30768C1.60114 4.20897 3.70897 2.10114 6.36364 1.80768Z"
-                                        fill="white"
-                                    />
-                                </svg>
-                            }
-                            loadingPosition="start"
-                            onClick={() => snipeMode()}
-                        >
-                            <FormattedMessage id={localCollectionData[collectionData.id]?.autoSnipe ? 'auto-snipe' : 'manual-snipe'} />
-                        </LoadingButton> */}
-          </Grid>
+          </div>
         </Grid>
         <IconButton
           size="small"

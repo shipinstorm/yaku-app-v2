@@ -87,7 +87,7 @@ const CAConversion = () => {
   return (
     <>
       {oldStaked && oldStaked.staked && oldStaked.staked.length > 0 && (
-        <Grid item xs={12}>
+        <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
           <TopAlert
             severity="warning"
             description="Cosmic Astronauts original staking contract will be tapped out soon. Please click the button to convert them
@@ -104,7 +104,7 @@ const CAConversion = () => {
               </LoadingButton>
             }
           />
-        </Grid>
+        </div>
       )}
     </>
   );

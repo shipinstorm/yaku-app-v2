@@ -308,7 +308,7 @@ const WalletLogin = ({
   };
 
   const InProgress = () => (
-    <Grid item xs={12}>
+    <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
       <Grid
         container
         direction={matchDownSM ? "column-reverse" : "row"}
@@ -322,7 +322,7 @@ const WalletLogin = ({
           </Stack>
         </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 
   return (

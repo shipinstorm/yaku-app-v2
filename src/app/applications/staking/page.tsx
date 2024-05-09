@@ -5,16 +5,6 @@ import { ReactElement, useState, useEffect } from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import {
-  Grid,
-  Button,
-  Tooltip,
-  Tab,
-  Box,
-  IconButton,
-  styled,
-  Paper,
-} from "@mui/material";
 
 // web3 imports
 import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
@@ -30,7 +20,6 @@ import NftCard from "./StakeNftCard";
 import { formatNumber, formatUSD } from "@/utils/utils";
 import { useMeta } from "@/contexts/meta/meta";
 import { useToasts } from "@/hooks/useToasts";
-import { gridSpacing } from "@/store/constant";
 
 // assets
 import MonetizationOnTwoToneIcon from "@mui/icons-material/MonetizationOnTwoTone";
@@ -40,7 +29,6 @@ import EqualizerTwoToneIcon from "@mui/icons-material/EqualizerTwoTone";
 
 import { calculateAllYakuRewards } from "./fetchData";
 import YakuStakeNftCard from "./YakuStakedNftCard";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   claimRewardV2Multiple,
   loadYakuProgram,
@@ -347,7 +335,10 @@ function Staking() {
   let stakedNftResult: ReactElement | ReactElement[] = <></>;
   if (stakedNfts && stakedNfts.length !== 0) {
     stakedNftResult = stakedNfts.map((nft: any, index: number) => (
-      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+      <div
+        key={index}
+        className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full sm:w-1/2 sm:max-w-1/2 md:w-1/3 md:max-w-1/3 lg:w-1/4 lg:max-w-1/4"
+      >
         <StakedNftCard
           mint={nft.mint}
           name={nft.name}
@@ -361,7 +352,7 @@ function Staking() {
           stopLoading={() => stopLoading()}
           updatePage={() => updatePage()}
         />
-      </Grid>
+      </div>
     ));
   } else {
     stakedNftResult = <></>;
@@ -370,7 +361,10 @@ function Staking() {
   let stakedYakuNftResult: ReactElement | ReactElement[] = <></>;
   if (stakedYakuNfts && stakedYakuNfts.length !== 0) {
     stakedYakuNftResult = stakedYakuNfts.map((nft: any, index: number) => (
-      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+      <div
+        key={index}
+        className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full sm:w-1/2 sm:max-w-1/2 md:w-1/3 md:max-w-1/3 lg:w-1/4 lg:max-w-1/4"
+      >
         <YakuStakeNftCard
           mint={nft.mint || nft.mintAddress}
           name={get(nft, "metadata.json.name")}
@@ -387,7 +381,7 @@ function Staking() {
           isSelected={selected?.includes(nft.mint || nft.mintAddress)}
           onSelect={handleSelect}
         />
-      </Grid>
+      </div>
     ));
   } else {
     stakedYakuNftResult = <></>;
@@ -396,7 +390,10 @@ function Staking() {
   let nftResult: ReactElement | ReactElement[] = <></>;
   if (nftList && nftList.length !== 0) {
     nftResult = nftList.map((nft: any, index: number) => (
-      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+      <div
+        key={index}
+        className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full sm:w-1/2 sm:max-w-1/2 md:w-1/3 md:max-w-1/3 lg:w-1/4 lg:max-w-1/4"
+      >
         <NftCard
           mint={nft.mint || nft.mintAddress}
           reward={nft.reward}
@@ -409,23 +406,15 @@ function Staking() {
           isSelected={selectedUnstake?.includes(nft.mint || nft.mintAddress)}
           onSelect={handleSelectUnstake}
         />
-      </Grid>
+      </div>
     ));
   } else if (nftList && nftList.length === 0) {
     nftResult = (
-      <Grid item xs={12}>
+      <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
         <StakeEmpty />
-      </Grid>
+      </div>
     );
   }
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   return (
     <>
@@ -436,14 +425,6 @@ function Staking() {
             secondary={formatNumber.format(totalStaked)}
             content={<FormattedMessage id="vault-holdings" />}
             iconPrimary={AccountBalanceTwoToneIcon}
-            iconSx={{
-              top: "calc((100% - 48px)/2)",
-              "&> svg": { width: 48, height: 48, opacity: "0.5" },
-              [theme.breakpoints.down("sm")]: {
-                top: "calc((100% - 32px)/2)",
-                "&> svg": { width: 32, height: 32 },
-              },
-            }}
             color={theme.palette.secondary.dark}
           />
         </div>
@@ -454,14 +435,6 @@ function Staking() {
             secondary={formatUSD.format(valueLocked)}
             content={<FormattedMessage id="tvl-desc" />}
             iconPrimary={MonetizationOnTwoToneIcon}
-            iconSx={{
-              top: "calc((100% - 48px)/2)",
-              "&> svg": { width: 48, height: 48, opacity: "0.5" },
-              [theme.breakpoints.down("sm")]: {
-                top: "calc((100% - 32px)/2)",
-                "&> svg": { width: 32, height: 32 },
-              },
-            }}
             color={theme.palette.primary.dark}
           />
         </div>
@@ -472,14 +445,6 @@ function Staking() {
             secondary={formatNumber.format(tokenDistributed)}
             content={<FormattedMessage id="est-circular-supply" />}
             iconPrimary={EqualizerTwoToneIcon}
-            iconSx={{
-              top: "calc((100% - 48px)/2)",
-              "&> svg": { width: 48, height: 48, opacity: "0.5" },
-              [theme.breakpoints.down("sm")]: {
-                top: "calc((100% - 32px)/2)",
-                "&> svg": { width: 32, height: 32 },
-              },
-            }}
             color={theme.palette.warning.main}
           />
         </div>
@@ -490,14 +455,6 @@ function Staking() {
             secondary={formatNumber.format(dailyYield)}
             content={<FormattedMessage id="daily-yield-desc" />}
             iconPrimary={FormatListBulletedTwoToneIcon}
-            iconSx={{
-              top: "calc((100% - 48px)/2)",
-              "&> svg": { width: 48, height: 48, opacity: "0.5" },
-              [theme.breakpoints.down("sm")]: {
-                top: "calc((100% - 32px)/2)",
-                "&> svg": { width: 32, height: 32 },
-              },
-            }}
             color={theme.palette.info.dark}
           />
         </div>
@@ -506,16 +463,16 @@ function Staking() {
       <div className="box-border flex flex-wrap mt-[-24px] w-[calc(100% + 24px)] ml-[-24px] pb-4">
         <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
           <div className="flex flex-col">
-            <Item>
+            <div className="transition-shadow shadow-none bg-gray-900 rounded-md text-gray-300 font-normal leading-6 font-inter text-sm p-2 text-center">
               Your Assets
               <br />
               {totalCount}
-            </Item>
+            </div>
           </div>
         </div>
         <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
           <div className="flex flex-col">
-            <Item>
+            <div className="transition-shadow shadow-none bg-gray-900 rounded-md text-gray-300 font-normal leading-6 font-inter text-sm p-2 text-center">
               Yaku X
               <br />
               {isLoading ? (
@@ -525,12 +482,12 @@ function Staking() {
               ) : (
                 assetsCount?.yakuXCnt ?? 0
               )}
-            </Item>
+            </div>
           </div>
         </div>
         <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
           <div className="flex flex-col">
-            <Item>
+            <div className="transition-shadow shadow-none bg-gray-900 rounded-md text-gray-300 font-normal leading-6 font-inter text-sm p-2 text-center">
               Capsule X
               <br />
               {isLoading ? (
@@ -540,12 +497,12 @@ function Staking() {
               ) : (
                 assetsCount?.capsuleCnt ?? 0
               )}
-            </Item>
+            </div>
           </div>
         </div>
         <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
           <div className="flex flex-col">
-            <Item>
+            <div className="transition-shadow shadow-none bg-gray-900 rounded-md text-gray-300 font-normal leading-6 font-inter text-sm p-2 text-center">
               ONI S-01
               <br />
               {isLoading ? (
@@ -555,12 +512,12 @@ function Staking() {
               ) : (
                 assetsCount?.bikeCnt ?? 0
               )}
-            </Item>
+            </div>
           </div>
         </div>
         <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
           <div className="flex flex-col">
-            <Item>
+            <div className="transition-shadow shadow-none bg-gray-900 rounded-md text-gray-300 font-normal leading-6 font-inter text-sm p-2 text-center">
               Mansion
               <br />
               {isLoading ? (
@@ -570,12 +527,12 @@ function Staking() {
               ) : (
                 assetsCount?.mansionCnt ?? 0
               )}
-            </Item>
+            </div>
           </div>
         </div>
         <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full xs:w-1/2 xs:max-w-1/2 sm:w-1/3 sm:max-w-1/3 md:w-1/4 md:max-w-1/4 lg:w-1/6 lg:max-w-1/6 pl-6 pt-6">
           <div className="flex flex-col">
-            <Item>
+            <div className="transition-shadow shadow-none bg-gray-900 rounded-md text-gray-300 font-normal leading-6 font-inter text-sm p-2 text-center">
               Sets
               <br />
               {isLoading ? (
@@ -585,12 +542,14 @@ function Staking() {
               ) : (
                 assetsCount?.setCnt ?? 0
               )}
-            </Item>
+            </div>
           </div>
         </div>
       </div>
+
       {showCAConvert && <CAConversion />}
-      <TabContext value={tabIdx}>
+
+      <div>
         <MainCard
           sx={{
             ".MuiCardHeader-root": {
@@ -598,168 +557,177 @@ function Staking() {
             },
           }}
           title={
-            <Box
-              sx={{
-                display: "flex",
-              }}
-            >
-              <TabList
-                onChange={handleTabChange}
-                sx={{
-                  marginTop: "-12px",
-                  ".MuiTabs-flexContainer": { borderBottom: "none" },
-                }}
-                textColor="secondary"
-                indicatorColor="secondary"
-              >
-                <Tab
-                  label={<FormattedMessage id="unstaked" />}
-                  id="unstakedTab"
-                  value="1"
-                />
-                <Tab
-                  label={<FormattedMessage id="staked" />}
-                  id="stakedTab"
-                  value="2"
-                />
-              </TabList>
-            </Box>
+            <div className="flex">
+              <div className="overflow-hidden max-h-[12rem] flex -mt-3">
+                <div className="overflow-hidden mb-0 relative inline-block flex-auto whitespace-nowrap w-full">
+                  <div className="flex">
+                    <button
+                      className={
+                        "inline-flex items-center justify-center flex-shrink-0 flex-col max-w-[360px] min-w-[90px] min-h-12 px-4 py-3 text-center no-underline capitalize font-medium text-sm leading-tight bg-transparent rounded-none cursor-pointer select-none align-middle border-0 outline-none overflow-hidden whitespace-normal " +
+                        (tabIdx === "1" ? "text-[#f38aff]" : "text-[#d8ddf0]")
+                      }
+                      onClick={(e) => handleTabChange(e, "1")}
+                    >
+                      Unstaked
+                      <span className="overflow-hidden pointer-events-none absolute z-0 inset-0"></span>
+                    </button>
+                    <button
+                      className={
+                        "inline-flex items-center justify-center flex-shrink-0 flex-col max-w-[360px] min-w-[90px] min-h-12 px-4 py-3 text-center no-underline capitalize font-medium text-sm leading-tight bg-transparent rounded-none cursor-pointer select-none align-middle border-0 outline-none overflow-hidden whitespace-normal " +
+                        (tabIdx === "2" ? "text-[#f38aff]" : "text-[#d8ddf0]")
+                      }
+                      onClick={(e) => handleTabChange(e, "2")}
+                    >
+                      Staked
+                      <span className="overflow-hidden pointer-events-none absolute z-0 inset-0"></span>
+                    </button>
+                  </div>
+                  <span
+                    className={
+                      "absolute h-[2px] bottom-0 w-[90px] bg-[#f38aff] transition-height-width duration-300 ease-custom " +
+                      (tabIdx === "1" ? "left-0" : "left-[95.8281px]")
+                    }
+                  ></span>
+                </div>
+              </div>
+            </div>
           }
           secondary={
             <>
               {selected && selected.length > 0 && (
                 <>
-                  <Button
-                    color="error"
-                    variant="contained"
+                  <button
+                    className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none text-[0.875rem] font-medium font-inter leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-white bg-[#D9534F] shadow-md rounded-md disabled:bg-[#FFFFFF] disabled:bg-opacity-10 disabled:text-white disabled:text-opacity-30"
                     disabled={selected && !selected.length}
                     onClick={() => unstakeSelected()}
-                    sx={{ ml: 2 }}
                   >
                     Unstake ({selected.length})
-                  </Button>
-                  <Button
-                    color="warning"
-                    variant="contained"
+                  </button>
+                  <button
+                    className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none capitalize font-inter text-[0.875rem] font-medium leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-black bg-[#F0AD4E] shadow-md rounded-md disabled:bg-[#FFFFFF] disabled:bg-opacity-10 disabled:text-white disabled:text-opacity-30"
                     disabled={selected && !selected.length}
                     onClick={() => claimSelected()}
-                    sx={{ ml: 2 }}
                   >
                     Claim ({selected.length})
-                  </Button>
+                  </button>
                 </>
               )}
               {selectedUnstake && selectedUnstake.length > 0 && (
                 <>
-                  <Button
-                    color="secondary"
-                    variant="contained"
+                  <button
+                    className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none capitalize font-inter text-sm font-medium leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-black bg-[#F38AFF] shadow-md rounded-md disabled:bg-[#FFFFFF] disabled:bg-opacity-10 disabled:text-white disabled:text-opacity-30"
                     disabled={selectedUnstake && !selectedUnstake.length}
                     onClick={() => stakeSelected()}
-                    sx={{ ml: 2 }}
                   >
                     Stake ({selectedUnstake.length})
-                  </Button>
+                  </button>
                 </>
               )}
               {(!selectedUnstake || selectedUnstake?.length === 0) &&
                 tabIdx === "1" && (
                   <>
-                    <Button
-                      color="secondary"
-                      variant="contained"
+                    <button
+                      className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none capitalize font-inter text-sm font-medium leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-black bg-[#F38AFF] shadow-md rounded-md disabled:bg-[#FFFFFF] disabled:bg-opacity-10 disabled:text-white disabled:text-opacity-30"
                       disabled={nftList && !nftList.length}
                       onClick={() => stakeAll()}
-                      sx={{ ml: 2 }}
                     >
                       <FormattedMessage id="stake-all" />
-                    </Button>
+                    </button>
                   </>
                 )}
               {(!selected || selected?.length === 0) && tabIdx === "2" && (
                 <>
-                  <Button
-                    color="error"
-                    variant="contained"
+                  <button
+                    className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none text-[0.875rem] font-medium font-inter leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-white bg-[#D9534F] shadow-md rounded-md"
                     onClick={() => unstakeAll()}
-                    sx={{ ml: 2 }}
                   >
                     <FormattedMessage id="unstake-all" />
-                  </Button>
+                  </button>
                   {rewardAmount > 0 && (
-                    <Tooltip
-                      title="You may lose 25% of accumlated rewards if claiming within 15 days of the original staking date."
-                      arrow
-                    >
-                      <Button
-                        color="secondary"
-                        variant="contained"
+                    <div className="relative flex flex-col items-center group">
+                      <button
+                        className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none capitalize font-inter text-sm font-medium leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-black bg-[#F38AFF] shadow-md rounded-md"
                         onClick={() => claimAll()}
-                        sx={{ ml: 2 }}
                       >
                         <FormattedMessage id="claim-all" /> (
                         {rewardAmount.toLocaleString()} $COSMIC)
-                      </Button>
-                    </Tooltip>
+                      </button>
+                      <div className="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
+                        <span className="relative z-10 p-2 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg rounded">
+                          You may lose 25% of accumulated rewards if claiming
+                          within 15 days of the original staking date.
+                        </span>
+                        <div className="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
+                      </div>
+                    </div>
                   )}
-                  <Button
-                    color="warning"
-                    variant="contained"
+                  <button
+                    className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none capitalize font-inter text-[0.875rem] font-medium leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-black bg-[#F0AD4E] shadow-md rounded-md"
                     onClick={() => claimAllYaku()}
-                    sx={{ ml: 2 }}
                   >
                     <FormattedMessage id="claim-all" /> (
                     {yakuRewardAmount.toFixed(3).toLocaleString()} $YAKU)
-                  </Button>
+                  </button>
                 </>
               )}
-              <IconButton sx={{ ml: 2 }} onClick={() => updatePage()}>
+              <button
+                className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none text-center flex-none text-2xl p-2 rounded-full overflow-visible text-white transition duration-150 ease-in-out bg-transparent"
+                onClick={() => updatePage()}
+              >
                 <RefreshOutlined />
-              </IconButton>
-              <Button
-                color="secondary"
-                variant="contained"
-                sx={{ ml: 2 }}
+              </button>
+              <button
+                className="inline-flex items-center justify-center relative box-border tap-highlight-transparent focus:outline-none border-0 ml-4 cursor-pointer select-none align-middle appearance-none capitalize font-inter text-sm font-medium leading-7 min-w-16 px-4 py-[6px] transition duration-250 ease-in-out text-black bg-[#F38AFF] shadow-md rounded-md"
                 onClick={() => setShowPriorityDialog(true)}
               >
                 Priority Rate
-              </Button>
+              </button>
             </>
           }
         >
           {/* Content */}
-          <TabPanel value="1">
-            <Grid container spacing={gridSpacing}>
-              {isLoading ? (
-                [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-                  <Grid key={item} item xs={12} sm={6} md={4} lg={3}>
-                    <SkeletonProductPlaceholder />
-                  </Grid>
-                ))
-              ) : (
-                <>{nftResult}</>
-              )}
-            </Grid>
-          </TabPanel>
+          {tabIdx === "1" && (
+            <div>
+              <div className="box-border flex flex-wrap mt-[-24px] w-[calc(100% + 24px)] ml-[-24px] pb-4">
+                {isLoading ? (
+                  [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                    <div
+                      key={item}
+                      className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full sm:w-1/2 sm:max-w-1/2 md:w-1/3 md:max-w-1/3 lg:w-1/4 lg:max-w-1/4"
+                    >
+                      <SkeletonProductPlaceholder />
+                    </div>
+                  ))
+                ) : (
+                  <>{nftResult}</>
+                )}
+              </div>
+            </div>
+          )}
 
-          <TabPanel value="2">
-            <Grid container spacing={gridSpacing}>
-              {isLoading ? (
-                [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-                  <Grid key={item} item xs={12} sm={6} md={4} lg={3}>
-                    <SkeletonProductPlaceholder />
-                  </Grid>
-                ))
-              ) : (
-                <>
-                  {stakedNftResult}
-                  {stakedYakuNftResult}
-                </>
-              )}
-            </Grid>
-          </TabPanel>
+          {tabIdx === "2" && (
+            <div>
+              <div className="box-border flex flex-wrap mt-[-24px] w-[calc(100% + 24px)] ml-[-24px] pb-4">
+                {isLoading ? (
+                  [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                    <div
+                      key={item}
+                      className="pl-6 pt-6 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full sm:w-1/2 sm:max-w-1/2 md:w-1/3 md:max-w-1/3 lg:w-1/4 lg:max-w-1/4"
+                    >
+                      <SkeletonProductPlaceholder />
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    {stakedNftResult}
+                    {stakedYakuNftResult}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </MainCard>
-      </TabContext>
+      </div>
     </>
   );
 }

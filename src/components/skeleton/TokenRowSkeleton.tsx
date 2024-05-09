@@ -1,7 +1,7 @@
 import { Grid, Skeleton, Typography } from "@mui/material";
 
 const TokenRowSkeleton = ({ index }: any) => (
-  <Grid item xs={12} className="p-2 pt-2 md:p-0 md:!pt-0">
+  <div className="box-border m-0 flex-grow max-w-full p-2 pt-2 md:p-0 md:!pt-0">
     <div className="bg-elevation1 hover:bg-elevation1-hover rounded-2xl shadow-none w-full px-0 mt-2 !border-none">
       <Grid
         container
@@ -82,7 +82,7 @@ const TokenRowSkeleton = ({ index }: any) => (
         </Grid>
       </Grid>
     </div>
-  </Grid>
+  </div>
 );
 
 export default TokenRowSkeleton;

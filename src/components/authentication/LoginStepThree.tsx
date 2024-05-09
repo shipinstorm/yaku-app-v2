@@ -12,7 +12,7 @@ const LoginStepThree = ({ handleProfileVisit }: any) => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
-      <Grid item xs={12}>
+      <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
         <Grid
           container
           direction={matchDownSM ? "column-reverse" : "row"}
@@ -31,9 +31,9 @@ const LoginStepThree = ({ handleProfileVisit }: any) => {
             </Stack>
           </Grid>
         </Grid>
-      </Grid>
+      </div>
 
-      <Grid item xs={12} sx={{ mt: 2 }}>
+      <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6 mt-2">
         <Stack direction="column" justifyContent="center">
           <WalletButton
             variant="outlined"
@@ -44,7 +44,7 @@ const LoginStepThree = ({ handleProfileVisit }: any) => {
             Visit Hub
           </WalletButton>
         </Stack>
-      </Grid>
+      </div>
     </>
   );
 };

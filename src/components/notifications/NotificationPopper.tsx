@@ -109,7 +109,7 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
                   shadow={theme.shadows[16]}
                 >
                   <Grid container direction="column" spacing={2}>
-                    <Grid item xs={12}>
+                    <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                       <Grid
                         container
                         alignItems="center"
@@ -156,10 +156,10 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
                           </Typography>
                         </Grid>
                       </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
+                    </div>
+                    <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                       <Grid container direction="column" spacing={2}>
-                        <Grid item xs={12}>
+                        <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                           <Box sx={{ px: 2, pt: 0.25 }}>
                             <select
                               id="outlined-select-currency-native"
@@ -174,8 +174,8 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
                               ))}
                             </select>
                           </Box>
-                        </Grid>
-                        <Grid item xs={12}>
+                        </div>
+                        <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                           <NotificationList
                             notifications={
                               value === NotificationStatus.ALL
@@ -186,9 +186,9 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
                                   )
                             }
                           />
-                        </Grid>
+                        </div>
                       </Grid>
-                    </Grid>
+                    </div>
                   </Grid>
                   <Divider />
                 </MainCard>

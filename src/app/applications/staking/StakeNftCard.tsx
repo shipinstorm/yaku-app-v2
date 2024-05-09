@@ -128,8 +128,7 @@ const NftCard = ({
               </Typography>
             </Box>
 
-            {/* Role/Token Amount */}
-            <Grid item xs={12} sx={{ mb: "10px", mt: "5px" }}>
+            <div className="box-border mb-[10px] mt-[5px] flex-grow max-w-full pl-6 pt-6">
               <FormattedMessage id="per-day">
                 {(msg) => (
                   <Chip
@@ -146,12 +145,11 @@ const NftCard = ({
                   />
                 )}
               </FormattedMessage>
-            </Grid>
+            </div>
 
             <Divider sx={{ mb: "10px" }} />
 
-            {/* Management Buttons */}
-            <Grid item xs={12}>
+            <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
               <Grid container spacing={1}>
                 <Grid item xs={6}>
                   <Button variant="contained" disabled fullWidth>
@@ -169,7 +167,7 @@ const NftCard = ({
                   </Button>
                 </Grid>
               </Grid>
-            </Grid>
+            </div>
           </CardContent>
         </MainCard>
       ) : (

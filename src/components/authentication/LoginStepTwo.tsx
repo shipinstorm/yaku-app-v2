@@ -19,7 +19,7 @@ const LoginStepTwo = ({
 
   return (
     <>
-      <Grid item xs={12}>
+      <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
         <Grid
           container
           direction={matchDownSM ? "column-reverse" : "row"}
@@ -38,9 +38,9 @@ const LoginStepTwo = ({
             </Stack>
           </Grid>
         </Grid>
-      </Grid>
+      </div>
 
-      <Grid item xs={12} sx={{ mt: 2 }}>
+      <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6 mt-2">
         <TextField
           fullWidth
           label="Username (Optional)"
@@ -66,7 +66,7 @@ const LoginStepTwo = ({
             Sign Up
           </WalletButton>
         </Stack>
-      </Grid>
+      </div>
     </>
   );
 };

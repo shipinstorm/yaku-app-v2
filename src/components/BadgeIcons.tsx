@@ -27,7 +27,6 @@ import BadgeIconTrophy from "../assets/images/icons/badges/trophy.svg";
 import BadgeIconTwitter from "../assets/images/icons/badges/twitter.svg";
 import BadgeIconWhale from "../assets/images/icons/badges/whale.svg";
 import BadgeIconSales from "../assets/images/icons/badges/winner.svg";
-import { Avatar, Tooltip } from "@mui/material";
 
 const BadgeIcons: Record<string, string> = {
   BadgeIconAward1,

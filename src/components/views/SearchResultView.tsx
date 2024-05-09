@@ -7,11 +7,9 @@ const SearchResultView = ({
   index: idx,
   navigate = (v: any) => {},
 }: any) => (
-  <Grid
+  <div
     key={idx}
-    item
-    xs={12}
-    className="bg-elevation1 hover:bg-elevation1-hover p-2 rounded-2xl mx-2"
+    className="box-border m-0 flex-grow max-w-full pl-6 pt-6 bg-elevation1 hover:bg-elevation1-hover p-2 rounded-2xl mx-2"
   >
     <Grid
       container
@@ -56,7 +54,7 @@ const SearchResultView = ({
         <Chip size="small" label={toUpper(project?.type)} />
       </Grid>
     </Grid>
-  </Grid>
+  </div>
 );
 
 export default SearchResultView;

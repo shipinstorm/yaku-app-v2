@@ -123,8 +123,7 @@ const StakeNftCard = ({
             </Typography>
           </Box>
 
-          {/* Role/Token Amount */}
-          <Grid item xs={12} sx={{ mb: "10px", mt: "5px" }}>
+          <div className="box-border flex-grow max-w-full pl-6 pt-6 mb-[10px] mt-[5px]">
             <Chip
               label={role}
               size="small"
@@ -132,12 +131,11 @@ const StakeNftCard = ({
               sx={{ mr: "5px" }}
             />
             <Chip label={rewardString} size="small" />
-          </Grid>
+          </div>
 
           <Divider sx={{ mb: "10px" }} />
 
-          {/* Staking Stats */}
-          <Grid item xs={12} sx={{ mb: "15px" }}>
+          <div className="box-border flex-grow max-w-full pl-6 pt-6 mb-[15px]">
             <Typography variant="h5" fontWeight="500">
               Staked Duration:
               <Typography
@@ -146,20 +144,12 @@ const StakeNftCard = ({
                 fontWeight="700"
                 sx={{ ml: "5px" }}
               >
-                {/* {dayjs(stakedTime * 1000).diff(Date.now(), 'hours')} hours */}
                 {dayjs(Date.now()).diff(stakedTime * 1000, "hours")} hours
               </Typography>
             </Typography>
-            {/* <Typography variant="h5" fontWeight="500">
-                            Current Rewards:
-                            <Typography component="span" variant="h4" fontWeight="700" sx={{ ml: '5px' }}>
-                                test
-                            </Typography>
-                        </Typography> */}
-          </Grid>
+          </div>
 
-          {/* Management Buttons */}
-          <Grid item xs={12}>
+          <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
             <Grid container spacing={1}>
               <Grid item xs={6}>
                 <Button onClick={() => onClaim()} variant="contained" fullWidth>
@@ -177,14 +167,9 @@ const StakeNftCard = ({
                 </Button>
               </Grid>
             </Grid>
-          </Grid>
+          </div>
 
-          {/* Staking End Time */}
-          <Grid
-            item
-            xs={12}
-            sx={{ mt: "8px", mb: "0px !important", textAlign: "center" }}
-          >
+          <div className="box-border flex-grow max-w-full pl-6 pt-6 mt-2 !mb-0 text-center">
             <Typography variant="caption">
               Staking Penalty Ends:
               <Typography
@@ -196,7 +181,7 @@ const StakeNftCard = ({
                 {dayjs(lockTime * 1000).format("MMMM DD, yyyy")}
               </Typography>
             </Typography>
-          </Grid>
+          </div>
         </CardContent>
       </MainCard>
     </>

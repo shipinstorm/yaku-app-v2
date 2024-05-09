@@ -6,21 +6,21 @@ import { gridSpacing } from "@/store/constant";
 
 const StakeEmpty = () => (
   <Grid container spacing={gridSpacing}>
-    <Grid item xs={12}>
+    <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
       <Box sx={{ m: "5 auto", textAlign: "center" }}>
         <Grid container justifyContent="center" spacing={gridSpacing}>
-          <Grid item xs={12}>
+          <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
             <Grid container spacing={gridSpacing}>
-              <Grid item xs={12}>
-                <Typography variant="h1" color="inherit" component="div">
+              <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
+                <div className="m-0 text-4xl font-bold font-inter leading-tight text-white">
                   You do not own any unstaked Yaku collections.
-                </Typography>
-              </Grid>
+                </div>
+              </div>
             </Grid>
-          </Grid>
+          </div>
         </Grid>
       </Box>
-    </Grid>
+    </div>
   </Grid>
 );
 

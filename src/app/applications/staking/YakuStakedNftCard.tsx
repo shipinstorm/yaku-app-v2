@@ -193,12 +193,7 @@ const YakuStakeNftCard = ({
               </Typography>
             </Box>
 
-            {/* Role/Token Amount */}
-            <Grid
-              item
-              xs={12}
-              className="mb-[10px] mt-[5px] flex justify-between"
-            >
+            <div className="box-border flex-grow max-w-full pl-6 pt-6 mb-[10px] mt-[5px] flex justify-between">
               <FormattedMessage id="per-day">
                 {(msg) => (
                   <Chip
@@ -228,12 +223,11 @@ const YakuStakeNftCard = ({
                 size="small"
                 color="primary"
               />
-            </Grid>
+            </div>
 
             <Divider sx={{ mb: "10px" }} />
 
-            {/* Management Buttons */}
-            <Grid item xs={12}>
+            <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
               <Grid container spacing={1}>
                 <Grid item xs={6}>
                   <Button
@@ -256,7 +250,7 @@ const YakuStakeNftCard = ({
                   </Button>
                 </Grid>
               </Grid>
-            </Grid>
+            </div>
           </CardContent>
         </MainCard>
       ) : (

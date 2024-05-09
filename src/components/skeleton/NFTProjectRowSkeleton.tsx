@@ -1,16 +1,7 @@
 import { Box, Grid, Skeleton, Typography } from "@mui/material";
 
 const NFTProjectRowSkeleton = ({ index }: any) => (
-  <Grid
-    item
-    xs={12}
-    sx={{
-      p: 0,
-      paddingLeft: "0 !important",
-      paddingTop: "0 !important",
-      borderRadius: 0,
-    }}
-  >
+  <div className="box-border m-0 flex-grow max-w-full p-0 pl-0 pt-0 border-none">
     <div className="bg-elevation1 hover:bg-elevation1-hover rounded-2xl card border-none shadow-none w-full px-0 py-1 mt-1">
       <Grid
         container
@@ -194,7 +185,7 @@ const NFTProjectRowSkeleton = ({ index }: any) => (
         </Grid>
       </Grid>
     </div>
-  </Grid>
+  </div>
 );
 
 export default NFTProjectRowSkeleton;

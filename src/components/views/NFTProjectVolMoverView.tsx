@@ -14,11 +14,9 @@ const NFTProjectVolMoverView = ({
 }: any) => {
   const solPrice = useSolPrice();
   return (
-    <Grid
+    <div
       key={idx}
-      item
-      xs={12}
-      className="bg-elevation1 hover:bg-elevation1-hover mt-1 px-2 rounded-2xl"
+      className="box-border m-0 flex-grow max-w-full pl-6 pt-6 bg-elevation1 hover:bg-elevation1-hover mt-1 px-2 rounded-2xl"
     >
       <Grid
         container
@@ -92,7 +90,7 @@ const NFTProjectVolMoverView = ({
           />
         </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 

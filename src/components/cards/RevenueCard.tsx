@@ -1,13 +1,3 @@
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import {
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-
 // types
 import { GenericCardProps } from "@/types";
 
@@ -18,7 +8,6 @@ interface RevenueCardProps extends GenericCardProps {
   secondary: string;
   content: any;
   iconPrimary: any;
-  iconSx?: any;
   color: any;
 }
 
@@ -27,58 +16,41 @@ const RevenueCard = ({
   secondary,
   content,
   iconPrimary,
-  iconSx,
   color,
 }: RevenueCardProps) => {
-  const theme = useTheme();
-  const matchDownXs = useMediaQuery(theme.breakpoints.down("sm"));
-
   const IconPrimary = iconPrimary!;
-  const primaryIcon = iconPrimary ? <IconPrimary fontSize="large" /> : null;
-  let iconContentSx = iconSx;
-  if (!iconContentSx) {
-    iconContentSx = {
-      "&> svg": { width: 100, height: 100, opacity: "0.5" },
-      [theme.breakpoints.down("sm")]: {
-        top: 13,
-        "&> svg": { width: 80, height: 80 },
-      },
-    };
-  }
+  const primaryIcon = iconPrimary ? (
+    <IconPrimary className="w-8 h-8 sm:w-12 sm:h-12" fontSize="large" />
+  ) : null;
+
   return (
-    <Card sx={{ background: color, position: "relative", color: "#fff" }}>
-      <CardContent>
-        <Typography
-          variant="body2"
-          sx={{
-            position: "absolute",
-            right: 13,
-            top: 14,
-            color: "#fff",
-            ...iconContentSx,
-          }}
-        >
+    <div
+      className="transition-shadow duration-300 ease-in-out shadow-none rounded-lg overflow-hidden relative text-white"
+      style={{ background: color }}
+    >
+      <div className="p-6">
+        <p className="m-0 leading-6 font-normal font-inter text-sm text-white absolute right-3 top-[calc(50% - 16px)] sm:top-[calc(50% - 24px)] transform -translate-y-1/2">
           {primaryIcon}
-        </Typography>
-        <Grid container direction={matchDownXs ? "column" : "row"} spacing={1}>
-          <Grid item xs={12}>
-            <Typography variant="h5" color="inherit">
+        </p>
+        <div className="box-border flex sm:flex-col flex-wrap mt-n2 ml-n2 w-full">
+          <div className="box-border m-0 flex-grow-0 flex-shrink-0 flex-basis-full pt-2 pl-2">
+            <h5 className="m-0 text-base font-medium font-inter leading-5 text-inherit">
               {primary}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h3" color="inherit">
+            </h5>
+          </div>
+          <div className="box-border m-0 flex-grow-0 flex-shrink-0 flex-basis-full pt-2 pl-2">
+            <h3 className="m-0 text-lg font-semibold font-inter leading-tight text-inherit">
               {secondary}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="subtitle2" color="inherit">
+            </h3>
+          </div>
+          <div className="box-border m-0 flex-grow-0 flex-shrink-0 flex-basis-full pt-2 pl-2">
+            <h6 className="m-0 text-xs font-normal font-inter leading-tight text-inherit">
               {content}
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

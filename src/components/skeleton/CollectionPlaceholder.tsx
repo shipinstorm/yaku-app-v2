@@ -9,9 +9,9 @@ const CollectionPlaceholder = () => (
     <Skeleton variant="rectangular" animation="wave" height={220} />
     <CardContent sx={{ p: 2 }}>
       <Grid container spacing={1}>
-        <Grid item xs={12}>
+      <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
           <Skeleton variant="text" animation="wave" height={30} />
-        </Grid>
+        </div>
 
         <Grid item xs={12} sx={{ pt: "0px !important" }}>
           <Skeleton variant="text" animation="wave" height={30} />
@@ -19,7 +19,7 @@ const CollectionPlaceholder = () => (
         </Grid>
 
         {/* Buttons */}
-        <Grid item xs={12}>
+        <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
           <Grid container spacing={2}>
             <Grid item xs={4}>
               <Skeleton variant="text" animation="wave" height={60} />
@@ -31,7 +31,7 @@ const CollectionPlaceholder = () => (
               <Skeleton variant="text" animation="wave" height={60} />
             </Grid>
           </Grid>
-        </Grid>
+        </div>
       </Grid>
     </CardContent>
   </MainCard>

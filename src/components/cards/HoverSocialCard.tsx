@@ -48,16 +48,16 @@ const HoverSocialCard = ({
           {primaryIcon}
         </Typography>
         <Grid container spacing={0}>
-          <Grid item xs={12}>
+          <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
             <Typography variant="h3" color="inherit">
               {secondary}
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
+          </div>
+          <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
             <Typography variant="subtitle2" color="inherit">
               {primary}
             </Typography>
-          </Grid>
+          </div>
         </Grid>
       </CardContent>
     </Card>

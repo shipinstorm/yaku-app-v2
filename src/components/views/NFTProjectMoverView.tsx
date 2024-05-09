@@ -14,11 +14,9 @@ const NFTPProjectMoverView = ({
 }: any) => {
   const solPrice = useSolPrice();
   return (
-    <Grid
+    <div
       key={idx}
-      item
-      xs={12}
-      className="bg-elevation1 hover:bg-elevation1-hover mt-1 px-2 rounded-2xl"
+      className="box-border m-0 flex-grow max-w-full pl-6 pt-6 bg-elevation1 hover:bg-elevation1-hover mt-1 px-2 rounded-2xl"
     >
       <Grid
         container
@@ -50,18 +48,18 @@ const NFTPProjectMoverView = ({
             sx={{ ml: 1, width: "100%" }}
           >
             <Grid container>
-              <Grid item xs={12}>
+              <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                 <Typography component="h6" fontWeight={700} noWrap>
                   {project.display_name}
                 </Typography>
-              </Grid>
-              <Grid item xs={12}>
+              </div>
+              <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                 <Typography component="p" fontSize={12}>
                   24h Vol:{" "}
                   {round(Number(volume_1day / solPrice), 2).toLocaleString()} ◎
                 </Typography>
-              </Grid>
-              <Grid item xs={12}>
+              </div>
+              <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                 <Typography
                   component="p"
                   fontSize={12}
@@ -73,7 +71,7 @@ const NFTPProjectMoverView = ({
                   {volume_1day_change > 0 ? "+" : ""}
                   {round(Number(volume_1day_change * 100), 2).toLocaleString()}%
                 </Typography>
-              </Grid>
+              </div>
             </Grid>
           </Box>
         </Grid>
@@ -101,7 +99,7 @@ const NFTPProjectMoverView = ({
           />
         </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 

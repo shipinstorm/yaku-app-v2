@@ -272,7 +272,7 @@ const ProfilePopperContext = ({
                 <Grid container sx={{ alignItems: "center", ml: -0.875 }}>
                   {auth.user?.discord?.name &&
                     auth.user?.discord?.discriminator && (
-                      <Grid item xs={12}>
+                      <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                         <Typography
                           variant="caption"
                           noWrap
@@ -285,10 +285,10 @@ const ProfilePopperContext = ({
                           <IconBrandDiscord style={{ height: 14 }} />{" "}
                           {`${auth.user?.discord?.name}#${auth.user?.discord?.discriminator}`}
                         </Typography>
-                      </Grid>
+                      </div>
                     )}
                   {auth.user?.twitter?.username && (
-                    <Grid item xs={12}>
+                    <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
                       <Typography
                         variant="caption"
                         noWrap
@@ -297,7 +297,7 @@ const ProfilePopperContext = ({
                         <IconBrandTwitter style={{ height: 14 }} /> @
                         {auth.user?.twitter?.username}
                       </Typography>
-                    </Grid>
+                    </div>
                   )}
                 </Grid>
               </Stack>
