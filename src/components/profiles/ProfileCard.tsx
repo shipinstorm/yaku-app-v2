@@ -63,6 +63,10 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   const theme = useTheme();
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <section className="profile-box bg-surface mb-5 p-0 card overflow-hidden">
       <div className="banner bg-high-bg relative">
@@ -188,16 +192,16 @@ const ProfileCard = ({
                             ...theme.typography.mediumAvatar,
                             transition: "all .2s ease-in-out",
                             color:
-                              theme.palette.mode === "dark"
+                              paletteMode === "dark"
                                 ? theme.palette.warning.dark
                                 : theme.palette.secondary.dark,
                             '&[aria-controls="menu-list-grow"],&:hover': {
                               background:
-                                theme.palette.mode === "dark"
+                                paletteMode === "dark"
                                   ? theme.palette.warning.dark
                                   : theme.palette.secondary.dark,
                               color:
-                                theme.palette.mode === "dark"
+                                paletteMode === "dark"
                                   ? theme.palette.grey[800]
                                   : theme.palette.secondary.light,
                             },

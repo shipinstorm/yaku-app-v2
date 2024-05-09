@@ -5,7 +5,7 @@ import defaultConfig from "@/config";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 // types
-import { PaletteMode } from "@mui/material";
+import { PaletteMode } from "@/types/config";
 import { CustomizationProps } from "@/types/config";
 
 // initial state

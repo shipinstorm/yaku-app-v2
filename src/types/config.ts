@@ -1,4 +1,4 @@
-import { PaletteMode } from "@mui/material";
+export type PaletteMode = 'light' | 'dark';
 
 export type ConfigOptions = {
   spaces: {

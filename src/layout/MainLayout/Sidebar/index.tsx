@@ -207,6 +207,10 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
     setOpen(false);
   };
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <nav className="w-[260px] md:flex-shrink-0" aria-label="mailbox folders">
       <Drawer
@@ -304,7 +308,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
               }}
             >
               <MoreHorizRounded
-                htmlColor={theme.palette.mode === "dark" ? "white" : "black"}
+                htmlColor={paletteMode === "dark" ? "white" : "black"}
               />{" "}
             </div>
           </div>

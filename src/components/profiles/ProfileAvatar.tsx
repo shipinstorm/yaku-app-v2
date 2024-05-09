@@ -7,6 +7,11 @@ const ProfileAvatar = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector<any>((state) => state.menu);
+
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <Avatar
       variant="rounded"
@@ -16,20 +21,15 @@ const ProfileAvatar = () => {
         overflow: "hidden",
         transition: "all .2s ease-in-out",
         background:
-          theme.palette.mode === "dark"
+          paletteMode === "dark"
             ? theme.palette.dark.main
             : theme.palette.secondary.light,
-        color:
-          theme.palette.mode === "dark"
-            ? "white"
-            : theme.palette.secondary.dark,
+        color: paletteMode === "dark" ? "white" : theme.palette.secondary.dark,
         "&:hover": {
           background:
-            theme.palette.mode === "dark"
-              ? "white"
-              : theme.palette.secondary.dark,
+            paletteMode === "dark" ? "white" : theme.palette.secondary.dark,
           color:
-            theme.palette.mode === "dark"
+            paletteMode === "dark"
               ? theme.palette.secondary.main
               : theme.palette.secondary.light,
         },

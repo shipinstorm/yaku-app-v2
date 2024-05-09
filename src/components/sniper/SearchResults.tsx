@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useRecoilValue } from "recoil";
 import { searchResultAtom } from "@/app/applications/sniping/recoil/atom/HaloLabsAtom";
@@ -8,7 +8,11 @@ import "./rainbow.css";
 const SearchResults = ({ closeSearch, addCollection }: any) => {
   const ref = useDetectClickOutside({ onTriggered: closeSearch });
   const searchResult = useRecoilValue(searchResultAtom);
-  const theme = useTheme();
+
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <Box
       ref={ref}
@@ -25,7 +29,7 @@ const SearchResults = ({ closeSearch, addCollection }: any) => {
         background: "transparent !important",
         padding: "22px 17px",
         borderRadius: "10px",
-        color: theme.palette.mode === "dark" ? "#fff" : "#000",
+        color: paletteMode === "dark" ? "#fff" : "#000",
         display: "flex",
         flexDirection: "column",
         gap: "10px",

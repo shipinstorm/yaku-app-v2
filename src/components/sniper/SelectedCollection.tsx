@@ -91,6 +91,10 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
     });
   };
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <Transition
       enter="transition duration-300 ease-out"
@@ -105,13 +109,12 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
       <Box
         sx={{
           position: "relative",
-          color: theme.palette.mode === "dark" ? "#fff" : "#000",
+          color: paletteMode === "dark" ? "#fff" : "#000",
           minWidth: "100%",
           maxWidth: "100%",
           minHeight: "124px",
           maxHeight: "124px",
-          background:
-            theme.palette.mode === "dark" ? theme.palette.dark[800] : "#fff",
+          background: paletteMode === "dark" ? theme.palette.dark[800] : "#fff",
           pt: "16.83px",
           pb: "21.26px",
           pr: "20.19px",
@@ -123,7 +126,7 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
           borderWidth: 1,
           borderStyle: "solid",
           borderColor:
-            theme.palette.mode === "dark"
+            paletteMode === "dark"
               ? theme.palette.background.default
               : theme.palette.primary[200] + 75,
         }}

@@ -663,6 +663,10 @@ const Sniper = ({ buyNow }: any) => {
     initializeData();
   }, []);
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <Box
       sx={{
@@ -671,7 +675,7 @@ const Sniper = ({ buyNow }: any) => {
         display: "flex",
         flexDirection: "column",
         color:
-          theme.palette.mode === "dark"
+          paletteMode === "dark"
             ? theme.palette.primary.light
             : theme.palette.primary.main,
       }}
@@ -710,7 +714,7 @@ const Sniper = ({ buyNow }: any) => {
             borderWidth: 1,
             borderStyle: "solid",
             borderColor:
-              theme.palette.mode === "dark"
+              paletteMode === "dark"
                 ? theme.palette.background.default
                 : theme.palette.primary[200] + 75,
             backgroundColor: theme.palette.background.default,
@@ -727,7 +731,7 @@ const Sniper = ({ buyNow }: any) => {
               fontWeight: 700,
               fontSize: 14,
               color:
-                theme.palette.mode === "dark"
+                paletteMode === "dark"
                   ? theme.palette.primary.light
                   : theme.palette.primary.main,
             }}
@@ -750,7 +754,7 @@ const Sniper = ({ buyNow }: any) => {
             borderWidth: 1,
             borderStyle: "solid",
             borderColor:
-              theme.palette.mode === "dark"
+              paletteMode === "dark"
                 ? theme.palette.background.default
                 : theme.palette.primary[200] + 75,
             backgroundColor: theme.palette.background.default,
@@ -770,7 +774,7 @@ const Sniper = ({ buyNow }: any) => {
               fontWeight: 700,
               fontSize: 14,
               color:
-                theme.palette.mode === "dark"
+                paletteMode === "dark"
                   ? theme.palette.primary.light
                   : theme.palette.primary.main,
             }}
@@ -801,7 +805,7 @@ const Sniper = ({ buyNow }: any) => {
             borderWidth: 1,
             borderStyle: "solid",
             borderColor:
-              theme.palette.mode === "dark"
+              paletteMode === "dark"
                 ? theme.palette.background.default
                 : theme.palette.primary[200] + 75,
             backgroundColor: theme.palette.background.default,
@@ -856,7 +860,7 @@ const Sniper = ({ buyNow }: any) => {
             paddingLeft: "1rem",
             paddingRight: "1rem",
             borderColor:
-              theme.palette.mode === "dark"
+              paletteMode === "dark"
                 ? theme.palette.background.default
                 : theme.palette.primary[200] + 75,
             borderStyle: "solid",
@@ -932,9 +936,7 @@ const Sniper = ({ buyNow }: any) => {
                 inset: 0,
                 top: "87.59px",
                 background:
-                  theme.palette.mode === "dark"
-                    ? theme.palette.dark[800]
-                    : "#fff",
+                  paletteMode === "dark" ? theme.palette.dark[800] : "#fff",
               }}
             >
               <SearchResults
@@ -981,7 +983,7 @@ const Sniper = ({ buyNow }: any) => {
               borderTopRightRadius: "10px",
               padding: "1rem",
               borderColor:
-                theme.palette.mode === "dark"
+                paletteMode === "dark"
                   ? theme.palette.background.default
                   : theme.palette.primary[200] + 75,
               borderStyle: "solid",
@@ -1027,7 +1029,7 @@ const Sniper = ({ buyNow }: any) => {
                       fontSize: 10,
                       fontWeight: 700,
                       color:
-                        theme.palette.mode === "dark"
+                        paletteMode === "dark"
                           ? theme.palette.primary.light
                           : theme.palette.primary.main,
                     }}
@@ -1046,7 +1048,7 @@ const Sniper = ({ buyNow }: any) => {
                 justifyContent: showFilter ? "center" : "flex-start",
                 alignItems: "center",
                 color:
-                  theme.palette.mode === "dark"
+                  paletteMode === "dark"
                     ? theme.palette.primary.light
                     : theme.palette.primary.main,
                 fontWeight: 700,
@@ -1107,7 +1109,7 @@ const Sniper = ({ buyNow }: any) => {
                   padding: "5px 3px",
                   borderRadius: "5px",
                   color:
-                    theme.palette.mode === "dark"
+                    paletteMode === "dark"
                       ? theme.palette.primary.light
                       : theme.palette.primary.main,
                 }}
@@ -1134,7 +1136,7 @@ const Sniper = ({ buyNow }: any) => {
               borderWidth: 1,
               borderStyle: "solid",
               borderColor:
-                theme.palette.mode === "dark"
+                paletteMode === "dark"
                   ? theme.palette.background.default
                   : theme.palette.primary[200] + 75,
             }}

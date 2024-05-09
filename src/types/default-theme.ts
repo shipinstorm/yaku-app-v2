@@ -1,4 +1,5 @@
-import { Color, PaletteMode } from "@mui/material";
+import { Color } from "@mui/material";
+import { PaletteMode } from "@/types/config";
 import { Property } from "csstype";
 
 export interface CustomizationProps {

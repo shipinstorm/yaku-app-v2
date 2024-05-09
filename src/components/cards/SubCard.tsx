@@ -40,6 +40,9 @@ const SubCard = React.forwardRef(
     }: SubCardProps,
     ref: Ref<HTMLDivElement>
   ) => {
+    const paletteMode = JSON.parse(
+      localStorage.getItem("yaku-config") || "{}"
+    ).mode;
     const theme = useTheme();
 
     return (
@@ -48,12 +51,12 @@ const SubCard = React.forwardRef(
         sx={{
           border: "1px solid",
           borderColor:
-            theme.palette.mode === "dark"
+            paletteMode === "dark"
               ? theme.palette.dark.light + 15
               : theme.palette.primary.light,
           ":hover": {
             boxShadow:
-              theme.palette.mode === "dark"
+              paletteMode === "dark"
                 ? "0 2px 14px 0 rgb(33 150 243 / 10%)"
                 : "0 2px 14px 0 rgb(32 40 45 / 8%)",
           },
@@ -83,7 +86,7 @@ const SubCard = React.forwardRef(
             sx={{
               opacity: 1,
               borderColor:
-                theme.palette.mode === "dark"
+                paletteMode === "dark"
                   ? theme.palette.dark.light + 15
                   : theme.palette.primary.light,
             }}

@@ -1,6 +1,6 @@
 // material-ui
 import { createTheme } from "@mui/material/styles";
-import { PaletteMode } from "@mui/material";
+import { PaletteMode } from "@/types/config";
 
 // assets
 import defaultColor from "@/app/styles/_themes-vars.module.scss";

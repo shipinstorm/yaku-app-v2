@@ -78,12 +78,12 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
       strokeWidth="1.5"
       style={{ marginTop: "auto", marginBottom: "auto" }}
     />
+  ) : (
     // <Icon
     //   strokeWidth={1.5}
     //   size="1.3rem"
     //   style={{ marginTop: "auto", marginBottom: "auto" }}
     // />
-  ) : (
     <FiberManualRecordIcon
       sx={{
         width: selected === menu.id ? 8 : 6,
@@ -92,6 +92,10 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
       fontSize={level > 0 ? "inherit" : "medium"}
     />
   );
+
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
 
   return (
     <>
@@ -160,9 +164,9 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
               top: 0,
               height: "100%",
               width: "1px",
-              opacity: theme.palette.mode === "dark" ? 0.2 : 1,
+              opacity: paletteMode === "dark" ? 0.2 : 1,
               background:
-                theme.palette.mode === "dark"
+                paletteMode === "dark"
                   ? theme.palette.dark.light
                   : theme.palette.primary.light,
             },

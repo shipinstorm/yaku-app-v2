@@ -7,6 +7,11 @@ import ReactApexChart from "react-apexcharts";
 const StakedPieChart = ({ total, totalStaked }: any) => {
   const theme = useTheme();
   const [chartData, setChartData] = useState<any>({});
+
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   const updateChart = () => {
     setChartData({
       series: [totalStaked, total - totalStaked],
@@ -27,7 +32,7 @@ const StakedPieChart = ({ total, totalStaked }: any) => {
         },
         labels: ["Staked", "Non-staked"],
         colors: ["#c691c1", "#1f1f23"],
-        theme: { mode: theme.palette.mode },
+        theme: { mode: paletteMode },
         legend: {
           show: false,
         },
@@ -46,7 +51,7 @@ const StakedPieChart = ({ total, totalStaked }: any) => {
                   show: true,
                   label: `Total: ${(total || 0).toLocaleString()}`,
                   fontSize: "14px",
-                  color: theme.palette.mode === "dark" ? "#fff" : "#000",
+                  color: paletteMode === "dark" ? "#fff" : "#000",
                   offsetY: 0,
                   showAlways: true,
                   formatter: () =>

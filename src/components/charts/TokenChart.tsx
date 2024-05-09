@@ -11,6 +11,10 @@ const TokenChart = ({ coinId }: { coinId: String }) => {
   const [chartData, setChartData] = useState<any>({});
   const [getTokenChart] = useAuthLazyQuery(queries.GET_COINS_MARKET_CHART);
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   const prepareChart = (newData: any) => {
     setChartData({
       series: [
@@ -82,10 +86,10 @@ const TokenChart = ({ coinId }: { coinId: String }) => {
             formatter: (value: number) => `${value.toFixed(2)}`,
           },
         },
-        theme: { mode: theme.palette.mode },
+        theme: { mode: paletteMode },
         tooltip: {
           intersect: false,
-          theme: theme.palette.mode,
+          theme: paletteMode,
           y: {
             formatter: (
               y: number,

@@ -147,6 +147,10 @@ const YakuStakeNftCard = ({
     return () => clearInterval(timer);
   }, [mint]);
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <>
       {name ? (
@@ -156,9 +160,7 @@ const YakuStakeNftCard = ({
           useBackdropFilter={false}
           sx={{
             background:
-              theme.palette.mode === "dark"
-                ? "#09080d"
-                : theme.palette.primary.light,
+              paletteMode === "dark" ? "#09080d" : theme.palette.primary.light,
             "&:hover": {
               transform: "scale3d(1.03, 1.03, 1)",
               transition: ".15s",

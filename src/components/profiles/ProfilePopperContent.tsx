@@ -453,6 +453,10 @@ const ProfilePopperContext = ({
     </>
   );
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Transitions in={open} {...TransitionProps}>
@@ -502,7 +506,7 @@ const ProfilePopperContext = ({
                                 justifyContent: "center",
                                 alignItems: "center",
                                 backgroundColor:
-                                  theme.palette.mode === "dark"
+                                  paletteMode === "dark"
                                     ? "#09080d"
                                     : "primary.light",
                                 borderRadius: ".75rem",
@@ -558,7 +562,7 @@ const ProfilePopperContext = ({
                                 justifyContent: "center",
                                 alignItems: "center",
                                 backgroundColor:
-                                  theme.palette.mode === "dark"
+                                  paletteMode === "dark"
                                     ? "#09080d"
                                     : "primary.light",
                                 borderRadius: ".75rem",

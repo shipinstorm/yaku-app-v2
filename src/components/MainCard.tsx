@@ -1,7 +1,6 @@
 import { forwardRef, Ref } from "react";
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
 import { CardProps, CardContentProps } from "@mui/material";
 
 // project-imports
@@ -56,8 +55,8 @@ const MainCard = forwardRef(
     }: MainCardProps,
     ref: Ref<HTMLDivElement>
   ) => {
-    const theme = useTheme();
-    boxShadow = theme.palette.mode === "dark" ? boxShadow || true : boxShadow;
+    const paletteMode = JSON.parse(localStorage.getItem("yaku-config") || "{}").mode;
+    boxShadow = paletteMode === "dark" ? boxShadow || true : boxShadow;
 
     return (
       <div

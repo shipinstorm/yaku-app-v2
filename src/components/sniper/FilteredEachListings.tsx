@@ -40,6 +40,10 @@ const FilteredEachListings = ({ NFTData, buyNow }: any) => {
     return `${String(hours)} hrs ago`;
   };
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <ListItem
       sx={{
@@ -48,7 +52,7 @@ const FilteredEachListings = ({ NFTData, buyNow }: any) => {
         minWidth: 0,
         width: "100%",
         maxWidth: "100%",
-        color: theme.palette.mode === "dark" ? "#fff" : "#000",
+        color: paletteMode === "dark" ? "#fff" : "#000",
         borderRadius: "10px",
         padding: "5px",
         display: "flex",
@@ -82,7 +86,7 @@ const FilteredEachListings = ({ NFTData, buyNow }: any) => {
             sx={{
               height: "40px",
               maxHeight: "40px",
-              color: theme.palette.mode === "dark" ? "#fff" : "#000",
+              color: paletteMode === "dark" ? "#fff" : "#000",
               gap: "10px",
               alignItems: "center",
               overflow: "hidden",
@@ -187,7 +191,7 @@ const FilteredEachListings = ({ NFTData, buyNow }: any) => {
               <Typography
                 component="div"
                 sx={{
-                  color: theme.palette.mode === "dark" ? "#fff" : "#000",
+                  color: paletteMode === "dark" ? "#fff" : "#000",
                   fontWeight: 400,
                   fontStyle: "italic",
                   fontSize: "10px",
@@ -386,7 +390,7 @@ const FilteredEachListings = ({ NFTData, buyNow }: any) => {
                   sx={{
                     justifySelf: "flex-end",
                     borderRadius: "5px",
-                    color: theme.palette.mode === "dark" ? "#fff" : "#000",
+                    color: paletteMode === "dark" ? "#fff" : "#000",
                     minWidth: { xs: 160, md: 200 },
                     justifyContent: "space-between",
                   }}

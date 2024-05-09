@@ -54,12 +54,16 @@ const MobileSection = () => {
     prevOpen.current = open;
   }, [open]);
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <>
       <Box component="span" ref={anchorRef} sx={{ mt: 1, ml: 1 }}>
         <IconButton
           sx={{
-            color: theme.palette.mode === "dark" ? "primary.main" : "inherit",
+            color: paletteMode === "dark" ? "primary.main" : "inherit",
             ml: 0.5,
             cursor: "pointer",
           }}
@@ -108,7 +112,7 @@ const MobileSection = () => {
                     sx={{
                       [theme.breakpoints.down("md")]: {
                         background:
-                          theme.palette.mode === "dark"
+                          paletteMode === "dark"
                             ? theme.palette.dark[800]
                             : "#fff",
                       },

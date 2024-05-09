@@ -122,6 +122,10 @@ const Profile = ({ noPopper, asButton = false }: any) => {
     router.push("/account");
   };
 
+  const paletteMode = JSON.parse(
+    localStorage.getItem("yaku-config") || "{}"
+  ).mode;
+
   return (
     <>
       {!noPopper ? (
@@ -131,7 +135,7 @@ const Profile = ({ noPopper, asButton = false }: any) => {
             content={false}
             style={{
               backgroundColor:
-                theme.palette.mode === "dark"
+                paletteMode === "dark"
                   ? theme.palette.dark[200]
                   : "transparent",
             }}
