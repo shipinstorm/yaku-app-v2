@@ -212,7 +212,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
   ).mode;
 
   return (
-    <nav className="w-[260px] md:flex-shrink-0" aria-label="mailbox folders">
+    <nav className="w-auto md:w-[260px] md:flex-shrink-0" aria-label="mailbox folders">
       <Drawer
         container={container}
         variant={matchUpMd ? "persistent" : "temporary"}

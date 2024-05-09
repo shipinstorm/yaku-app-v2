@@ -233,7 +233,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="!pt-9 py-24 sm:py-32 pl-[22px]">
+      <div className="!pt-9 py-24 sm:py-32 pl-[22px] ml-[-24px]">
         <div className="flex flex-row items-center justify-center">
           <h2 className="text-xl font-akirabold sm:text-4xl font-bold py-5">
             Our Partners love Yaku
