@@ -96,32 +96,22 @@ const StakeNftCard = ({
           },
         }}
       >
-        <CardMedia
-          sx={{ minHeight: 200, display: "flex", alignItems: "center" }}
-        >
-          <Image
+        <div className="min-h-[200px] flex items-center relative bg-cover bg-no-repeat bg-center">
+          <img
             src={`${IMAGE_PROXY}${image}`}
             alt={name}
-            showLoading={<Loading />}
+            // showLoading={<Loading />}
+            className="relative w-full h-full transition-opacity duration-1500 ease-in-out opacity-100 aspect-w-1 aspect-h-1 animate-materialize"
             style={{ aspectRatio: "1 / 1" }}
           />
-        </CardMedia>
+        </div>
         <div className="!p-4">
           {/* name */}
-          <Box display="flex" alignItems="center">
-            <Typography
-              fontWeight="800"
-              color="secondary"
-              sx={{
-                fontSize: "1.175rem",
-                display: "block",
-                textDecoration: "none",
-                mr: "auto",
-              }}
-            >
+          <div className="flex items-center">
+            <p className="m-0 mr-auto leading-tight font-bold text-[#F38AFF] text-lg">
               {name}
-            </Typography>
-          </Box>
+            </p>
+          </div>
 
           <div className="box-border flex-grow max-w-full mb-[10px] mt-[5px]">
             <Chip
