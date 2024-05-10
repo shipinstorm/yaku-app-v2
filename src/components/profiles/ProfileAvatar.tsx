@@ -2,15 +2,12 @@ import { Avatar, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "@/store";
 import { IconMenu2 } from "@tabler/icons-react";
 import { openDrawer } from "@/store/slices/menu";
+import { Palette } from "@/themes/palette";
 
 const ProfileAvatar = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector<any>((state) => state.menu);
-
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
 
   return (
     <Avatar
@@ -21,17 +18,15 @@ const ProfileAvatar = () => {
         overflow: "hidden",
         transition: "all .2s ease-in-out",
         background:
-          paletteMode === "dark"
-            ? theme.palette.dark.main
-            : theme.palette.secondary.light,
-        color: paletteMode === "dark" ? "white" : theme.palette.secondary.dark,
+          Palette.mode === "dark" ? Palette.dark.main : Palette.secondary.light,
+        color: Palette.mode === "dark" ? "white" : Palette.secondary.dark,
         "&:hover": {
           background:
-            paletteMode === "dark" ? "white" : theme.palette.secondary.dark,
+            Palette.mode === "dark" ? "white" : Palette.secondary.dark,
           color:
-            paletteMode === "dark"
-              ? theme.palette.secondary.main
-              : theme.palette.secondary.light,
+            Palette.mode === "dark"
+              ? Palette.secondary.main
+              : Palette.secondary.light,
         },
       }}
       onClick={() => dispatch(openDrawer(!drawerOpen))}

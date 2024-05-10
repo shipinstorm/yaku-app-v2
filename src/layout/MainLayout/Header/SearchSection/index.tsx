@@ -52,6 +52,8 @@ import { useToasts } from "@/hooks/useToasts";
 import useConnections from "@/hooks/useConnetions";
 import { resolveBonfida } from "@/utils/bonfida/handle";
 
+import { Palette } from "@/themes/palette";
+
 // styles
 const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
   zIndex: 1500,
@@ -68,15 +70,13 @@ const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(
     ...theme.typography.commonAvatar,
     ...theme.typography.mediumAvatar,
     color:
-      theme.palette.mode === "dark"
-        ? theme.palette.secondary.main
-        : theme.palette.secondary.dark,
+      Palette.mode === "dark" ? Palette.secondary.main : Palette.secondary.dark,
     "&:hover": {
       background:
-        theme.palette.mode === "dark"
-          ? theme.palette.secondary.main
-          : theme.palette.secondary.dark,
-      color: theme.palette.secondary.light,
+        Palette.mode === "dark"
+          ? Palette.secondary.main
+          : Palette.secondary.dark,
+      color: Palette.secondary.light,
     },
   })
 );
@@ -405,7 +405,10 @@ const SearchSection = () => {
   };
 
   const handleSearchDebounced = debounce(handleSearch, 500);
-  const handleSearchCallback = useCallback((v: any) => handleSearchDebounced(v), []);
+  const handleSearchCallback = useCallback(
+    (v: any) => handleSearchDebounced(v),
+    []
+  );
 
   return (
     <>
@@ -523,7 +526,7 @@ const SearchSection = () => {
                     <IconSearch
                       stroke={1.5}
                       size="1rem"
-                      color={theme.palette.grey[500]}
+                      color={Palette.grey[500]}
                     />
                   </InputAdornment>
                   {params.InputProps.startAdornment}

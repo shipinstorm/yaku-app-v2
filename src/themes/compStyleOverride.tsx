@@ -1,21 +1,12 @@
-// project imports
-import { Theme } from "@mui/material/styles";
+import { Palette } from "./palette";
 
-export default function componentStyleOverrides(
-  theme: Theme,
-  borderRadius: number
-) {
-  const mode = theme.palette.mode;
-  const bgColor =
-    mode === "dark" ? theme.palette.dark[800] : theme.palette.grey[50];
+export default function componentStyleOverrides(borderRadius: number) {
+  const mode = Palette.mode;
+  const bgColor = mode === "dark" ? Palette.dark[800] : Palette.grey[50];
   const menuSelectedBack =
-    mode === "dark"
-      ? theme.palette.secondary.main + 15
-      : theme.palette.secondary.light;
+    mode === "dark" ? Palette.secondary.main + 15 : Palette.secondary.light;
   const menuSelected =
-    mode === "dark"
-      ? theme.palette.secondary.main
-      : theme.palette.secondary.dark;
+    mode === "dark" ? Palette.secondary.main : Palette.secondary.dark;
 
   return {
     MuiButton: {
@@ -42,7 +33,7 @@ export default function componentStyleOverrides(
     MuiCardHeader: {
       styleOverrides: {
         root: {
-          color: theme.palette.text.dark,
+          color: Palette.text.dark,
           padding: "24px",
         },
         title: {
@@ -77,7 +68,7 @@ export default function componentStyleOverrides(
     MuiListItemButton: {
       styleOverrides: {
         root: {
-          color: theme.palette.text.primary,
+          color: Palette.text.primary,
           paddingTop: "10px",
           paddingBottom: "10px",
           "&.Mui-selected": {
@@ -103,7 +94,7 @@ export default function componentStyleOverrides(
     MuiListItemIcon: {
       styleOverrides: {
         root: {
-          color: theme.palette.text.primary,
+          color: Palette.text.primary,
           minWidth: "36px",
         },
       },
@@ -111,16 +102,16 @@ export default function componentStyleOverrides(
     MuiListItemText: {
       styleOverrides: {
         primary: {
-          color: theme.palette.text.dark,
+          color: Palette.text.dark,
         },
       },
     },
     MuiInputBase: {
       styleOverrides: {
         input: {
-          color: theme.palette.text.dark,
+          color: Palette.text.dark,
           "&::placeholder": {
-            color: theme.palette.text.secondary,
+            color: Palette.text.secondary,
             fontSize: "0.875rem",
           },
         },
@@ -133,12 +124,10 @@ export default function componentStyleOverrides(
           borderRadius: `${borderRadius}px`,
           "& .MuiOutlinedInput-notchedOutline": {
             borderColor:
-              mode === "dark"
-                ? theme.palette.text.primary + 28
-                : theme.palette.grey[400],
+              mode === "dark" ? Palette.text.primary + 28 : Palette.grey[400],
           },
           "&:hover $notchedOutline": {
-            borderColor: theme.palette.primary.light,
+            borderColor: Palette.primary.light,
           },
           "&.MuiInputBase-multiline": {
             padding: 1,
@@ -169,20 +158,15 @@ export default function componentStyleOverrides(
         root: {
           "&.Mui-disabled": {
             color:
-              mode === "dark"
-                ? theme.palette.text.primary + 50
-                : theme.palette.grey[300],
+              mode === "dark" ? Palette.text.primary + 50 : Palette.grey[300],
           },
         },
         mark: {
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: Palette.background.paper,
           width: "4px",
         },
         valueLabel: {
-          color:
-            mode === "dark"
-              ? theme.palette.primary.main
-              : theme.palette.primary.light,
+          color: mode === "dark" ? Palette.primary.main : Palette.primary.light,
         },
       },
     },
@@ -192,15 +176,15 @@ export default function componentStyleOverrides(
           "& .MuiAutocomplete-tag": {
             background:
               mode === "dark"
-                ? theme.palette.text.primary + 20
-                : theme.palette.secondary.light,
+                ? Palette.text.primary + 20
+                : Palette.secondary.light,
             borderRadius: 4,
-            color: theme.palette.text.dark,
+            color: Palette.text.dark,
             ".MuiChip-deleteIcon": {
               color:
                 mode === "dark"
-                  ? theme.palette.text.primary + 80
-                  : theme.palette.secondary[200],
+                  ? Palette.text.primary + 80
+                  : Palette.secondary[200],
             },
           },
         },
@@ -214,7 +198,7 @@ export default function componentStyleOverrides(
     MuiDivider: {
       styleOverrides: {
         root: {
-          borderColor: theme.palette.divider,
+          borderColor: Palette.divider,
           opacity: mode === "dark" ? 0.2 : 1,
         },
       },
@@ -231,14 +215,9 @@ export default function componentStyleOverrides(
     MuiAvatar: {
       styleOverrides: {
         root: {
-          color:
-            mode === "dark"
-              ? theme.palette.dark.main
-              : theme.palette.primary.dark,
+          color: mode === "dark" ? Palette.dark.main : Palette.primary.dark,
           background:
-            mode === "dark"
-              ? theme.palette.text.primary
-              : theme.palette.primary[200],
+            mode === "dark" ? Palette.text.primary : Palette.primary[200],
         },
       },
     },
@@ -254,7 +233,7 @@ export default function componentStyleOverrides(
     MuiTimelineContent: {
       styleOverrides: {
         root: {
-          color: theme.palette.text.dark,
+          color: Palette.text.dark,
           fontSize: "16px",
         },
       },
@@ -278,26 +257,21 @@ export default function componentStyleOverrides(
       styleOverrides: {
         tabs: {
           backgroundColor:
-            mode === "dark"
-              ? theme.palette.dark[900]
-              : theme.palette.primary.light,
+            mode === "dark" ? Palette.dark[900] : Palette.primary.light,
           "& .MuiTabs-flexContainer": {
             borderColor:
               mode === "dark"
-                ? theme.palette.text.primary + 20
-                : theme.palette.primary[200],
+                ? Palette.text.primary + 20
+                : Palette.primary[200],
           },
           "& .MuiTab-root": {
-            color:
-              mode === "dark"
-                ? theme.palette.text.secondary
-                : theme.palette.grey[900],
+            color: mode === "dark" ? Palette.text.secondary : Palette.grey[900],
           },
           "& .MuiTabs-indicator": {
-            backgroundColor: theme.palette.primary.dark,
+            backgroundColor: Palette.primary.dark,
           },
           "& .Mui-selected": {
-            color: theme.palette.primary.dark,
+            color: Palette.primary.dark,
           },
         },
       },
@@ -307,9 +281,7 @@ export default function componentStyleOverrides(
         flexContainer: {
           borderBottom: "1px solid",
           borderColor:
-            mode === "dark"
-              ? theme.palette.text.primary + 20
-              : theme.palette.grey[200],
+            mode === "dark" ? Palette.text.primary + 20 : Palette.grey[200],
         },
       },
     },
@@ -324,12 +296,10 @@ export default function componentStyleOverrides(
       styleOverrides: {
         root: {
           borderColor:
-            mode === "dark"
-              ? theme.palette.text.primary + 15
-              : theme.palette.grey[200],
+            mode === "dark" ? Palette.text.primary + 15 : Palette.grey[200],
           "&.MuiTableCell-head": {
             fontSize: "0.875rem",
-            color: theme.palette.grey[600],
+            color: Palette.grey[600],
             fontWeight: 500,
           },
         },
@@ -338,8 +308,8 @@ export default function componentStyleOverrides(
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          color: theme.palette.background.paper,
-          background: theme.palette.text.primary,
+          color: Palette.background.paper,
+          background: Palette.text.primary,
         },
       },
     },

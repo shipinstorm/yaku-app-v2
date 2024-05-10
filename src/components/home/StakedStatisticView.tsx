@@ -1,15 +1,15 @@
 import { useRouter } from "next/navigation";
 
 import { round, sumBy } from "lodash";
-import { Box, Chip, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Chip, Grid, Typography } from "@mui/material";
 
 import MainCard from "@/components/MainCard";
 import useStaked from "@/hooks/useStaked";
 
 import StakedPieChart from "./StakedPieChart";
+import { Palette } from "@/themes/palette";
 
 const StakedStatisticView = ({ project_stats = [] }: any) => {
-  const theme = useTheme();
   const router = useRouter();
   const { totalStaked, valueLocked, tokenDistributed } = useStaked();
   return (
@@ -18,7 +18,7 @@ const StakedStatisticView = ({ project_stats = [] }: any) => {
       className="card shadow-none h-[490px] clickable relative flex flex-col justify-center items-center"
       content={false}
       sx={{
-        color: theme.palette.primary.light,
+        color: Palette.primary.light
       }}
       onClick={() => router.push("/applications/staking")}
     >

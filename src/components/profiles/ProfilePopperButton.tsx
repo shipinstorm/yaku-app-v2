@@ -1,7 +1,9 @@
 import { Avatar, Stack, Typography, useTheme } from "@mui/material";
+import { Palette } from "@/themes/palette";
 
 const ProfilePopperButton = ({ onClick, icon, label }: any) => {
   const theme = useTheme();
+
   return (
     <Stack
       direction="row"
@@ -16,7 +18,7 @@ const ProfilePopperButton = ({ onClick, icon, label }: any) => {
         "&:hover": {
           cursor: "pointer",
           transition: "all .1s ease-in-out",
-          background: theme.palette.primary.dark,
+          background: Palette.primary.dark
         },
       }}
     >

@@ -38,6 +38,8 @@ import { useRequest } from "ahooks";
 import useRelay from "@/hooks/useRelay";
 import YakuBuyLink from "./YakuBuyLink";
 
+import { Palette } from "@/themes/palette";
+
 const BreadcrumbsNoSSR = dynamic(() => import("@/components/Breadcrumbs"), {
   ssr: false,
 });
@@ -277,7 +279,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         {/* header */}
         <header
           className={`fixed w-full ${drawerOpen ? "transition-width" : ""} bg-${
-            theme.palette.background.default
+            Palette.background.default
           } z-[1100]`}
         >
           <div className="w-full mx-auto box-border px-4 py-2 flex justify-center gap-16 transition-all duration-200 ease-in-out max-w-full md:px-6">

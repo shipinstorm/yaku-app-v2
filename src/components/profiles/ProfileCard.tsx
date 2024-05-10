@@ -11,6 +11,7 @@ import {
 import FollowSection from "./FollowSection";
 import CopyToClipboard from "@/components/buttons/CopyToClipboard";
 import WalletCell from "@/components/views/WalletCell";
+import { Palette } from "@/themes/palette";
 
 interface ProfileCardProps {
   profileAvatar?: any;
@@ -62,10 +63,6 @@ const ProfileCard = ({
   loading = false,
 }: ProfileCardProps) => {
   const theme = useTheme();
-
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
 
   return (
     <section className="profile-box bg-surface mb-5 p-0 card overflow-hidden">
@@ -192,18 +189,18 @@ const ProfileCard = ({
                             ...theme.typography.mediumAvatar,
                             transition: "all .2s ease-in-out",
                             color:
-                              paletteMode === "dark"
-                                ? theme.palette.warning.dark
-                                : theme.palette.secondary.dark,
+                              Palette.mode === "dark"
+                                ? Palette.warning.dark
+                                : Palette.secondary.dark,
                             '&[aria-controls="menu-list-grow"],&:hover': {
                               background:
-                                paletteMode === "dark"
-                                  ? theme.palette.warning.dark
-                                  : theme.palette.secondary.dark,
+                                Palette.mode === "dark"
+                                  ? Palette.warning.dark
+                                  : Palette.secondary.dark,
                               color:
-                                paletteMode === "dark"
-                                  ? theme.palette.grey[800]
-                                  : theme.palette.secondary.light,
+                                Palette.mode === "dark"
+                                  ? Palette.grey[800]
+                                  : Palette.secondary.light,
                             },
                           }}
                           aria-haspopup="true"

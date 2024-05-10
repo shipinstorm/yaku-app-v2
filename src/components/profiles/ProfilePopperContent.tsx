@@ -58,6 +58,8 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import useWallets from "@/hooks/useWallets";
 import useStaked from "@/hooks/useStaked";
 
+import { Palette } from "@/themes/palette";
+
 const ProfilePopperContext = ({
   showProfile,
   open,
@@ -225,7 +227,7 @@ const ProfilePopperContext = ({
               sx={{
                 "&:hover": {
                   transition: "all .1s ease-in-out",
-                  background: theme.palette.primary.dark,
+                  background: Palette.primary.dark,
                 },
               }}
             >
@@ -453,10 +455,6 @@ const ProfilePopperContext = ({
     </>
   );
 
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
-
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Transitions in={open} {...TransitionProps}>
@@ -506,7 +504,7 @@ const ProfilePopperContext = ({
                                 justifyContent: "center",
                                 alignItems: "center",
                                 backgroundColor:
-                                  paletteMode === "dark"
+                                  Palette.mode === "dark"
                                     ? "#09080d"
                                     : "primary.light",
                                 borderRadius: ".75rem",
@@ -562,7 +560,7 @@ const ProfilePopperContext = ({
                                 justifyContent: "center",
                                 alignItems: "center",
                                 backgroundColor:
-                                  paletteMode === "dark"
+                                  Palette.mode === "dark"
                                     ? "#09080d"
                                     : "primary.light",
                                 borderRadius: ".75rem",

@@ -106,7 +106,7 @@ const StakeNftCard = ({
             style={{ aspectRatio: "1 / 1" }}
           />
         </CardMedia>
-        <CardContent sx={{ p: 2, pb: "16px !important" }}>
+        <div className="!p-4">
           {/* name */}
           <Box display="flex" alignItems="center">
             <Typography
@@ -123,7 +123,7 @@ const StakeNftCard = ({
             </Typography>
           </Box>
 
-          <div className="box-border flex-grow max-w-full pl-6 pt-6 mb-[10px] mt-[5px]">
+          <div className="box-border flex-grow max-w-full mb-[10px] mt-[5px]">
             <Chip
               label={role}
               size="small"
@@ -133,9 +133,9 @@ const StakeNftCard = ({
             <Chip label={rewardString} size="small" />
           </div>
 
-          <Divider sx={{ mb: "10px" }} />
+          <hr className="mb-[10px] border border-[#D5D9E9] border-opacity-20" />
 
-          <div className="box-border flex-grow max-w-full pl-6 pt-6 mb-[15px]">
+          <div className="box-border flex-grow max-w-full mb-[15px]">
             <Typography variant="h5" fontWeight="500">
               Staked Duration:
               <Typography
@@ -149,7 +149,7 @@ const StakeNftCard = ({
             </Typography>
           </div>
 
-          <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
+          <div className="box-border m-0 flex-grow max-w-full">
             <Grid container spacing={1}>
               <Grid item xs={6}>
                 <Button onClick={() => onClaim()} variant="contained" fullWidth>
@@ -182,7 +182,7 @@ const StakeNftCard = ({
               </Typography>
             </Typography>
           </div>
-        </CardContent>
+        </div>
       </MainCard>
     </>
   );

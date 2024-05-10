@@ -1,12 +1,10 @@
-const DiscordLogo = ({ size = 24 }: { size?: string | number }) => {
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
+import { Palette } from "@/themes/palette";
 
+const DiscordLogo = ({ size = 24 }: { size?: string | number }) => {
   return (
     <img
       src={
-        paletteMode === "dark"
+        Palette.mode === "dark"
           ? "/images/icons/discord.svg"
           : "/images/icons/discord-dark.svg"
       }

@@ -1,19 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { queries } from "../../graphql/graphql";
 import { useEffect, useState } from "react";
-import useAuthLazyQuery from "@/hooks/useAuthLazyQuery";
-import { useTheme } from "@mui/material";
-import { isEmpty } from "lodash";
 import ReactApexChart from "react-apexcharts";
+import { isEmpty } from "lodash";
+
+import useAuthLazyQuery from "@/hooks/useAuthLazyQuery";
+import { Palette } from "@/themes/palette";
+
+import { queries } from "../../graphql/graphql";
 
 const TokenChart = ({ coinId }: { coinId: String }) => {
-  const theme = useTheme();
   const [chartData, setChartData] = useState<any>({});
   const [getTokenChart] = useAuthLazyQuery(queries.GET_COINS_MARKET_CHART);
-
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
 
   const prepareChart = (newData: any) => {
     setChartData({
@@ -86,10 +83,10 @@ const TokenChart = ({ coinId }: { coinId: String }) => {
             formatter: (value: number) => `${value.toFixed(2)}`,
           },
         },
-        theme: { mode: paletteMode },
+        theme: { mode: Palette.mode },
         tooltip: {
           intersect: false,
-          theme: paletteMode,
+          theme: Palette.mode,
           y: {
             formatter: (
               y: number,

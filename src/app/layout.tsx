@@ -1,3 +1,4 @@
+import { Palette } from "@/themes/palette";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
@@ -69,7 +70,15 @@ export default function RootLayout({
           rel="stylesheet"
         ></link>
       </head>
-      <body className={inter.className}>
+      <body
+        className={inter.className}
+        style={{
+          background:
+            Palette.mode === "dark" ? Palette.dark[900] : Palette.dark.light,
+          color:
+            Palette.mode === "dark" ? Palette.dark.light : Palette.dark.light,
+        }}
+      >
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root">
           <ProvidersNoSSR>{children}</ProvidersNoSSR>

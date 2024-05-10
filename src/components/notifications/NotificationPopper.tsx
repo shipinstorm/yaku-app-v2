@@ -24,6 +24,8 @@ import NotificationList from "./NotificationList";
 import useAuth from "@/hooks/useAuth";
 import { NotificationStatus } from "@/types/notifications";
 
+import { Palette } from "@/themes/palette";
+
 const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
   const auth = useAuth();
   const theme = useTheme();
@@ -138,7 +140,7 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
                                     ).length
                               }
                               sx={{
-                                color: theme.palette.background.default,
+                                color: Palette.background.default,
                                 bgcolor: "#f38aff",
                               }}
                             />

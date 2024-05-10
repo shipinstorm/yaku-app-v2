@@ -13,7 +13,6 @@ import {
   Divider,
 } from "@mui/material";
 import { Image } from "mui-image";
-import { useTheme } from "@mui/material/styles";
 
 // web3
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
@@ -39,6 +38,7 @@ import Loading from "@/components/loaders/Loading";
 import useConnections from "@/hooks/useConnetions";
 import { IconCircleCheck } from "@tabler/icons-react";
 import { usePriority } from "@/contexts/SolPriorityContext";
+import { Palette } from "@/themes/palette";
 
 const YakuStakeNftCard = ({
   mint,
@@ -67,7 +67,6 @@ const YakuStakeNftCard = ({
   const rewardPerDayString = (+reward / LAMPORTS_PER_SOL).toFixed(2);
   const { connection } = useConnections();
   const wallet: any = useAnchorWallet();
-  const theme = useTheme();
   const { showInfoToast, showTxErrorToast } = useToasts();
   const [rewardString, setRewardString] = useState("0");
   const { priorityRate } = usePriority();
@@ -147,10 +146,6 @@ const YakuStakeNftCard = ({
     return () => clearInterval(timer);
   }, [mint]);
 
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
-
   return (
     <>
       {name ? (
@@ -160,7 +155,7 @@ const YakuStakeNftCard = ({
           useBackdropFilter={false}
           sx={{
             background:
-              paletteMode === "dark" ? "#09080d" : theme.palette.primary.light,
+              Palette.mode === "dark" ? "#09080d" : Palette.primary.light,
             "&:hover": {
               transform: "scale3d(1.03, 1.03, 1)",
               transition: ".15s",
@@ -229,7 +224,7 @@ const YakuStakeNftCard = ({
 
             <Divider sx={{ mb: "10px" }} />
 
-            <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
+            <div className="box-border m-0 flex-grow max-w-full">
               <Grid container spacing={1}>
                 <Grid item xs={6}>
                   <Button

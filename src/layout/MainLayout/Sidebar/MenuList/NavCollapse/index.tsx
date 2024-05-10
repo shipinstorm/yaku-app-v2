@@ -21,6 +21,8 @@ import useConfig from "@/hooks/useConfig";
 // assets
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
+import { Palette } from "@/themes/palette";
+
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
 interface NavCollapseProps {
@@ -93,10 +95,6 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     />
   );
 
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
-
   return (
     <>
       <ListItemButton
@@ -164,11 +162,11 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
               top: 0,
               height: "100%",
               width: "1px",
-              opacity: paletteMode === "dark" ? 0.2 : 1,
+              opacity: Palette.mode === "dark" ? 0.2 : 1,
               background:
-                paletteMode === "dark"
-                  ? theme.palette.dark.light
-                  : theme.palette.primary.light,
+                Palette.mode === "dark"
+                  ? Palette.dark.light
+                  : Palette.primary.light,
             },
           }}
         >

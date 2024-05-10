@@ -1,6 +1,8 @@
 import { OutlinedInput, styled } from "@mui/material";
 import { shouldForwardProp } from "@mui/system";
 
+import { Palette } from "@/themes/palette";
+
 const OutlinedInputStyle = styled(OutlinedInput, { shouldForwardProp })(
   ({ theme }) => ({
     width: "380px",
@@ -13,9 +15,9 @@ const OutlinedInputStyle = styled(OutlinedInput, { shouldForwardProp })(
     paddingRight: "16px !important",
     borderRadius: "40px",
     backgroundColor:
-      theme.palette.mode === "dark"
+      Palette.mode === "dark"
         ? "rgba(36, 24, 47, 0.85)"
-        : theme.palette.background.default,
+        : Palette.background.default,
     fieldset: {
       borderRadius: "40px",
       border: "1px solid transparent",
@@ -32,7 +34,7 @@ const OutlinedInputStyle = styled(OutlinedInput, { shouldForwardProp })(
       width: "100%",
       marginLeft: 4,
       background:
-        theme.palette.mode === "dark" ? "rgba(36, 24, 47,0.85)" : "#fff",
+        Palette.mode === "dark" ? "rgba(36, 24, 47,0.85)" : "#fff",
     },
   })
 );

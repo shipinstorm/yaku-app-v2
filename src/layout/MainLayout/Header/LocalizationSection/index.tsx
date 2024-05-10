@@ -26,6 +26,8 @@ import { map } from "lodash";
 import { LOCALES } from "@/config";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
+import { Palette } from "@/themes/palette";
+
 // ==============================|| LOCALIZATION ||============================== //
 
 const LocalizationSection = () => {
@@ -141,7 +143,7 @@ const LocalizationSection = () => {
                       width: "100%",
                       minWidth: 200,
                       maxWidth: 280,
-                      bgcolor: theme.palette.background.paper,
+                      bgcolor: Palette.background.paper,
                       borderRadius: `${borderRadius}px`,
                       [theme.breakpoints.down("md")]: {
                         maxWidth: 250,

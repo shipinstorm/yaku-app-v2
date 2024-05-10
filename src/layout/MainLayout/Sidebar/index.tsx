@@ -31,6 +31,8 @@ import { drawerWidth, drawerWidthCollapsed } from "@/store/constant";
 import { setPage } from "@/store/slices/subpageSlice";
 import { LOGO_BLACK } from "@/config/config";
 
+import { Palette } from "@/themes/palette";
+
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
 interface SidebarProps {
@@ -207,10 +209,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
     setOpen(false);
   };
 
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
-
   return (
     <nav className="w-auto md:w-[260px] md:flex-shrink-0" aria-label="mailbox folders">
       <Drawer
@@ -227,8 +225,8 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
           zIndex: 900,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
-            background: theme.palette.background.default,
-            color: theme.palette.text.primary,
+            background: Palette.background.default,
+            color: Palette.text.primary,
             borderRight: "none",
             [theme.breakpoints.up("md")]: {
               paddingTop: "108.33px",
@@ -278,8 +276,8 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
             zIndex: 900,
             "& .MuiDrawer-paper": {
               width: drawerWidthCollapsed,
-              background: theme.palette.background.default,
-              color: theme.palette.text.primary,
+              background: Palette.background.default,
+              color: Palette.text.primary,
               borderRight: "none",
               [theme.breakpoints.up("md")]: {
                 paddingTop: "108.33px",
@@ -308,7 +306,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
               }}
             >
               <MoreHorizRounded
-                htmlColor={paletteMode === "dark" ? "white" : "black"}
+                htmlColor={Palette.mode === "dark" ? "white" : "black"}
               />{" "}
             </div>
           </div>

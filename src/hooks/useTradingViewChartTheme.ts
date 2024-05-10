@@ -1,19 +1,18 @@
-import { useTheme } from "@mui/material/styles";
 // eslint-disable-next-line
 import { IChartApi, ISeriesApi } from "lightweight-charts";
 
 // this is designed to handle future trading view chart types as the series styling is different based on type
 type ChartType = "area";
 
-const useTradingViewChartTheme = (chartType: ChartType, options?: any) => {
-  const theme = useTheme();
+import { Palette } from "@/themes/palette";
 
+const useTradingViewChartTheme = (chartType: ChartType, options?: any) => {
   let seriesStyle;
   if (chartType === "area") {
     seriesStyle = {
-      topColor: `${theme.palette.secondary.main}8f`,
-      bottomColor: `${theme.palette.secondary.main}0A`,
-      lineColor: theme.palette.secondary.main,
+      topColor: `${Palette.secondary.main}8f`,
+      bottomColor: `${Palette.secondary.main}0A`,
+      lineColor: Palette.secondary.main,
     };
   }
 
@@ -71,7 +70,7 @@ const useTradingViewChartTheme = (chartType: ChartType, options?: any) => {
     light: lightTheme,
   };
 
-  const tradingViewTheme = themesData[theme.palette.mode];
+  const tradingViewTheme = themesData[Palette.mode];
 
   const syncToTheme = (chartApi: IChartApi, seriesApi: ISeriesApi<"Area">) => {
     if (chartApi && seriesApi) {

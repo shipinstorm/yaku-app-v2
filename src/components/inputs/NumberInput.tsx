@@ -17,6 +17,7 @@ import {
   UseNumberInputOptions,
 } from "../../hooks/useNumberInput";
 import capitalize from "@mui/utils/capitalize";
+import { Palette } from "@/themes/palette";
 
 export type NumberInputClassKey = keyof typeof numberInputClasses;
 export type NumberInputClasses = Partial<typeof numberInputClasses>;
@@ -92,7 +93,7 @@ const NumberInputButton = styled(ButtonBase, {
   alignItems: "center",
   borderRadius: 4,
   "&:hover": {
-    color: theme.palette.text.primary,
+    color: Palette.text.primary
   },
   "&.Mui-disabled": {
     opacity: 0.5,

@@ -21,6 +21,8 @@ import Transitions from "@/components/Transitions";
 // assets
 import { IconDotsVertical } from "@tabler/icons-react";
 
+import { Palette } from "@/themes/palette";
+
 // ==============================|| MOBILE HEADER ||============================== //
 
 const MobileSection = () => {
@@ -54,16 +56,12 @@ const MobileSection = () => {
     prevOpen.current = open;
   }, [open]);
 
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
-
   return (
     <>
       <Box component="span" ref={anchorRef} sx={{ mt: 1, ml: 1 }}>
         <IconButton
           sx={{
-            color: paletteMode === "dark" ? "primary.main" : "inherit",
+            color: Palette.mode === "dark" ? "primary.main" : "inherit",
             ml: 0.5,
             cursor: "pointer",
           }}
@@ -112,9 +110,7 @@ const MobileSection = () => {
                     sx={{
                       [theme.breakpoints.down("md")]: {
                         background:
-                          paletteMode === "dark"
-                            ? theme.palette.dark[800]
-                            : "#fff",
+                          Palette.mode === "dark" ? Palette.dark[800] : "#fff",
                       },
                     }}
                   >

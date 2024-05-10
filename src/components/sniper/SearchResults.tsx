@@ -4,14 +4,11 @@ import { useRecoilValue } from "recoil";
 import { searchResultAtom } from "@/app/applications/sniping/recoil/atom/HaloLabsAtom";
 import EachSearchResult from "./EachSearchResult";
 import "./rainbow.css";
+import { Palette } from "@/themes/palette";
 
 const SearchResults = ({ closeSearch, addCollection }: any) => {
   const ref = useDetectClickOutside({ onTriggered: closeSearch });
   const searchResult = useRecoilValue(searchResultAtom);
-
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
 
   return (
     <Box
@@ -29,7 +26,7 @@ const SearchResults = ({ closeSearch, addCollection }: any) => {
         background: "transparent !important",
         padding: "22px 17px",
         borderRadius: "10px",
-        color: paletteMode === "dark" ? "#fff" : "#000",
+        color: Palette.mode === "dark" ? "#fff" : "#000",
         display: "flex",
         flexDirection: "column",
         gap: "10px",

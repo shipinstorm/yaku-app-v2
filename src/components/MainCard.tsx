@@ -6,6 +6,8 @@ import { CardProps, CardContentProps } from "@mui/material";
 // project-imports
 import { KeyedObject } from "@/types";
 
+import { Palette } from "@/themes/palette";
+
 // header style
 const headerSX = {
   p: 2.5,
@@ -55,8 +57,7 @@ const MainCard = forwardRef(
     }: MainCardProps,
     ref: Ref<HTMLDivElement>
   ) => {
-    const paletteMode = JSON.parse(localStorage.getItem("yaku-config") || "{}").mode;
-    boxShadow = paletteMode === "dark" ? boxShadow || true : boxShadow;
+    boxShadow = Palette.mode === "dark" ? boxShadow || true : boxShadow;
 
     return (
       <div

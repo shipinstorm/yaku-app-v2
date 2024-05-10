@@ -43,6 +43,9 @@ import DiscordLogo from "@/components/icons/DiscordLogo";
 import TwitterLogo from "@/components/icons/TwitterLogo";
 import { setPage } from "@/store/slices/subpageSlice";
 import { useEthcontext } from "@/contexts/EthWalletProvider";
+
+import { Palette } from "@/themes/palette";
+
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
 const Profile = ({ noPopper, asButton = false }: any) => {
@@ -122,10 +125,6 @@ const Profile = ({ noPopper, asButton = false }: any) => {
     router.push("/account");
   };
 
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
-
   return (
     <>
       {!noPopper ? (
@@ -135,9 +134,7 @@ const Profile = ({ noPopper, asButton = false }: any) => {
             content={false}
             style={{
               backgroundColor:
-                paletteMode === "dark"
-                  ? theme.palette.dark[200]
-                  : "transparent",
+                Palette.mode === "dark" ? Palette.dark[200] : "transparent",
             }}
           >
             {mainWallet.publicKey && (

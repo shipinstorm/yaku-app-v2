@@ -10,6 +10,8 @@ import MuiBreadcrumbs from "@mui/material/Breadcrumbs";
 // project imports
 import { BASE_PATH } from "@/config";
 
+import { Palette } from "@/themes/palette";
+
 // assets
 import { ApartmentOutlined, HomeFilled, HomeOutlined } from "@ant-design/icons";
 
@@ -64,7 +66,7 @@ const Breadcrumbs = ({
     marginTop: `-${theme.spacing(0.25)}`,
     width: "1rem",
     height: "1rem",
-    color: theme.palette.secondary.main,
+    color: Palette.secondary.main
   };
 
   // set active item state

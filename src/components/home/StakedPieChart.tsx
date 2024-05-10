@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { Palette } from "@/themes/palette";
 import { Box, Skeleton, useTheme } from "@mui/material";
 import { isEmpty, round } from "lodash";
 import { useEffect, useState } from "react";
@@ -7,10 +8,6 @@ import ReactApexChart from "react-apexcharts";
 const StakedPieChart = ({ total, totalStaked }: any) => {
   const theme = useTheme();
   const [chartData, setChartData] = useState<any>({});
-
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
 
   const updateChart = () => {
     setChartData({
@@ -32,7 +29,7 @@ const StakedPieChart = ({ total, totalStaked }: any) => {
         },
         labels: ["Staked", "Non-staked"],
         colors: ["#c691c1", "#1f1f23"],
-        theme: { mode: paletteMode },
+        theme: { mode: Palette.mode },
         legend: {
           show: false,
         },
@@ -51,7 +48,7 @@ const StakedPieChart = ({ total, totalStaked }: any) => {
                   show: true,
                   label: `Total: ${(total || 0).toLocaleString()}`,
                   fontSize: "14px",
-                  color: paletteMode === "dark" ? "#fff" : "#000",
+                  color: Palette.mode === "dark" ? "#fff" : "#000",
                   offsetY: 0,
                   showAlways: true,
                   formatter: () =>

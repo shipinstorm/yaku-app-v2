@@ -11,7 +11,6 @@ import {
 
 // project import
 import useConfig from "@/hooks/useConfig";
-import Palette from "./palette";
 import Typography from "./typography";
 
 import componentStyleOverrides from "./compStyleOverride";
@@ -28,25 +27,19 @@ interface Props {
 export default function ThemeCustomization({ children }: Props) {
   const { borderRadius, fontFamily, mode, presetColor } = useConfig();
 
-  const theme: Theme = useMemo<Theme>(
-    () => Palette(mode, presetColor),
-    [mode, presetColor]
-  );
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const themeTypography: TypographyOptions = useMemo<TypographyOptions>(
-    () => Typography(theme, borderRadius, fontFamily),
-    [theme, borderRadius, fontFamily]
+    () => Typography(borderRadius, fontFamily),
+    [borderRadius, fontFamily]
   );
   const themeCustomShadows: CustomShadowProps = useMemo<CustomShadowProps>(
-    () => customShadows(mode, theme),
-    [mode, theme]
+    () => customShadows(mode),
+    [mode]
   );
 
   const themeOptions: ThemeOptions = useMemo(
     () => ({
       direction: "ltr",
-      palette: theme.palette,
       mixins: {
         toolbar: {
           minHeight: "48px",
@@ -59,13 +52,13 @@ export default function ThemeCustomization({ children }: Props) {
       typography: themeTypography,
       customShadows: themeCustomShadows,
     }),
-    [theme, themeCustomShadows, themeTypography]
+    [themeCustomShadows, themeTypography]
   );
 
   const themes: Theme = createTheme(themeOptions);
   themes.components = useMemo(
-    () => componentStyleOverrides(themes, borderRadius),
-    [themes, borderRadius]
+    () => componentStyleOverrides(borderRadius),
+    [borderRadius]
   );
 
   return (

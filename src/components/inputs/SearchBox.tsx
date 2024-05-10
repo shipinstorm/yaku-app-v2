@@ -10,6 +10,8 @@ import { IconSearch, IconX } from "@tabler/icons-react";
 import { bindToggle } from "material-ui-popup-state";
 import { shouldForwardProp } from "@mui/system";
 
+import { Palette } from "@/themes/palette";
+
 const OutlinedInputStyle = styled(OutlinedInput, { shouldForwardProp })(
   ({ theme }) => ({
     width: 434,
@@ -21,9 +23,9 @@ const OutlinedInputStyle = styled(OutlinedInput, { shouldForwardProp })(
     paddingRight: "16px !important",
     borderRadius: "40px",
     backgroundColor:
-      theme.palette.mode === "dark"
+      Palette.mode === "dark"
         ? "rgba(36, 24, 47, 0.85)"
-        : theme.palette.background.default,
+        : Palette.background.default,
     fieldset: {
       borderRadius: "40px",
       border: "1px solid transparent",
@@ -40,7 +42,7 @@ const OutlinedInputStyle = styled(OutlinedInput, { shouldForwardProp })(
       width: "100%",
       marginLeft: 4,
       background:
-        theme.palette.mode === "dark" ? "rgba(36, 24, 47,0.85)" : "#fff",
+        Palette.mode === "dark" ? "rgba(36, 24, 47,0.85)" : "#fff",
     },
   })
 );
@@ -64,7 +66,7 @@ const SearchBox = ({
           <IconSearch
             stroke={1.5}
             size="1rem"
-            color={theme.palette.grey[500]}
+            color={Palette.grey[500]}
           />
         </InputAdornment>
       }
@@ -78,13 +80,13 @@ const SearchBox = ({
                   ...theme.typography.commonAvatar,
                   ...theme.typography.mediumAvatar,
                   background:
-                    theme.palette.mode === "dark"
-                      ? theme.palette.dark.main
-                      : theme.palette.orange.light,
-                  color: theme.palette.orange.dark,
+                    Palette.mode === "dark"
+                      ? Palette.dark.main
+                      : Palette.orange.light,
+                  color: Palette.orange.dark,
                   "&:hover": {
-                    background: theme.palette.orange.dark,
-                    color: theme.palette.orange.light,
+                    background: Palette.orange.dark,
+                    color: Palette.orange.light,
                   },
                 }}
                 {...(popupState ? bindToggle(popupState) : {})}

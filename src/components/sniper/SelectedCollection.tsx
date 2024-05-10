@@ -27,6 +27,7 @@ import { FormattedMessage } from "react-intl";
 import { IMAGE_PROXY, RARITY_COLORS } from "@/config/config";
 import "./rainbow.css";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { Palette } from "@/themes/palette";
 
 const SelectedCollection = ({ collectionData, removeCollection }: any) => {
   const theme = useTheme();
@@ -91,10 +92,6 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
     });
   };
 
-  const paletteMode = JSON.parse(
-    localStorage.getItem("yaku-config") || "{}"
-  ).mode;
-
   return (
     <Transition
       enter="transition duration-300 ease-out"
@@ -109,12 +106,12 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
       <Box
         sx={{
           position: "relative",
-          color: paletteMode === "dark" ? "#fff" : "#000",
+          color: Palette.mode === "dark" ? "#fff" : "#000",
           minWidth: "100%",
           maxWidth: "100%",
           minHeight: "124px",
           maxHeight: "124px",
-          background: paletteMode === "dark" ? theme.palette.dark[800] : "#fff",
+          background: Palette.mode === "dark" ? Palette.dark[800] : "#fff",
           pt: "16.83px",
           pb: "21.26px",
           pr: "20.19px",
@@ -126,9 +123,9 @@ const SelectedCollection = ({ collectionData, removeCollection }: any) => {
           borderWidth: 1,
           borderStyle: "solid",
           borderColor:
-            paletteMode === "dark"
-              ? theme.palette.background.default
-              : theme.palette.primary[200] + 75,
+            Palette.mode === "dark"
+              ? Palette.background.default
+              : Palette.primary[200] + 75,
         }}
       >
         <Grid container>

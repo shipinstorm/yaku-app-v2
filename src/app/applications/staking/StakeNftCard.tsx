@@ -1,15 +1,3 @@
-import {
-  Box,
-  CardContent,
-  CardMedia,
-  Chip,
-  Grid,
-  Button,
-  Typography,
-  Divider,
-} from "@mui/material";
-import { Image } from "mui-image";
-
 // web3
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -98,11 +86,12 @@ const NftCard = ({
           }}
           onClick={handleClick}
         >
-          <CardMedia className="min-h-[200px] flex items-center relative">
-            <Image
+          <div className="min-h-[200px] flex items-center relative bg-cover bg-no-repeat bg-center">
+            <img
               src={`${IMAGE_PROXY}${image}`}
               alt={name}
-              showLoading={<Loading />}
+              // showLoading={<Loading />}
+              className="relative w-full h-full transition-opacity duration-1500 ease-in-out opacity-100 aspect-w-1 aspect-h-1 animate-materialize"
               style={{ aspectRatio: "1 / 1" }}
             />
             {isSelected && (
@@ -110,65 +99,61 @@ const NftCard = ({
                 <IconCircleCheck className="text-pink-main" />
               </div>
             )}
-          </CardMedia>
-          <CardContent sx={{ p: 2, pb: "16px !important" }}>
+          </div>
+          <div className="!p-4">
             {/* name */}
-            <Box display="flex" alignItems="center">
-              <Typography
-                fontWeight="800"
-                color="secondary"
-                sx={{
-                  fontSize: "1.175rem",
-                  display: "block",
-                  textDecoration: "none",
-                  mr: "auto",
-                }}
-              >
+            <div className="flex items-center">
+              <p className="m-0 mr-auto leading-tight font-bold text-[#F38AFF] text-lg">
                 {name}
-              </Typography>
-            </Box>
+              </p>
+            </div>
 
-            <div className="box-border mb-[10px] mt-[5px] flex-grow max-w-full pl-6 pt-6">
+            <div className="box-border mb-[10px] mt-[5px] flex-grow max-w-full">
               <FormattedMessage id="per-day">
                 {(msg) => (
-                  <Chip
-                    icon={
-                      <img
-                        src={YAKU_TOKEN_ICON}
-                        alt=""
-                        style={{ width: 16, borderRadius: 5000 }}
-                      />
-                    }
-                    label={`${rewardString} ${msg}`}
-                    size="small"
-                    color="secondary"
-                  />
+                  <div className="max-w-full text-xs inline-flex items-center justify-center h-6 text-black text-opacity-85 bg-[#F38AFF] rounded-full whitespace-nowrap transition duration-300 ease-in-out cursor-default focus:outline-none border-0 p-0">
+                    <img
+                      className="w-4 ml-1 -mt-1 text-lg h-auto"
+                      src={YAKU_TOKEN_ICON}
+                      alt=""
+                      style={{ borderRadius: 5000 }}
+                    />
+                    <span className="overflow-hidden whitespace-nowrap px-2 truncate">
+                      {`${rewardString} ${msg}`}
+                    </span>
+                  </div>
                 )}
               </FormattedMessage>
             </div>
 
-            <Divider sx={{ mb: "10px" }} />
+            <hr className="mb-[10px] border border-[#D5D9E9] border-opacity-20" />
 
-            <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <Button variant="contained" disabled fullWidth>
+            <div className="box-border m-0 flex-grow max-w-full">
+              <div className="flex flex-wrap -mt-2 -ml-2 w-[calc(100%+8px)]">
+                <div className="pl-2 pt-2 flex-grow-0 flex-shrink-0 w-1/2 max-w-1/2">
+                  <button
+                    className="inline-flex items-center justify-center relative box-border select-none align-middle cursor-pointer text-base font-medium leading-tight min-w-16 w-full px-4 py-[6px] border border-transparent rounded transition duration-250 ease-in-out disabled:text-white-opacity-30 disabled:bg-white-opacity-12 disabled:shadow-none disabled:pointer-events-none disabled:cursor-default"
+                    tabIndex={-1}
+                    type="button"
+                    disabled
+                  >
                     <FormattedMessage id="claim" />
-                  </Button>
-                </Grid>
-                <Grid item xs={6}>
-                  <Button
+                  </button>
+                </div>
+                <div className="pl-2 pt-2 flex-grow-0 flex-shrink-0 w-1/2 max-w-1/2">
+                  <button
+                    className="inline-flex items-center justify-center relative box-border select-none align-middle cursor-pointer text-base font-medium leading-tight min-w-16 w-full px-4 py-[6px] border border-solid rounded transition duration-250 ease-in-out bg-transparent border-[#F38AFF] border-opacity-50
+                    text-[#F38AFF]"
                     onClick={() => onStake(mint)}
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth
+                    tabIndex={0}
+                    type="button"
                   >
                     <FormattedMessage id="stake" />
-                  </Button>
-                </Grid>
-              </Grid>
+                  </button>
+                </div>
+              </div>
             </div>
-          </CardContent>
+          </div>
         </MainCard>
       ) : (
         <SkeletonProductPlaceholder />

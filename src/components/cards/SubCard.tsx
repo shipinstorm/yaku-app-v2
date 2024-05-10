@@ -1,7 +1,6 @@
 import React, { ReactNode, Ref } from "react";
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
 import {
   Card,
   CardContent,
@@ -9,6 +8,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import { Palette } from "@/themes/palette";
 
 interface SubCardProps {
   children: ReactNode | string | null;
@@ -40,23 +40,18 @@ const SubCard = React.forwardRef(
     }: SubCardProps,
     ref: Ref<HTMLDivElement>
   ) => {
-    const paletteMode = JSON.parse(
-      localStorage.getItem("yaku-config") || "{}"
-    ).mode;
-    const theme = useTheme();
-
     return (
       <Card
         ref={ref}
         sx={{
           border: "1px solid",
           borderColor:
-            paletteMode === "dark"
-              ? theme.palette.dark.light + 15
-              : theme.palette.primary.light,
+            Palette.mode === "dark"
+              ? Palette.dark.light + 15
+              : Palette.primary.light,
           ":hover": {
             boxShadow:
-              paletteMode === "dark"
+              Palette.mode === "dark"
                 ? "0 2px 14px 0 rgb(33 150 243 / 10%)"
                 : "0 2px 14px 0 rgb(32 40 45 / 8%)",
           },
@@ -86,9 +81,9 @@ const SubCard = React.forwardRef(
             sx={{
               opacity: 1,
               borderColor:
-                paletteMode === "dark"
-                  ? theme.palette.dark.light + 15
-                  : theme.palette.primary.light,
+                Palette.mode === "dark"
+                  ? Palette.dark.light + 15
+                  : Palette.primary.light,
             }}
           />
         )}
