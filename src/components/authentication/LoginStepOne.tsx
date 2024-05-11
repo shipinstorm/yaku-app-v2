@@ -45,7 +45,7 @@ const LoginStepOne = ({
                 variant="filled"
               />
 
-              <Typography variant="caption" fontSize="16px" textAlign="center">
+              {/* <Typography variant="caption" fontSize="16px" textAlign="center">
                 Using Ledger?
               </Typography>
               <Switch
@@ -54,7 +54,7 @@ const LoginStepOne = ({
                 checked={isLedger}
                 onChange={(e) => setIsLedger(e.target.checked)}
                 inputProps={{ "aria-label": "controlled" }}
-              />
+              /> */}
             </Stack>
           </Grid>
         </Grid>

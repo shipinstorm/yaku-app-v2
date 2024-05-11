@@ -32,6 +32,7 @@ import { TPSProvider } from "@/contexts/TPSContext";
 import Composer from "@/contexts/Composer";
 import { ConnectionsProvider } from "@/contexts/ConnectionsContext";
 import { BundleWalletProvider } from "@/contexts/BundleWalletContext";
+import { PlayerWalletProvider } from "@/contexts/PlayerWalletContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { StakedProvider } from "@/contexts/StakedContext";
 import { NotificationsProvider } from "@/contexts/NotificationsContext";
@@ -52,6 +53,7 @@ const contexts = [
   ThemeCustomization,
   Locales,
   MetaProvider,
+  PlayerWalletProvider,
   WalletHandlerProvider,
   NotificationsProvider,
   CoinGeckoProvider,

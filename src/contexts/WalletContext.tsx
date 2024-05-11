@@ -20,6 +20,7 @@ import { map, uniqBy } from "lodash";
 import { DEFAULT_RPC, USE_QUIKNODE } from "@/config/config";
 import { useToasts } from "@/hooks/useToasts";
 import useAuth from "@/hooks/useAuth";
+import useGame from "@/hooks/useGame";
 import { selectFastestRpc } from "@/actions/shared";
 import { shortenAddress } from "@/utils/utils";
 import { useDispatch } from "@/store";
@@ -58,6 +59,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   const router = useRouter();
   const { publicKey } = wallet;
   const auth = useAuth();
+  const game = useGame();
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const [connected, setConnected] = useState(!!publicKey);
@@ -202,6 +204,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
       removeWorkspace();
       dispatch(updateHasWorkspace(false));
       auth.logout();
+      game.logout();
     }
     console.debug({
       publicKey,
@@ -249,7 +252,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   };
 
   const showLoginDialog = (
-    requireSign = false,
+    requireSign = true,
     allowDismiss = true,
     hideEth = false
   ) => {

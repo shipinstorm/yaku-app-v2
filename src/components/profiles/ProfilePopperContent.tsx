@@ -45,6 +45,7 @@ import { isEmpty, isObject, map } from "lodash";
 import { useToasts } from "@/hooks/useToasts";
 import useConnections from "@/hooks/useConnetions";
 import { useBundleView } from "@/contexts/BundleWalletContext";
+import { usePlayerView } from "@/contexts/PlayerWalletContext";
 import WalletValueSection from "@/components/profiles/WalletValueSection";
 import { useEthcontext } from "@/contexts/EthWalletProvider";
 import { useRequests } from "@/hooks/useRequests";
@@ -59,6 +60,7 @@ import useWallets from "@/hooks/useWallets";
 import useStaked from "@/hooks/useStaked";
 
 import { Palette } from "@/themes/palette";
+import useGame from "@/hooks/useGame";
 
 const ProfilePopperContext = ({
   showProfile,
@@ -69,8 +71,10 @@ const ProfilePopperContext = ({
   const { connection } = useConnections();
   const { ethAddress, ethConnected, ethConnect, ethBalance } = useEthcontext();
   const { setShowBundleView } = useBundleView();
+  const { setShowPlayerView } = usePlayerView();
   const theme = useTheme();
   const auth = useAuth();
+  const game = useGame();
   const router = useRouter();
   const mainWallet = useWallet();
   const { publicKey, wallet, disconnect } = mainWallet;
@@ -171,6 +175,14 @@ const ProfilePopperContext = ({
     // eslint-disable-next-line
   }, [ethConnected, ethAddress]);
 
+  const { showLoginDialog } = useWallets();
+
+  const createGameWalletButton = {
+    onClick: () => setShowPlayerView(true),
+    icon: <IconPlus stroke={1.5} size="1.3rem" />,
+    label: "Create Game Wallet",
+  };
+
   /* ----------------- Fetch WorkSpaces ----------------- */
   const { workspaces } = useWallets();
   const [workspace, setWorkspace] = useLocalStorage("workspace", "");
@@ -185,22 +197,32 @@ const ProfilePopperContext = ({
     label: "Other Workspace",
   };
   const stackButtons = [
-    {
-      onClick: () => router.push("/bundle"),
-      icon: <IconBook stroke={1.5} size="1.3rem" />,
-      label: "View Bundle",
-    },
-    {
-      onClick: () => setShowBundleView(true),
-      icon: <IconBookUpload stroke={1.5} size="1.3rem" />,
-      label: "Add Wallet to Bundle",
-    },
+    // {
+    //   onClick: () => router.push("/bundle"),
+    //   icon: <IconBook stroke={1.5} size="1.3rem" />,
+    //   label: "View Bundle",
+    // },
+    // {
+    //   onClick: () => setShowBundleView(true),
+    //   icon: <IconBookUpload stroke={1.5} size="1.3rem" />,
+    //   label: "Add Wallet to Bundle",
+    // },
     {
       onClick: handleLogout,
       icon: <IconPower stroke={1.5} size="1.3rem" />,
       label: "Sign Out",
     },
   ];
+
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  useEffect(() => {
+    setIsConnected(false);
+    if (game.player.wallets) {
+      game.player.wallets.map((wallet: any) => {
+        if (wallet.address === auth.user.wallet) setIsConnected(true);
+      });
+    }
+  }, [game, auth]);
 
   const Profile = (
     <>
@@ -458,7 +480,7 @@ const ProfilePopperContext = ({
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Transitions in={open} {...TransitionProps}>
-        <Paper className="bg-elevation1 rounded-3xl border border-line overflow-y-auto">
+        <Paper className="bg-elevation1 rounded-3xl border border-line overflow-y-auto flex flex-col gap-3">
           {open && (
             <>
               {showProfile && Profile}
@@ -480,6 +502,7 @@ const ProfilePopperContext = ({
                       [theme.breakpoints.down("md")]: {
                         minWidth: "100%",
                       },
+                      color: "#D5D9E9",
                     }}
                   >
                     {auth.user?.vanity && (
@@ -636,9 +659,70 @@ const ProfilePopperContext = ({
                     )}
                     <Divider sx={{ mt: 1, mb: 1 }} />
 
-                    {workspaces && workspaces?.length === 0 && (
-                      <ProfilePopperButton {...createWorkspaceButton} />
+                    {game.player.id ? (
+                      <>
+                        <Typography noWrap>Blockus Account</Typography>
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{
+                            mb: 1,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor:
+                              Palette.mode === "dark"
+                                ? "#09080d"
+                                : "primary.light",
+                            borderRadius: ".75rem",
+                            p: 1,
+                          }}
+                        >
+                          <Typography noWrap>
+                            {ethAddress &&
+                              shortenAddress(
+                                game.player.wallets[
+                                  game.player.wallets.length - 1
+                                ].address,
+                                7
+                              )}
+                          </Typography>
+                        </Grid>
+                        <div className="flex items-center justify-center">
+                          {isConnected && (
+                            <Typography noWrap>
+                              Linked To Blockus Account
+                            </Typography>
+                          )}
+                          {!isConnected && (
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              size="small"
+                              onClick={() => showLoginDialog()}
+                              sx={{
+                                backgroundColor: "#5865F2",
+                                "&:hover": {
+                                  backgroundColor:
+                                    "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
+                                },
+                                gap: 1,
+                              }}
+                            >
+                              Link To Blockus Account
+                            </Button>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <ProfilePopperButton {...createGameWalletButton} />
                     )}
+
+                    <Divider sx={{ mt: 1, mb: 1 }} />
+
+                    {/* {workspaces && workspaces?.length === 0 && (
+                        <ProfilePopperButton {...createWorkspaceButton} />
+                      )} */}
                     {map(stackButtons, (row: any, idx: number) => (
                       <ProfilePopperButton key={idx} {...row} />
                     ))}

@@ -43,9 +43,9 @@ const ChainWalletSelect = ({
         >
           <div className="flex">
             <div className="flex flex-col items-center justify-center space-y-1">
-              <p className="text-xs md:text-base text-center">
+              <span className="text-xs md:text-base text-center text-[#D8DDF0]">
                 Please connect your wallet which has access to the Yaku Hub
-              </p>
+              </span>
             </div>
           </div>
         </div>

@@ -43,6 +43,9 @@ import { isMobile } from "react-device-detect";
 import { IconX } from "@tabler/icons-react";
 import useWallets from "@/hooks/useWallets";
 
+import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
+import useGame from "@/hooks/useGame";
+
 export enum STEPS {
   SELECT_WALLET = 0,
   SIGN_MESSAGE = 1,
@@ -74,6 +77,8 @@ const WalletLogin = ({
   // hooks
   const theme = useTheme();
   const auth = useAuth();
+  const game = useGame();
+  const { requestAuthentication, linkWalletToPlayer } = useRequests();
   const { showInfoToast, showErrorToast, showTxErrorToast } = useToasts();
 
   // mutations / queries
@@ -225,13 +230,23 @@ const WalletLogin = ({
     if (publicKey) {
       setIsConnecting(true);
       try {
-        const message = `Welcome to the Yaku Hub!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nYour authentication status will reset after 24 hours.\n\nWallet address:\n${publicKey}`;
-        const encodedMessage = new TextEncoder().encode(message);
+        const requestAuthenticationResponse = await requestAuthentication(
+          "web3",
+          auth.user.wallet,
+          ""
+        );
+
+        // const message = `Welcome to the Yaku Hub!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nYour authentication status will reset after 24 hours.\n\nWallet address:\n${publicKey}`;
+        // const encodedMessage = new TextEncoder().encode(message);
+        const encodedMessage = new TextEncoder().encode(
+          JSON.stringify({ message: requestAuthenticationResponse.data })
+        );
         const signature = await signMessage!(encodedMessage);
         if (!signature)
           showErrorToast(
             `An error occurred while confirming the signature, please try again.`
           );
+        handleLinkWalletToPlayer(bs58.encode(signature));
         auth.sign();
         if (!auth.token) {
           attemptLogin(publicKey.toBase58());
@@ -248,6 +263,23 @@ const WalletLogin = ({
       setStep(STEPS.SELECT_WALLET);
       showErrorToast(
         "There seems to be an issue with your connection, please try again."
+      );
+    }
+  };
+
+  const handleLinkWalletToPlayer = async (signature: string) => {
+    try {
+      const linkWalletToPlayerResponse = await linkWalletToPlayer(
+        "web3",
+        auth.user.wallet,
+        signature,
+        "solana",
+        game.player.id,
+        game.accessToken
+      );
+    } catch (error) {
+      showErrorToast(
+        "Wallet address already linked to another user"
       );
     }
   };

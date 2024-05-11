@@ -14,6 +14,7 @@ export function useRequests() {
   const nftSvcPath = "https://nft.yaku.ai/api";
   const ethSvcPath = "https://eth.yaku.ai/api";
   const agSvcPath = "https://ag.yaku.ai/api";
+  const playerPath = "http://localhost:8080/v1/auth";
 
   const [csrfToken, setCsrfToken] = useState("");
   const [agToken, setAgToken] = useState("");
@@ -1329,6 +1330,56 @@ export function useRequests() {
     });
     return data?.getNotificationsByUserId || [];
   };
+
+  const getPlayerInfo = (accessToken: string) => {
+    const data = axios.post(`${playerPath}/me`, {
+      accessToken,
+    });
+    return data;
+  };
+
+  const loginWithEpic = (epicId: string, email: string) => {
+    const data = axios.post(`${playerPath}/login`, {
+      epicId,
+      email,
+      deploymentId: "9dab2296580f4097abe81ed70879485c",
+      credential: "",
+    });
+    return data;
+  };
+
+  const requestAuthentication = (
+    type: string,
+    address: string,
+    email: string
+  ) => {
+    const data = axios.post(`${playerPath}/challenge`, {
+      type,
+      address,
+      email,
+    });
+    return data;
+  };
+
+  const linkWalletToPlayer = (
+    type: string,
+    address: string,
+    signature: string,
+    chain: string,
+    id: string,
+    accessToken: string
+  ) => {
+    const data = axios.post(`${playerPath}/link`, {
+      type,
+      address,
+      signature,
+      chain,
+      id,
+      accessToken,
+    });
+    return data;
+  };
+
   return {
     csrf,
     csrfToken,
@@ -1424,5 +1475,9 @@ export function useRequests() {
     getETHTokens,
     getETHBalance,
     getNotifications,
+    getPlayerInfo,
+    loginWithEpic,
+    requestAuthentication,
+    linkWalletToPlayer,
   };
 }
