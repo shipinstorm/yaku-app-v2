@@ -679,13 +679,12 @@ const ProfilePopperContext = ({
                           }}
                         >
                           <Typography noWrap>
-                            {ethAddress &&
-                              shortenAddress(
-                                game.player.wallets[
-                                  game.player.wallets.length - 1
-                                ].address,
-                                7
-                              )}
+                            {shortenAddress(
+                              game.player.wallets[
+                                game.player.wallets.length - 1
+                              ].address,
+                              7
+                            )}
                           </Typography>
                         </Grid>
                         <div className="flex items-center justify-center">

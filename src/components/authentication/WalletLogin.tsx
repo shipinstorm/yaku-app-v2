@@ -78,7 +78,8 @@ const WalletLogin = ({
   const theme = useTheme();
   const auth = useAuth();
   const game = useGame();
-  const { requestAuthentication, linkWalletToPlayer } = useRequests();
+  const { getPlayerInfo, requestAuthentication, linkWalletToPlayer } =
+    useRequests();
   const { showInfoToast, showErrorToast, showTxErrorToast } = useToasts();
 
   // mutations / queries
@@ -277,10 +278,12 @@ const WalletLogin = ({
         game.player.id,
         game.accessToken
       );
+      const getPlayerInfoResponse = await getPlayerInfo(game.accessToken);
+      const player = getPlayerInfoResponse.data;
+      game.setPlayer(player);
+      showInfoToast("Wallet connected to Blockus Account");
     } catch (error) {
-      showErrorToast(
-        "Wallet address already linked to another user"
-      );
+      showErrorToast("Wallet address already linked to another user");
     }
   };
 
