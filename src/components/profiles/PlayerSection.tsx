@@ -12,7 +12,6 @@ import {
 
 import { IconX } from "@tabler/icons-react";
 
-import AuthWrapper from "@/components/authentication/AuthWrapper";
 import AuthCardWrapper from "@/components/authentication/AuthCardWrapper";
 import AuthFooter from "@/components/cards/AuthFooter";
 import Logo from "@/components/icons/Logo";
@@ -22,7 +21,13 @@ import { useRequests } from "@/hooks/useRequests";
 
 import { shortenAddress } from "@/utils/utils";
 
-const PlayerSection = ({ open, onClose, setPlayer, setAccessToken, setPlayerAddress }: any) => {
+const PlayerSection = ({
+  open,
+  onClose,
+  setPlayer,
+  setAccessToken,
+  setPlayerAddress,
+}: any) => {
   const [email, setEmail] = useState("");
   const [epicId, setEpicId] = useState("");
   const [disabled, setDisabled] = useState(true);
@@ -77,7 +82,7 @@ const PlayerSection = ({ open, onClose, setPlayer, setAccessToken, setPlayerAddr
       onClose={onClose}
     >
       <DialogContent>
-        <AuthWrapper>
+        <div className="bg-transparent min-h-[70vh]">
           <div className="box-border flex flex-col justify-end min-h-[70vh] card">
             <div className="box-border m-0">
               <Grid
@@ -148,7 +153,7 @@ const PlayerSection = ({ open, onClose, setPlayer, setAccessToken, setPlayerAddr
               <AuthFooter />
             </div>
           </div>
-        </AuthWrapper>
+        </div>
       </DialogContent>
     </Dialog>
   );

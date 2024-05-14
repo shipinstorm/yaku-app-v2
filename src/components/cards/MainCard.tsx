@@ -2,7 +2,6 @@ import React, { Ref } from "react";
 
 // material-ui
 import {
-  Card,
   CardContent,
   CardHeader,
   Divider,
@@ -59,14 +58,10 @@ const MainCard = React.forwardRef(
     }: MainCardProps,
     ref: Ref<HTMLDivElement>
   ) => (
-    <Card
+    <div
       ref={ref}
       {...others}
-      sx={{
-        background: "transparent",
-        boxShadow: "none",
-        ...sx,
-      }}
+      className="m-5 max-w-[400px] md:m-6 lg:max-w-[450px] text-[rgba(0,0,0,0.87)] overflow-hidden bg-transparent shadow-none"
     >
       {/* card header and action */}
       {!darkTitle && title && (
@@ -96,7 +91,7 @@ const MainCard = React.forwardRef(
         </CardContent>
       )}
       {!content && children}
-    </Card>
+    </div>
   )
 );
 

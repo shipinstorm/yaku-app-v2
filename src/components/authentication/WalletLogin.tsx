@@ -26,7 +26,6 @@ import { SystemProgram, Transaction } from "@solana/web3.js";
 import { useDisconnect, useSignMessage } from "wagmi";
 
 // project imports
-import AuthWrapper from "./AuthWrapper";
 import AuthCardWrapper from "./AuthCardWrapper";
 import LoginStepOne from "./LoginStepOne";
 import LoginStepTwo from "./LoginStepTwo";
@@ -395,16 +394,11 @@ const WalletLogin = ({
   );
 
   return (
-    <AuthWrapper>
+    <div className="bg-transparent min-h-[70vh]">
       <div className="box-border flex flex-col justify-end min-h-[70vh] card">
         <div className="box-border m-0">
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            sx={{ minHeight: "calc(70vh - 68px)" }}
-          >
-            <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
+          <div className="box-border flex flex-wrap w-full justify-center items-center min-h-[calc(-68px+70vh)]">
+            <div className="box-border m-2 sm:m-6">
               <AuthCardWrapper className="bg-elevation1 rounded-3xl">
                 <Grid
                   container
@@ -486,14 +480,14 @@ const WalletLogin = ({
                   )}
                 </Grid>
               </AuthCardWrapper>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
         </div>
         <div className="box-border flex-grow-0 flex-shrink-0 flex-basis-full m-6 mt-2">
           <AuthFooter />
         </div>
       </div>
-    </AuthWrapper>
+    </div>
   );
 };
 

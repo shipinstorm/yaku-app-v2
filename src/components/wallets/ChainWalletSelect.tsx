@@ -34,6 +34,7 @@ const ChainWalletSelect = ({
 
     return [detected];
   }, [wallets]);
+
   return (
     <>
       <div className="pl-4 pt-4 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">

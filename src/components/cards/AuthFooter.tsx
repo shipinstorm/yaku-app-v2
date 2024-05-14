@@ -1,27 +1,20 @@
-// material-ui
-import { Link, Typography, Stack } from "@mui/material";
-
 // ==============================|| FOOTER - AUTHENTICATION 2 & 3 ||============================== //
 
 const AuthFooter = () => (
-  <Stack direction="row" justifyContent="space-between">
-    <Typography
-      variant="subtitle2"
-      component={Link}
+  <div className="flex flex-row justify-between">
+    <a
+      className="text-xs font-normal text-[#d8ddf0] leading-[1.57] no-underline hover:underline m-0"
       href="https://yaku.ai"
-      underline="hover"
     >
       yaku.ai
-    </Typography>
-    <Typography
-      variant="subtitle2"
-      component={Link}
+    </a>
+    <a
+      className="text-xs font-normal text-[#d8ddf0] leading-[1.57] no-underline hover:underline m-0"
       href="https://yaku.ai"
-      underline="hover"
     >
       &copy; 2022 Yaku Corp
-    </Typography>
-  </Stack>
+    </a>
+  </div>
 );
 
 export default AuthFooter;
