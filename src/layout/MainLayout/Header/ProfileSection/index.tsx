@@ -54,10 +54,6 @@ const ProfileSection = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  console.log(mainWallet.connected);
-  console.log(ethConnected);
-  console.log(playerAddress);
-
   return (
     <>
       {mainWallet.connected || ethConnected || playerAddress ? (

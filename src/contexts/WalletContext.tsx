@@ -69,6 +69,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   const [canDismiss, setCanDismiss] = useState(true);
   const [hideEthButton, setHideEthButton] = useState(false);
   const [addressType, setAddressType] = useState(true);
+  const [stepNumber, setStepNumber] = useState(0);
   const [workspaces, setWorkspaces] = useState<any[]>([]);
   const { showInfoToast, showWarningToast } = useToasts();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -256,12 +257,14 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
     allowDismiss = true,
     hideEth = false,
     addressType = true,
+    stepNumber = 0,
   ) => {
     setNeedSign(requireSign);
     setCanDismiss(allowDismiss);
     setHideEthButton(hideEth);
     setOpen(true);
     setAddressType(addressType);
+    setStepNumber(stepNumber);
     console.debug({ needSign, canDismiss, open, hideEthButton });
   };
 
@@ -295,6 +298,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
           requireSign={needSign}
           hideEthButton={hideEthButton}
           addressType={addressType}
+          stepNumber={stepNumber}
         />
       </Dialog>
     </WalletsContext.Provider>

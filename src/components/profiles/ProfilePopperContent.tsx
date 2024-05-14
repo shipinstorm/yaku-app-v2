@@ -65,6 +65,8 @@ import useGame from "@/hooks/useGame";
 
 import { useAccount } from "wagmi";
 
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
+
 const ProfilePopperContext = ({
   showProfile,
   open,
@@ -79,7 +81,6 @@ const ProfilePopperContext = ({
   const theme = useTheme();
   const auth = useAuth();
   const game = useGame();
-  console.log(game);
   const router = useRouter();
   const mainWallet = useWallet();
   const { publicKey, wallet, select, disconnect } = mainWallet;
@@ -87,8 +88,9 @@ const ProfilePopperContext = ({
   const { playerAddress } = usePlayerView();
 
   const solConnect = useCallback(() => {
+    const adapter = new PhantomWalletAdapter();
     console.log("selecting Phantom");
-    select("Phantom");
+    select(adapter.name);
   }, [select]);
 
   const { showInfoToast } = useToasts();
@@ -602,7 +604,9 @@ const ProfilePopperContext = ({
                                 variant="contained"
                                 color="primary"
                                 size="small"
-                                onClick={() => showLoginDialog()}
+                                onClick={() =>
+                                  showLoginDialog(true, true, false, true, 2)
+                                }
                                 sx={{
                                   backgroundColor: "#5865F2",
                                   "&:hover": {
@@ -728,7 +732,7 @@ const ProfilePopperContext = ({
                                 color="primary"
                                 size="small"
                                 onClick={() =>
-                                  showLoginDialog(true, true, false, false)
+                                  showLoginDialog(true, true, false, false, 2)
                                 }
                                 sx={{
                                   backgroundColor: "#5865F2",

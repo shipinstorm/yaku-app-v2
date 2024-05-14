@@ -16,7 +16,7 @@ import useAuth from "@/hooks/useAuth";
 import { useRequests } from "@/hooks/useRequests";
 
 type useEthContextType = {
-  ethAddress: string;
+  ethAddress: any;
   chain: string;
   ethBalance: number;
   ethConnected: boolean;
@@ -25,7 +25,7 @@ type useEthContextType = {
   ethSignout: Function;
   getWalletNfts: Function;
   sendTransaction: Function;
-  ethSignMessage: Function;
+  signMessage: Function;
   getBlockNumber: Function;
 };
 
@@ -39,7 +39,7 @@ const userDefaultValue: useEthContextType = {
   ethSignout: () => {},
   getWalletNfts: () => {},
   sendTransaction: () => {},
-  ethSignMessage: () => {},
+  signMessage: () => {},
   getBlockNumber: () => {},
 };
 
@@ -68,15 +68,10 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
 
   useEffect(() => {
     setConnected(isConnected);
-
-    console.log("---------------------");
-    console.log(isConnected);
   }, [isConnected]);
 
   const connectWallet = async () => {
     try {
-      console.log("---------------------------------");
-      console.log(connectors[0]);
       connectors.map(async (connector: any) => {
         await connect({ connector });
         setSignerAddress(address);
@@ -143,12 +138,8 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
     message: any,
     callback?: ((error: Error, signature: string) => void) | undefined
   ) {
-    console.log("-------------------------");
-    console.log(message);
-    console.log(signerAddress);
     try {
       const signature = await signMessageAsync(message);
-      console.log(signature);
       return signature;
     } catch (error) {
       console.log(error);
@@ -204,7 +195,7 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
       ethSignout: () => {},
       getWalletNfts,
       sendTransaction,
-      ethSignMessage: signMessage,
+      signMessage,
       getBlockNumber,
     });
   }, [signerAddress, ethBal, connected]);

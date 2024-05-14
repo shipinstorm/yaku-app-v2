@@ -62,12 +62,12 @@ const WalletLogin = ({
   requireSign,
   hideEthButton = false,
   addressType,
+  stepNumber,
 }: any) => {
   const { connection } = useConnections();
   const { showLoginDialog } = useWallets();
   // Metamask context
-  const { ethAddress, ethConnected, ethConnect, ethSignMessage } =
-    useEthcontext();
+  const { ethAddress, ethConnected, ethConnect } = useEthcontext();
 
   const { setShowPlayerView } = usePlayerView();
 
@@ -109,7 +109,6 @@ const WalletLogin = ({
       setStep(STEPS.SELECT_WALLET);
     }
 
-    console.debug({ connecting, connected, open });
     if (!connecting && !connected && open) {
       connect().catch((error) => {
         console.debug(error?.name, { connecting, isConnecting });
@@ -118,6 +117,12 @@ const WalletLogin = ({
       });
     }
   }, [publicKey, connect, open]);
+
+  useEffect(() => {
+    if (stepNumber == 2) {
+      setStep(STEPS.SIGN_MESSAGE);
+    }
+  }, [stepNumber]);
 
   const handleEtherLogin = useCallback(async () => {
     if (!isMobile) {
@@ -265,22 +270,17 @@ const WalletLogin = ({
             JSON.stringify({ message: requestAuthenticationResponse.data })
           );
           signature = await signMessage!(encodedMessage);
-          console.log("--------------------------");
-          console.log(signature);
+          signature = bs58.encode(signature);
         } else {
           signature = await signMessageAsync({
             message: JSON.stringify(requestAuthenticationResponse.data),
           });
-          console.log("--------------------------");
-          console.log(signature);
         }
         if (!signature)
           showErrorToast(
             `An error occurred while confirming the signature, please try again.`
           );
-        handleLinkWalletToPlayer(
-          addressType ? bs58.encode(signature) : signature
-        );
+        handleLinkWalletToPlayer(signature);
         auth.sign();
         if (!auth.token) {
           attemptLogin(publicKey.toBase58());
@@ -302,7 +302,7 @@ const WalletLogin = ({
     }
   };
 
-  const handleLinkWalletToPlayer = async (signature: string) => {
+  const handleLinkWalletToPlayer = async (signature: string | Uint8Array) => {
     try {
       const linkWalletToPlayerResponse = await linkWalletToPlayer(
         "web3",
