@@ -10,20 +10,14 @@ import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import {
-  Grid,
-  Stack,
-  useMediaQuery,
-  CircularProgress,
-  Avatar,
-} from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 // web3 imports
 import { WalletAdapter, WalletReadyState } from "@solana/wallet-adapter-base";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { SystemProgram, Transaction } from "@solana/web3.js";
 
-import { useDisconnect, useSignMessage } from "wagmi";
+import { useSignMessage } from "wagmi";
 
 // project imports
 import AuthCardWrapper from "./AuthCardWrapper";
@@ -94,8 +88,6 @@ const WalletLogin = ({
 
   // mutations / queries
   const { login, getSubwallet, signup } = useRequests();
-
-  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (publicKey && connected) {
@@ -377,19 +369,13 @@ const WalletLogin = ({
 
   const InProgress = () => (
     <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-      <Grid
-        container
-        direction={matchDownSM ? "column-reverse" : "row"}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ mt: 1 }}
-      >
-        <Grid item>
-          <Stack alignItems="center" justifyContent="center" spacing={1}>
+      <div className="box-border flex flex-wrap w-full flex-row items-center justify-center mt-2">
+        <div className="box-border m-0">
+          <div className="flex flex-col items-center justify-center">
             <CircularProgress color="secondary" />
-          </Stack>
-        </Grid>
-      </Grid>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
@@ -400,14 +386,9 @@ const WalletLogin = ({
           <div className="box-border flex flex-wrap w-full justify-center items-center min-h-[calc(-68px+70vh)]">
             <div className="box-border m-2 sm:m-6">
               <AuthCardWrapper className="bg-elevation1 rounded-3xl">
-                <Grid
-                  container
-                  spacing={2}
-                  alignItems="center"
-                  justifyContent="center"
-                >
+                <div className="box-border flex flex-wrap -mt-4 w-[calc(100%+16px)] -ml-4 items-center justify-center">
                   {step === 3 ? (
-                    <Grid item>
+                    <div className="box-border m-0">
                       <Link to="#">
                         <Image
                           src="/images/icons/confetti.png"
@@ -416,22 +397,20 @@ const WalletLogin = ({
                           height={120}
                         />
                       </Link>
-                    </Grid>
+                    </div>
                   ) : (
-                    <Grid item className="flex justify-between w-full">
+                    <div className="pt-4 pl-4 box-border m-0 flex justify-between w-full">
                       <p className="w-9" />
                       <Link to="#">
                         <Logo />
                       </Link>
-                      <Avatar
-                        className="button-small items-center p-0"
-                        color="inherit"
-                        aria-haspopup="true"
+                      <div
+                        className="button-small items-center p-0 relative flex justify-center flex-shrink-0 text-xl leading-none overflow-hidden select-none bg-[#d5d9e9]"
                         onClick={() => dismiss("step3")}
                       >
                         <IconX stroke={1.5} size="1.3rem" />
-                      </Avatar>
-                    </Grid>
+                      </div>
+                    </div>
                   )}
                   {connecting || isConnecting ? (
                     <InProgress />
@@ -478,7 +457,7 @@ const WalletLogin = ({
                       )}
                     </>
                   )}
-                </Grid>
+                </div>
               </AuthCardWrapper>
             </div>
           </div>

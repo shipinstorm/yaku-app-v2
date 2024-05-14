@@ -14,8 +14,8 @@ export function useRequests() {
   const nftSvcPath = "https://nft.yaku.ai/api";
   const ethSvcPath = "https://eth.yaku.ai/api";
   const agSvcPath = "https://ag.yaku.ai/api";
-  const playerPath = "http://localhost:8080/v1/auth";
-  // const playerPath = "https://52.87.162.174/v1/auth";
+  // const playerPath = "http://localhost:8080/v1/auth";
+  const playerPath = "https://52.87.162.174/v1/auth";
 
   const [csrfToken, setCsrfToken] = useState("");
   const [agToken, setAgToken] = useState("");

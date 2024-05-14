@@ -1,6 +1,3 @@
-// material-ui
-import { Box } from "@mui/material";
-
 // project import
 import MainCard, { MainCardProps } from "@/components/cards/MainCard";
 
@@ -19,7 +16,7 @@ const AuthCardWrapper = ({ children, ...other }: MainCardProps) => (
     content={false}
     {...other}
   >
-    <Box sx={{ p: { xs: 2, sm: 3, xl: 5 } }}>{children}</Box>
+    <div className="p-4 sm:p-6">{children}</div>
   </MainCard>
 );
 

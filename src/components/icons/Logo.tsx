@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { IMAGE_PROXY_LOGO, LOGO } from "@/config/config";
 import { Palette } from "@/themes/palette";
 
@@ -14,13 +16,14 @@ const Logo = ({ withoutText = false }: any) => {
   }
 
   return (
-    <img
+    <Image
       src={`${IMAGE_PROXY_LOGO}${
         Palette.mode === "dark" ? LOGO_LIGHT : LOGO_DARK
       }`}
       alt="Yaku Labs"
-      width="160"
-      style={{ verticalAlign: "middle", paddingTop: "2px" }}
+      width={160}
+      height={38}
+      className="align-middle pt-[2px]"
     />
   );
 };
