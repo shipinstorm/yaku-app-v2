@@ -7,11 +7,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { shortenAddress } from "@/utils/utils";
 import WalletButton from "./WalletButton";
 
 const LoginStepOne = ({
+  publicKey,
   isLedger,
   setIsLedger,
   handleBack,
@@ -19,8 +19,6 @@ const LoginStepOne = ({
   handleSignMessage,
 }: any) => {
   const theme = useTheme();
-  const wallet = useWallet();
-  const { publicKey } = wallet;
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
@@ -40,9 +38,10 @@ const LoginStepOne = ({
               </Typography>
 
               <Chip
-                label={publicKey && shortenAddress(publicKey.toBase58(), 5)}
+                label={publicKey && shortenAddress(publicKey, 5)}
                 size="medium"
                 variant="filled"
+                className="text-white bg-[#2D2F33]"
               />
 
               {/* <Typography variant="caption" fontSize="16px" textAlign="center">

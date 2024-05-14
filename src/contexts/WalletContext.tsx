@@ -68,6 +68,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   const [needSign, setNeedSign] = useState(false);
   const [canDismiss, setCanDismiss] = useState(true);
   const [hideEthButton, setHideEthButton] = useState(false);
+  const [addressType, setAddressType] = useState(true);
   const [workspaces, setWorkspaces] = useState<any[]>([]);
   const { showInfoToast, showWarningToast } = useToasts();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -204,7 +205,6 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
       removeWorkspace();
       dispatch(updateHasWorkspace(false));
       auth.logout();
-      game.logout();
     }
     console.debug({
       publicKey,
@@ -254,12 +254,14 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   const showLoginDialog = (
     requireSign = true,
     allowDismiss = true,
-    hideEth = false
+    hideEth = false,
+    addressType = true,
   ) => {
     setNeedSign(requireSign);
     setCanDismiss(allowDismiss);
     setHideEthButton(hideEth);
     setOpen(true);
+    setAddressType(addressType);
     console.debug({ needSign, canDismiss, open, hideEthButton });
   };
 
@@ -292,6 +294,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
           dismiss={canDismiss && handleClose}
           requireSign={needSign}
           hideEthButton={hideEthButton}
+          addressType={addressType}
         />
       </Dialog>
     </WalletsContext.Provider>

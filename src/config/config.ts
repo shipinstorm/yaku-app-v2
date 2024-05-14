@@ -1,6 +1,9 @@
 import { web3 } from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { ENV as ENVChainId } from "@solana/spl-token-registry";
+import { http, createConfig } from 'wagmi'
+import { mainnet, sepolia } from 'wagmi/chains'
+import { metaMask } from 'wagmi/connectors'
 
 export const USER_POOL_SIZE = 3664;
 export const GLOBAL_AUTHORITY_SEED = "global-authority";
@@ -157,3 +160,14 @@ export const WORKSPACE_ROLES = [
     value: "USER",
   },
 ];
+
+export const wagmiConfig = createConfig({
+  chains: [mainnet, sepolia],
+  connectors: [
+    metaMask(),
+  ],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+  },
+})

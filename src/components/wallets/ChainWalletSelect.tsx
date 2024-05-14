@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Image from "next/image";
-import { WalletReadyState } from "@solana/wallet-adapter-base";
-import { useWallet, Wallet } from "@solana/wallet-adapter-react";
 import { useMemo } from "react";
 import { isMobile } from "react-device-detect";
+import { WalletReadyState } from "@solana/wallet-adapter-base";
+import { useWallet, Wallet } from "@solana/wallet-adapter-react";
 
 const ChainWalletSelect = ({
   setIsConnecting,
   handleClick,
   handleEtherLogin,
   hideEthButton = false,
+  handleGameLogin,
 }: any) => {
   const wallet = useWallet();
   const { wallets } = wallet;
@@ -52,6 +53,7 @@ const ChainWalletSelect = ({
       </div>
 
       <div className="pl-4 pt-4 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">
+        {/* SOL WALLETS */}
         <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">
           <div className="flex items-center">
             <hr className="m-0 flex-shrink-0 border-t border-gray-300 border-solid opacity-20 flex-grow" />
@@ -120,6 +122,37 @@ const ChainWalletSelect = ({
             MetaMask
           </button>
         )}
+
+        {/* GAMING ACCOUNT */}
+        <div className="box-border m-0 flex-none flex-grow-0 flex-shrink-0 w-full max-w-full">
+          <div className="flex items-center">
+            <hr className="m-0 flex-shrink-0 border-t border-gray-300 border-solid opacity-20 flex-grow" />
+
+            <button
+              className="inline-flex items-center justify-center relative box-border bg-transparent outline-none select-none align-middle appearance-none capitalize font-inter text-sm font-semibold leading-7 min-w-[64px] px-14 py-1 text-gray-300 border-solid border border-[#D5D9E920] rounded-md cursor-default m-4"
+              disabled
+            >
+              GAMING ACCOUNT
+            </button>
+
+            <hr className="m-0 flex-shrink-0 border-t border-gray-300 border-solid opacity-20 flex-grow" />
+          </div>
+        </div>
+
+        <button
+          className="button-main-pink inline-flex items-center justify-center relative box-border select-none align-middle text-decoration-none capitalize min-w-16 px-4 py-[6px] transition-all duration-250 ease-in-out gap-1 mb-2 !font-normal"
+          tabIndex={0}
+          type="button"
+          onClick={() => handleGameLogin()}
+        >
+          <Image
+            src="/images/icons/blockus.ico"
+            alt="MetaMask"
+            width={24}
+            height={24}
+          />
+          Create/Link a Gaming Account
+        </button>
       </div>
     </>
   );

@@ -4,7 +4,6 @@ import {
   Stack,
   Typography,
   useTheme,
-  Button,
   Divider,
   Box,
 } from "@mui/material";
@@ -134,14 +133,13 @@ const WalletValueSection = ({
             </Stack>
           </Box>
           {/* <Tooltip title="Withdraw"> */}
-          <Button
-            size="small"
-            color="inherit"
-            disabled={(escrowBal?.getMEEscrowBalance?.balance || 0) === 0}
+          <button
+            className="inline-flex items-center justify-center relative box-border bg-transparent outline-none border-0 user-select-none align-middle text-capitalize font-inter text-xs leading-7 min-w-16 px-1 py-1.5 transition-colors duration-250 ease-in-out font-medium rounded-md hover:bg-gray-100 hover:shadow-md hover:border-gray-300 hover:text-gray-700 disabled:text-white disabled:text-opacity-30 disabled:hover:bg-inherit"
             onClick={() => handleWithdraw()}
+            disabled={(escrowBal?.getMEEscrowBalance?.balance || 0) === 0}
           >
             Withdraw
-          </Button>
+          </button>
           {/* </Tooltip> */}
         </Stack>
       )}

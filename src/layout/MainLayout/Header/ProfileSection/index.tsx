@@ -9,16 +9,19 @@ import { useWallet } from "@solana/wallet-adapter-react";
 
 // assets
 import ProfilePopperContext from "@/components/profiles/ProfilePopperContent";
-import { useCartItems } from "@/contexts/CartContext";
 import ProfileAvatarIconButton from "@/components/profiles/ProfileAvatarIconButton";
 import ConnectWalletButton from "@/components/buttons/ConnectWalletButton";
+
+import { useCartItems } from "@/contexts/CartContext";
 import { useEthcontext } from "@/contexts/EthWalletProvider";
+import { usePlayerView } from "@/contexts/PlayerWalletContext";
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
   const mainWallet = useWallet();
   const { ethConnected } = useEthcontext();
+  const { playerAddress } = usePlayerView();
   const { setOpen: setCartOpen } = useCartItems();
 
   const [open, setOpen] = useState(false);
@@ -51,9 +54,13 @@ const ProfileSection = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  console.log(mainWallet.connected);
+  console.log(ethConnected);
+  console.log(playerAddress);
+
   return (
     <>
-      {mainWallet.connected || ethConnected ? (
+      {mainWallet.connected || ethConnected || playerAddress ? (
         <Badge badgeContent={0} color="secondary">
           <ProfileAvatarIconButton
             ref={anchorRef}

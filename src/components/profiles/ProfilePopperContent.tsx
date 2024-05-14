@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useRouter } from "next/navigation";
 
@@ -51,6 +51,7 @@ import { useEthcontext } from "@/contexts/EthWalletProvider";
 import { useRequests } from "@/hooks/useRequests";
 import DiscordLogo from "@/components/icons/DiscordLogo";
 import TwitterLogo from "@/components/icons/TwitterLogo";
+import PhantomLogo from "@/components/icons/PhantomLogo";
 import MetamaskLogo from "@/components/icons/MetamaskLogo";
 import ProfileIcon from "./ProfileIcon";
 import EthLogo from "@/components/icons/EthLogo";
@@ -62,6 +63,8 @@ import useStaked from "@/hooks/useStaked";
 import { Palette } from "@/themes/palette";
 import useGame from "@/hooks/useGame";
 
+import { useAccount } from "wagmi";
+
 const ProfilePopperContext = ({
   showProfile,
   open,
@@ -69,15 +72,25 @@ const ProfilePopperContext = ({
   TransitionProps,
 }: any) => {
   const { connection } = useConnections();
-  const { ethAddress, ethConnected, ethConnect, ethBalance } = useEthcontext();
+  const { ethAddress, ethConnected, ethBalance, ethConnect, ethDisconnect } =
+    useEthcontext();
   const { setShowBundleView } = useBundleView();
   const { setShowPlayerView } = usePlayerView();
   const theme = useTheme();
   const auth = useAuth();
   const game = useGame();
+  console.log(game);
   const router = useRouter();
   const mainWallet = useWallet();
-  const { publicKey, wallet, disconnect } = mainWallet;
+  const { publicKey, wallet, select, disconnect } = mainWallet;
+  const account = useAccount();
+  const { playerAddress } = usePlayerView();
+
+  const solConnect = useCallback(() => {
+    console.log("selecting Phantom");
+    select("Phantom");
+  }, [select]);
+
   const { showInfoToast } = useToasts();
   const {
     getDiscordAuthLink,
@@ -120,6 +133,10 @@ const ProfilePopperContext = ({
         .catch(() => {
           // silent catch
         });
+
+      await ethDisconnect();
+
+      game.logout();
     } catch (err) {
       console.error(err);
     }
@@ -214,15 +231,27 @@ const ProfilePopperContext = ({
     },
   ];
 
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isSolLinked, setIsSolLinked] = useState<boolean>(false);
+  const [isEthLinked, setIsEthLinked] = useState<boolean>(false);
+
   useEffect(() => {
-    setIsConnected(false);
-    if (game.player.wallets) {
+    setIsSolLinked(false);
+    if (game.player.wallets && publicKey) {
+      const address = publicKey.toBase58();
       game.player.wallets.map((wallet: any) => {
-        if (wallet.address === auth.user.wallet) setIsConnected(true);
+        if (wallet.address === address) setIsSolLinked(true);
       });
     }
-  }, [game, auth]);
+  }, [game, publicKey]);
+
+  useEffect(() => {
+    setIsEthLinked(false);
+    if (game.player.wallets && ethAddress) {
+      game.player.wallets.map((wallet: any) => {
+        if (wallet.address === ethAddress) setIsEthLinked(true);
+      });
+    }
+  }, [game, ethAddress]);
 
   const Profile = (
     <>
@@ -233,7 +262,7 @@ const ProfilePopperContext = ({
           backgroundColor: "transparent",
         }}
       >
-        {(mainWallet.connected || ethConnected) && (
+        {(mainWallet.connected || ethConnected || playerAddress) && (
           <Box className="pb-0 p-4">
             <Stack
               direction="row"
@@ -285,9 +314,11 @@ const ProfilePopperContext = ({
                       {auth.user?.vanity ||
                         auth.user?.discord?.name ||
                         auth.user?.twitter?.name ||
-                        ((publicKey || ethAddress) &&
+                        ((publicKey || ethAddress || playerAddress) &&
                           shortenAddress(
-                            publicKey?.toBase58() || ethAddress,
+                            publicKey?.toBase58() ||
+                              ethAddress ||
+                              playerAddress,
                             7
                           ))}
                     </Typography>
@@ -492,7 +523,7 @@ const ProfilePopperContext = ({
                 shadow={theme.shadows[16]}
                 sx={{ backgroundColor: "transparent" }}
               >
-                {(mainWallet.connected || ethConnected) && (
+                {(mainWallet.connected || ethConnected || playerAddress) && (
                   <Box
                     sx={{
                       p: 2,
@@ -549,15 +580,72 @@ const ProfilePopperContext = ({
                       </Stack>
                     )}
 
-                    {wallet && publicKey && (
-                      <WalletValueSection
-                        title="Main Wallet"
-                        wallet={publicKey?.toBase58()}
-                        open={open}
-                        handleWithdraw={handleWithdraw}
-                        showEscrow
-                        escrowBal={escrowBal}
-                      />
+                    {wallet && publicKey ? (
+                      <>
+                        <WalletValueSection
+                          title="Main Wallet"
+                          wallet={publicKey?.toBase58()}
+                          open={open}
+                          handleWithdraw={handleWithdraw}
+                          showEscrow
+                          escrowBal={escrowBal}
+                        />
+                        {game.player.id && (
+                          <div className="flex items-center justify-center">
+                            {isSolLinked && (
+                              <Typography noWrap>
+                                Linked To Blockus Account
+                              </Typography>
+                            )}
+                            {!isSolLinked && (
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                onClick={() => showLoginDialog()}
+                                sx={{
+                                  backgroundColor: "#5865F2",
+                                  "&:hover": {
+                                    backgroundColor:
+                                      "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
+                                  },
+                                  gap: 1,
+                                }}
+                              >
+                                Link To Blockus Account
+                              </Button>
+                            )}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="center"
+                        justifyContent="center"
+                        sx={{ mb: 1 }}
+                      >
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size="small"
+                          onClick={() => solConnect()}
+                          sx={{
+                            backgroundColor: "#5865F2",
+                            "&:hover": {
+                              backgroundColor:
+                                "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
+                            },
+                            gap: 1,
+                          }}
+                        >
+                          <PhantomLogo size={18} />
+                          <span style={{ whiteSpace: "nowrap" }}>
+                            Connect Phantom
+                          </span>
+                        </Button>
+                      </Stack>
                     )}
 
                     <Divider sx={{ mt: 1, mb: 1 }} />
@@ -627,6 +715,35 @@ const ProfilePopperContext = ({
                             )}
                           </Stack>
                         </Stack>
+                        {game.player.id && (
+                          <div className="flex items-center justify-center">
+                            {isEthLinked && (
+                              <Typography noWrap>
+                                Linked To Blockus Account
+                              </Typography>
+                            )}
+                            {!isEthLinked && (
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                onClick={() =>
+                                  showLoginDialog(true, true, false, false)
+                                }
+                                sx={{
+                                  backgroundColor: "#5865F2",
+                                  "&:hover": {
+                                    backgroundColor:
+                                      "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
+                                  },
+                                  gap: 1,
+                                }}
+                              >
+                                Link To Blockus Account
+                              </Button>
+                            )}
+                          </div>
+                        )}
                       </>
                     ) : (
                       <Stack
@@ -679,39 +796,9 @@ const ProfilePopperContext = ({
                           }}
                         >
                           <Typography noWrap>
-                            {shortenAddress(
-                              game.player.wallets[
-                                game.player.wallets.length - 1
-                              ].address,
-                              7
-                            )}
+                            {shortenAddress(game.playerAddress, 7)}
                           </Typography>
                         </Grid>
-                        <div className="flex items-center justify-center">
-                          {isConnected && (
-                            <Typography noWrap>
-                              Linked To Blockus Account
-                            </Typography>
-                          )}
-                          {!isConnected && (
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              size="small"
-                              onClick={() => showLoginDialog()}
-                              sx={{
-                                backgroundColor: "#5865F2",
-                                "&:hover": {
-                                  backgroundColor:
-                                    "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
-                                },
-                                gap: 1,
-                              }}
-                            >
-                              Link To Blockus Account
-                            </Button>
-                          )}
-                        </div>
                       </>
                     ) : (
                       <ProfilePopperButton {...createGameWalletButton} />

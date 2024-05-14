@@ -20,6 +20,8 @@ interface PlayerWalletContextType {
   setPlayer: React.Dispatch<React.SetStateAction<any>>;
   accessToken: string;
   setAccessToken: React.Dispatch<React.SetStateAction<string>>;
+  playerAddress: string;
+  setPlayerAddress: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PlayerWalletContext = createContext<PlayerWalletContextType | null>(null);
@@ -29,12 +31,15 @@ export const PlayerWalletProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const [accessToken, setAccessToken] = useState("");
   const [player, setPlayer] = useState({});
+  const [playerAddress, setPlayerAddress] = useState("");
   const [showPlayerView, setShowPlayerView] = useState(false);
 
   const { getPlayerInfo } = useRequests();
 
   const logout = () => {
     setPlayer({});
+    setAccessToken("");
+    setPlayerAddress("");
     localStorage.removeItem("blockus-lemonade");
     localStorage.clear();
   };
@@ -44,7 +49,16 @@ export const PlayerWalletProvider: FC<{ children: ReactNode }> = ({
       const token = localStorage.getItem("blockus-lemonade");
       if (token) {
         const getPlayerInfoResponse = await getPlayerInfo(token);
-        setPlayer(getPlayerInfoResponse.data);
+        const player = getPlayerInfoResponse.data;
+
+        let playerAddress = "";
+        player.wallets.map((wallet: any) => {
+          if (wallet.id.includes(player.id)) playerAddress = wallet.address;
+        });
+
+        setPlayer(player);
+        setAccessToken(token);
+        setPlayerAddress(playerAddress);
       }
     };
 
@@ -61,6 +75,8 @@ export const PlayerWalletProvider: FC<{ children: ReactNode }> = ({
         setPlayer,
         accessToken,
         setAccessToken,
+        playerAddress,
+        setPlayerAddress,
       }}
     >
       {children}
@@ -69,6 +85,7 @@ export const PlayerWalletProvider: FC<{ children: ReactNode }> = ({
         onClose={() => setShowPlayerView(false)}
         setPlayer={(player: any) => setPlayer(player)}
         setAccessToken={(accessToken: string) => setAccessToken(accessToken)}
+        setPlayerAddress={(address: string) => setPlayerAddress(address)}
       />
     </PlayerWalletContext.Provider>
   );

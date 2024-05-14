@@ -10,6 +10,8 @@ import {
 } from "react";
 // eslint-disable-next-line
 import Web3 from "web3";
+import { useAccount, useConnect, useDisconnect, useSignMessage } from "wagmi";
+
 import useAuth from "@/hooks/useAuth";
 import { useRequests } from "@/hooks/useRequests";
 
@@ -19,11 +21,12 @@ type useEthContextType = {
   ethBalance: number;
   ethConnected: boolean;
   ethConnect: Function;
+  ethDisconnect: Function;
   ethSignout: Function;
-  getWalletNfts: any;
-  sendTransaction: any;
-  signMessage: any;
-  getBlockNumber: any;
+  getWalletNfts: Function;
+  sendTransaction: Function;
+  ethSignMessage: Function;
+  getBlockNumber: Function;
 };
 
 const userDefaultValue: useEthContextType = {
@@ -32,10 +35,11 @@ const userDefaultValue: useEthContextType = {
   ethBalance: 0,
   ethConnected: false,
   ethConnect: () => {},
+  ethDisconnect: () => {},
   ethSignout: () => {},
   getWalletNfts: () => {},
   sendTransaction: () => {},
-  signMessage: () => {},
+  ethSignMessage: () => {},
   getBlockNumber: () => {},
 };
 
@@ -43,9 +47,14 @@ const UseEthContext = createContext<useEthContextType>(userDefaultValue);
 export const ETH_WEI = Math.pow(10, 18);
 
 export default function EthWalletProvider(props: { children: ReactNode }) {
+  const { address, isConnected } = useAccount();
+  const { connectors, connect } = useConnect();
+  const { disconnect } = useDisconnect();
+  const { signMessageAsync } = useSignMessage();
+
   const [userData, setUserData] = useState<useEthContextType>(userDefaultValue);
-  const [connected, setConnected] = useState(false);
-  const [signerAddress, setSignerAddress] = useState("");
+  const [connected, setConnected] = useState(isConnected);
+  const [signerAddress, setSignerAddress] = useState(address);
   const [ethBal, setEthBalance] = useState(0);
   const auth = useAuth();
   const { getWalletNfts } = useRequests();
@@ -53,30 +62,51 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
     "https://mainnet.infura.io/v3/c28fffee6c304d49b717b001d24e795d"
   );
 
+  useEffect(() => {
+    setSignerAddress(address);
+  }, [address]);
+
+  useEffect(() => {
+    setConnected(isConnected);
+
+    console.log("---------------------");
+    console.log(isConnected);
+  }, [isConnected]);
+
   const connectWallet = async () => {
     try {
-      console.log("Metamask connection....");
-      const clone: any = (window as any).ethereum;
-      if (typeof clone !== "undefined") {
-        clone.request({ method: "eth_requestAccounts" });
-      }
-      console.log(
-        clone.selectedAddress,
-        " ===> window.ethereum.selectedAddress"
-      );
-      if (clone.selectedAddress) {
-        setConnected(true);
-        setSignerAddress(clone.selectedAddress);
-        const balance = await web3.eth.getBalance(clone.selectedAddress);
-        console.log(
-          (balance as unknown as number) / ETH_WEI,
-          "==> ETH Balance"
-        );
-        setEthBalance((balance as unknown as number) / ETH_WEI);
-      }
+      console.log("---------------------------------");
+      console.log(connectors[0]);
+      connectors.map(async (connector: any) => {
+        await connect({ connector });
+        setSignerAddress(address);
+      });
+      // console.log("Metamask connection....");
+      // const clone: any = (window as any).ethereum;
+      // if (typeof clone !== "undefined") {
+      //   clone.request({ method: "eth_requestAccounts" });
+      // }
+      // console.log(
+      //   clone.selectedAddress,
+      //   " ===> window.ethereum.selectedAddress"
+      // );
+      // if (clone.selectedAddress) {
+      //   setConnected(true);
+      //   setSignerAddress(clone.selectedAddress);
+      //   const balance = await web3.eth.getBalance(clone.selectedAddress);
+      //   console.log(
+      //     (balance as unknown as number) / ETH_WEI,
+      //     "==> ETH Balance"
+      //   );
+      //   setEthBalance((balance as unknown as number) / ETH_WEI);
+      // }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const disconnectWallet = async () => {
+    await disconnect();
   };
 
   async function sendTransaction(data: Object) {
@@ -110,12 +140,21 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
   }
 
   async function signMessage(
-    message: string,
+    message: any,
     callback?: ((error: Error, signature: string) => void) | undefined
   ) {
-    const signature = await web3.eth.sign(message, signerAddress);
+    console.log("-------------------------");
+    console.log(message);
+    console.log(signerAddress);
+    try {
+      const signature = await signMessageAsync(message);
+      console.log(signature);
+      return signature;
+    } catch (error) {
+      console.log(error);
+    }
+    // const signature = await web3.eth.sign(message, signerAddress);
     // const signature = await web3.eth.sign(message, signerAddress, callback);
-    return signature;
   }
 
   async function getBlockNumber() {
@@ -123,36 +162,36 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
     return result;
   }
 
-  useEffect(() => {
-    const clone: any = (window as any).ethereum;
-    if (typeof clone !== "undefined") {
-      clone.on("accountsChanged", async (accounts: any) => {
-        if (clone.selectedAddress) {
-          console.log(clone.selectedAddress, "window.ethereum.selectedAddress");
-          setConnected(true);
-          setSignerAddress(clone.selectedAddress);
-          const balance = await web3.eth.getBalance(clone.selectedAddress);
-          console.log(
-            (balance as unknown as number) / ETH_WEI,
-            "==> ETH Balance"
-          );
-          setEthBalance((balance as unknown as number) / ETH_WEI);
-        }
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const clone: any = (window as any).ethereum;
+  //   if (typeof clone !== "undefined") {
+  //     clone.on("accountsChanged", async (accounts: any) => {
+  //       if (clone.selectedAddress) {
+  //         console.log(clone.selectedAddress, "window.ethereum.selectedAddress");
+  //         setConnected(true);
+  //         setSignerAddress(clone.selectedAddress);
+  //         const balance = await web3.eth.getBalance(clone.selectedAddress);
+  //         console.log(
+  //           (balance as unknown as number) / ETH_WEI,
+  //           "==> ETH Balance"
+  //         );
+  //         setEthBalance((balance as unknown as number) / ETH_WEI);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (signerAddress !== "") {
-      setConnected(true);
-    }
-  }, [signerAddress]);
+  // useEffect(() => {
+  //   if (signerAddress !== "") {
+  //     setConnected(true);
+  //   }
+  // }, [signerAddress]);
 
-  useEffect(() => {
-    if (auth?.user?.ethAddress) {
-      connectWallet();
-    }
-  }, [auth?.user?.ethAddress]);
+  // useEffect(() => {
+  //   if (auth?.user?.ethAddress) {
+  //     connectWallet();
+  //   }
+  // }, [auth?.user?.ethAddress]);
 
   useEffect(() => {
     setUserData({
@@ -161,10 +200,11 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
       ethBalance: ethBal,
       ethConnected: connected,
       ethConnect: connectWallet,
+      ethDisconnect: disconnectWallet,
       ethSignout: () => {},
       getWalletNfts,
       sendTransaction,
-      signMessage,
+      ethSignMessage: signMessage,
       getBlockNumber,
     });
   }, [signerAddress, ethBal, connected]);

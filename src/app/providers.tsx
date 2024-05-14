@@ -39,7 +39,13 @@ import { NotificationsProvider } from "@/contexts/NotificationsContext";
 import EthWalletProvider from "@/contexts/EthWalletProvider";
 import { SolPriorityProvider } from "@/contexts/SolPriorityContext";
 
+import { WagmiProvider } from "wagmi";
+import { wagmiConfig } from "@/config/config";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 import "./styles/global.scss";
+
+const queryClient = new QueryClient()
 
 const MainLayoutNoSSR = dynamic(() => import("@/layout/MainLayout"), {
   ssr: false,
@@ -76,21 +82,25 @@ export default function Providers({
     <Provider store={store}>
       <ConfigProvider>
         <ApolloProvider client={client}>
-          <BrowserRouter>
-            <Composer components={contexts}>
-              <MainLayoutNoSSR>{children}</MainLayoutNoSSR>
-              <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                draggable={false}
-                pauseOnHover={false}
-                theme="colored"
-                limit={5}
-              />
-            </Composer>
-          </BrowserRouter>
+          <WagmiProvider config={wagmiConfig}>
+            <QueryClientProvider client={queryClient}>
+              <BrowserRouter>
+                <Composer components={contexts}>
+                  <MainLayoutNoSSR>{children}</MainLayoutNoSSR>
+                  <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    draggable={false}
+                    pauseOnHover={false}
+                    theme="colored"
+                    limit={5}
+                  />
+                </Composer>
+              </BrowserRouter>
+            </QueryClientProvider>
+          </WagmiProvider>
         </ApolloProvider>
       </ConfigProvider>
     </Provider>

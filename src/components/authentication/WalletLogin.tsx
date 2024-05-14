@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Image from "next/image";
-
 import { useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { map } from "lodash";
+import { IconX } from "@tabler/icons-react";
+import { isMobile } from "react-device-detect";
+import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -21,30 +23,31 @@ import { WalletAdapter, WalletReadyState } from "@solana/wallet-adapter-base";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { SystemProgram, Transaction } from "@solana/web3.js";
 
+import { useDisconnect, useSignMessage } from "wagmi";
+
 // project imports
 import AuthWrapper from "./AuthWrapper";
 import AuthCardWrapper from "./AuthCardWrapper";
-import AuthFooter from "@/components/cards/AuthFooter";
-import { useToasts } from "@/hooks/useToasts";
-import { shortenAddress } from "@/utils/utils";
-import { explorerLinkFor } from "@/utils/transactions";
-import { useRequests } from "@/hooks/useRequests";
-import useConnections from "@/hooks/useConnetions";
-import ChainWalletSelect from "@/components/wallets/ChainWalletSelect";
-import { useEthcontext } from "@/contexts/EthWalletProvider";
 import LoginStepOne from "./LoginStepOne";
 import LoginStepTwo from "./LoginStepTwo";
 import LoginStepThree from "./LoginStepThree";
-import useAuth from "@/hooks/useAuth";
 
-// assets
 import Logo from "@/components/icons/Logo";
-import { isMobile } from "react-device-detect";
-import { IconX } from "@tabler/icons-react";
-import useWallets from "@/hooks/useWallets";
+import AuthFooter from "@/components/cards/AuthFooter";
 
-import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
+import ChainWalletSelect from "@/components/wallets/ChainWalletSelect";
+import { useEthcontext } from "@/contexts/EthWalletProvider";
+import { usePlayerView } from "@/contexts/PlayerWalletContext";
+
 import useGame from "@/hooks/useGame";
+import useAuth from "@/hooks/useAuth";
+import useWallets from "@/hooks/useWallets";
+import { useToasts } from "@/hooks/useToasts";
+import { useRequests } from "@/hooks/useRequests";
+import useConnections from "@/hooks/useConnetions";
+
+import { shortenAddress } from "@/utils/utils";
+import { explorerLinkFor } from "@/utils/transactions";
 
 export enum STEPS {
   SELECT_WALLET = 0,
@@ -58,11 +61,15 @@ const WalletLogin = ({
   dismiss,
   requireSign,
   hideEthButton = false,
+  addressType,
 }: any) => {
   const { connection } = useConnections();
   const { showLoginDialog } = useWallets();
   // Metamask context
-  const { ethConnected, ethConnect } = useEthcontext();
+  const { ethAddress, ethConnected, ethConnect, ethSignMessage } =
+    useEthcontext();
+
+  const { setShowPlayerView } = usePlayerView();
 
   const [step, setStep] = useState(STEPS.SELECT_WALLET);
   const [username, setUsername] = useState("");
@@ -74,6 +81,8 @@ const WalletLogin = ({
   const { connected, connecting, publicKey, select, connect, signMessage } =
     wallet;
 
+  const { signMessageAsync } = useSignMessage();
+
   // hooks
   const theme = useTheme();
   const auth = useAuth();
@@ -81,6 +90,8 @@ const WalletLogin = ({
   const { getPlayerInfo, requestAuthentication, linkWalletToPlayer } =
     useRequests();
   const { showInfoToast, showErrorToast, showTxErrorToast } = useToasts();
+
+  const { playerAddress } = usePlayerView();
 
   // mutations / queries
   const { login, getSubwallet, signup } = useRequests();
@@ -120,6 +131,16 @@ const WalletLogin = ({
       }
     }
   }, [ethConnected]);
+
+  const handleGameLogin = () => {
+    setShowPlayerView(true);
+  };
+
+  useEffect(() => {
+    if (playerAddress) {
+      dismiss("");
+    }
+  }, [playerAddress]);
 
   // new functions
   const handleClick = useCallback(
@@ -231,23 +252,35 @@ const WalletLogin = ({
     if (publicKey) {
       setIsConnecting(true);
       try {
+        const walletAddress = addressType ? auth.user.wallet : ethAddress;
         const requestAuthenticationResponse = await requestAuthentication(
           "web3",
-          auth.user.wallet,
+          walletAddress,
           ""
         );
 
-        // const message = `Welcome to the Yaku Hub!\n\nThis request will not trigger a blockchain transaction or cost any gas fees.\n\nYour authentication status will reset after 24 hours.\n\nWallet address:\n${publicKey}`;
-        // const encodedMessage = new TextEncoder().encode(message);
-        const encodedMessage = new TextEncoder().encode(
-          JSON.stringify({ message: requestAuthenticationResponse.data })
-        );
-        const signature = await signMessage!(encodedMessage);
+        let encodedMessage, signature;
+        if (addressType) {
+          encodedMessage = new TextEncoder().encode(
+            JSON.stringify({ message: requestAuthenticationResponse.data })
+          );
+          signature = await signMessage!(encodedMessage);
+          console.log("--------------------------");
+          console.log(signature);
+        } else {
+          signature = await signMessageAsync({
+            message: JSON.stringify(requestAuthenticationResponse.data),
+          });
+          console.log("--------------------------");
+          console.log(signature);
+        }
         if (!signature)
           showErrorToast(
             `An error occurred while confirming the signature, please try again.`
           );
-        handleLinkWalletToPlayer(bs58.encode(signature));
+        handleLinkWalletToPlayer(
+          addressType ? bs58.encode(signature) : signature
+        );
         auth.sign();
         if (!auth.token) {
           attemptLogin(publicKey.toBase58());
@@ -256,9 +289,10 @@ const WalletLogin = ({
         }
       } catch (err: any) {
         console.log(err);
-        setStep(STEPS.SIGN_MESSAGE);
         setIsConnecting(false);
         showErrorToast(`The request was rejected, please try again.`);
+      } finally {
+        setStep(STEPS.SIGN_MESSAGE);
       }
     } else {
       setStep(STEPS.SELECT_WALLET);
@@ -272,9 +306,9 @@ const WalletLogin = ({
     try {
       const linkWalletToPlayerResponse = await linkWalletToPlayer(
         "web3",
-        auth.user.wallet,
+        addressType ? auth.user.wallet : ethAddress,
         signature,
-        "solana",
+        addressType ? "solana" : "ethereum",
         game.player.id,
         game.accessToken
       );
@@ -415,12 +449,15 @@ const WalletLogin = ({
                           handleClick={handleClick}
                           handleEtherLogin={handleEtherLogin}
                           hideEthButton={hideEthButton}
+                          handleGameLogin={handleGameLogin}
                         />
                       )}
 
                       {step === 1 && (
                         <LoginStepOne
-                          publicKey={publicKey}
+                          publicKey={
+                            addressType ? publicKey?.toBase58() : ethAddress
+                          }
                           isLedger={isLedger}
                           setIsLedger={setIsLedger}
                           handleBack={handleBack}

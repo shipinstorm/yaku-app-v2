@@ -22,7 +22,7 @@ import { useRequests } from "@/hooks/useRequests";
 
 import { shortenAddress } from "@/utils/utils";
 
-const PlayerSection = ({ open, onClose, setPlayer, setAccessToken }: any) => {
+const PlayerSection = ({ open, onClose, setPlayer, setAccessToken, setPlayerAddress }: any) => {
   const [email, setEmail] = useState("");
   const [epicId, setEpicId] = useState("");
   const [disabled, setDisabled] = useState(true);
@@ -42,13 +42,17 @@ const PlayerSection = ({ open, onClose, setPlayer, setAccessToken }: any) => {
       const accessToken = loginWithEpicResponse.data.accessToken;
       const getPlayerInfoResponse = await getPlayerInfo(accessToken);
       const player = getPlayerInfoResponse.data;
-      showInfoToast(
-        `Connected to wallet ${shortenAddress(
-          player.wallets[player.wallets.length - 1].address
-        )}`
-      );
+
+      let playerAddress = "";
+      player.wallets.map((wallet: any) => {
+        if (wallet.id.includes(player.id)) playerAddress = wallet.address;
+      });
+
+      showInfoToast(`Connected to wallet ${shortenAddress(playerAddress)}`);
+
       setPlayer(player);
       setAccessToken(accessToken);
+      setPlayerAddress(playerAddress);
 
       localStorage.setItem("blockus-lemonade", accessToken);
 
