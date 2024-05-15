@@ -2,7 +2,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
-
 import dynamic from "next/dynamic";
 
 // material-ui
@@ -13,17 +12,23 @@ import { useMediaQuery } from "@mui/material";
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 import Sidebar from "./Sidebar";
-import navigation from "@/menu-items";
-import useConfig from "@/hooks/useConfig";
-import { drawerWidth, cartWidth, drawerWidthCollapsed } from "@/store/constant";
-import { activeItem } from "@/store/slices/menu";
-import { useDispatch, useSelector } from "@/store";
 
-// assets
 import { useEthPrice, useSolPrice } from "@/contexts/CoinGecko";
 import { useYakuPrice, useYakuUSDCPrice } from "@/contexts/JupitarContext";
 import { useETHGasFee, useTPSValue } from "@/contexts/TPSContext";
 import { useCartItems } from "@/contexts/CartContext";
+
+import navigation from "@/menu-items";
+
+import useConfig from "@/hooks/useConfig";
+
+import { drawerWidth, cartWidth, drawerWidthCollapsed } from "@/store/constant";
+
+import { activeItem } from "@/store/slices/menu";
+import { useDispatch, useSelector } from "@/store";
+
+// assets
+
 import { useWallet } from "@solana/wallet-adapter-react";
 import useAuth from "@/hooks/useAuth";
 import dayjs from "dayjs";
@@ -336,7 +341,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <Main
           theme={theme}
           open={drawerOpen}
-          openedcart={isOpen}
+          openedcart={isOpen ? isOpen : undefined}
           className="max-sm:px-4 max-sm:mx-0"
         >
           {/* breadcrumb */}

@@ -8,6 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
+
 // eslint-disable-next-line
 import Web3 from "web3";
 import { useAccount, useConnect, useDisconnect, useSignMessage } from "wagmi";
@@ -72,9 +73,11 @@ export default function EthWalletProvider(props: { children: ReactNode }) {
 
   const connectWallet = async () => {
     try {
-      connectors.map(async (connector: any) => {
-        await connect({ connector });
-        setSignerAddress(address);
+      connectors.map(async (connector: any, index: number) => {
+        if (index == 0) {
+          console.log({ connector });
+          await connect({ connector });
+        }
       });
       // console.log("Metamask connection....");
       // const clone: any = (window as any).ethereum;

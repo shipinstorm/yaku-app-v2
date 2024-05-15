@@ -162,7 +162,7 @@ export const WORKSPACE_ROLES = [
 ];
 
 export const wagmiConfig = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [mainnet],
   connectors: [
     metaMask(),
   ],

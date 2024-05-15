@@ -12,19 +12,28 @@ import {
 } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
-
-import { Dialog, useMediaQuery, useTheme } from "@mui/material";
+import { isMobile } from "react-device-detect";
 import { map, uniqBy } from "lodash";
 
+import { Dialog, useMediaQuery, useTheme } from "@mui/material";
+
 // project imports
+import { selectFastestRpc } from "@/actions/shared";
+
+import WalletLogin from "@/components/authentication/WalletLogin";
+
 import { DEFAULT_RPC, USE_QUIKNODE } from "@/config/config";
+
 import { useToasts } from "@/hooks/useToasts";
 import useAuth from "@/hooks/useAuth";
 import useGame from "@/hooks/useGame";
-import { selectFastestRpc } from "@/actions/shared";
-import { shortenAddress } from "@/utils/utils";
+import { useRequests } from "@/hooks/useRequests";
+import useLocalStorage from "@/hooks/useLocalStorage";
+
 import { useDispatch } from "@/store";
 import { updateHasWorkspace } from "@/store/slices/menu";
+
+import { shortenAddress } from "@/utils/utils";
 
 // web3 imports
 import {
@@ -44,11 +53,8 @@ import {
   WalletConnectWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
+
 import { useEthcontext } from "./EthWalletProvider";
-import WalletLogin from "@/components/authentication/WalletLogin";
-import { useRequests } from "@/hooks/useRequests";
-import { isMobile } from "react-device-detect";
-import useLocalStorage from "@/hooks/useLocalStorage";
 
 export const WalletsContext = createContext<any>(null);
 export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
@@ -257,7 +263,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
     allowDismiss = true,
     hideEth = false,
     addressType = true,
-    stepNumber = 0,
+    stepNumber = 0
   ) => {
     setNeedSign(requireSign);
     setCanDismiss(allowDismiss);

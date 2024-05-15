@@ -88,21 +88,21 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   socket?.on("connect", () => {
-    console.log("connect", socket.id);
+    // console.log("connect", socket.id);
   });
   socket?.on("disconnect", () => {
     setIsOnline(false);
   });
   socket?.on("join", (usr: any) => {
     setIsOnline(true);
-    console.log("join", usr);
+    // console.log("join", usr);
   });
   socket?.on("browsing", (users: any) => {
-    console.log("browsing", users);
+    // console.log("browsing", users);
     setOnlineUsers(users);
   });
   socket?.on("disconnecting", (users: any) => {
-    console.log("disconnecting", users);
+    // console.log("disconnecting", users);
     setOnlineUsers(users);
   });
   useEffect(() => {

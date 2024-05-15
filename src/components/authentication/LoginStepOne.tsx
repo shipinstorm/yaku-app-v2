@@ -32,10 +32,10 @@ const LoginStepOne = ({
         >
           <Grid item>
             <Stack alignItems="center" justifyContent="center" spacing={3}>
-              <Typography variant="caption" fontSize="16px" textAlign="center">
+              <p className="text-lg text-center text-white">
                 You are required to prove ownership of this wallet by signing
                 this message.
-              </Typography>
+              </p>
 
               <Chip
                 label={publicKey && shortenAddress(publicKey, 5)}
