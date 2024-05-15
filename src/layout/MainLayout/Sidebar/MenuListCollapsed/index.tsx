@@ -6,7 +6,7 @@ import { NavItemTypeObject } from "@/types";
 import menuItem from "@/menu-items";
 import proItem from "@/menu-items/pro-items";
 import NavItem from "./NavItem";
-import { Avatar, useTheme, Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import { Workspaces } from "@mui/icons-material";
 import useAuth from "@/hooks/useAuth";
 import { DEFAULT_IMAGE_URL, IMAGE_PROXY, LOGO_BLACK } from "@/config/config";
@@ -14,13 +14,13 @@ import { isEmpty } from "lodash";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 import { useSelector } from "@/store";
+import themeTypography from "@/themes/typography";
 import { useEthcontext } from "@/contexts/EthWalletProvider";
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
 const MenuListCollapsed = ({ isPro }: any) => {
   const showAvatar = true;
-  const theme = useTheme();
   const auth = useAuth();
   const wallet = useWallet();
   const { ethConnected } = useEthcontext();
@@ -83,7 +83,7 @@ const MenuListCollapsed = ({ isPro }: any) => {
               <Avatar
                 src={LOGO_BLACK}
                 sx={{
-                  ...theme.typography.largeAvatar,
+                  ...themeTypography.largeAvatar,
                   width: 24,
                   height: 24,
                   margin: "0 auto",
@@ -109,7 +109,7 @@ const MenuListCollapsed = ({ isPro }: any) => {
             <Avatar
               src={getAvatar()}
               sx={{
-                ...theme.typography.largeAvatar,
+                ...themeTypography.largeAvatar,
                 width: 24,
                 height: 24,
                 margin: "0 auto",
@@ -152,7 +152,7 @@ const MenuListCollapsed = ({ isPro }: any) => {
                 <Avatar
                   src={getAvatar()}
                   sx={{
-                    ...theme.typography.largeAvatar,
+                    ...themeTypography.largeAvatar,
                     width: 24,
                     height: 24,
                     margin: "0 auto",

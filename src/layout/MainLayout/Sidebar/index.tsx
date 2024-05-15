@@ -32,6 +32,7 @@ import { setPage } from "@/store/slices/subpageSlice";
 import { LOGO_BLACK } from "@/config/config";
 
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -145,7 +146,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
                   <Avatar
                     src={LOGO_BLACK}
                     sx={{
-                      ...theme.typography.largeAvatar,
+                      ...themeTypography.largeAvatar,
                       width: 24,
                       height: 24,
                       margin: "0 auto",
@@ -210,7 +211,10 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
   };
 
   return (
-    <nav className="w-auto md:w-[260px] md:flex-shrink-0" aria-label="mailbox folders">
+    <nav
+      className="w-auto md:w-[260px] md:flex-shrink-0"
+      aria-label="mailbox folders"
+    >
       <Drawer
         container={container}
         variant={matchUpMd ? "persistent" : "temporary"}

@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   InputAdornment,
-  useTheme,
   OutlinedInput,
   styled,
 } from "@mui/material";
@@ -11,6 +10,7 @@ import { bindToggle } from "material-ui-popup-state";
 import { shouldForwardProp } from "@mui/system";
 
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 const OutlinedInputStyle = styled(OutlinedInput, { shouldForwardProp })(
   ({ theme }) => ({
@@ -53,7 +53,6 @@ const SearchBox = ({
   placeholder,
   sx = { marginLeft: "16px" },
 }: any) => {
-  const theme = useTheme();
   return (
     <OutlinedInputStyle
       {...params}
@@ -77,8 +76,8 @@ const SearchBox = ({
               <Avatar
                 variant="rounded"
                 sx={{
-                  ...theme.typography.commonAvatar,
-                  ...theme.typography.mediumAvatar,
+                  ...themeTypography.commonAvatar,
+                  ...themeTypography.mediumAvatar,
                   background:
                     Palette.mode === "dark"
                       ? Palette.dark.main

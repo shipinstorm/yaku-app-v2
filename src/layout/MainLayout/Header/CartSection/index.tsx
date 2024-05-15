@@ -7,11 +7,11 @@ import { Avatar, Box, Badge, Tooltip } from "@mui/material";
 // assets
 import { IconShoppingCart } from "@tabler/icons-react";
 import { useCartItems } from "@/contexts/CartContext";
+import themeTypography from "@/themes/typography";
 
 // ==============================|| NOTIFICATION ||============================== //
 
 const CartSection = () => {
-  const theme = useTheme();
   const { isOpen, setOpen, cartItems } = useCartItems();
 
   return (
@@ -22,8 +22,8 @@ const CartSection = () => {
             <Avatar
               className="button-small"
               sx={{
-                ...theme.typography.commonAvatar,
-                ...theme.typography.mediumAvatar,
+                ...themeTypography.commonAvatar,
+                ...themeTypography.mediumAvatar,
                 transition: "all .2s ease-in-out",
               }}
               aria-haspopup="true"

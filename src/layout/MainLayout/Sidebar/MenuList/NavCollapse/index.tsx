@@ -22,6 +22,7 @@ import useConfig from "@/hooks/useConfig";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
@@ -126,7 +127,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
             menu.caption && (
               <Typography
                 variant="caption"
-                sx={{ ...theme.typography.subMenuCaption }}
+                sx={{ ...themeTypography.subMenuCaption }}
                 display="block"
                 gutterBottom
               >

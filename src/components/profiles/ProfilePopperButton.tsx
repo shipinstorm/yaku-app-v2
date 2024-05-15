@@ -1,9 +1,8 @@
 import { Avatar, Stack, Typography, useTheme } from "@mui/material";
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 const ProfilePopperButton = ({ onClick, icon, label }: any) => {
-  const theme = useTheme();
-
   return (
     <Stack
       direction="row"
@@ -24,7 +23,7 @@ const ProfilePopperButton = ({ onClick, icon, label }: any) => {
     >
       <Avatar
         sx={{
-          ...theme.typography.mediumAvatar,
+          ...themeTypography.mediumAvatar,
           cursor: "pointer",
         }}
         color="inherit"

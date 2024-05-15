@@ -15,6 +15,7 @@ import useAuth from "@/hooks/useAuth";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import Collapsible from "react-collapsible";
 import useStaked from "@/hooks/useStaked";
+import themeTypography from "@/themes/typography";
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
@@ -95,7 +96,7 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
         <Typography
           variant="caption"
           sx={{
-            ...theme.typography.menuCaption,
+            ...themeTypography.menuCaption,
             my: "10px",
             cursor: "pointer",
           }}
@@ -133,7 +134,7 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
               {item.caption && (
                 <Typography
                   variant="caption"
-                  sx={{ ...theme.typography.subMenuCaption }}
+                  sx={{ ...themeTypography.subMenuCaption }}
                   display="block"
                   gutterBottom
                 >
@@ -195,7 +196,7 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
                   <ListSection groupId={item.id}>
                     <Typography
                       variant="caption"
-                      sx={{ ...theme.typography.subMenuCaption }}
+                      sx={{ ...themeTypography.subMenuCaption }}
                       display="block"
                       gutterBottom
                     >

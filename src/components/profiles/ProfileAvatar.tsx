@@ -1,11 +1,11 @@
-import { Avatar, useTheme } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "@/store";
 import { IconMenu2 } from "@tabler/icons-react";
 import { openDrawer } from "@/store/slices/menu";
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 const ProfileAvatar = () => {
-  const theme = useTheme();
   const dispatch = useDispatch();
   const { drawerOpen } = useSelector<any>((state) => state.menu);
 
@@ -13,8 +13,8 @@ const ProfileAvatar = () => {
     <Avatar
       variant="rounded"
       sx={{
-        ...theme.typography.commonAvatar,
-        ...theme.typography.mediumAvatar,
+        ...themeTypography.commonAvatar,
+        ...themeTypography.mediumAvatar,
         overflow: "hidden",
         transition: "all .2s ease-in-out",
         background:

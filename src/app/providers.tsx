@@ -41,11 +41,11 @@ import { SolPriorityProvider } from "@/contexts/SolPriorityContext";
 
 import { WagmiProvider } from "wagmi";
 import { wagmiConfig } from "@/config/config";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "./styles/global.scss";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const MainLayoutNoSSR = dynamic(() => import("@/layout/MainLayout"), {
   ssr: false,

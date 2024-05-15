@@ -1,4 +1,4 @@
-import { IconButton, Avatar, useTheme, Skeleton } from "@mui/material";
+import { IconButton, Avatar, Skeleton } from "@mui/material";
 import { FileUpload } from "@mui/icons-material";
 import ProfileBanner from "./ProfileBanner";
 
@@ -12,6 +12,7 @@ import FollowSection from "./FollowSection";
 import CopyToClipboard from "@/components/buttons/CopyToClipboard";
 import WalletCell from "@/components/views/WalletCell";
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 interface ProfileCardProps {
   profileAvatar?: any;
@@ -62,8 +63,6 @@ const ProfileCard = ({
   showAsCell = false,
   loading = false,
 }: ProfileCardProps) => {
-  const theme = useTheme();
-
   return (
     <section className="profile-box bg-surface mb-5 p-0 card overflow-hidden">
       <div className="banner bg-high-bg relative">
@@ -185,8 +184,8 @@ const ProfileCard = ({
                           variant="rounded"
                           className="button-small"
                           sx={{
-                            ...theme.typography.commonAvatar,
-                            ...theme.typography.mediumAvatar,
+                            ...themeTypography.commonAvatar,
+                            ...themeTypography.mediumAvatar,
                             transition: "all .2s ease-in-out",
                             color:
                               Palette.mode === "dark"

@@ -3,7 +3,6 @@ import {
   Avatar,
   Stack,
   Typography,
-  useTheme,
   Divider,
   Box,
 } from "@mui/material";
@@ -14,6 +13,7 @@ import { YAKU_TOKEN_ICON } from "@/config/config";
 import { useMeta } from "@/contexts/meta/meta";
 import useConnections from "@/hooks/useConnetions";
 import { useEffect, useState } from "react";
+import themeTypography from "@/themes/typography";
 
 const WalletValueSection = ({
   title,
@@ -23,7 +23,6 @@ const WalletValueSection = ({
   showEscrow,
   escrowBal,
 }: any) => {
-  const theme = useTheme();
   const { connection } = useConnections();
   const mainWallet = useWallet();
   const { fetchBalance, fetchYakuBalance } = useMeta();
@@ -80,7 +79,7 @@ const WalletValueSection = ({
         <Avatar
           src={YAKU_TOKEN_ICON}
           sx={{
-            ...theme.typography.mediumAvatar,
+            ...themeTypography.mediumAvatar,
             cursor: "pointer",
             width: 24,
             height: 24,

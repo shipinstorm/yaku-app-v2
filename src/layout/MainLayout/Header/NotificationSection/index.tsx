@@ -7,6 +7,7 @@ import { Avatar, Box, Badge, Tooltip } from "@mui/material";
 // assets
 import { IconBell } from "@tabler/icons-react";
 import useNotifications from "@/hooks/useNotifications";
+import themeTypography from "@/themes/typography";
 
 // ==============================|| NOTIFICATION ||============================== //
 
@@ -22,8 +23,8 @@ const NotificationSection = () => {
             <Avatar
               className="button-small"
               sx={{
-                ...theme.typography.commonAvatar,
-                ...theme.typography.mediumAvatar,
+                ...themeTypography.commonAvatar,
+                ...themeTypography.mediumAvatar,
                 transition: "all .2s ease-in-out",
               }}
               ref={anchorRef}

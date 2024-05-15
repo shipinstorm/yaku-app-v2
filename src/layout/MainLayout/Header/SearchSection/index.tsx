@@ -53,6 +53,7 @@ import useConnections from "@/hooks/useConnetions";
 import { resolveBonfida } from "@/utils/bonfida/handle";
 
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 // styles
 const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
@@ -67,8 +68,8 @@ const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
 
 const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(
   ({ theme }) => ({
-    ...theme.typography.commonAvatar,
-    ...theme.typography.mediumAvatar,
+    ...themeTypography.commonAvatar,
+    ...themeTypography.mediumAvatar,
     color:
       Palette.mode === "dark" ? Palette.secondary.main : Palette.secondary.dark,
     "&:hover": {

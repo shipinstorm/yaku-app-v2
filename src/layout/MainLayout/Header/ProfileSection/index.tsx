@@ -1,8 +1,8 @@
-/* eslint-disable no-nested-ternary */
-import { useEffect, useRef, useState } from "react";
-
-// material-ui
-import { Badge, Popper } from "@mui/material";
+import {
+  Popover,
+  PopoverHandler,
+  PopoverContent,
+} from "@material-tailwind/react";
 
 // web3 imports
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -24,78 +24,31 @@ const ProfileSection = () => {
   const { playerAddress } = usePlayerView();
   const { setOpen: setCartOpen } = useCartItems();
 
-  const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const anchorRef = useRef<any>(null);
-
   const handleToggle = (event: any) => {
     setCartOpen(false);
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-    setOpen((prevOpen) => !prevOpen);
   };
-
-  const handleClose = (
-    event: React.MouseEvent<HTMLDivElement> | MouseEvent | TouchEvent
-  ) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  const prevOpen = useRef(open);
-  useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef?.current?.focus();
-    }
-
-    prevOpen.current = open;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
 
   return (
     <>
       {mainWallet.connected || ethConnected || playerAddress ? (
-        <Badge badgeContent={0} color="secondary">
-          <ProfileAvatarIconButton
-            ref={anchorRef}
-            controls={open ? "menu-list-grow" : undefined}
-            hasPopup="true"
-            onClick={handleToggle}
-          />
-        </Badge>
+        <Popover placement="bottom-end">
+          <PopoverHandler>
+            <span className="relative inline-flex align-middle shrink-0">
+              <ProfileAvatarIconButton hasPopup="true" onClick={handleToggle} />
+            </span>
+          </PopoverHandler>
+          <PopoverContent
+            className="z-[10000] bg-transparent border-none"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
+            <ProfilePopperContext showProfile />
+          </PopoverContent>
+        </Popover>
       ) : (
         <ConnectWalletButton />
       )}
-
-      <Popper
-        placement="bottom-end"
-        open={open}
-        anchorEl={anchorEl || anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        popperOptions={{
-          modifiers: [
-            {
-              name: "offset",
-              options: {
-                offset: [0, 14],
-              },
-            },
-          ],
-        }}
-      >
-        {({ TransitionProps }) => (
-          <ProfilePopperContext
-            handleClose={handleClose}
-            showProfile
-            TransitionProps={TransitionProps}
-            open={open}
-          />
-        )}
-      </Popper>
     </>
   );
 };

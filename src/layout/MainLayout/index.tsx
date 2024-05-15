@@ -39,6 +39,7 @@ import useRelay from "@/hooks/useRelay";
 import YakuBuyLink from "./YakuBuyLink";
 
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 const BreadcrumbsNoSSR = dynamic(() => import("@/components/Breadcrumbs"), {
   ssr: false,
@@ -53,7 +54,7 @@ interface MainStyleProps {
 // styles
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open, openedcart }: MainStyleProps) => ({
-    ...theme.typography.mainContent,
+    ...themeTypography.mainContent,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
     transition: theme.transitions.create("margin", {

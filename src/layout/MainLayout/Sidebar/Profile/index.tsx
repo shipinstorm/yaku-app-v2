@@ -45,6 +45,7 @@ import { setPage } from "@/store/slices/subpageSlice";
 import { useEthcontext } from "@/contexts/EthWalletProvider";
 
 import { Palette } from "@/themes/palette";
+import themeTypography from "@/themes/typography";
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
@@ -149,7 +150,7 @@ const Profile = ({ noPopper, asButton = false }: any) => {
                   <Avatar
                     src={getAvatar()}
                     sx={{
-                      ...theme.typography.largeAvatar,
+                      ...themeTypography.largeAvatar,
                       margin: "8px 8px 8px 4px !important",
                       cursor: noPopper ? "inherit" : "pointer",
                       backgroundColor: "transparent",
@@ -247,13 +248,7 @@ const Profile = ({ noPopper, asButton = false }: any) => {
               </Box>
             )}
           </MainCard>
-          <Stack
-            direction="row"
-            spacing={2}
-            alignItems="center"
-            justifyContent="center"
-            sx={{ mb: 1 }}
-          >
+          <Stack className="flex flex-row items-center justify-center">
             {!isEmpty(auth.user?.discord) ? (
               <>
                 {!auth.user?.discord?.membership && (
@@ -369,7 +364,7 @@ const Profile = ({ noPopper, asButton = false }: any) => {
           <Typography
             variant="caption"
             sx={{
-              ...theme.typography.menuCaption,
+              ...themeTypography.menuCaption,
               my: "10px",
               py: "12px",
               borderRadius: "8px",

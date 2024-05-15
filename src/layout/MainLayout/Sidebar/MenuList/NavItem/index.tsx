@@ -26,6 +26,7 @@ import { activeItem, openDrawer } from "@/store/slices/menu";
 // types
 import { LinkTarget, NavItemType } from "@/types";
 import { setPage } from "@/store/slices/subpageSlice";
+import themeTypography from "@/themes/typography";
 
 interface NavItemProps {
   item: NavItemType;
@@ -148,7 +149,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
           item.caption && (
             <Typography
               variant="caption"
-              sx={{ ...theme.typography.subMenuCaption }}
+              sx={{ ...themeTypography.subMenuCaption }}
               display="block"
               gutterBottom
             >

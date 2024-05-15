@@ -61,7 +61,7 @@ const MainCard = React.forwardRef(
     <div
       ref={ref}
       {...others}
-      className="m-5 max-w-[400px] md:m-6 lg:max-w-[450px] text-[rgba(0,0,0,0.87)] overflow-hidden bg-transparent shadow-none"
+      className="text-[rgba(0,0,0,0.87)] overflow-hidden bg-transparent shadow-none"
     >
       {/* card header and action */}
       {!darkTitle && title && (

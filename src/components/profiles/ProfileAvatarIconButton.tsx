@@ -1,18 +1,13 @@
-import { IconButton, useTheme } from "@mui/material";
 import ProfileIcon from "./ProfileIcon";
 
+import themeTypography from "@/themes/typography";
+
 const ProfileAvatarIconButton = ({ ref, controls, onClick, hasPopup }: any) => {
-  const theme = useTheme();
   return (
-    <IconButton
-      sx={{
-        height: "34px",
-        ml: 1.5,
-        p: 0,
-        alignItems: "center",
-        borderRadius: 30000,
-        transition: "all .2s ease-in-out",
-      }}
+    <button
+      className="inline-flex justify-center relative box-border bg-transparent outline-none border-0 m-0 ml-3 cursor-pointer select-none align-middle text-center text-white text-3xl h-8.5 p-0 items-center rounded-full transition-all duration-200 ease-in-out"
+      tabIndex={0}
+      type="button"
       ref={ref}
       aria-controls={controls}
       aria-haspopup={hasPopup}
@@ -20,7 +15,7 @@ const ProfileAvatarIconButton = ({ ref, controls, onClick, hasPopup }: any) => {
     >
       <ProfileIcon
         sx={{
-          ...theme.typography.mediumAvatar,
+          ...themeTypography.mediumAvatar,
           margin: "0 !important",
           cursor: "pointer",
           backgroundColor: "transparent",
@@ -29,7 +24,7 @@ const ProfileAvatarIconButton = ({ ref, controls, onClick, hasPopup }: any) => {
         controls={controls}
         hasPopup={hasPopup}
       />
-    </IconButton>
+    </button>
   );
 };
 

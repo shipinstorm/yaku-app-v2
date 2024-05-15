@@ -1,12 +1,6 @@
-import { TypographyOptions } from "@mui/material/styles/createTypography";
-
 import { Palette } from "./palette";
 
-const Typography = (
-  borderRadius: number,
-  fontFamily: string
-): TypographyOptions => ({
-  fontFamily,
+const themeTypography = {
   h6: {
     fontWeight: 500,
     color: Palette.grey[600],
@@ -93,7 +87,7 @@ const Typography = (
     flexGrow: 1,
     marginTop: "88px",
     paddingRight: "15px",
-    borderRadius: `${borderRadius}px`,
+    // borderRadius: `${borderRadius}px`,
   },
   menuCaption: {
     fontSize: "0.875rem",
@@ -128,6 +122,6 @@ const Typography = (
     height: "44px",
     fontSize: "1.5rem",
   },
-});
+};
 
-export default Typography;
+export default themeTypography;

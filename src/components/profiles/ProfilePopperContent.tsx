@@ -2,21 +2,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { isEmpty, isObject, map } from "lodash";
 
 // material-ui
-import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  ClickAwayListener,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-  Grid,
-  Button,
-  Badge,
-  Tooltip,
-} from "@mui/material";
 import {
   IconPower,
   IconBook,
@@ -31,54 +20,48 @@ import {
 
 // web3 imports
 import { useWallet } from "@solana/wallet-adapter-react";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { Transaction } from "@solana/web3.js";
 
-// project imports
-import MainCard from "@/components/cards/MainCard";
-import { shortenAddress } from "@/utils/utils";
-import Transitions from "@/components/Transitions";
+import { useAccount } from "wagmi";
 
-// third party
-import Cookies from "js-cookie";
-import useAuth from "@/hooks/useAuth";
-import { isEmpty, isObject, map } from "lodash";
-import { useToasts } from "@/hooks/useToasts";
-import useConnections from "@/hooks/useConnetions";
-import { useBundleView } from "@/contexts/BundleWalletContext";
-import { usePlayerView } from "@/contexts/PlayerWalletContext";
-import WalletValueSection from "@/components/profiles/WalletValueSection";
-import { useEthcontext } from "@/contexts/EthWalletProvider";
-import { useRequests } from "@/hooks/useRequests";
+// project imports
+import Transitions from "@/components/Transitions";
+import EthLogo from "@/components/icons/EthLogo";
 import DiscordLogo from "@/components/icons/DiscordLogo";
 import TwitterLogo from "@/components/icons/TwitterLogo";
 import PhantomLogo from "@/components/icons/PhantomLogo";
 import MetamaskLogo from "@/components/icons/MetamaskLogo";
-import ProfileIcon from "./ProfileIcon";
-import EthLogo from "@/components/icons/EthLogo";
-import ProfilePopperButton from "./ProfilePopperButton";
+import MainCard from "@/components/cards/MainCard";
+import WalletValueSection from "@/components/profiles/WalletValueSection";
+
+import { useBundleView } from "@/contexts/BundleWalletContext";
+import { usePlayerView } from "@/contexts/PlayerWalletContext";
+import { useEthcontext } from "@/contexts/EthWalletProvider";
+
+import useAuth from "@/hooks/useAuth";
+import useGame from "@/hooks/useGame";
+import { useToasts } from "@/hooks/useToasts";
+import useConnections from "@/hooks/useConnetions";
+import { useRequests } from "@/hooks/useRequests";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import useWallets from "@/hooks/useWallets";
 import useStaked from "@/hooks/useStaked";
 
+import { shortenAddress } from "@/utils/utils";
+
+import ProfileIcon from "./ProfileIcon";
+import ProfilePopperButton from "./ProfilePopperButton";
+
 import { Palette } from "@/themes/palette";
-import useGame from "@/hooks/useGame";
+import themeTypography from "@/themes/typography";
 
-import { useAccount } from "wagmi";
-
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
-
-const ProfilePopperContext = ({
-  showProfile,
-  open,
-  handleClose,
-  TransitionProps,
-}: any) => {
+const ProfilePopperContext = ({ showProfile }: any) => {
   const { connection } = useConnections();
   const { ethAddress, ethConnected, ethBalance, ethConnect, ethDisconnect } =
     useEthcontext();
   const { setShowBundleView } = useBundleView();
   const { setShowPlayerView } = usePlayerView();
-  const theme = useTheme();
   const auth = useAuth();
   const game = useGame();
   const router = useRouter();
@@ -89,7 +72,6 @@ const ProfilePopperContext = ({
 
   const solConnect = useCallback(() => {
     const adapter = new PhantomWalletAdapter();
-    console.log("selecting Phantom");
     select(adapter.name);
   }, [select]);
 
@@ -165,16 +147,14 @@ const ProfilePopperContext = ({
         });
         if (isObject(getTransResp) && getTransResp?.meta?.err === null) {
           showSuccessToast(
-            <Typography
-              component="a"
-              sx={{ color: "#fff" }}
+            <a
               href={`https://solscan.io/tx/${res}`}
               target="_blank"
               rel="noreferrer"
-              className="m-auto"
+              className="text-white m-auto"
             >
               Successfully withdraw {escrowBal} SOL from bidding wallet.
-            </Typography>
+            </a>
           );
         } else {
           showErrorToast("Fail to withdraw.");
@@ -265,54 +245,27 @@ const ProfilePopperContext = ({
         }}
       >
         {(mainWallet.connected || ethConnected || playerAddress) && (
-          <Box className="pb-0 p-4">
-            <Stack
-              direction="row"
-              spacing={1.5}
-              alignItems="center"
-              justifyContent="flex-start"
+          <div className="pb-0 p-4">
+            <div
               onClick={() => router.push("/account")}
-              className={`${
+              className={`flex flex-row space-x-1.5 items-center justify-start rounded-2xl w-full p-2 cursor-pointer ${
                 window.location.pathname.includes("workspaces")
                   ? "selected"
                   : "border-2 border-blue-main"
-              } rounded-2xl w-full p-2 cursor-pointer`}
-              sx={{
-                "&:hover": {
-                  transition: "all .1s ease-in-out",
-                  background: Palette.primary.dark,
-                },
-              }}
+              } hover:bg-primary-dark hover:transition-all hover:duration-100 hover:ease-in-out`}
             >
               <ProfileIcon
                 sx={{
-                  ...theme.typography.largeAvatar,
+                  ...themeTypography.largeAvatar,
                   cursor: "pointer",
                   backgroundColor: "transparent",
                 }}
-                controls={open ? "menu-list-grow" : undefined}
                 hasPopup="true"
               />
-              <Stack
-                direction="column"
-                alignItems="flex-start"
-                justifyContent="flex-start"
-                sx={{ width: "100%" }}
-              >
-                <Grid
-                  container
-                  sx={{ cursor: "pointer", alignItems: "center" }}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{
-                      minHeight: 24,
-                      alignItems: "center",
-                      display: "flex",
-                    }}
-                  >
-                    <Typography variant="h5" noWrap>
+              <div className="flex flex-col items-start justify-start w-full">
+                <div className="flex items-center cursor-pointer">
+                  <div className="flex items-center min-h-6">
+                    <h5 className="m-0 text-sm text-[#e4e8f7] font-medium leading-6 overflow-hidden text-ellipsis whitespace-nowrap">
                       {auth.user?.vanity ||
                         auth.user?.discord?.name ||
                         auth.user?.twitter?.name ||
@@ -323,42 +276,30 @@ const ProfilePopperContext = ({
                               playerAddress,
                             7
                           ))}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container sx={{ alignItems: "center", ml: -0.875 }}>
+                    </h5>
+                  </div>
+                </div>
+                <div className="flex items-center -ml-3">
                   {auth.user?.discord?.name &&
                     auth.user?.discord?.discriminator && (
                       <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-                        <Typography
-                          variant="caption"
-                          noWrap
-                          sx={{
-                            display: "flex",
-                            gap: 0.5,
-                            alignItems: "center",
-                          }}
-                        >
+                        <p className="text-xs flex items-center gap-1">
                           <IconBrandDiscord style={{ height: 14 }} />{" "}
                           {`${auth.user?.discord?.name}#${auth.user?.discord?.discriminator}`}
-                        </Typography>
+                        </p>
                       </div>
                     )}
                   {auth.user?.twitter?.username && (
                     <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-                      <Typography
-                        variant="caption"
-                        noWrap
-                        sx={{ display: "flex", gap: 0.5, alignItems: "center" }}
-                      >
+                      <p className="text-xs flex items-center gap-1">
                         <IconBrandTwitter style={{ height: 14 }} /> @
                         {auth.user?.twitter?.username}
-                      </Typography>
+                      </p>
                     </div>
                   )}
-                </Grid>
-              </Stack>
-            </Stack>
+                </div>
+              </div>
+            </div>
             {workspaces && workspaces.length > 0 && (
               <div className="py-2 flex-col gap-1 hidden md:flex">
                 <h3 className="font-bold">WorkSpaces</h3>
@@ -397,87 +338,46 @@ const ProfilePopperContext = ({
                 )}
               </div>
             )}
-          </Box>
+          </div>
         )}
       </MainCard>
-      <Stack
-        direction="row"
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-      >
+      <div className="flex flex-row items-center justify-center">
         {!isEmpty(auth.user?.discord) ? (
           <>
             {!auth.user?.discord?.membership && (
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={handleDiscordConnect}
-                sx={{
-                  backgroundColor: "#5865F2",
-                  "&:hover": {
-                    backgroundColor:
-                      "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
-                  },
-                  gap: 1,
-                }}
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded gap-1 flex items-center justify-center"
+                onClick={() => handleDiscordConnect()}
               >
                 <DiscordLogo size={18} />
                 Verify
-              </Button>
+              </button>
             )}
           </>
         ) : (
           <>
             {auth.token && (
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={handleDiscordConnect}
-                sx={{
-                  backgroundColor: "#5865F2",
-                  "&:hover": {
-                    backgroundColor:
-                      "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
-                  },
-                  gap: 1,
-                }}
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded gap-1 flex items-center justify-center"
+                onClick={() => handleDiscordConnect()}
               >
                 <DiscordLogo size={18} />
                 Connect
-              </Button>
+              </button>
             )}
           </>
         )}
         {!auth.user?.twitter?.username && auth.token && (
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={handleTwitterConnect}
-            sx={{
-              backgroundColor: "#fff",
-              "&:hover": {
-                backgroundColor: "#1D9BF022",
-              },
-              gap: 1,
-              color: "#1D9BF0",
-            }}
+          <button
+            className="bg-white hover:bg-[#1D9BF022] text-[#1D9BF0] font-bold py-2 px-4 rounded gap-1 flex items-center justify-center ml-4"
+            onClick={() => handleTwitterConnect()}
           >
             <TwitterLogo size="18" />
             Connect
-          </Button>
+          </button>
         )}
-      </Stack>
-      <Stack
-        direction="row"
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-        style={{ marginTop: 10, display: "none" }}
-      >
+      </div>
+      {/* <div className="flex items-center justify-center space-x-2 mt-10 hidden">
         <Badge variant="dot" color="secondary">
           <Link
             to={{
@@ -506,324 +406,158 @@ const ProfilePopperContext = ({
             </Button>
           </Link>
         </Badge>
-      </Stack>
+      </div> */}
     </>
   );
 
   return (
-    <ClickAwayListener onClickAway={handleClose}>
-      <Transitions in={open} {...TransitionProps}>
-        <Paper className="bg-elevation1 rounded-3xl border border-line overflow-y-auto flex flex-col gap-3">
-          {open && (
-            <>
-              {showProfile && Profile}
-              <MainCard
-                border={false}
-                elevation={16}
-                content={false}
-                boxShadow
-                shadow={theme.shadows[16]}
-                sx={{ backgroundColor: "transparent" }}
-              >
-                {(mainWallet.connected || ethConnected || playerAddress) && (
-                  <Box
-                    sx={{
-                      p: 2,
-                      pt: 0,
-                      width: "100%",
-                      minWidth: 260,
-                      [theme.breakpoints.down("md")]: {
-                        minWidth: "100%",
-                      },
-                      color: "#D5D9E9",
-                    }}
+    <div className="text-[#d5d9e9] transition-shadow duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-none bg-elevation1 rounded-3xl border border-line overflow-y-auto flex flex-col gap-3">
+      {showProfile && Profile}
+      <MainCard
+        border={false}
+        elevation={16}
+        content={false}
+        boxShadow
+        sx={{ backgroundColor: "transparent" }}
+      >
+        {(mainWallet.connected || ethConnected || playerAddress) && (
+          <div className="p-4 pt-4 w-full min-w-[260px] text-gray-400">
+            {auth.user?.vanity && (
+              <div className="flex items-center space-x-1 p-2 max-w-full">
+                {/* <Tooltip title="View Wallet Portfolio"> */}
+                <div className="mt-1 justify-between">
+                  <div
+                    className="w-full mb-4 flex justify-center items-center bg-[#09080d] rounded-[0.75rem] p-4 cursor-pointer gap-4"
+                    onClick={() => router.push(`/account/${auth.user?.wallet}`)}
                   >
-                    {auth.user?.vanity && (
-                      <Stack
-                        direction="row"
-                        spacing={0.5}
-                        alignItems="center"
-                        justifyContent="flex-start"
-                        sx={{ p: 0.5, maxWidth: "100%" }}
+                    <IconEye />
+                    <p className="whitespace-nowrap">
+                      {shortenAddress(auth.user?.wallet, 7)}
+                    </p>
+                  </div>
+                </div>
+                {/* </Tooltip> */}
+              </div>
+            )}
+
+            {wallet && publicKey ? (
+              <>
+                <WalletValueSection
+                  title="Main Wallet"
+                  wallet={publicKey?.toBase58()}
+                  open={open}
+                  handleWithdraw={handleWithdraw}
+                  showEscrow
+                  escrowBal={escrowBal}
+                />
+                {game.player.id && (
+                  <div className="flex items-center justify-center">
+                    {isSolLinked && (
+                      <p className="whitespace-nowrap">
+                        Linked To Blockus Account
+                      </p>
+                    )}
+                    {!isSolLinked && (
+                      <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded gap-1"
+                        onClick={() =>
+                          showLoginDialog(true, true, false, true, 2)
+                        }
                       >
-                        <Tooltip title="View Wallet Portfolio">
-                          <Grid
-                            container
-                            sx={{ mt: 1, justifyContent: "space-between" }}
-                          >
-                            <Grid
-                              item
-                              xs={12}
-                              sx={{
-                                mb: 1,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                backgroundColor:
-                                  Palette.mode === "dark"
-                                    ? "#09080d"
-                                    : "primary.light",
-                                borderRadius: ".75rem",
-                                p: 1,
-                                cursor: "pointer",
-                                gap: 1,
-                              }}
-                              onClick={() =>
-                                router.push(`/account/${auth.user?.wallet}`)
-                              }
-                            >
-                              <IconEye />
-                              <Typography noWrap>
-                                {shortenAddress(auth.user?.wallet, 7)}
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </Tooltip>
-                      </Stack>
+                        Link To Blockus Account
+                      </button>
                     )}
-
-                    {wallet && publicKey ? (
-                      <>
-                        <WalletValueSection
-                          title="Main Wallet"
-                          wallet={publicKey?.toBase58()}
-                          open={open}
-                          handleWithdraw={handleWithdraw}
-                          showEscrow
-                          escrowBal={escrowBal}
-                        />
-                        {game.player.id && (
-                          <div className="flex items-center justify-center">
-                            {isSolLinked && (
-                              <Typography noWrap>
-                                Linked To Blockus Account
-                              </Typography>
-                            )}
-                            {!isSolLinked && (
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                size="small"
-                                onClick={() =>
-                                  showLoginDialog(true, true, false, true, 2)
-                                }
-                                sx={{
-                                  backgroundColor: "#5865F2",
-                                  "&:hover": {
-                                    backgroundColor:
-                                      "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
-                                  },
-                                  gap: 1,
-                                }}
-                              >
-                                Link To Blockus Account
-                              </Button>
-                            )}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                        justifyContent="center"
-                        sx={{ mb: 1 }}
-                      >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          size="small"
-                          onClick={() => solConnect()}
-                          sx={{
-                            backgroundColor: "#5865F2",
-                            "&:hover": {
-                              backgroundColor:
-                                "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
-                            },
-                            gap: 1,
-                          }}
-                        >
-                          <PhantomLogo size={18} />
-                          <span style={{ whiteSpace: "nowrap" }}>
-                            Connect Phantom
-                          </span>
-                        </Button>
-                      </Stack>
-                    )}
-
-                    <Divider sx={{ mt: 1, mb: 1 }} />
-                    {ethConnected ? (
-                      <>
-                        <Stack
-                          direction="row"
-                          spacing={0.5}
-                          alignItems="center"
-                          justifyContent="flex-start"
-                          sx={{ p: 0.5, maxWidth: "100%" }}
-                        >
-                          <Grid
-                            container
-                            sx={{ mt: 1, justifyContent: "space-between" }}
-                          >
-                            <Grid
-                              item
-                              xs={12}
-                              sx={{
-                                mb: 1,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                backgroundColor:
-                                  Palette.mode === "dark"
-                                    ? "#09080d"
-                                    : "primary.light",
-                                borderRadius: ".75rem",
-                                p: 1,
-                              }}
-                            >
-                              <Typography noWrap>
-                                {ethAddress && shortenAddress(ethAddress, 7)}
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </Stack>
-                        <Stack
-                          direction="row"
-                          spacing={0.5}
-                          alignItems="center"
-                          justifyContent="flex-start"
-                          sx={{ p: 0.5 }}
-                        >
-                          <EthLogo />
-                          <Stack
-                            direction="column"
-                            alignItems="flex-start"
-                            justifyContent="flex-start"
-                          >
-                            <Typography
-                              variant="body1"
-                              fontWeight="400"
-                              sx={{ ml: 1 }}
-                            >
-                              Main Wallet
-                            </Typography>
-                            {ethConnected && (
-                              <Typography
-                                variant="body1"
-                                fontWeight="800"
-                                sx={{ ml: 1 }}
-                              >
-                                {(ethBalance || 0).toLocaleString()} ETH
-                              </Typography>
-                            )}
-                          </Stack>
-                        </Stack>
-                        {game.player.id && (
-                          <div className="flex items-center justify-center">
-                            {isEthLinked && (
-                              <Typography noWrap>
-                                Linked To Blockus Account
-                              </Typography>
-                            )}
-                            {!isEthLinked && (
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                size="small"
-                                onClick={() =>
-                                  showLoginDialog(true, true, false, false, 2)
-                                }
-                                sx={{
-                                  backgroundColor: "#5865F2",
-                                  "&:hover": {
-                                    backgroundColor:
-                                      "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
-                                  },
-                                  gap: 1,
-                                }}
-                              >
-                                Link To Blockus Account
-                              </Button>
-                            )}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                        justifyContent="center"
-                        sx={{ mb: 1 }}
-                      >
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          size="small"
-                          onClick={() => ethConnect()}
-                          sx={{
-                            backgroundColor: "#5865F2",
-                            "&:hover": {
-                              backgroundColor:
-                                "hsl(235,calc(var(--saturation-factor, 1)*86.1%),71.8%)",
-                            },
-                            gap: 1,
-                          }}
-                        >
-                          <MetamaskLogo size={18} />
-                          <span style={{ whiteSpace: "nowrap" }}>
-                            Connect Metamask
-                          </span>
-                        </Button>
-                      </Stack>
-                    )}
-                    <Divider sx={{ mt: 1, mb: 1 }} />
-
-                    {game.player.id ? (
-                      <>
-                        <Typography noWrap>Blockus Account</Typography>
-                        <Grid
-                          item
-                          xs={12}
-                          sx={{
-                            mb: 1,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            backgroundColor:
-                              Palette.mode === "dark"
-                                ? "#09080d"
-                                : "primary.light",
-                            borderRadius: ".75rem",
-                            p: 1,
-                          }}
-                        >
-                          <Typography noWrap>
-                            {shortenAddress(game.playerAddress, 7)}
-                          </Typography>
-                        </Grid>
-                      </>
-                    ) : (
-                      <ProfilePopperButton {...createGameWalletButton} />
-                    )}
-
-                    <Divider sx={{ mt: 1, mb: 1 }} />
-
-                    {/* {workspaces && workspaces?.length === 0 && (
-                        <ProfilePopperButton {...createWorkspaceButton} />
-                      )} */}
-                    {map(stackButtons, (row: any, idx: number) => (
-                      <ProfilePopperButton key={idx} {...row} />
-                    ))}
-                  </Box>
+                  </div>
                 )}
-              </MainCard>
-            </>
-          )}
-        </Paper>
-      </Transitions>
-    </ClickAwayListener>
+              </>
+            ) : (
+              <div className="flex flex-row space-x-8 items-center justify-center mb-4">
+                <button
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded gap-1 flex items-center justify-center"
+                  onClick={() => solConnect()}
+                >
+                  <PhantomLogo size={18} />
+                  <span style={{ whiteSpace: "nowrap" }}>Connect Phantom</span>
+                </button>
+              </div>
+            )}
+
+            <hr className="my-2 flex-shrink-0 border-t border-solid border-[#d5d9e9] opacity-20"></hr>
+            {ethConnected ? (
+              <>
+                <div className="flex flex-row space-x-2 items-center justify-start p-1 w-full">
+                  <div className="w-full my-1 flex justify-center items-center bg-[#09080d] rounded-[0.75rem] px-4 py-2">
+                    <p className="whitespace-nowrap text-center">
+                      {ethAddress && shortenAddress(ethAddress, 7)}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-row space-x-2 items-center justify-start p-1">
+                  <EthLogo />
+                  <div className="flex flex-col items-start justify-start">
+                    <p className="text-base font-normal ml-1">Main Wallet</p>
+                    {ethConnected && (
+                      <p className="text-base font-bold ml-1">
+                        {(ethBalance || 0).toLocaleString()} ETH
+                      </p>
+                    )}
+                  </div>
+                </div>
+                {game.player.id && (
+                  <div className="flex items-center justify-center">
+                    {isEthLinked && <p>Linked To Blockus Account</p>}
+                    {!isEthLinked && (
+                      <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded gap-1"
+                        onClick={() =>
+                          showLoginDialog(true, true, false, false, 2)
+                        }
+                      >
+                        Link To Blockus Account
+                      </button>
+                    )}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="flex flex-row space-x-2 items-center justify-center mb-1">
+                <button
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded gap-1 flex items-center justify-center"
+                  onClick={() => ethConnect()}
+                >
+                  <MetamaskLogo size={18} />
+                  <span style={{ whiteSpace: "nowrap" }}>Connect Metamask</span>
+                </button>
+              </div>
+            )}
+            <hr className="my-2 flex-shrink-0 border-t border-solid border-[#d5d9e9] opacity-20"></hr>
+
+            {game.player.id ? (
+              <>
+                <p className="whitespace-nowrap">Blockus Account</p>
+                <div className="w-full mb-1 flex justify-center items-center bg-[#09080d] rounded-[0.75rem] px-4 py-2">
+                  <p className="whitespace-nowrap">
+                    {shortenAddress(game.playerAddress, 7)}
+                  </p>
+                </div>
+              </>
+            ) : (
+              <ProfilePopperButton {...createGameWalletButton} />
+            )}
+
+            <hr className="my-2 flex-shrink-0 border-t border-solid border-[#d5d9e9] opacity-20"></hr>
+
+            {/* {workspaces && workspaces?.length === 0 && (
+              <ProfilePopperButton {...createWorkspaceButton} />
+            )} */}
+
+            {map(stackButtons, (row: any, idx: number) => (
+              <ProfilePopperButton key={idx} {...row} />
+            ))}
+          </div>
+        )}
+      </MainCard>
+    </div>
   );
 };
 

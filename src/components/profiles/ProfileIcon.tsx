@@ -1,6 +1,8 @@
-import { Avatar, useTheme } from "@mui/material";
 import { DEFAULT_IMAGE_URL, IMAGE_PROXY } from "@/config/config";
+
 import useAuth from "@/hooks/useAuth";
+
+import themeTypography from "@/themes/typography";
 
 const ProfileIcon = ({
   ref,
@@ -12,7 +14,6 @@ const ProfileIcon = ({
   },
 }: any) => {
   const discordImagePath = "https://cdn.discordapp.com/avatars";
-  const theme = useTheme();
   const auth = useAuth();
   const getAvatar = (proxy = IMAGE_PROXY) => {
     if (auth.user?.avatar) {
@@ -24,17 +25,18 @@ const ProfileIcon = ({
     return `${proxy}${DEFAULT_IMAGE_URL}`;
   };
   return (
-    <Avatar
-      src={getAvatar()}
-      ref={ref}
-      sx={{
-        ...theme.typography.largeAvatar,
-        ...sx,
-      }}
+    <div
+      className="relative flex items-center justify-center flex-shrink-0 font-sans leading-none rounded-full overflow-hidden select-none text-[#24182F] bg-transparent w-[34px] h-[34px] text-[1.2rem] cursor-pointer m-0"
       aria-controls={controls}
       aria-haspopup={hasPopup}
       color="inherit"
-    />
+    >
+      <img
+        className="w-full h-full text-center object-cover text-transparent indent-[10000px]"
+        src={getAvatar()}
+        alt="Avatar"
+      ></img>
+    </div>
   );
 };
 

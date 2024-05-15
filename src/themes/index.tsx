@@ -11,14 +11,12 @@ import {
 
 // project import
 import useConfig from "@/hooks/useConfig";
-import Typography from "./typography";
 
 import componentStyleOverrides from "./compStyleOverride";
 import customShadows from "./shadows";
 
 // types
 import { CustomShadowProps } from "@/types/default-theme";
-import { TypographyOptions } from "@mui/material/styles/createTypography";
 
 interface Props {
   children: ReactNode;
@@ -28,10 +26,6 @@ export default function ThemeCustomization({ children }: Props) {
   const { borderRadius, fontFamily, mode, presetColor } = useConfig();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const themeTypography: TypographyOptions = useMemo<TypographyOptions>(
-    () => Typography(borderRadius, fontFamily),
-    [borderRadius, fontFamily]
-  );
   const themeCustomShadows: CustomShadowProps = useMemo<CustomShadowProps>(
     () => customShadows(mode),
     [mode]
@@ -49,10 +43,9 @@ export default function ThemeCustomization({ children }: Props) {
           },
         },
       },
-      typography: themeTypography,
       customShadows: themeCustomShadows,
     }),
-    [themeCustomShadows, themeTypography]
+    [themeCustomShadows]
   );
 
   const themes: Theme = createTheme(themeOptions);
