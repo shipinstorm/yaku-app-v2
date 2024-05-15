@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
+
 import dynamic from "next/dynamic";
 
 // material-ui
@@ -12,23 +13,17 @@ import { useMediaQuery } from "@mui/material";
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 import Sidebar from "./Sidebar";
-
-import { useEthPrice, useSolPrice } from "@/contexts/CoinGecko";
-import { useYakuPrice, useYakuUSDCPrice } from "@/contexts/JupitarContext";
-import { useETHGasFee, useTPSValue } from "@/contexts/TPSContext";
-import { useCartItems } from "@/contexts/CartContext";
-
 import navigation from "@/menu-items";
-
 import useConfig from "@/hooks/useConfig";
-
 import { drawerWidth, cartWidth, drawerWidthCollapsed } from "@/store/constant";
-
 import { activeItem } from "@/store/slices/menu";
 import { useDispatch, useSelector } from "@/store";
 
 // assets
-
+import { useEthPrice, useSolPrice } from "@/contexts/CoinGecko";
+import { useYakuPrice, useYakuUSDCPrice } from "@/contexts/JupitarContext";
+import { useETHGasFee, useTPSValue } from "@/contexts/TPSContext";
+import { useCartItems } from "@/contexts/CartContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 import useAuth from "@/hooks/useAuth";
 import dayjs from "dayjs";
@@ -44,7 +39,6 @@ import useRelay from "@/hooks/useRelay";
 import YakuBuyLink from "./YakuBuyLink";
 
 import { Palette } from "@/themes/palette";
-import themeTypography from "@/themes/typography";
 
 const BreadcrumbsNoSSR = dynamic(() => import("@/components/Breadcrumbs"), {
   ssr: false,
@@ -59,7 +53,7 @@ interface MainStyleProps {
 // styles
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open, openedcart }: MainStyleProps) => ({
-    ...themeTypography.mainContent,
+    ...theme.typography.mainContent,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
     transition: theme.transitions.create("margin", {
@@ -341,7 +335,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         <Main
           theme={theme}
           open={drawerOpen}
-          openedcart={isOpen ? isOpen : undefined}
+          openedcart={isOpen}
           className="max-sm:px-4 max-sm:mx-0"
         >
           {/* breadcrumb */}
