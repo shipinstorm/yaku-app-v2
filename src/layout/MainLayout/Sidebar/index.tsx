@@ -123,7 +123,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
       className="w-auto md:w-[260px] md:flex-shrink-0"
       aria-label="mailbox folders"
     >
-      <Drawer
+      {/* <Drawer
         container={container}
         variant={"persistent"}
         anchor="left"
@@ -208,9 +208,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
               setOpen(true);
             }}
           >
-            {/* <MoreHorizRounded
-              htmlColor={Palette.mode === "dark" ? "white" : "black"}
-            />{" "} */}
           </div>
         </div>
       </Drawer>
@@ -221,7 +218,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
             {!drawerOpen && drawer}
           </MainCard>
         )}
-      </div>
+      </div> */}
     </nav>
   );
 };

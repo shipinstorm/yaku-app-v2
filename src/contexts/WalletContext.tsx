@@ -292,8 +292,9 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
       <Dialog
         open={open}
         disableEscapeKeyDown={canDismiss}
-        sx={{ ".MuiPaper-root": { p: 0, backgroundColor: "transparent" } }}
         keepMounted
+        className="bg-transparent"
+        size="sm"
       >
         <WalletLogin
           open={open}

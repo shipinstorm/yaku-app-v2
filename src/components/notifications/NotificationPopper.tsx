@@ -14,7 +14,6 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
   const auth = useAuth();
   const { notifications, reloadNotifications, updateAllStatus } =
     useNotifications();
-  // notification status options
   const status = [
     {
       value: NotificationStatus.ALL,

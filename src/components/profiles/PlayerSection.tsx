@@ -62,16 +62,10 @@ const PlayerSection = ({
 
   return (
     <Dialog
-      sx={{
-        width: "100%",
-        p: 2,
-        background: "transparent",
-        "& .MuiPaper-root": {
-          background: "transparent",
-        },
-      }}
       open={open}
       onClose={onClose}
+      className="w-full p-2 bg-transparent"
+      size="sm"
     >
       <DialogBody>
         <div className="bg-transparent min-h-[70vh]">
@@ -80,23 +74,23 @@ const PlayerSection = ({
               <div className="flex items-center justify-center min-h-[calc(70vh-68px)]">
                 <div className="m-1 sm:m-3 mb-0">
                   <AuthCardWrapper className="rounded-3xl">
-                    <div className="flex flex-wrap items-center justify-center gap-2">
+                    <div className="flex flex-wrap items-center justify-center gap-4">
                       <div className="flex justify-between w-full">
                         <p className="w-9"></p>
                         <Link to="#">
                           <Logo />
                         </Link>
                         <button
-                          className="button-small"
+                          className="button-small items-center p-0 relative flex justify-center flex-shrink-0 text-xl leading-none overflow-hidden select-none bg-[#d5d9e9]"
                           onClick={() => onClose()}
                         >
                           <IconX className="h-5 w-5" strokeWidth={1.5} />
                         </button>
                       </div>
-                      <p className="text-[#D8DDF0] text-base">
-                        Register / Login Player Account
-                      </p>
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-4 w-full">
+                        <p className="text-[#D8DDF0] text-base text-center">
+                          Register / Login Player Account
+                        </p>
                         <div className="w-full">
                           <input
                             type="email"
@@ -115,7 +109,7 @@ const PlayerSection = ({
                         <div className="flex items-center justify-center w-full">
                           <button
                             onClick={() => handleLoginWithEpic()}
-                            className="text-center disabled:bg-gray-200"
+                            className="py-1 px-4 min-w-16 rounded-sm uppercase cursor-pointer bg-transparent border-[1px] border-[#1976D2] text-[#1976D2] text-center disabled:bg-gray-200 disabled:text-[#00000026] disabled:border-none disabled:cursor-default disabled:pointer-events-none"
                             disabled={disabled}
                           >
                             Connect

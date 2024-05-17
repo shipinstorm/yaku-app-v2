@@ -69,7 +69,7 @@ const Main = ({ open, openedcart, children }: any) => {
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const auth = useAuth();
-  const matchUpMd = useMediaQuery({ query: '(min-width: 768px)' });
+  const matchUpMd = useMediaQuery({ query: '(min-width: 900px)' });
 
   const wallet = useWallet();
   const dispatch = useDispatch();

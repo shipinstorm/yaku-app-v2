@@ -13,7 +13,7 @@ const NotificationSection = () => {
     <div className="ml-1.5">
       <span className="relative inline-block">
         <button
-          className="button-small"
+          className="button-small items-center p-0 relative flex justify-center flex-shrink-0 text-xl leading-none overflow-hidden select-none bg-[#d5d9e9]"
           onClick={handleToggle}
           aria-haspopup="true"
           aria-controls={open ? "menu-list-grow" : undefined}
