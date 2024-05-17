@@ -30,14 +30,18 @@ const PriorityDialog = ({ open, onClose }: any) => {
   };
   return (
     <Dialog
-      sx={{
-        width: "100%",
-        p: 2,
-      }}
       open={open}
-      onClose={onClose}
+      className="w-full p-2"
+      handler={() => {}}
+      placeholder=""
+      onPointerEnterCapture={() => {}}
+      onPointerLeaveCapture={() => {}}
     >
-      <DialogHeader>
+      <DialogHeader
+        placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
+      >
         <p className="text-xl font-bold">Solana Priority Fee</p>
         <p className="text-base flex items-center gap-1">
           Set up your preferable priority fee to boost the transaction. (High
@@ -47,7 +51,11 @@ const PriorityDialog = ({ open, onClose }: any) => {
           on network congestion rate.)
         </p>
       </DialogHeader>
-      <DialogBody>
+      <DialogBody
+        placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
+      >
         <MainCard border={false} sx={{ p: 1, backgroundColor: "#09080d" }}>
           <div className="mb-4">
             <div className="flex" role="group" aria-label="Priority Option">
@@ -81,7 +89,7 @@ const PriorityDialog = ({ open, onClose }: any) => {
             className="w-full ml-0 mb-2 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary"
             placeholder="Priority Rate"
             value={priorityRate}
-            onChange={(e) => setPriorityRate(e.target.value)}
+            onChange={(e) => setPriorityRate(Number(e.target.value))}
           />
 
           <p className="text-xs flex gap-1 items-center">

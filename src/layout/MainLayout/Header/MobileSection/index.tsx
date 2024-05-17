@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 // project imports
-import LocalizationSection from "../LocalizationSection";
+// import LocalizationSection from "../LocalizationSection";
 
 // assets
 import { IconDotsVertical } from "@tabler/icons-react";
@@ -56,7 +56,7 @@ const MobileSection = () => {
         </button>
       </span>
 
-      <div className="bg-white">
+      {/* <div className="bg-white">
         {open && (
           <header className="bg-white">
             <div className="py-11">
@@ -68,7 +68,7 @@ const MobileSection = () => {
             </div>
           </header>
         )}
-      </div>
+      </div> */}
     </>
   );
 };

@@ -1,6 +1,6 @@
 const TopAlert = ({ severity = "warning", description, buttons }: any) => (
   <div
-    className={`bg-${getColor(severity)} text-white px-4 py-3 rounded-lg`}
+    className="text-white px-4 py-3 rounded-lg"
     role="alert"
   >
     <div className="flex justify-between items-center gap-2">

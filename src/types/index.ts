@@ -7,7 +7,7 @@ import { RarityStateProps } from "./rarity";
 import { ProposalStateProps } from "./proposals";
 import { SpaceStateProps } from "./spaces";
 
-import { SnackbarProps } from "./snackbar";
+// import { SnackbarProps } from "./snackbar";
 import { StringPublicKey } from "@/utils/ids";
 import { Connection } from "@solana/web3.js";
 
@@ -35,7 +35,7 @@ export interface GenericCardProps {
   content?: string | number | ReactElement;
   image?: string;
   dateTime?: string;
-  iconPrimary?: OverrideIcon;
+  iconPrimary?: any;
   color?: string;
   size?: string;
 }
@@ -96,7 +96,7 @@ export interface ColorPaletteProps {
 }
 
 export interface DefaultRootStateProps {
-  snackbar: SnackbarProps;
+  // snackbar: SnackbarProps;
   calendar: CalendarStateProps;
   rarity: RarityStateProps;
   proposals: ProposalStateProps;

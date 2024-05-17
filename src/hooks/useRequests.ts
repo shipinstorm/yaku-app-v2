@@ -15,7 +15,9 @@ export function useRequests() {
   const ethSvcPath = "https://eth.yaku.ai/api";
   const agSvcPath = "https://ag.yaku.ai/api";
   // const playerPath = "http://localhost:8080/v1/auth";
-  const playerPath = "https://auth-service-gxpf.onrender.com/v1/auth";
+  // const playerPath = "https://auth-service-gxpf.onrender.com/v1/auth";
+  const playerPath = "https://ec2-15-188-60-164.eu-west-3.compute.amazonaws.com:8080/v1/auth";
+  
 
   const [csrfToken, setCsrfToken] = useState("");
   const [agToken, setAgToken] = useState("");

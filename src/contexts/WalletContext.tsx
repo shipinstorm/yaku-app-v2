@@ -291,10 +291,12 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
       {children}
       <Dialog
         open={open}
-        disableEscapeKeyDown={canDismiss}
-        keepMounted
         className="bg-transparent"
         size="sm"
+        handler={() => {}}
+        placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
       >
         <WalletLogin
           open={open}

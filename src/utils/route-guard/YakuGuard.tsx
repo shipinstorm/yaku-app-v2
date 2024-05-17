@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 // project imports
-import Loader from "@/components/loaders/Loader";
+// import Loader from "@/components/loaders/Loader";
 import defaultConfig from "@/config";
 import { useAccess } from "@/hooks/useAccess";
 import { useToasts } from "@/hooks/useToasts";
@@ -81,9 +81,9 @@ const YakuGuard = ({ children }: GuardProps) => {
     }
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return <>{(signed || publicKey) && children}</>;
 };

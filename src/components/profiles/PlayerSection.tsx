@@ -63,11 +63,18 @@ const PlayerSection = ({
   return (
     <Dialog
       open={open}
-      onClose={onClose}
       className="w-full p-2 bg-transparent"
       size="sm"
+      handler={() => {}}
+      placeholder=""
+      onPointerEnterCapture={() => {}}
+      onPointerLeaveCapture={() => {}}
     >
-      <DialogBody>
+      <DialogBody
+        placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
+      >
         <div className="bg-transparent min-h-[70vh]">
           <div className="box-border flex flex-col justify-end min-h-[70vh] card">
             <div className="box-border m-0">

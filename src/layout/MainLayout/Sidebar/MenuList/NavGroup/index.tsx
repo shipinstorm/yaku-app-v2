@@ -14,7 +14,7 @@ import useStaked from "@/hooks/useStaked";
 import { GenericCardProps } from "@/types";
 
 import NavItem from "../NavItem";
-import NavCollapse from "../NavCollapse";
+// import NavCollapse from "../NavCollapse";
 
 import themeTypography from "@/themes/typography";
 

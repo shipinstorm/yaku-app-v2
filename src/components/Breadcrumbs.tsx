@@ -10,7 +10,7 @@ import { Palette } from "@/themes/palette";
 // assets
 import { ApartmentOutlined, HomeFilled, HomeOutlined } from "@ant-design/icons";
 
-import { NavItemType, NavItemTypeObject, OverrideIcon } from "@/types";
+import { NavItemType, NavItemTypeObject } from "@/types";
 import { each, find, get } from "lodash";
 
 interface BreadCrumbSxProps extends React.CSSProperties {
@@ -26,7 +26,7 @@ interface BreadCrumbsProps {
   maxItems?: number;
   navigation?: NavItemTypeObject;
   rightAlign?: boolean;
-  separator?: OverrideIcon;
+  separator?: any;
   title?: boolean;
   titleBottom?: boolean;
   sx?: BreadCrumbSxProps;

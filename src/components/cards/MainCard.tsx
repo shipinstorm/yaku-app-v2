@@ -3,11 +3,6 @@ import React, { Ref } from "react";
 // project imports
 import { KeyedObject } from "@/types";
 
-// constant
-const headerSX = {
-  "& .MuiCardHeader-action": { mr: 0 },
-};
-
 // ==============================|| CUSTOM MAIN CARD ||============================== //
 
 export interface MainCardProps extends KeyedObject {
@@ -53,13 +48,13 @@ const MainCard = React.forwardRef(
       className="text-[rgba(0,0,0,0.87)] overflow-hidden bg-transparent shadow-none"
     >
       {!darkTitle && title && (
-        <div className={headerSX}>
+        <div>
           {title}
           {secondary}
         </div>
       )}
       {darkTitle && title && (
-        <div className={headerSX}>
+        <div>
           {!titleComponent ? <h3>{title}</h3> : titleComponent}
           {secondary}
         </div>

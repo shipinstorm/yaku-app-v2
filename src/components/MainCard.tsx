@@ -5,12 +5,6 @@ import { KeyedObject } from "@/types";
 
 import { Palette } from "@/themes/palette";
 
-// header style
-const headerSX = {
-  p: 2.5,
-  "& .MuiCardHeader-action": { m: "0px auto", alignSelf: "center" },
-};
-
 // main card
 export interface MainCardProps extends KeyedObject {
   border?: boolean;
