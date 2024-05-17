@@ -1,14 +1,3 @@
-import {
-  Box,
-  CardContent,
-  CardMedia,
-  Chip,
-  Grid,
-  Button,
-  Typography,
-  Divider,
-} from "@mui/material";
-import { Image } from "mui-image";
 import dayjs from "dayjs";
 
 // web3
@@ -114,63 +103,51 @@ const StakeNftCard = ({
           </div>
 
           <div className="box-border flex-grow max-w-full mb-[10px] mt-[5px]">
-            <Chip
-              label={role}
-              size="small"
-              color="secondary"
-              sx={{ mr: "5px" }}
-            />
-            <Chip label={rewardString} size="small" />
+            <div className="flex">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800 mr-1">
+                {role}
+              </span>
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
+                {rewardString}
+              </span>
+            </div>
           </div>
 
           <hr className="mb-[10px] border border-[#D5D9E9] border-opacity-20" />
 
           <div className="box-border flex-grow max-w-full mb-[15px]">
-            <Typography variant="h5" fontWeight="500">
-              Staked Duration:
-              <Typography
-                component="span"
-                variant="h4"
-                fontWeight="700"
-                sx={{ ml: "5px" }}
-              >
+            <div className="flex items-center">
+              <h5 className="text-lg font-medium">Staked Duration:</h5>
+              <span className="text-xl font-semibold ml-1">
                 {dayjs(Date.now()).diff(stakedTime * 1000, "hours")} hours
-              </Typography>
-            </Typography>
+              </span>
+            </div>
           </div>
 
           <div className="box-border m-0 flex-grow max-w-full">
-            <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <Button onClick={() => onClaim()} variant="contained" fullWidth>
-                  <FormattedMessage id="claim" />
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  onClick={() => onUnstake()}
-                  variant="outlined"
-                  color="error"
-                  fullWidth
-                >
-                  <FormattedMessage id="unstake" />
-                </Button>
-              </Grid>
-            </Grid>
+            <div className="grid grid-cols-2 gap-1">
+              <button
+                onClick={() => onClaim()}
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full w-full"
+              >
+                <FormattedMessage id="claim" />
+              </button>
+              <button
+                onClick={() => onUnstake()}
+                className="border border-red-500 text-red-500 font-bold py-2 px-4 rounded-full w-full"
+              >
+                <FormattedMessage id="unstake" />
+              </button>
+            </div>
           </div>
 
           <div className="box-border flex-grow max-w-full pl-6 pt-6 mt-2 !mb-0 text-center">
-            <Typography variant="caption">
-              Staking Penalty Ends:
-              <Typography
-                component="span"
-                variant="caption"
-                fontWeight="700"
-                sx={{ ml: "5px" }}
-              >
+            <p className="text-xs">
+              Staking Penalty Ends:{" "}
+              <span className="font-semibold ml-1">
                 {dayjs(lockTime * 1000).format("MMMM DD, yyyy")}
-              </Typography>
-            </Typography>
+              </span>
+            </p>
           </div>
         </div>
       </MainCard>

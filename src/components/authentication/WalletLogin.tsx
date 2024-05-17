@@ -8,10 +8,6 @@ import { IconX } from "@tabler/icons-react";
 import { isMobile } from "react-device-detect";
 import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
 
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import { CircularProgress } from "@mui/material";
-
 // web3 imports
 import { WalletAdapter, WalletReadyState } from "@solana/wallet-adapter-base";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -22,8 +18,6 @@ import { useSignMessage } from "wagmi";
 // project imports
 import AuthCardWrapper from "./AuthCardWrapper";
 import LoginStepOne from "./LoginStepOne";
-import LoginStepTwo from "./LoginStepTwo";
-import LoginStepThree from "./LoginStepThree";
 
 import Logo from "@/components/icons/Logo";
 import AuthFooter from "@/components/cards/AuthFooter";
@@ -77,7 +71,6 @@ const WalletLogin = ({
   const { signMessageAsync } = useSignMessage();
 
   // hooks
-  const theme = useTheme();
   const auth = useAuth();
   const game = useGame();
   const { getPlayerInfo, requestAuthentication, linkWalletToPlayer } =
@@ -372,7 +365,7 @@ const WalletLogin = ({
       <div className="box-border flex flex-wrap w-full flex-row items-center justify-center mt-2">
         <div className="box-border m-0">
           <div className="flex flex-col items-center justify-center">
-            <CircularProgress color="secondary" />
+            <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
           </div>
         </div>
       </div>
@@ -438,21 +431,6 @@ const WalletLogin = ({
                           setIsConnecting={setIsConnecting}
                           handleSignTransaction={handleSignTransaction}
                           handleSignMessage={handleSignMessage}
-                        />
-                      )}
-
-                      {step === 2 && (
-                        <LoginStepTwo
-                          handleBack={handleBack}
-                          handleSignup={handleSignup}
-                          handleUsername={handleUsername}
-                          username={username}
-                        />
-                      )}
-
-                      {step === 3 && (
-                        <LoginStepThree
-                          handleProfileVisit={handleProfileVisit}
                         />
                       )}
                     </>

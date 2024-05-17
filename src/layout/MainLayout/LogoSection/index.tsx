@@ -1,10 +1,5 @@
 import { redirect } from "next/navigation";
 
-import { Link as RouterLink } from "react-router-dom";
-
-// material-ui
-import { Link } from "@mui/material";
-
 // project imports
 import defaultConfig from "@/config";
 import Logo from "@/components/icons/Logo";
@@ -17,13 +12,13 @@ const itemHandler = (url: string) => {
 };
 
 const LogoSection = () => (
-  <Link
-    component={RouterLink}
-    to={defaultConfig.defaultPath}
+  <a
+    href={defaultConfig.defaultPath}
     onClick={() => itemHandler(defaultConfig.defaultPath)}
+    className="cursor-pointer"
   >
     <Logo withoutText />
-  </Link>
+  </a>
 );
 
 export default LogoSection;

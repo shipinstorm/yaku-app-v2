@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ReactNode, useEffect, useState } from "react";
+import Collapsible from "react-collapsible";
 
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import { CircularProgress, Typography, Grid } from "@mui/material";
+import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 // project imports
+
+import { useAccess } from "@/hooks/useAccess";
+import useAuth from "@/hooks/useAuth";
+import useStaked from "@/hooks/useStaked";
+
+import { GenericCardProps } from "@/types";
+
 import NavItem from "../NavItem";
 import NavCollapse from "../NavCollapse";
-import { GenericCardProps } from "@/types";
-import { useAccess } from "@/hooks/useAccess";
-import { useWallet } from "@solana/wallet-adapter-react";
-import useAuth from "@/hooks/useAuth";
-import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
-import Collapsible from "react-collapsible";
-import useStaked from "@/hooks/useStaked";
+
 import themeTypography from "@/themes/typography";
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
@@ -37,7 +38,6 @@ export interface NavGroupProps {
 }
 
 const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
-  const theme = useTheme();
   const { checkAccess } = useAccess();
   const { publicKey } = useWallet();
   const [loading, setLoading] = useState(false);
@@ -51,15 +51,18 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
       return <div key={menu.id}></div>;
     }
     switch (menu.type) {
-      case "collapse":
-        return <NavCollapse key={menu.id} menu={menu} level={1} />;
+      // case "collapse":
+      //   return <NavCollapse key={menu.id} menu={menu} level={1} />;
       case "item":
         return <NavItem key={menu.id} item={menu} level={1} />;
       default:
         return (
-          <Typography key={menu.id} variant="h6" color="error" align="center">
+          <p
+            key={menu.id}
+            className="text-lg font-bold text-red-500 text-center"
+          >
             Menu Items Error
-          </Typography>
+          </p>
         );
     }
   });
@@ -93,67 +96,22 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
     const Icon = item?.icon!;
     return (
       (item.title && (
-        <Typography
-          variant="caption"
-          sx={{
-            ...themeTypography.menuCaption,
-            my: "10px",
-            cursor: "pointer",
-          }}
-          display="block"
-          gutterBottom
-        >
-          <Grid
-            container
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Grid
-              item
-              xs={2}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              {item?.icon && <Icon stroke="1.5" className="ml-1" />}
-              {/* {item?.icon && <Icon stroke="1.5" className="ml-1" size="24px" />} */}
-            </Grid>
-            <Grid
-              item
-              xs={9}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
+        <p className="text-sm font-medium text-gray-700 my-2 cursor-pointer">
+          <div className="flex items-center">
+            <div className="w-6 h-6 flex items-center">
+              {item?.icon && <Icon className="ml-1" />}
+            </div>
+            <div className="flex flex-col justify-center ml-2">
               {item.title}
               {item.caption && (
-                <Typography
-                  variant="caption"
-                  sx={{ ...themeTypography.subMenuCaption }}
-                  display="block"
-                  gutterBottom
-                >
-                  {item.caption}
-                </Typography>
+                <p className="text-xs text-gray-500">{item.caption}</p>
               )}
-            </Grid>
-            <Grid
-              item
-              xs={1}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
+            </div>
+            <div className="flex items-center">
               {open ? <IconChevronUp /> : <IconChevronDown />}
-            </Grid>
-          </Grid>
-        </Typography>
+            </div>
+          </div>
+        </p>
       )) || <></>
     );
   };
@@ -194,14 +152,10 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
               ) : (
                 <>
                   <ListSection groupId={item.id}>
-                    <Typography
-                      variant="caption"
-                      sx={{ ...themeTypography.subMenuCaption }}
-                      display="block"
-                      gutterBottom
-                    >
-                      <CircularProgress size="small" /> Checking your NFT
-                    </Typography>
+                    <p className="text-xs font-medium text-gray-600">
+                      <div className="loader ease-linear rounded-full border-2 border-t-2 border-gray-200 h-4 w-4 mr-2"></div>
+                      Checking your NFT
+                    </p>
                   </ListSection>
                 </>
               )}

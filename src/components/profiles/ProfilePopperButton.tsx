@@ -1,45 +1,16 @@
-import { Avatar, Stack, Typography, useTheme } from "@mui/material";
-import { Palette } from "@/themes/palette";
-import themeTypography from "@/themes/typography";
-
 const ProfilePopperButton = ({ onClick, icon, label }: any) => {
   return (
-    <Stack
-      direction="row"
-      spacing={0.5}
-      alignItems="center"
-      justifyContent="flex-start"
+    <div
+      className="flex items-center justify-start p-1 mb-2 rounded hover:bg-primary-dark cursor-pointer transition-all duration-100 ease-in-out"
       onClick={onClick}
-      sx={{
-        p: 0.5,
-        mb: 1,
-        borderRadius: "4px",
-        "&:hover": {
-          cursor: "pointer",
-          transition: "all .1s ease-in-out",
-          background: Palette.primary.dark
-        },
-      }}
     >
-      <Avatar
-        sx={{
-          ...themeTypography.mediumAvatar,
-          cursor: "pointer",
-        }}
-        color="inherit"
-      >
+      <div className="flex items-center justify-center cursor-pointer">
         {icon}
-      </Avatar>
-      <Stack
-        direction="column"
-        alignItems="flex-start"
-        justifyContent="flex-start"
-      >
-        <Typography variant="body1" fontWeight="800" sx={{ ml: 1 }}>
-          {label}
-        </Typography>
-      </Stack>
-    </Stack>
+      </div>
+      <div className="flex flex-col items-start justify-start ml-1">
+        <p className="font-bold text-base">{label}</p>
+      </div>
+    </div>
   );
 };
 

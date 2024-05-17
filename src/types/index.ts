@@ -1,11 +1,5 @@
 import React, { FunctionComponent, ReactElement } from "react";
 
-// material-ui
-import "@mui/styles";
-import { Theme } from "@mui/material/styles";
-import { SvgIconTypeMap, ChipProps, TableCellProps } from "@mui/material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-
 // project imports
 // import { TablerIcon } from "@tabler/icons-react";
 import { CalendarStateProps } from "./calendar";
@@ -16,10 +10,6 @@ import { SpaceStateProps } from "./spaces";
 import { SnackbarProps } from "./snackbar";
 import { StringPublicKey } from "@/utils/ids";
 import { Connection } from "@solana/web3.js";
-
-// declare module "@mui/styles/defaultTheme" {
-//   interface DefaultTheme extends Theme {}
-// }
 
 export type ArrangementOrder = "asc" | "desc" | undefined;
 
@@ -50,20 +40,14 @@ export interface GenericCardProps {
   size?: string;
 }
 
-export type OverrideIcon =
-  | (OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string })
-  | React.ComponentClass<any>
-  | FunctionComponent<any>;
-// | TablerIcon;
-
-export interface EnhancedTableHeadProps extends TableCellProps {
-  onSelectAllClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  order: ArrangementOrder;
-  orderBy?: string;
-  numSelected: number;
-  rowCount: number;
-  onRequestSort: (e: React.SyntheticEvent, p: string) => void;
-}
+// export interface EnhancedTableHeadProps extends TableCellProps {
+//   onSelectAllClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
+//   order: ArrangementOrder;
+//   orderBy?: string;
+//   numSelected: number;
+//   rowCount: number;
+//   onRequestSort: (e: React.SyntheticEvent, p: string) => void;
+// }
 
 export interface EnhancedTableToolbarProps {
   numSelected: number;
@@ -102,7 +86,7 @@ export type NavItemType = {
   soon?: boolean;
   hot?: boolean;
   new?: boolean;
-  chip?: ChipProps;
+  chip?: any;
 };
 
 export interface ColorPaletteProps {

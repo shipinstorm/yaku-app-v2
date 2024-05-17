@@ -1,12 +1,3 @@
-import {
-  Chip,
-  Grid,
-  Stack,
-  Switch,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
 import { shortenAddress } from "@/utils/utils";
 import WalletButton from "./WalletButton";
 
@@ -18,49 +9,23 @@ const LoginStepOne = ({
   handleSignTransaction,
   handleSignMessage,
 }: any) => {
-  const theme = useTheme();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <>
       <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-        <Grid
-          container
-          direction={matchDownSM ? "column-reverse" : "row"}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Grid item>
-            <Stack alignItems="center" justifyContent="center" spacing={3}>
-              <p className="text-lg text-center text-white">
-                You are required to prove ownership of this wallet by signing
-                this message.
-              </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center">
+          <p className="text-lg text-center text-white">
+            You are required to prove ownership of this wallet by signing this
+            message.
+          </p>
 
-              <Chip
-                label={publicKey && shortenAddress(publicKey, 5)}
-                size="medium"
-                variant="filled"
-                className="text-white bg-[#2D2F33]"
-              />
-
-              {/* <Typography variant="caption" fontSize="16px" textAlign="center">
-                Using Ledger?
-              </Typography>
-              <Switch
-                sx={{ mt: "0px !important" }}
-                color="secondary"
-                checked={isLedger}
-                onChange={(e) => setIsLedger(e.target.checked)}
-                inputProps={{ "aria-label": "controlled" }}
-              /> */}
-            </Stack>
-          </Grid>
-        </Grid>
+          <div className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-800 text-white">
+            {publicKey && shortenAddress(publicKey, 5)}
+          </div>
+        </div>
       </div>
 
       <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6 mt-2">
-        <Stack direction="column" justifyContent="center">
+        <div className="flex flex-col justify-center">
           <WalletButton
             variant="contained"
             color="secondary"
@@ -77,7 +42,7 @@ const LoginStepOne = ({
           >
             Go Back
           </WalletButton>
-        </Stack>
+        </div>
       </div>
     </>
   );

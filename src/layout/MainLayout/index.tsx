@@ -2,12 +2,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
-
 import dynamic from "next/dynamic";
-
-// material-ui
-import { styled, useTheme, Theme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery } from 'react-responsive';
 
 // project imports
 import Header from "./Header";
@@ -22,7 +18,7 @@ import { useDispatch, useSelector } from "@/store";
 // assets
 import { useEthPrice, useSolPrice } from "@/contexts/CoinGecko";
 import { useYakuPrice, useYakuUSDCPrice } from "@/contexts/JupitarContext";
-import { useETHGasFee, useTPSValue } from "@/contexts/TPSContext";
+import { useETHGasFee } from "@/contexts/TPSContext";
 import { useCartItems } from "@/contexts/CartContext";
 import { useWallet } from "@solana/wallet-adapter-react";
 import useAuth from "@/hooks/useAuth";
@@ -45,66 +41,35 @@ const BreadcrumbsNoSSR = dynamic(() => import("@/components/Breadcrumbs"), {
 });
 
 interface MainStyleProps {
-  theme: Theme;
   open: boolean;
   openedcart: boolean;
 }
 
 // styles
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open, openedcart }: MainStyleProps) => ({
-    ...theme.typography.mainContent,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeInOut,
-      duration: 400,
-    }),
-    paddingTop: "18px",
-    ...(!open && {
-      [theme.breakpoints.up("md")]: {
-        marginLeft: -drawerWidth + drawerWidthCollapsed,
-        marginRight: openedcart ? cartWidth : 0,
-        width: `calc(100% - ${drawerWidthCollapsed}px - ${
-          openedcart ? cartWidth : 0
-        }px)`,
-      },
-      [theme.breakpoints.down("md")]: {
-        marginLeft: "20px",
-        width: `calc(100% - ${drawerWidthCollapsed}px - ${
-          openedcart ? cartWidth : 0
-        }px)`,
-        padding: "16px",
-      },
-      [theme.breakpoints.down("sm")]: {
-        marginLeft: "10px",
-        width: `calc(100% - ${drawerWidthCollapsed}px - ${
-          openedcart ? cartWidth : 0
-        }px)`,
-        padding: "16px",
-        marginRight: "10px",
-      },
-    }),
-    ...(open && {
-      marginLeft: 0,
-      width: `calc(100% - ${drawerWidth}px - ${openedcart ? cartWidth : 0}px)`,
-      [theme.breakpoints.down("md")]: {
-        marginLeft: "20px",
-      },
-      [theme.breakpoints.down("sm")]: {
-        marginLeft: "10px",
-      },
-    }),
-  })
-);
+const Main = ({ open, openedcart, children }: any) => {
+  const baseStyles = "transition-margin duration-400 pt-4";
+  const commonStyles = "ml-5 sm:ml-2.5 md:ml-5";
+
+  const openStyles = `ml-0 w-[calc(100%-${drawerWidth}px-${
+    openedcart ? cartWidth : 0
+  }px)] sm:ml-2.5 md:ml-5`;
+
+  const closedStyles = `w-[calc(100%-${drawerWidthCollapsed}px-${
+    openedcart ? cartWidth : 0
+  }px)] ${openedcart ? "mr-0" : ""} p-4 md:ml-[-${
+    drawerWidth - drawerWidthCollapsed
+  }px] sm:ml-[10px] md:ml-[20px]`;
+
+  const styles = `${baseStyles} ${open ? openStyles : closedStyles}`;
+
+  return <main className={`${styles} ${commonStyles}`}>{children}</main>;
+};
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  const theme = useTheme();
   const auth = useAuth();
-  const matchDownMd = useMediaQuery(theme.breakpoints.down("lg"));
-  const matchUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const matchUpMd = useMediaQuery({ query: '(min-width: 768px)' });
 
   const wallet = useWallet();
   const dispatch = useDispatch();
@@ -276,7 +241,6 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         )}
         <div className="font-sans antialiased text-gray-900 bg-white"></div>
 
-        {/* header */}
         <header
           className={`fixed w-full ${drawerOpen ? "transition-width" : ""} bg-${
             Palette.background.default
@@ -327,18 +291,13 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           )}
         </header>
 
-        {/* drawer */}
-        {/* <Sidebar sticky={sticky > 108} isPro={isPro} /> */}
         <Sidebar sticky={sticky > 108} isPro={false} />
 
-        {/* main content */}
         <Main
-          theme={theme}
           open={drawerOpen}
           openedcart={isOpen}
           className="max-sm:px-4 max-sm:mx-0"
         >
-          {/* breadcrumb */}
           {container ? (
             <div className="container mx-auto max-w-lg">
               <BreadcrumbsNoSSR
@@ -364,9 +323,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               {children}
             </>
           )}
-          {/* {isOpen && <Cart />} */}
         </Main>
-        {/* <MobileFooter show={!matchUpMd} /> */}
       </div>
       <div className="md:max-h-14 w-full pb-2">
         <p className="text-[10px] px-2 text-center w-full">

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { Container, Skeleton, Typography } from "@mui/material";
 import { useRequests } from "@/hooks/useRequests";
 
 const ValueSpan = ({ val }: any) => (

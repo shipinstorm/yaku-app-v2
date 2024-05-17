@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from "react-redux";
-import { ArrowBackIos } from "@mui/icons-material";
 import type { RootState } from "@/store";
 import { setSubpage } from "@/store/slices/subpageSlice";
 import { map } from "lodash";
@@ -25,7 +24,7 @@ const MobileHeader = ({ buttons }: MobilePopoverProps) => {
           className="bg-transparent"
           onClick={() => dispatch(setSubpage(""))}
         >
-          <ArrowBackIos sx={{ fontSize: 20 }} />
+          {/* <ArrowBackIos sx={{ fontSize: 20 }} /> */}
         </button>
       )}
       <h3 className="text-white mr-auto text-lg font-bold">

@@ -1,22 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  ClickAwayListener,
-  Grid,
-  Paper,
-  Popper,
-  Toolbar,
-  useMediaQuery,
-} from "@mui/material";
-
 // project imports
 import LocalizationSection from "../LocalizationSection";
-import Transitions from "@/components/Transitions";
 
 // assets
 import { IconDotsVertical } from "@tabler/icons-react";
@@ -26,9 +11,6 @@ import { Palette } from "@/themes/palette";
 // ==============================|| MOBILE HEADER ||============================== //
 
 const MobileSection = () => {
-  const theme = useTheme();
-  const matchMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   const [open, setOpen] = useState(false);
   /**
    * anchorRef is used on different componets and specifying one type leads to other components throwing an error
@@ -58,13 +40,11 @@ const MobileSection = () => {
 
   return (
     <>
-      <Box component="span" ref={anchorRef} sx={{ mt: 1, ml: 1 }}>
-        <IconButton
-          sx={{
-            color: Palette.mode === "dark" ? "primary.main" : "inherit",
-            ml: 0.5,
-            cursor: "pointer",
-          }}
+      <span className="mt-1 ml-1">
+        <button
+          className={`text-${
+            Palette.mode === "dark" ? "primary" : "inherit"
+          } ml-0.5 cursor-pointer`}
           onClick={handleToggle}
         >
           <IconDotsVertical
@@ -73,65 +53,22 @@ const MobileSection = () => {
             aria-haspopup="true"
             style={{ fontSize: "1.5rem" }}
           />
-        </IconButton>
-      </Box>
+        </button>
+      </span>
 
-      <Popper
-        placement="bottom-end"
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        style={{ width: "100%", zIndex: 1 }}
-        popperOptions={{
-          modifiers: [
-            {
-              name: "offset",
-              options: {
-                offset: [0, matchMobile ? 30 : 10],
-              },
-            },
-          ],
-        }}
-      >
-        {({ TransitionProps }) => (
-          <ClickAwayListener onClickAway={handleClose}>
-            <Transitions
-              type="zoom"
-              in={open}
-              {...TransitionProps}
-              sx={{ transformOrigin: "top right" }}
-            >
-              <Paper>
-                {open && (
-                  <AppBar
-                    color="inherit"
-                    sx={{
-                      [theme.breakpoints.down("md")]: {
-                        background:
-                          Palette.mode === "dark" ? Palette.dark[800] : "#fff",
-                      },
-                    }}
-                  >
-                    <Toolbar sx={{ pt: 2.75, pb: 2.75 }}>
-                      <Grid
-                        container
-                        justifyContent={
-                          matchMobile ? "space-between" : "flex-end"
-                        }
-                        alignItems="center"
-                      >
-                        <LocalizationSection />
-                      </Grid>
-                    </Toolbar>
-                  </AppBar>
-                )}
-              </Paper>
-            </Transitions>
-          </ClickAwayListener>
+      <div className="bg-white">
+        {open && (
+          <header className="bg-white">
+            <div className="py-11">
+              <div className="container mx-auto">
+                <div className="flex justify-between items-center">
+                  <LocalizationSection />
+                </div>
+              </div>
+            </div>
+          </header>
         )}
-      </Popper>
+      </div>
     </>
   );
 };

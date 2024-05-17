@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { isMobile } from "react-device-detect";
 import { map, uniqBy } from "lodash";
 
-import { Dialog, useMediaQuery, useTheme } from "@mui/material";
+import { Dialog } from "@material-tailwind/react";
 
 // project imports
 import { selectFastestRpc } from "@/actions/shared";
@@ -60,7 +60,6 @@ export const WalletsContext = createContext<any>(null);
 export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const theme = useTheme();
   const wallet = useWallet();
   const router = useRouter();
   const { publicKey } = wallet;
@@ -78,7 +77,6 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   const [stepNumber, setStepNumber] = useState(0);
   const [workspaces, setWorkspaces] = useState<any[]>([]);
   const { showInfoToast, showWarningToast } = useToasts();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const {
     getSubwallet,
@@ -294,7 +292,6 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
       <Dialog
         open={open}
         disableEscapeKeyDown={canDismiss}
-        fullScreen={fullScreen}
         sx={{ ".MuiPaper-root": { p: 0, backgroundColor: "transparent" } }}
         keepMounted
       >

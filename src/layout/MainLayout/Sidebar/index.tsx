@@ -1,18 +1,7 @@
 import { memo, useMemo, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Drawer,
-  useMediaQuery,
-  Popper,
-  Paper,
-  ClickAwayListener,
-  Avatar,
-} from "@mui/material";
-import { MoreHorizRounded } from "@mui/icons-material";
+import { Drawer } from "@material-tailwind/react";
 
 // third-party
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -22,7 +11,6 @@ import { useDispatch, useSelector } from "@/store";
 // project imports
 import MenuList from "./MenuList";
 import MenuListCollapsed from "./MenuListCollapsed";
-import Profile from "./Profile";
 import Logo from "@/components/icons/Logo";
 import MainCard from "@/components/cards/MainCard";
 import SocialSection from "./SocialSection";
@@ -43,9 +31,6 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
-  const showProfile = true;
-  const theme = useTheme();
-  const matchUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<any>(null);
   const wallet = useWallet();
@@ -61,40 +46,20 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
 
   const { openItem, currentWS } = useSelector<any>((state) => state.menu);
 
-  const handleClick = () => {
-    dispatch(setPage("Workspace"));
-    dispatch(activeItem(["workspace"]));
-    dispatch(openDrawer(true));
-    router.push("/workspaces/home");
-  };
-  const handleMyWorkspacesClick = () => {
-    dispatch(setPage("Workspace"));
-    dispatch(activeItem(["workspace"]));
-    dispatch(openDrawer(true));
-    router.push("/workspaces");
-  };
-
   const logo = useMemo(
     () => (
-      <Box
-        sx={{ display: { xs: "block", md: "none" } }}
+      <div
+        className="md:hidden"
         onMouseEnter={(e) => {
           e.preventDefault();
           dispatch(openDrawer(!drawerOpen));
           setOpen(true);
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            p: 2,
-            mx: "auto",
-          }}
-        >
+        <div className="flex justify-center p-2 mx-auto">
           <Logo />
-        </Box>
-      </Box>
+        </div>
+      </div>
     ),
     []
   );
@@ -104,73 +69,18 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
       <PerfectScrollbar
         component="div"
         style={{
-          height: !matchUpMd
-            ? "calc(100vh - 56px - 96px)"
-            : "calc(100vh - 140px - 86px)",
+          height: "calc(100vh - 140px - 86px)",
           paddingLeft: "16px",
           paddingRight: "16px",
         }}
       >
-        {isPro ? (
-          <>
-            <Box
-              className="flex items-center mt-2 px-2 py-3 rounded-lg cursor-pointer"
-              sx={{
-                color:
-                  openItem.findIndex((el: any) => el === "workspace") > -1
-                    ? "#f38aff"
-                    : "white",
-                backgroundColor:
-                  openItem.findIndex((el: any) => el === "workspace") > -1
-                    ? "#f38aff15"
-                    : "transparent",
-                "&:hover": {
-                  color: "#f38aff",
-                },
-              }}
-              onClick={handleClick}
-            >
-              {avatar && avatar !== null ? (
-                <img className="w-7 rounded-full" src={avatar} alt="avatar" />
-              ) : (
-                <Box
-                  sx={{
-                    padding: "2px",
-                    borderRadius: "8px",
-                    backgroundColor:
-                      openItem.findIndex((el: any) => el === "workspace") > -1
-                        ? "#f38aff15"
-                        : "",
-                  }}
-                >
-                  <Avatar
-                    src={LOGO_BLACK}
-                    sx={{
-                      ...themeTypography.largeAvatar,
-                      width: 24,
-                      height: 24,
-                      margin: "0 auto",
-                    }}
-                  />
-                </Box>
-              )}
-              <span className="ml-2 font-medium" style={{ color: "#d5d9e9" }}>
-                {currentWS}
-              </span>
-            </Box>
-            <MenuList isPro={isPro} />
-            {showProfile && <Profile noPopper asButton />}
-          </>
-        ) : (
-          <>
-            {showProfile && <Profile noPopper />}
-            <MenuList />
-          </>
-        )}
+        <>
+          <MenuList />
+        </>
       </PerfectScrollbar>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [matchUpMd, wallet.publicKey, hasWorkspace, isPro, openItem, currentWS]
+    [wallet.publicKey, hasWorkspace, isPro, openItem, currentWS]
   );
 
   const drawerClosed = useMemo(
@@ -178,9 +88,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
       <PerfectScrollbar
         component="div"
         style={{
-          height: !matchUpMd
-            ? "calc(100vh - 56px - 56px)"
-            : "calc(100vh - 140px - 56px)",
+          height: "calc(100vh - 140px - 56px)",
           paddingLeft: "10px",
           paddingRight: "10px",
         }}
@@ -194,7 +102,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
       </PerfectScrollbar>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [matchUpMd, isPro]
+    [isPro]
   );
 
   const container =
@@ -217,7 +125,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
     >
       <Drawer
         container={container}
-        variant={matchUpMd ? "persistent" : "temporary"}
+        variant={"persistent"}
         anchor="left"
         open={drawerOpen}
         transitionDuration={{
@@ -232,10 +140,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
             background: Palette.background.default,
             color: Palette.text.primary,
             borderRight: "none",
-            [theme.breakpoints.up("md")]: {
-              paddingTop: "108.33px",
-            },
-            paddingTop: "31.67px",
+            paddingTop: "108.33px",
             marginTop: sticky ? "-30px" : "0px",
             transition: "margin-top .2s",
           },
@@ -245,12 +150,10 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
         color="inherit"
         onMouseLeave={(e) => {
           e.preventDefault();
-          if (matchUpMd) {
-            setTimeout(() => {
-              dispatch(openDrawer(!drawerOpen));
-              handleClose(e);
-            }, 200);
-          }
+          setTimeout(() => {
+            dispatch(openDrawer(!drawerOpen));
+            handleClose(e);
+          }, 200);
         }}
       >
         {true && (
@@ -264,88 +167,61 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
         )}
       </Drawer>
 
-      {matchUpMd && (
-        <Drawer
-          container={container}
-          variant={matchUpMd ? "persistent" : "temporary"}
-          anchor="left"
-          open={!drawerOpen}
-          transitionDuration={{
-            appear: 400,
-            enter: 200,
-            exit: 200,
-          }}
-          onClose={() => dispatch(openDrawer(drawerOpen))}
-          sx={{
-            zIndex: 900,
-            "& .MuiDrawer-paper": {
-              width: drawerWidthCollapsed,
-              background: Palette.background.default,
-              color: Palette.text.primary,
-              borderRight: "none",
-              [theme.breakpoints.up("md")]: {
-                paddingTop: "108.33px",
-              },
-              paddingTop: "31.67px",
-              marginTop: sticky ? "-30px" : "0px",
-              transition: "margin-top .2s",
-              zIndex: 1000,
-            },
-          }}
-          ModalProps={{ keepMounted: true }}
-          color="inherit"
-        >
-          <div className="flex flex-col justify-between">
-            <>
-              {drawerOpen && logo}
-              {!drawerOpen && drawerClosed}
-            </>
-
-            <div
-              className="relative flex items-center justify-center flex-shrink-0 font-inter rounded-full overflow-hidden select-none text-gray-900 bg-transparent w-6 h-6 text-3xl cursor-pointer mx-auto"
-              onMouseEnter={(e) => {
-                e.preventDefault();
-                dispatch(openDrawer(!drawerOpen));
-                setOpen(true);
-              }}
-            >
-              <MoreHorizRounded
-                htmlColor={Palette.mode === "dark" ? "white" : "black"}
-              />{" "}
-            </div>
-          </div>
-        </Drawer>
-      )}
-
-      <Popper
-        placement="left"
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        style={{
-          position: "fixed",
-          top: 95,
-          left: 0,
-          zIndex: 999,
-          width: drawerWidth,
-          borderRadius: 0,
+      <Drawer
+        container={container}
+        variant={"persistent"}
+        anchor="left"
+        open={!drawerOpen}
+        transitionDuration={{
+          appear: 400,
+          enter: 200,
+          exit: 200,
         }}
-        onMouseLeave={handleClose}
+        onClose={() => dispatch(openDrawer(drawerOpen))}
+        sx={{
+          zIndex: 900,
+          "& .MuiDrawer-paper": {
+            width: drawerWidthCollapsed,
+            background: Palette.background.default,
+            color: Palette.text.primary,
+            borderRight: "none",
+              paddingTop: "108.33px",
+            marginTop: sticky ? "-30px" : "0px",
+            transition: "margin-top .2s",
+            zIndex: 1000,
+          },
+        }}
+        ModalProps={{ keepMounted: true }}
+        color="inherit"
       >
-        {({ TransitionProps }) => (
-          <ClickAwayListener onClickAway={handleClose}>
-            <Paper style={{ borderRadius: 0 }}>
-              {open && (
-                <MainCard border content={false}>
-                  {!drawerOpen && drawer}
-                </MainCard>
-              )}
-            </Paper>
-          </ClickAwayListener>
+        <div className="flex flex-col justify-between">
+          <>
+            {drawerOpen && logo}
+            {!drawerOpen && drawerClosed}
+          </>
+
+          <div
+            className="relative flex items-center justify-center flex-shrink-0 font-inter rounded-full overflow-hidden select-none text-gray-900 bg-transparent w-6 h-6 text-3xl cursor-pointer mx-auto"
+            onMouseEnter={(e) => {
+              e.preventDefault();
+              dispatch(openDrawer(!drawerOpen));
+              setOpen(true);
+            }}
+          >
+            {/* <MoreHorizRounded
+              htmlColor={Palette.mode === "dark" ? "white" : "black"}
+            />{" "} */}
+          </div>
+        </div>
+      </Drawer>
+
+      <div className="rounded-none">
+        {open && (
+          <MainCard border content={false}>
+            {!drawerOpen && drawer}
+          </MainCard>
         )}
-      </Popper>
+      </div>
     </nav>
   );
 };

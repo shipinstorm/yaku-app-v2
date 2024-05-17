@@ -1,18 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Avatar,
-  Stack,
-  Typography,
-  Divider,
-  Box,
-} from "@mui/material";
+import { useEffect, useState } from "react";
+
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
+
 import SolanaIcon from "@/components/icons/SolanaIcon";
+
 import { YAKU_TOKEN_ICON } from "@/config/config";
+
 import { useMeta } from "@/contexts/meta/meta";
+
 import useConnections from "@/hooks/useConnetions";
-import { useEffect, useState } from "react";
+
 import themeTypography from "@/themes/typography";
 
 const WalletValueSection = ({
@@ -46,101 +45,57 @@ const WalletValueSection = ({
   }, [wallet]);
   return (
     <>
-      <Stack
-        direction="row"
-        spacing={0.5}
-        alignItems="center"
-        justifyContent="flex-start"
-        sx={{ p: 0.5 }}
-      >
+      <div className="flex items-center justify-start p-1">
         <SolanaIcon />
-        <Stack
-          direction="column"
-          alignItems="flex-start"
-          justifyContent="flex-start"
-        >
-          <Typography variant="body1" fontWeight="400" sx={{ ml: 1 }}>
-            {title}
-          </Typography>
+        <div className="flex flex-col items-start justify-start ml-1">
+          <p className="text-base font-normal">{title}</p>
           {wallet && (
-            <Typography variant="body1" fontWeight="800" sx={{ ml: 1 }}>
+            <p className="text-base font-bold ml-1">
               {(balance || 0).toLocaleString()} ◎
-            </Typography>
+            </p>
           )}
-        </Stack>
-      </Stack>
-      <Stack
-        direction="row"
-        spacing={0.5}
-        alignItems="center"
-        justifyContent="flex-start"
-        sx={{ p: 0.5 }}
-      >
-        <Avatar
+        </div>
+      </div>
+      <div className="flex items-center justify-start p-1">
+        <img
           src={YAKU_TOKEN_ICON}
-          sx={{
-            ...themeTypography.mediumAvatar,
-            cursor: "pointer",
-            width: 24,
-            height: 24,
-          }}
+          className="cursor-pointer w-6 h-6"
           aria-controls={open ? "menu-list-grow" : undefined}
           aria-haspopup="true"
-          color="inherit"
+          alt="Yaku Token Icon"
         />
-        <Stack
-          direction="column"
-          alignItems="flex-start"
-          justifyContent="flex-start"
-        >
+        <div className="flex flex-col items-start justify-start ml-1">
           {wallet && (
-            <Typography variant="body1" fontWeight="800" sx={{ ml: 1 }}>
+            <p className="text-base font-bold">
               {(tokenBalance || 0).toLocaleString()} ◎
-            </Typography>
+            </p>
           )}
-        </Stack>
-      </Stack>
-      <Divider />
+        </div>
+      </div>
+      <hr />
       {showEscrow && (
-        <Stack
-          direction="row"
-          spacing={0.5}
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{ p: 0.5, mt: 1 }}
-        >
-          <Box sx={{ display: "flex", gap: 0.5 }}>
+        <div className="flex items-center justify-between p-1 mt-1">
+          <div className="flex gap-1">
             <SolanaIcon />
-            <Stack
-              direction="column"
-              alignItems="flex-start"
-              justifyContent="flex-start"
-            >
-              <Typography
-                variant="body1"
-                fontWeight="400"
-                sx={{ ml: 1 }}
-                noWrap
-              >
+            <div className="flex flex-col items-start justify-start">
+              <p className="text-base font-normal ml-1 whitespace-nowrap">
                 Bidding Wallet
-              </Typography>
+              </p>
               {escrowBal !== undefined && (
-                <Typography variant="body1" fontWeight="800" sx={{ ml: 1 }}>
+                <p className="text-base font-bold ml-1">
                   {(escrowBal || 0).toLocaleString()} ◎
-                </Typography>
+                </p>
               )}
-            </Stack>
-          </Box>
-          {/* <Tooltip title="Withdraw"> */}
-          <button
-            className="inline-flex items-center justify-center relative box-border bg-transparent outline-none border-0 user-select-none align-middle text-capitalize font-inter text-xs leading-7 min-w-16 px-1 py-1.5 transition-colors duration-250 ease-in-out font-medium rounded-md hover:bg-gray-100 hover:shadow-md hover:border-gray-300 hover:text-gray-700 disabled:text-white disabled:text-opacity-30 disabled:hover:bg-inherit"
-            onClick={() => handleWithdraw()}
-            disabled={(escrowBal?.getMEEscrowBalance?.balance || 0) === 0}
-          >
-            Withdraw
-          </button>
-          {/* </Tooltip> */}
-        </Stack>
+            </div>
+            <button
+              className="inline-flex items-center justify-center relative box-border bg-transparent outline-none border-0 user-select-none align-middle text-capitalize font-inter text-xs leading-7 min-w-16 px-1 py-1.5 transition-colors duration-250 ease-in-out font-medium rounded-md hover:bg-gray-100 hover:shadow-md hover:border-gray-300 hover:text-gray-700 disabled:text-white disabled:text-opacity-30 disabled:hover:bg-inherit"
+              onClick={() => handleWithdraw()}
+              disabled={(escrowBal?.getMEEscrowBalance?.balance || 0) === 0}
+            >
+              Withdraw
+            </button>
+          </div>
+        </div>
       )}
     </>
   );

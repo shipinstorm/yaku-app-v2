@@ -1,4 +1,3 @@
-import { Color } from "@mui/material";
 import { PaletteMode } from "@/types/config";
 import { Property } from "csstype";
 
@@ -31,7 +30,7 @@ export interface CustomTypography {
     "& > label": {
       top: string;
       left: number;
-      color?: Color | (Color | undefined)[] | Color[];
+      // color?: Color | (Color | undefined)[] | Color[];
       '&[data-shrink="false"]': {
         top: string;
       };
@@ -59,7 +58,7 @@ export interface CustomTypography {
   menuCaption?: {
     fontSize: string;
     fontWeight: number;
-    color?: Color | (Color | undefined)[] | Color[];
+    // color?: Color | (Color | undefined)[] | Color[];
     padding: string;
     textTransform: "uppercase" | "lowercase" | "capitalize" | "inherit";
     marginTop: string;
@@ -67,7 +66,7 @@ export interface CustomTypography {
   subMenuCaption?: {
     fontSize: string;
     fontWeight: number;
-    color: Color | (Color | undefined)[] | Color[];
+    // color: Color | (Color | undefined)[] | Color[];
     textTransform: "uppercase" | "lowercase" | "capitalize" | "inherit";
   };
   commonAvatar?: {

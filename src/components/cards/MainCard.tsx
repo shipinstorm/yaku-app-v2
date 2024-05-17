@@ -1,16 +1,5 @@
 import React, { Ref } from "react";
 
-// material-ui
-import {
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-  CardProps,
-  CardHeaderProps,
-  CardContentProps,
-} from "@mui/material";
-
 // project imports
 import { KeyedObject } from "@/types";
 
@@ -29,10 +18,10 @@ export interface MainCardProps extends KeyedObject {
   content?: boolean;
   className?: string;
   contentClass?: string;
-  contentSX?: CardContentProps["sx"];
+  contentSX?: any;
   darkTitle?: boolean;
-  sx?: CardProps["sx"];
-  secondary?: CardHeaderProps["action"];
+  sx?: any;
+  secondary?: any;
   shadow?: string;
   elevation?: number;
   title?: React.ReactNode | string;
@@ -63,32 +52,23 @@ const MainCard = React.forwardRef(
       {...others}
       className="text-[rgba(0,0,0,0.87)] overflow-hidden bg-transparent shadow-none"
     >
-      {/* card header and action */}
       {!darkTitle && title && (
-        <CardHeader sx={headerSX} title={title} action={secondary} />
+        <div className={headerSX}>
+          {title}
+          {secondary}
+        </div>
       )}
       {darkTitle && title && (
-        <CardHeader
-          sx={headerSX}
-          title={
-            !titleComponent ? (
-              <Typography variant="h3">{title}</Typography>
-            ) : (
-              titleComponent
-            )
-          }
-          action={secondary}
-        />
+        <div className={headerSX}>
+          {!titleComponent ? <h3>{title}</h3> : titleComponent}
+          {secondary}
+        </div>
       )}
 
-      {/* content & header divider */}
-      {title && <Divider />}
+      {title && <hr />}
 
-      {/* card content */}
       {content && (
-        <CardContent sx={contentSX} className={contentClass}>
-          {children}
-        </CardContent>
+        <div className={`${contentSX} ${contentClass}`}>{children}</div>
       )}
       {!content && children}
     </div>

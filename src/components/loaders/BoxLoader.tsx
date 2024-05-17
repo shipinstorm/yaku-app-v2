@@ -1,25 +1,19 @@
 import { FC, ReactNode } from "react";
 
-// material-ui
-import { styled } from "@mui/material/styles";
-
 // project imports
 import { useMeta } from "@/contexts/meta/meta";
 
 // styles
-const LoaderWrapper = styled("div")({
-  display: "flex",
-  position: "fixed",
-  left: 0,
-  top: 0,
-  width: "100%",
-  height: "100vh",
-  zIndex: 9999,
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "20px",
-  background: "rgba(9, 8, 13, 0.6)",
-});
+const LoaderWrapper = ({ children, ...props }: any) => {
+  return (
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50"
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 interface LoaderProviderProps {
   children: ReactNode;

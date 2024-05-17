@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import {
-  Button,
-  Dialog,
-  Grid,
-  TextField,
-  Avatar,
-  DialogContent,
-} from "@mui/material";
-
+import { Dialog, DialogBody } from "@material-tailwind/react";
 import { IconX } from "@tabler/icons-react";
 
 import AuthCardWrapper from "@/components/authentication/AuthCardWrapper";
@@ -81,80 +73,66 @@ const PlayerSection = ({
       open={open}
       onClose={onClose}
     >
-      <DialogContent>
+      <DialogBody>
         <div className="bg-transparent min-h-[70vh]">
           <div className="box-border flex flex-col justify-end min-h-[70vh] card">
             <div className="box-border m-0">
-              <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                sx={{ minHeight: "calc(70vh - 68px)" }}
-              >
-                <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
+              <div className="flex items-center justify-center min-h-[calc(70vh-68px)]">
+                <div className="m-1 sm:m-3 mb-0">
                   <AuthCardWrapper className="rounded-3xl">
-                    <Grid
-                      container
-                      spacing={2}
-                      alignItems="center"
-                      justifyContent="center"
-                      gap={2}
-                    >
-                      <Grid item className="flex justify-between w-full">
-                        <p className="w-9" />
+                    <div className="flex flex-wrap items-center justify-center gap-2">
+                      <div className="flex justify-between w-full">
+                        <p className="w-9"></p>
                         <Link to="#">
                           <Logo />
                         </Link>
-                        <Avatar
-                          className="button-small items-center p-0"
-                          color="inherit"
-                          aria-haspopup="true"
+                        <button
+                          className="button-small"
                           onClick={() => onClose()}
                         >
-                          <IconX stroke={1.5} size="1.3rem" />
-                        </Avatar>
-                      </Grid>
+                          <IconX className="h-5 w-5" strokeWidth={1.5} />
+                        </button>
+                      </div>
                       <p className="text-[#D8DDF0] text-base">
                         Register / Login Player Account
                       </p>
-                      <Grid container gap={2}>
-                        <Grid item xs={12}>
+                      <div className="flex flex-col gap-2">
+                        <div className="w-full">
                           <input
                             type="email"
                             className="w-full px-3 py-4 rounded-md text-base"
                             placeholder="Email"
                             onChange={(e) => setEmail(e.target.value)}
                           />
-                        </Grid>
-                        <Grid item xs={12}>
+                        </div>
+                        <div className="w-full">
                           <input
                             className="w-full px-3 py-4 rounded-md text-base"
                             placeholder="EpicId"
                             onChange={(e) => setEpicId(e.target.value)}
                           />
-                        </Grid>
+                        </div>
                         <div className="flex items-center justify-center w-full">
-                          <Button
-                            variant="outlined"
+                          <button
                             onClick={() => handleLoginWithEpic()}
                             className="text-center disabled:bg-gray-200"
                             disabled={disabled}
                           >
                             Connect
-                          </Button>
+                          </button>
                         </div>
-                      </Grid>
-                    </Grid>
+                      </div>
+                    </div>
                   </AuthCardWrapper>
-                </Grid>
-              </Grid>
+                </div>
+              </div>
             </div>
             <div className="box-border flex-grow-0 flex-shrink-0 flex-basis-full m-6 mt-2">
               <AuthFooter />
             </div>
           </div>
         </div>
-      </DialogContent>
+      </DialogBody>
     </Dialog>
   );
 };

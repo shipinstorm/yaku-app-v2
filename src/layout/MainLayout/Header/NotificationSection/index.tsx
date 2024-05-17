@@ -1,9 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import { Avatar, Box, Badge, Tooltip } from "@mui/material";
-
 // assets
 import { IconBell } from "@tabler/icons-react";
 import useNotifications from "@/hooks/useNotifications";
@@ -12,33 +7,28 @@ import themeTypography from "@/themes/typography";
 // ==============================|| NOTIFICATION ||============================== //
 
 const NotificationSection = () => {
-  const theme = useTheme();
   const { unreadCount, open, handleToggle, anchorRef } = useNotifications();
 
   return (
-    <>
-      <Box sx={{ ml: 1.5 }}>
-        <Badge color="secondary" badgeContent={unreadCount}>
-          <Tooltip title="Notifications">
-            <Avatar
-              className="button-small"
-              sx={{
-                ...themeTypography.commonAvatar,
-                ...themeTypography.mediumAvatar,
-                transition: "all .2s ease-in-out",
-              }}
-              ref={anchorRef}
-              aria-controls={open ? "menu-list-grow" : undefined}
-              aria-haspopup="true"
-              onClick={handleToggle}
-              color="inherit"
-            >
-              <IconBell stroke={1.5} size="1.3rem" />
-            </Avatar>
-          </Tooltip>
-        </Badge>
-      </Box>
-    </>
+    <div className="ml-1.5">
+      <span className="relative inline-block">
+        <button
+          className="button-small"
+          onClick={handleToggle}
+          aria-haspopup="true"
+          aria-controls={open ? "menu-list-grow" : undefined}
+        >
+          <IconBell className="h-5 w-5" strokeWidth={1.5} />
+        </button>
+        {unreadCount > 0 && (
+          <span className="absolute top-0 right-0 -mt-1 -mr-1">
+            <span className="inline-flex items-center justify-center h-4 w-4 bg-red-500 text-white rounded-full text-xs">
+              {unreadCount}
+            </span>
+          </span>
+        )}
+      </span>
+    </div>
   );
 };
 

@@ -1,8 +1,5 @@
 import { forwardRef, Ref } from "react";
 
-// material-ui
-import { CardProps, CardContentProps } from "@mui/material";
-
 // project-imports
 import { KeyedObject } from "@/types";
 
@@ -22,14 +19,14 @@ export interface MainCardProps extends KeyedObject {
   subheader?: React.ReactNode | string;
   content?: boolean;
   contentClass?: string;
-  contentSX?: CardContentProps["sx"];
+  contentSX?: any;
   darkTitle?: boolean;
   divider?: boolean;
   elevation?: number;
   primary?: React.ReactNode | string;
   secondary?: React.ReactNode | string;
   shadow?: string;
-  sx?: CardProps["sx"];
+  sx?: any;
   title?: React.ReactNode | string;
   onClick?: () => void;
 }

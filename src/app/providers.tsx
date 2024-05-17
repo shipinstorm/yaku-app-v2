@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 // project imports
 import Locales from "@/providers/Locales";
 import NavigationScroll from "@/layout/NavigationScroll";
-import ThemeCustomization from "@/themes";
 
 // third-party
 import { ToastContainer } from "react-toastify";
@@ -31,7 +30,6 @@ import { JupiterApiProvider } from "@/contexts/JupiterApiProvider";
 import { TPSProvider } from "@/contexts/TPSContext";
 import Composer from "@/contexts/Composer";
 import { ConnectionsProvider } from "@/contexts/ConnectionsContext";
-import { BundleWalletProvider } from "@/contexts/BundleWalletContext";
 import { PlayerWalletProvider } from "@/contexts/PlayerWalletContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { StakedProvider } from "@/contexts/StakedContext";
@@ -56,7 +54,6 @@ const contexts = [
   WalletContext,
   EthWalletProvider,
   ConnectionsProvider,
-  ThemeCustomization,
   Locales,
   MetaProvider,
   PlayerWalletProvider,
@@ -69,7 +66,6 @@ const contexts = [
   LoaderProvider,
   RecoilRoot,
   TPSProvider,
-  BundleWalletProvider,
   CartProvider,
   StakedProvider,
   SolPriorityProvider,

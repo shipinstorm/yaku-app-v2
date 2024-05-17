@@ -1,4 +1,3 @@
-import { CallMade } from "@mui/icons-material";
 import { useYakuUSDCPrice } from "@/contexts/JupitarContext";
 
 const YakuBuyLink = () => {
@@ -13,7 +12,8 @@ const YakuBuyLink = () => {
         className="text-blue-500 hover:underline"
       >
         <span className="text-primary text-base">
-          BUY YAKU ${yakuUSDCPrice.toFixed(4)} <CallMade sx={{ width: 16 }} />
+          BUY YAKU ${yakuUSDCPrice.toFixed(4)}
+          {/* BUY YAKU ${yakuUSDCPrice.toFixed(4)} <CallMade sx={{ width: 16 }} /> */}
         </span>
       </a>
 
@@ -24,7 +24,8 @@ const YakuBuyLink = () => {
         className="text-blue-500 hover:underline"
       >
         <span className="text-primary text-base">
-          MARKET <CallMade sx={{ width: 16 }} />
+          MARKET
+          {/* MARKET <CallMade sx={{ width: 16 }} /> */}
         </span>
       </a>
     </div>

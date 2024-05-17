@@ -8,16 +8,6 @@ import { Link } from "react-router-dom";
 
 import { useRouter, redirect } from "next/navigation";
 
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import {
-  Avatar,
-  Chip,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-
 // project imports
 import useConfig from "@/hooks/useConfig";
 import { useDispatch, useSelector } from "@/store";
@@ -36,8 +26,6 @@ interface NavItemProps {
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 const NavItem = ({ item, level }: NavItemProps) => {
-  const theme = useTheme();
-
   const router = useRouter();
 
   const { borderRadius } = useConfig();
@@ -91,134 +79,84 @@ const NavItem = ({ item, level }: NavItemProps) => {
   const Icon = item?.icon!;
 
   return (
-    <ListItemButton
+    <button
       {...listItemProps}
       disabled={item.disabled}
-      sx={{
-        cursor: item.hidden ? "not-allowed" : "pointer",
-        borderRadius: `${borderRadius}px`,
-        mb: 0.5,
-        alignItems: "flex-start",
-        backgroundColor: level > 1 ? "transparent !important" : "inherit",
-        py: level > 1 ? 1 : 1.25,
-        pl: level > 0 ? `${level * 24}px` : "6px",
-      }}
-      className={level === 0 ? `hover:bg-transparent` : ``}
-      selected={openItem?.findIndex((id: any) => id === item.id) > -1}
+      className={`cursor-${
+        item.hidden ? "not-allowed" : "pointer"
+      } rounded-${borderRadius} mb-0.5 ${
+        level > 1 ? "bg-transparent !important" : "bg-inherit"
+      } py-${level > 1 ? 1 : 1.25} ${level > 0 ? `pl-${level * 6}` : "pl-6"}`}
+      // selected={openItem?.findIndex((id: any) => id === item.id) > -1}
       onClick={() => itemHandler(item.id!, item.title as string)}
     >
       {level === 0 && item?.icon && (
         <Icon stroke="1.5" className="ml-1" />
         // <Icon stroke="1.5" className="ml-1" size="24px" />
       )}
-      <ListItemText
-        primary={
-          item.hidden ? (
-            <Typography
-              variant={
-                openItem?.findIndex((id: any) => id === item.id) > -1
-                  ? "h5"
-                  : "body1"
-              }
-              data-text="???????"
-              className="glitch layers"
-              color="inherit"
-              sx={{
-                animation: "paths 5s step-end infinite",
-                letterSpacing: "6px",
-                filter: "drop-shadow(0 1px 3px)",
-              }}
-            >
-              ???????
-            </Typography>
-          ) : (
-            <Typography
-              variant={
-                openItem?.findIndex((id: any) => id === item.id) > -1
-                  ? "h5"
-                  : "body1"
-              }
-              color="inherit"
-              sx={{ mx: "12px", fontWeight: "500" }}
-            >
-              {item.title}
-            </Typography>
-          )
-        }
-        secondary={
-          item.caption && (
-            <Typography
-              variant="caption"
-              sx={{ ...themeTypography.subMenuCaption }}
-              display="block"
-              gutterBottom
-            >
-              {item.caption}
-            </Typography>
-          )
-        }
-      />
-      {item.hidden && (
-        <Chip
-          sx={{
-            fontWeight: 500,
+      {item.hidden ? (
+        <p
+          className={`${
+            openItem?.findIndex((id: any) => id === item.id) > -1
+              ? "text-xl"
+              : "text-base"
+          } glitch layers text-gray-800`}
+          data-text="???????"
+          style={{
+            animation: "paths 5s step-end infinite",
+            letterSpacing: "6px",
+            filter: "drop-shadow(0 1px 3px)",
           }}
-          className="bg-pink-main rounded-2xl"
-          color="secondary"
-          variant="filled"
-          size="small"
-          label="SOON"
-        />
+        >
+          ???????
+        </p>
+      ) : (
+        <p
+          className={`${
+            openItem?.findIndex((id: any) => id === item.id) > -1
+              ? "text-xl"
+              : "text-base"
+          } text-gray-800 font-medium`}
+          style={{ marginLeft: "12px" }}
+        >
+          {item.title}
+        </p>
+      )}
+      {item.caption && <p className="text-xs text-gray-500">{item.caption}</p>}
+      {item.hidden && (
+        <div className="font-medium bg-pink-main rounded-2xl">
+          <span className="text-white px-2 py-1">SOON</span>
+        </div>
       )}
       {item.soon && (
-        <Chip
-          sx={{
-            fontWeight: 500,
-          }}
-          className="bg-pink-main rounded-2xl"
-          color="secondary"
-          variant="filled"
-          size="small"
-          label="SOON"
-        />
+        <span className="font-medium bg-pink-main rounded-2xl text-white px-2 py-1">
+          SOON
+        </span>
       )}
       {item.hot && (
-        <Chip
-          sx={{
-            fontWeight: 500,
-            borderRadius: "4px !important",
-            background: "#d48342",
-          }}
-          color="secondary"
-          variant="filled"
-          size="small"
-          label="HOT"
-        />
+        <span className="font-medium bg-d48342 rounded-2xl text-white px-2 py-1">
+          HOT
+        </span>
       )}
       {item.new && (
-        <Chip
-          sx={{
-            fontWeight: 500,
-            borderRadius: "4px !important",
-            background: "#4291d4",
-          }}
-          color="secondary"
-          variant="filled"
-          size="small"
-          label="NEW"
-        />
+        <span className="font-medium bg-4291d4 rounded-2xl text-white px-2 py-1">
+          NEW
+        </span>
       )}
       {item.chip && (
-        <Chip
-          sx={{ fontWeight: 500, borderRadius: "4px !important" }}
-          color={item.chip.color}
-          variant={item.chip.variant}
-          size={item.chip.size}
-          label={item.chip.label}
-          avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
-        />
+        <span
+          className={`font-medium rounded-2xl px-2 py-1 ${
+            item.chip.color === "primary"
+              ? "bg-blue-500"
+              : item.chip.color === "secondary"
+              ? "bg-gray-500"
+              : ""
+          }`}
+        >
+          {item.chip.label}
+        </span>
       )}
-    </ListItemButton>
+    </button>
   );
 };
 

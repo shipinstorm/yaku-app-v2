@@ -1,4 +1,3 @@
-import { Grid, Skeleton, Typography, useTheme } from "@mui/material";
 import { find } from "lodash";
 
 const DetailView = ({
@@ -7,17 +6,16 @@ const DetailView = ({
   solPrice,
   loading,
 }: any) => {
-  const theme = useTheme();
   if (loading) {
     return (
-      <Grid container spacing={2} sx={{ my: 1 }}>
-        <Grid item xs={6}>
-          <Skeleton variant="rounded" width="100%" height={16} />
-        </Grid>
-        <Grid item xs={6}>
-          <Skeleton variant="rounded" width="100%" height={16} />
-        </Grid>
-      </Grid>
+      <div className="grid grid-cols-2 gap-2 my-1">
+        <div className="col-span-1">
+          <div className="bg-gray-200 rounded animate-pulse h-4"></div>
+        </div>
+        <div className="col-span-1">
+          <div className="bg-gray-200 rounded animate-pulse h-4"></div>
+        </div>
+      </div>
     );
   }
   const {
@@ -36,34 +34,16 @@ const DetailView = ({
 
   return (
     <>
-      <Grid
-        container
-        columnSpacing={1}
-        rowSpacing={1}
-        sx={{ my: 1 }}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Grid
-          item
-          xs={12}
-          className="!p-0"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography
-            component="p"
-            className="text-terciary font-bold text-[14px]"
-          >
-            Listed
-          </Typography>
-          <p className="text-lg font-bold">
-            {num_of_token_listed} / {supply}
-          </p>
-        </Grid>
-      </Grid>
+      <div className="grid grid-cols-1 gap-y-1 my-1">
+        <div className="flex justify-between items-center p-1">
+          <div className="flex flex-col items-center">
+            <p className="text-terciary font-bold text-sm">Listed</p>
+            <p className="text-lg font-bold">
+              {num_of_token_listed} / {supply}
+            </p>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

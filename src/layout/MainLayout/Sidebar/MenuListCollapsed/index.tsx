@@ -4,10 +4,7 @@ import { memo } from "react";
 // project imports
 import { NavItemTypeObject } from "@/types";
 import menuItem from "@/menu-items";
-import proItem from "@/menu-items/pro-items";
 import NavItem from "./NavItem";
-import { Avatar, Box } from "@mui/material";
-import { Workspaces } from "@mui/icons-material";
 import useAuth from "@/hooks/useAuth";
 import { DEFAULT_IMAGE_URL, IMAGE_PROXY, LOGO_BLACK } from "@/config/config";
 import { isEmpty } from "lodash";
@@ -26,7 +23,7 @@ const MenuListCollapsed = ({ isPro }: any) => {
   const { ethConnected } = useEthcontext();
 
   const allItems: NavItemTypeObject[] = [];
-  const menu = isPro ? proItem : menuItem;
+  const menu = menuItem;
 
   menu.items.forEach((item: NavItemTypeObject) => {
     if (item && item.showInCollapsed) {
@@ -45,124 +42,29 @@ const MenuListCollapsed = ({ isPro }: any) => {
   };
 
   const { openItem } = useSelector<any>((state: any) => state.menu);
-  const workspace = JSON.parse(localStorage.getItem("workspace") || "{}");
-  const avatar = workspace.image;
 
   return (
     <>
-      {isPro ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            padding: "10px",
-            borderRadius: "8px",
-            color:
-              openItem.findIndex((el: any) => el === "workspace") > -1
-                ? "#f38aff"
-                : "",
-            backgroundColor:
-              openItem.findIndex((el: any) => el === "workspace") > -1
-                ? "#f38aff15"
-                : "",
-          }}
-        >
-          {avatar && avatar !== null ? (
-            <img className="w-7 rounded-full" src={avatar} alt="avatar" />
-          ) : (
-            <Box
-              sx={{
-                padding: "10px",
-                borderRadius: "8px",
-                backgroundColor:
-                  openItem.findIndex((el: any) => el === "workspace") > -1
-                    ? "#f38aff15"
-                    : "",
-              }}
-            >
-              <Avatar
-                src={LOGO_BLACK}
-                sx={{
-                  ...themeTypography.largeAvatar,
-                  width: 24,
-                  height: 24,
-                  margin: "0 auto",
-                }}
-              />
-            </Box>
-          )}
-        </Box>
-      ) : (
-        showAvatar &&
+      {showAvatar &&
         !isEmpty(auth.user) &&
         (wallet.connected || ethConnected) && (
-          <Box
-            sx={{
-              padding: "10px",
-              borderRadius: "8px",
-              backgroundColor:
-                openItem.findIndex((el: any) => el === "profile") > -1
-                  ? "#f38aff15"
-                  : "",
-            }}
+          <div
+            className={`p-2.5 rounded-lg ${
+              openItem.findIndex((el: any) => el === "profile") > -1
+                ? "bg-[#f38aff15]"
+                : ""
+            }`}
           >
-            <Avatar
+            <img
               src={getAvatar()}
-              sx={{
-                ...themeTypography.largeAvatar,
-                width: 24,
-                height: 24,
-                margin: "0 auto",
-                background: "transparent",
-              }}
+              alt="Avatar"
+              className="w-6 h-6 mx-auto bg-transparent"
             />
-          </Box>
-        )
-      )}
+          </div>
+        )}
       {allItems.map((el, idx) => (
         <NavItem key={idx} item={el} level={0} />
       ))}
-      {isPro && (
-        <>
-          <Box
-            sx={{
-              padding: "10px 14px",
-              borderRadius: "8px",
-              backgroundColor:
-                openItem.findIndex((el: any) => el === "workspace") > -1
-                  ? "#f38aff15"
-                  : "",
-            }}
-          >
-            <Workspaces />
-          </Box>
-          {showAvatar &&
-            !isEmpty(auth.user) &&
-            (wallet.connected || ethConnected) && (
-              <Box
-                sx={{
-                  padding: "10px",
-                  borderRadius: "8px",
-                  backgroundColor:
-                    openItem.findIndex((el: any) => el === "profile") > -1
-                      ? "#f38aff15"
-                      : "",
-                }}
-              >
-                <Avatar
-                  src={getAvatar()}
-                  sx={{
-                    ...themeTypography.largeAvatar,
-                    width: 24,
-                    height: 24,
-                    margin: "0 auto",
-                    background: "transparent",
-                  }}
-                />
-              </Box>
-            )}
-        </>
-      )}
     </>
   );
 };

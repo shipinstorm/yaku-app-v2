@@ -1,6 +1,3 @@
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
 // web3 imports
 import { useWallet } from "@solana/wallet-adapter-react";
 
@@ -14,8 +11,6 @@ import YakuBuyLink from "../YakuBuyLink";
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = () => {
-  const theme = useTheme();
-  const matchUpMd = useMediaQuery(theme.breakpoints.up("md"));
   const { connected } = useWallet();
 
   return (
@@ -25,7 +20,7 @@ const Header = () => {
         <div className="hidden md:flex items-center flex-grow justify-center">
           <LogoSection />
         </div>
-        {!matchUpMd && <ProfileAvatar />}
+        <ProfileAvatar />
       </div>
 
       <div className="flex-grow"></div>

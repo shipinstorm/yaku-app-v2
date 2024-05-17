@@ -26,16 +26,15 @@ import { Transaction } from "@solana/web3.js";
 import { useAccount } from "wagmi";
 
 // project imports
-import Transitions from "@/components/Transitions";
+import MainCard from "@/components/cards/MainCard";
+import WalletValueSection from "@/components/profiles/WalletValueSection";
+
 import EthLogo from "@/components/icons/EthLogo";
 import DiscordLogo from "@/components/icons/DiscordLogo";
 import TwitterLogo from "@/components/icons/TwitterLogo";
 import PhantomLogo from "@/components/icons/PhantomLogo";
 import MetamaskLogo from "@/components/icons/MetamaskLogo";
-import MainCard from "@/components/cards/MainCard";
-import WalletValueSection from "@/components/profiles/WalletValueSection";
 
-import { useBundleView } from "@/contexts/BundleWalletContext";
 import { usePlayerView } from "@/contexts/PlayerWalletContext";
 import { useEthcontext } from "@/contexts/EthWalletProvider";
 
@@ -60,7 +59,6 @@ const ProfilePopperContext = ({ showProfile }: any) => {
   const { connection } = useConnections();
   const { ethAddress, ethConnected, ethBalance, ethConnect, ethDisconnect } =
     useEthcontext();
-  const { setShowBundleView } = useBundleView();
   const { setShowPlayerView } = usePlayerView();
   const auth = useAuth();
   const game = useGame();

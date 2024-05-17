@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { LoadingButton } from "@mui/lab";
-import { Grid, Typography } from "@mui/material";
 import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { getATokenAddrFungible } from "@/actions/shared";
@@ -93,15 +91,17 @@ const CAConversion = () => {
             description="Cosmic Astronauts original staking contract will be tapped out soon. Please click the button to convert them
                                 to Yaku staking contract."
             buttons={
-              <LoadingButton
-                loading={loading}
-                variant="contained"
-                color="warning"
-                sx={{ minWidth: 120 }}
+              <button
+                disabled={loading}
                 onClick={handleConvertStake}
+                className={`min-w-[120px] ${
+                  loading
+                    ? "opacity-50 cursor-not-allowed"
+                    : "bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 text-white font-semibold rounded-lg py-2 px-4 transition duration-300 ease-in-out"
+                }`}
               >
-                <Typography noWrap>Convert All</Typography>
-              </LoadingButton>
+                <p className="whitespace-nowrap">Convert All</p>
+              </button>
             }
           />
         </div>

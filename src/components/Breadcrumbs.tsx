@@ -2,11 +2,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-// material-ui
-import { useTheme } from "@mui/material/styles";
-import { Divider, Grid, Typography } from "@mui/material";
-import MuiBreadcrumbs from "@mui/material/Breadcrumbs";
-
 // project imports
 import { BASE_PATH } from "@/config";
 
@@ -15,7 +10,6 @@ import { Palette } from "@/themes/palette";
 // assets
 import { ApartmentOutlined, HomeFilled, HomeOutlined } from "@ant-design/icons";
 
-import AccountTreeTwoToneIcon from "@mui/icons-material/AccountTreeTwoTone";
 import { NavItemType, NavItemTypeObject, OverrideIcon } from "@/types";
 import { each, find, get } from "lodash";
 
@@ -54,7 +48,6 @@ const Breadcrumbs = ({
   sx,
   ...others
 }: BreadCrumbsProps) => {
-  const theme = useTheme();
   const [main, setMain] = useState<NavItemType | undefined>();
   const [item, setItem] = useState<NavItemType>();
   const [subItem, setSubItem] = useState<string>();
@@ -62,11 +55,11 @@ const Breadcrumbs = ({
   const isClient = typeof window !== "undefined";
 
   const iconSX = {
-    marginRight: theme.spacing(0.75),
-    marginTop: `-${theme.spacing(0.25)}`,
+    marginRight: "0.75rem",
+    marginTop: `-0.25rem`,
     width: "1rem",
     height: "1rem",
-    color: Palette.secondary.main
+    color: Palette.secondary.main,
   };
 
   // set active item state
@@ -76,7 +69,10 @@ const Breadcrumbs = ({
         if (collapse.type && collapse.type === "collapse") {
           getCollapse(collapse as { children: NavItemType[]; type?: string });
         } else if (collapse.type && collapse.type === "item") {
-          if (isClient && document.location.pathname === BASE_PATH + collapse.url) {
+          if (
+            isClient &&
+            document.location.pathname === BASE_PATH + collapse.url
+          ) {
             setMain(menu);
             setItem(collapse);
           }
@@ -153,18 +149,15 @@ const Breadcrumbs = ({
 
   // collapse item
   if (main && main.type === "collapse") {
-    CollapseIcon = main.icon ? main.icon : AccountTreeTwoToneIcon;
+    CollapseIcon = main.icon;
     mainContent = (
-      <Typography
-        component={Link}
-        to={document.location.pathname}
-        variant="h6"
-        sx={{ textDecortation: "none" }}
-        color="textSecondary"
+      <a
+        href={document.location.pathname}
+        className="text-sm font-medium text-gray-500"
       >
         {icons && <CollapseIcon style={iconSX} />}
         {main.title}
-      </Typography>
+      </a>
     );
   }
 
@@ -174,81 +167,75 @@ const Breadcrumbs = ({
 
     ItemIcon = item.icon ? item.icon : ApartmentOutlined;
     itemContent = (
-      <Typography variant="subtitle1" color="textPrimary">
+      <p className="text-sm text-gray-900">
         {icons && <ItemIcon style={iconSX} />}
         {itemTitle}
-      </Typography>
+      </p>
     );
 
     if (subItem) {
       itemContent = (
-        <Typography
-          component={Link}
-          to={item.url || document.location.pathname}
-          variant="h6"
-          sx={{ textDecortation: "none" }}
-          color="textSecondary"
+        <a
+          href={item.url || document.location.pathname}
+          className="text-base font-medium text-gray-500"
         >
           {icons && <ItemIcon style={iconSX} />}
           {itemTitle}
-        </Typography>
+        </a>
       );
     }
 
     subItemContent = (
-      <Typography variant="subtitle1" color="textPrimary">
+      <p className="text-base text-gray-900">
         {icons && <ItemIcon style={iconSX} />}
         {subItem}
-      </Typography>
+      </p>
     );
 
     // main
     if (item.breadcrumbs) {
       breadcrumbContent = (
         <div className="mt-2 mb-3 bg-transparent">
-          <Grid
-            container
-            direction={rightAlign ? "row" : "column"}
-            justifyContent={rightAlign ? "space-between" : "flex-start"}
-            alignItems={rightAlign ? "center" : "flex-start"}
-            spacing={1}
+          <div
+            className={`grid ${
+              rightAlign ? "grid-cols-2" : "grid-rows-2"
+            } gap-1`}
           >
             {title && !titleBottom && (
-              <Grid item>
-                <Typography variant="h2">{item.title}</Typography>
-              </Grid>
+              <div>
+                <h2 className="text-3xl font-bold">{item.title}</h2>
+              </div>
             )}
-            <Grid item>
-              <MuiBreadcrumbs
-                aria-label="breadcrumb"
-                maxItems={maxItems || 8}
-                separator={separatorIcon}
-              >
-                <Typography
-                  component={Link}
-                  to="/home"
-                  color="primary"
-                  variant="subtitle1"
-                  sx={{ textDecoration: "none" }}
+            <div>
+              <nav className="breadcrumb" aria-label="breadcrumb">
+                <a
+                  href="/home"
+                  className="text-base text-primary font-medium"
+                  style={{ textDecoration: "none" }}
                 >
-                  {icons && <HomeOutlined style={iconSX} />}
-                  {icon && !icons && (
-                    <HomeFilled style={{ ...iconSX, marginRight: 0 }} />
+                  {icons ? (
+                    <HomeOutlined style={iconSX} />
+                  ) : (
+                    <>
+                      {icon ? (
+                        <HomeFilled style={{ ...iconSX, marginRight: 0 }} />
+                      ) : null}
+                      {!icon || icons ? "Home" : null}
+                    </>
                   )}
-                  {(!icon || icons) && "Home"}
-                </Typography>
+                </a>
                 {mainContent}
                 {itemContent}
                 {subItem && subItemContent}
-              </MuiBreadcrumbs>
-            </Grid>
+              </nav>
+            </div>
             {title && titleBottom && (
-              <Grid item sx={{ mt: card === false ? 0.25 : 1 }}>
-                <Typography variant="h2">{item.title}</Typography>
-              </Grid>
+              <div className={`mt-${card === false ? "1" : "4"}`}>
+                <h2 className="text-3xl font-bold">{item.title}</h2>
+              </div>
             )}
-          </Grid>
-          {card === false && divider !== false && <Divider sx={{ mt: 2 }} />}
+          </div>
+          {card === false && divider !== false && <hr className="mt-2" />}
         </div>
       );
     }

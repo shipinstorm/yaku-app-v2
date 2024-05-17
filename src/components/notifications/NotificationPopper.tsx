@@ -1,20 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Box,
-  Chip,
-  ClickAwayListener,
-  Divider,
-  Grid,
-  Paper,
-  Popper,
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-
-import Transitions from "@/components/Transitions";
 import MainCard from "@/components/MainCard";
 import useNotifications from "@/hooks/useNotifications";
 import { useToasts } from "@/hooks/useToasts";
@@ -28,7 +12,6 @@ import { Palette } from "@/themes/palette";
 
 const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
   const auth = useAuth();
-  const theme = useTheme();
   const { notifications, reloadNotifications, updateAllStatus } =
     useNotifications();
   // notification status options
@@ -46,7 +29,6 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
       label: "Read",
     },
   ];
-  const matchesXs = useMediaQuery(theme.breakpoints.down("md"));
 
   const { showSuccessToast } = useToasts();
   const [value, setValue] = useState<typeof NotificationStatus | string>(
@@ -68,138 +50,72 @@ const NotificationPopper = ({ open, anchorRef, handleClose }: any) => {
     }
   }, [auth.token, value]);
   return (
-    <Popper
-      placement={matchesXs ? "bottom" : "bottom-end"}
-      open={open}
-      anchorEl={anchorRef?.current}
-      role={undefined}
-      transition
-      disablePortal
-      sx={{
-        zIndex: 9998,
-        maxWidth: 330,
-        [theme.breakpoints.down("md")]: {
-          maxWidth: 300,
-        },
-      }}
-      popperOptions={{
-        modifiers: [
-          {
-            name: "offset",
-            options: {
-              offset: [matchesXs ? 5 : 0, 20],
-            },
-          },
-        ],
-      }}
-    >
-      {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={handleClose}>
-          <Transitions
-            position={matchesXs ? "top" : "top-right"}
-            in={open}
-            {...TransitionProps}
-          >
-            <Paper className="bg-transparent !rounded-3xl">
-              {open && (
-                <MainCard
-                  border={false}
-                  className="!bg-elevation1 !rounded-3xl"
-                  elevation={16}
-                  content={false}
-                  boxShadow
-                  shadow={theme.shadows[16]}
+    <div className="bg-transparent rounded-3xl">
+      {open && (
+        <MainCard
+          border={false}
+          className="!bg-elevation1 !rounded-3xl"
+          elevation={16}
+          content={false}
+          boxShadow
+        >
+          <div className="flex flex-col space-y-2">
+            <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
+              <div className="flex items-center justify-between py-2 px-2">
+                <div className="flex items-center space-x-2">
+                  <p className="text-sm font-medium">
+                    {status.find((k: any) => k.value === value)?.label}{" "}
+                    Notifications
+                  </p>
+                  <span className="bg-purple-400 text-white text-xs px-2 py-1 rounded">
+                    {value === NotificationStatus.ALL
+                      ? notifications.length
+                      : filter(notifications, (k: any) => k.status === value)
+                          .length}
+                  </span>
+                </div>
+                <p
+                  className="text-sm font-medium text-primary cursor-pointer"
+                  onClick={handleMarkAllRead}
                 >
-                  <Grid container direction="column" spacing={2}>
-                    <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-                      <Grid
-                        container
-                        alignItems="center"
-                        justifyContent="space-between"
-                        spacing={0.5}
-                        sx={{ pt: 2, px: 2 }}
-                      >
-                        <Grid item>
-                          <Stack direction="row" spacing={2}>
-                            <Typography variant="subtitle1" sx={{ mr: 2 }}>
-                              {
-                                status.find((k: any) => k.value === value)
-                                  ?.label
-                              }{" "}
-                              Notifications
-                            </Typography>
-
-                            <Chip
-                              size="small"
-                              label={
-                                value === NotificationStatus.ALL
-                                  ? notifications.length
-                                  : filter(
-                                      notifications,
-                                      (k: any) => k.status === value
-                                    ).length
-                              }
-                              sx={{
-                                color: Palette.background.default,
-                                bgcolor: "#f38aff",
-                              }}
-                            />
-                          </Stack>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            component={Link}
-                            to="#"
-                            variant="subtitle2"
-                            color="primary"
-                            onClick={handleMarkAllRead}
-                          >
-                            Mark all as read
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </div>
-                    <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-                      <Grid container direction="column" spacing={2}>
-                        <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-                          <Box sx={{ px: 2, pt: 0.25 }}>
-                            <select
-                              id="outlined-select-currency-native"
-                              value={value as string}
-                              onChange={handleChange}
-                              className="input-field bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:pink-main focus:border-pink-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-main dark:focus:border-pink-main"
-                            >
-                              {status.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                  {option.label}
-                                </option>
-                              ))}
-                            </select>
-                          </Box>
-                        </div>
-                        <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
-                          <NotificationList
-                            notifications={
-                              value === NotificationStatus.ALL
-                                ? notifications
-                                : filter(
-                                    notifications,
-                                    (k: any) => k.status === value
-                                  )
-                            }
-                          />
-                        </div>
-                      </Grid>
-                    </div>
-                  </Grid>
-                  <Divider />
-                </MainCard>
-              )}
-            </Paper>
-          </Transitions>
-        </ClickAwayListener>
+                  Mark all as read
+                </p>
+              </div>
+            </div>
+            <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
+              <div className="grid grid-cols-1 gap-y-2">
+                <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
+                  <div className="px-8 pt-1">
+                    <select
+                      id="outlined-select-currency-native"
+                      value={value as string}
+                      onChange={handleChange}
+                      className="input-field bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:pink-main focus:border-pink-main block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-main dark:focus:border-pink-main"
+                    >
+                      {status.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="box-border m-0 flex-grow max-w-full pl-6 pt-6">
+                  <NotificationList
+                    notifications={
+                      value === NotificationStatus.ALL
+                        ? notifications
+                        : filter(notifications, (k: any) => k.status === value)
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr className="border-t border-gray-300 my-4" />
+        </MainCard>
       )}
-    </Popper>
+    </div>
   );
 };
 

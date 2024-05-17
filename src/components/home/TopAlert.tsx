@@ -1,19 +1,12 @@
-import { Alert, Box, Typography } from "@mui/material";
-
 const TopAlert = ({ severity = "warning", description, buttons }: any) => (
-  <Alert severity={severity}>
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: 2,
-        width: "100%",
-      }}
-    >
-      <Typography>{description}</Typography>
+  <div
+    className={`bg-${getColor(severity)} text-white px-4 py-3 rounded-lg`}
+    role="alert"
+  >
+    <div className="flex justify-between items-center gap-2">
+      <p className="text-sm">{description}</p>
       {buttons}
-    </Box>
-  </Alert>
+    </div>
+  </div>
 );
 export default TopAlert;

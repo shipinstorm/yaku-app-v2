@@ -1,6 +1,3 @@
-// material-ui
-import { useTheme } from "@mui/material/styles";
-
 // assets
 import {
   IconBrandTwitter,
@@ -9,12 +6,10 @@ import {
   IconBook2,
 } from "@tabler/icons-react";
 import { map } from "lodash";
+
 import SocialButton from "@/components/buttons/SocialButton";
 
-// ==============================|| SOCIAL ICONS ||============================== //
-
 const SocialSection = () => {
-  const theme = useTheme();
   const socials = [
     {
       title: "Submit feedback",
@@ -41,18 +36,13 @@ const SocialSection = () => {
       label: "Wiki",
     },
   ];
+
   return (
     <div className="mx-2">
       <div className="flex flex-wrap -mx-1">
         {map(socials, ({ title, link, icon, label }: any, idx) => (
           <div className="w-1/2 pt-2 pl-2" key={label}>
-            <SocialButton
-              title={title}
-              link={link}
-              icon={icon}
-              label={label}
-              theme={theme}
-            />
+            <SocialButton title={title} link={link} icon={icon} label={label} />
           </div>
         ))}
       </div>
