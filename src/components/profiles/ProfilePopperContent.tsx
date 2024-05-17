@@ -110,6 +110,7 @@ const ProfilePopperContext = ({ showProfile }: any) => {
           setIsInited(false);
           setStakedYakuNfts([]);
           setNftList([]);
+          console.log("ProfilePopperContent");
           router.push("/home");
         })
         .catch(() => {

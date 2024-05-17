@@ -60,8 +60,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
     dispatch(setPage(title));
     dispatch(activeItem([id]));
     dispatch(openDrawer(true));
-    // router.push("/applications");
-    redirect("/applications");
+    router.push("/applications");
   };
 
   // active menu item on page load
@@ -86,7 +85,9 @@ const NavItem = ({ item, level }: NavItemProps) => {
         item.hidden ? "not-allowed" : "pointer"
       } rounded-${borderRadius} mb-0.5 ${
         level > 1 ? "bg-transparent !important" : "bg-inherit"
-      } py-${level > 1 ? 1 : 1.25} ${level > 0 ? `pl-${level * 6}` : "pl-6"}`}
+      } py-${level > 1 ? 1 : 1.25} ${
+        level > 0 ? `pl-${level * 6}` : "pl-6"
+      } flex`}
       // selected={openItem?.findIndex((id: any) => id === item.id) > -1}
       onClick={() => itemHandler(item.id!, item.title as string)}
     >
@@ -116,7 +117,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
             openItem?.findIndex((id: any) => id === item.id) > -1
               ? "text-xl"
               : "text-base"
-          } text-gray-800 font-medium`}
+          } text-[#d8ddf0] font-medium`}
           style={{ marginLeft: "12px" }}
         >
           {item.title}

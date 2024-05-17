@@ -1,8 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import NotificationPopper from "@/components/notifications/NotificationPopper";
-import { mutations } from "../graphql/graphql";
-import useAuth from "@/hooks/useAuth";
-import useAuthMutation from "@/hooks/useAuthMutation";
 import {
   FC,
   ReactNode,
@@ -13,14 +9,21 @@ import {
   MouseEvent,
   TouchEvent,
 } from "react";
+import dayjs from "dayjs";
+import { filter } from "lodash";
+
+import NotificationPopper from "@/components/notifications/NotificationPopper";
+import useAuth from "@/hooks/useAuth";
+import useAuthMutation from "@/hooks/useAuthMutation";
+
+import { mutations } from "../graphql/graphql";
 
 // types
 import {
   NotificationsContextType,
   NotificationStatus,
 } from "@/types/notifications";
-import dayjs from "dayjs";
-import { filter } from "lodash";
+
 import { useRequests } from "@/hooks/useRequests";
 
 // context & provider
@@ -52,12 +55,10 @@ export const NotificationsProvider: FC<{ children: ReactNode }> = ({
   const handleToggle = () => {
     setOpen((prev) => !prev);
   };
-  const handleClose = (
-    event: MouseEvent<HTMLDivElement> | MouseEvent | TouchEvent
-  ) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
+  const handleClose = () => {
+    // if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    //   return;
+    // }
     setOpen(false);
   };
   const reloadNotifications = async () => {
@@ -118,6 +119,7 @@ export const NotificationsProvider: FC<{ children: ReactNode }> = ({
       value={{
         anchorRef,
         open,
+        setOpen,
         notifications,
         unreadCount,
         handleToggle,
@@ -130,11 +132,11 @@ export const NotificationsProvider: FC<{ children: ReactNode }> = ({
       }}
     >
       {children}
-      <NotificationPopper
+      {/* <NotificationPopper
         open={open}
         handleClose={handleClose}
         anchorRef={anchorRef}
-      />
+      /> */}
     </NotificationsContext.Provider>
   );
 };

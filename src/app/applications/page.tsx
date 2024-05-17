@@ -35,7 +35,6 @@ const AppstoreData = [
 ];
 
 const itemHandler = (url: string) => {
-  // router.push("/applications");
   redirect(url);
 };
 

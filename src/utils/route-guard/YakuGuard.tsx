@@ -47,6 +47,7 @@ const YakuGuard = ({ children }: GuardProps) => {
       showErrorToast(
         "You do not have access to these routes, purchase a Yaku collection to gain access."
       );
+      console.log("YakuGuard");
       router.push(defaultConfig.defaultPath);
     } else {
       pass();

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from "react-responsive";
 
 // project imports
 import Header from "./Header";
@@ -48,17 +48,11 @@ interface MainStyleProps {
 // styles
 const Main = ({ open, openedcart, children }: any) => {
   const baseStyles = "transition-margin duration-400 pt-4";
-  const commonStyles = "ml-5 sm:ml-2.5 md:ml-5";
+  const commonStyles = "mt-[88px] h-[calc(-144px+100vh)]";
 
-  const openStyles = `ml-0 w-[calc(100%-${drawerWidth}px-${
-    openedcart ? cartWidth : 0
-  }px)] sm:ml-2.5 md:ml-5`;
+  const openStyles = `ml-0 w-[calc(100%-260px)] sm:ml-2.5 md:ml-5`;
 
-  const closedStyles = `w-[calc(100%-${drawerWidthCollapsed}px-${
-    openedcart ? cartWidth : 0
-  }px)] ${openedcart ? "mr-0" : ""} p-4 md:ml-[-${
-    drawerWidth - drawerWidthCollapsed
-  }px] sm:ml-[10px] md:ml-[20px]`;
+  const closedStyles = `w-[calc(100%-70px)] p-4  ml-[10px] sm:ml-[20px] md:ml-[-190px]`;
 
   const styles = `${baseStyles} ${open ? openStyles : closedStyles}`;
 
@@ -69,7 +63,7 @@ const Main = ({ open, openedcart, children }: any) => {
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const auth = useAuth();
-  const matchUpMd = useMediaQuery({ query: '(min-width: 900px)' });
+  const matchUpMd = useMediaQuery({ query: "(min-width: 900px)" });
 
   const wallet = useWallet();
   const dispatch = useDispatch();
@@ -190,6 +184,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       console.log(window.location.pathname);
       router.push(`${window.location.pathname}${queryString}`);
     } else {
+      console.log("MainLayout");
       router.push(`home${queryString}`);
     }
   }, [wallet.connected]);

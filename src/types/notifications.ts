@@ -9,6 +9,7 @@ import { MouseEvent, TouchEvent } from "react";
 export type NotificationsContextType = {
   anchorRef: any;
   open: boolean;
+  setOpen: (open: boolean) => void;
   notifications: any[];
   unreadCount: number;
   handleToggle: () => void;

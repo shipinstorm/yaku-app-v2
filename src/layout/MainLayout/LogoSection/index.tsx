@@ -7,7 +7,6 @@ import Logo from "@/components/icons/Logo";
 // ==============================|| MAIN LOGO ||============================== //
 
 const itemHandler = (url: string) => {
-  // router.push("/applications");
   redirect(url);
 };
 

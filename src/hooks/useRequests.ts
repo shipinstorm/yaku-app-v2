@@ -1,5 +1,7 @@
 "use client";
 
+import https from "https";
+
 import { useLazyQuery, useMutation } from "@apollo/client";
 import axios from "axios";
 import { useState } from "react";
@@ -14,9 +16,7 @@ export function useRequests() {
   const nftSvcPath = "https://nft.yaku.ai/api";
   const ethSvcPath = "https://eth.yaku.ai/api";
   const agSvcPath = "https://ag.yaku.ai/api";
-  // const playerPath = "http://localhost:8080/v1/auth";
-  // const playerPath = "https://auth-service-gxpf.onrender.com/v1/auth";
-  const playerPath = "https://ec2-15-188-60-164.eu-west-3.compute.amazonaws.com:8080/v1/auth";
+  const playerPath = "https://auth.yaku.gg:8080/v1/auth";
   
 
   const [csrfToken, setCsrfToken] = useState("");
@@ -1333,6 +1333,11 @@ export function useRequests() {
     });
     return data?.getNotificationsByUserId || [];
   };
+
+  const agent = new https.Agent({
+    rejectUnauthorized: false,
+    requestCert: false,
+ });
 
   const getPlayerInfo = (accessToken: string) => {
     const data = axios.post(`${playerPath}/me`, {

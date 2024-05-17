@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 
 import { Drawer } from "@material-tailwind/react";
 
+import { useMediaQuery } from "react-responsive";
+
 // third-party
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -31,6 +33,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
+  const matchUpMd = useMediaQuery({ query: "(min-width: 900px)" });
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<any>(null);
   const wallet = useWallet();
@@ -123,32 +126,13 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
       className="w-auto md:w-[260px] md:flex-shrink-0"
       aria-label="mailbox folders"
     >
-      {/* <Drawer
-        container={container}
-        variant={"persistent"}
-        anchor="left"
-        open={drawerOpen}
-        transitionDuration={{
-          enter: 400,
-          exit: 400,
-        }}
-        onClose={() => dispatch(openDrawer(!drawerOpen))}
-        sx={{
-          zIndex: 900,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            background: Palette.background.default,
-            color: Palette.text.primary,
-            borderRight: "none",
-            paddingTop: "108.33px",
-            marginTop: sticky ? "-30px" : "0px",
-            transition: "margin-top .2s",
-          },
-          position: "relative",
-        }}
-        ModalProps={{ keepMounted: true }}
-        color="inherit"
+      <div
+        className={
+          "z-[900] w-[260px] text-[#d5d9e9] border-r-0 md:pt-[108.33px] pt-[31.67px] fixed transition-margin-top duration-200 flex flex-col justify-between " +
+          (open ? "left-0" : "left-[-260px]")
+        }
         onMouseLeave={(e) => {
+          console.log("leave");
           e.preventDefault();
           setTimeout(() => {
             dispatch(openDrawer(!drawerOpen));
@@ -156,61 +140,33 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
           }, 200);
         }}
       >
-        {true && (
-          <div className="flex flex-col justify-between">
-            {logo}
-            {drawer}
-            <div className="MuiBox-root css-0">
-              <SocialSection />
-            </div>
-          </div>
-        )}
-      </Drawer>
-
-      <Drawer
-        container={container}
-        variant={"persistent"}
-        anchor="left"
-        open={!drawerOpen}
-        transitionDuration={{
-          appear: 400,
-          enter: 200,
-          exit: 200,
-        }}
-        onClose={() => dispatch(openDrawer(drawerOpen))}
-        sx={{
-          zIndex: 900,
-          "& .MuiDrawer-paper": {
-            width: drawerWidthCollapsed,
-            background: Palette.background.default,
-            color: Palette.text.primary,
-            borderRight: "none",
-              paddingTop: "108.33px",
-            marginTop: sticky ? "-30px" : "0px",
-            transition: "margin-top .2s",
-            zIndex: 1000,
-          },
-        }}
-        ModalProps={{ keepMounted: true }}
-        color="inherit"
-      >
-        <div className="flex flex-col justify-between">
-          <>
-            {drawerOpen && logo}
-            {!drawerOpen && drawerClosed}
-          </>
-
-          <div
-            className="relative flex items-center justify-center flex-shrink-0 font-inter rounded-full overflow-hidden select-none text-gray-900 bg-transparent w-6 h-6 text-3xl cursor-pointer mx-auto"
-            onMouseEnter={(e) => {
-              e.preventDefault();
-              dispatch(openDrawer(!drawerOpen));
-              setOpen(true);
-            }}
-          >
-          </div>
+        {logo}
+        {drawer}
+        <div className="MuiBox-root css-0">
+          <SocialSection />
         </div>
-      </Drawer>
+      </div>
+
+      <div
+        className={
+          "z-[1000] w-[70px] text-[#d5d9e9] border-r-0 md:pt-[108.33px] pt-[31.67px] fixed transition-margin-top duration-200 flex flex-col justify-between " +
+          (!open ? "left-0" : "left-[-70px]")
+        }
+      >
+        <>
+          {drawerOpen && logo}
+          {!drawerOpen && drawerClosed}
+        </>
+
+        <div
+          className="relative flex items-center justify-center flex-shrink-0 font-inter rounded-full overflow-hidden select-none text-gray-900 bg-transparent w-6 h-6 text-3xl cursor-pointer mx-auto"
+          onMouseEnter={(e) => {
+            e.preventDefault();
+            dispatch(openDrawer(!drawerOpen));
+            setOpen(true);
+          }}
+        ></div>
+      </div>
 
       <div className="rounded-none">
         {open && (
@@ -218,7 +174,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
             {!drawerOpen && drawer}
           </MainCard>
         )}
-      </div> */}
+      </div>
     </nav>
   );
 };

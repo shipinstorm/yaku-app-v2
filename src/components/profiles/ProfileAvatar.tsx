@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from "@/store";
 import { IconMenu2 } from "@tabler/icons-react";
+
+import { useDispatch, useSelector } from "@/store";
 import { openDrawer } from "@/store/slices/menu";
 
 const ProfileAvatar = () => {
@@ -8,12 +9,12 @@ const ProfileAvatar = () => {
 
   return (
     <div>
-      <img
+      {/* <img
         className="rounded-full overflow-hidden transition duration-200 ease-in-out cursor-pointer"
         alt="Avatar"
         onClick={() => dispatch(openDrawer(!drawerOpen))}
       />
-      <IconMenu2 stroke={1.5} size="1.3rem" />
+      <IconMenu2 stroke={1.5} size="1.3rem" /> */}
     </div>
   );
 };

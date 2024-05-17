@@ -189,7 +189,8 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
     setOpen(false);
     auth.attempting(false);
     if (caller !== "self" && !publicKey) {
-      router.push("/home");
+      console.log(WalletContext);
+      // router.push("/home");
     }
   };
 

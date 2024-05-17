@@ -1,11 +1,12 @@
 // web3 imports
 import { useWallet } from "@solana/wallet-adapter-react";
 
+import ProfileAvatar from "@/components/profiles/ProfileAvatar";
+
 // project imports
 import NotificationSection from "./NotificationSection";
-import LogoSection from "../LogoSection";
 import ProfileSection from "./ProfileSection";
-import ProfileAvatar from "@/components/profiles/ProfileAvatar";
+import LogoSection from "../LogoSection";
 import YakuBuyLink from "../YakuBuyLink";
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //

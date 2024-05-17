@@ -1,8 +1,8 @@
 const SocialButton = ({ title, link, icon, label }: any) => (
-  <div className="relative inline-block">
-    <div className="text-primary cursor-pointer inline-block">
+  <div className="relative inline-block w-full">
+    <div className="text-primary cursor-pointer inline-block w-full">
       <button
-        className={`text-secondary bg-elevation1 hover:bg-elevation1-hover hover:text-terciary rounded-xl text-sm font-medium w-full transition-all duration-200 ease-in-out flex items-center`}
+        className={`text-secondary bg-elevation1 hover:bg-elevation1-hover hover:text-terciary rounded-xl text-sm font-medium w-full transition-all duration-200 ease-in-out flex items-center py-2 justify-center`}
         onClick={() => window.open(link)}
       >
         {icon && <span className="mr-2">{icon}</span>}
