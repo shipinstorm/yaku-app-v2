@@ -48,13 +48,13 @@ const MainCard = React.forwardRef(
       className="text-[rgba(0,0,0,0.87)] overflow-hidden bg-transparent shadow-none"
     >
       {!darkTitle && title && (
-        <div>
+        <div className="flex items-center justify-between p-6 overflow-x-auto">
           {title}
           {secondary}
         </div>
       )}
       {darkTitle && title && (
-        <div>
+        <div className="p-6">
           {!titleComponent ? <h3>{title}</h3> : titleComponent}
           {secondary}
         </div>
@@ -63,7 +63,7 @@ const MainCard = React.forwardRef(
       {title && <hr />}
 
       {content && (
-        <div className={`${contentSX} ${contentClass}`}>{children}</div>
+        <div className={`${contentSX} ${contentClass}` + " p-6"}>{children}</div>
       )}
       {!content && children}
     </div>

@@ -34,9 +34,10 @@ const NavItem = ({ item, level }: NavItemProps) => {
   return (
     <button
       disabled={item.disabled}
-      className={`cursor-${item.hidden ? "not-allowed" : "pointer"} ${
-        level > 1 ? "bg-transparent" : ""
-      } flex items-center justify-center px-0 mb-0.5 w-full`}
+      className={
+        "flex items-center justify-center px-0 mb-0.5 w-full bg-transparent " +
+        (item.hidden ? "not-allowed" : "pointer")
+      }
       style={{ borderRadius: `${borderRadius}px` }}
       // selected={openItem?.findIndex((id: any) => id === item.id) > -1}
     >

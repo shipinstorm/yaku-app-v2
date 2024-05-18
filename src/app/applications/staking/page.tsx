@@ -584,7 +584,7 @@ function Staking() {
             </div>
           }
           secondary={
-            <>
+            <div>
               {selected && selected.length > 0 && (
                 <>
                   <button
@@ -673,7 +673,7 @@ function Staking() {
               >
                 Priority Rate
               </button>
-            </>
+            </div>
           }
         >
           {/* Content */}

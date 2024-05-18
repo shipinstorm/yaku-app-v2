@@ -81,13 +81,13 @@ const NavItem = ({ item, level }: NavItemProps) => {
     <button
       {...listItemProps}
       disabled={item.disabled}
-      className={`cursor-${
-        item.hidden ? "not-allowed" : "pointer"
-      } rounded-${borderRadius} mb-0.5 ${
-        level > 1 ? "bg-transparent !important" : "bg-inherit"
-      } py-${level > 1 ? 1 : 1.25} ${
-        level > 0 ? `pl-${level * 6}` : "pl-6"
-      } flex`}
+      className={
+        "rounded-${borderRadius} mb-0.5 flex " +
+        (item.hidden ? "cursor-not-allowed " : "cursor-pointer ") +
+        (level > 1 ? "bg-transparent !important " : "bg-inherit ") +
+        (level > 1 ? "py-1 " : "py-1.25 ") +
+        (level > 0 ? `pl-${level * 6} ` : "pl-6 ")
+      }
       // selected={openItem?.findIndex((id: any) => id === item.id) > -1}
       onClick={() => itemHandler(item.id!, item.title as string)}
     >

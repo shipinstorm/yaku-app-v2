@@ -35,6 +35,7 @@ import useRelay from "@/hooks/useRelay";
 import YakuBuyLink from "./YakuBuyLink";
 
 import { Palette } from "@/themes/palette";
+import { match } from "assert";
 
 const BreadcrumbsNoSSR = dynamic(() => import("@/components/Breadcrumbs"), {
   ssr: false,
@@ -48,11 +49,11 @@ interface MainStyleProps {
 // styles
 const Main = ({ open, openedcart, children }: any) => {
   const baseStyles = "transition-margin duration-400 pt-4";
-  const commonStyles = "mt-[88px] h-[calc(-144px+100vh)]";
+  const commonStyles = "mt-[88px] min-h-[calc(-144px+100vh)]";
 
   const openStyles = `ml-0 w-[calc(100%-260px)] sm:ml-2.5 md:ml-5`;
 
-  const closedStyles = `w-[calc(100%-70px)] p-4  ml-[10px] sm:ml-[20px] md:ml-[-190px]`;
+  const closedStyles = `md:w-[calc(100%-70px)] p-4  ml-[10px] sm:ml-[20px] md:ml-[-190px]`;
 
   const styles = `${baseStyles} ${open ? openStyles : closedStyles}`;
 
@@ -286,7 +287,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           )}
         </header>
 
-        <Sidebar sticky={sticky > 108} isPro={false} />
+        {matchUpMd && <Sidebar sticky={sticky > 108} isPro={false} />}
 
         <Main
           open={drawerOpen}
@@ -320,7 +321,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           )}
         </Main>
       </div>
-      <div className="md:max-h-14 w-full pb-2">
+      <div className="max-md:mb-14 w-full pb-2">
         <p className="text-[10px] px-2 text-center w-full">
           © {dayjs().get("y")} Yakushima Corp. All right reserved.
         </p>
