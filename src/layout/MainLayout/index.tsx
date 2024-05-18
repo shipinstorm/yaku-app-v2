@@ -9,6 +9,7 @@ import { useMediaQuery } from "react-responsive";
 import Header from "./Header";
 import MobileHeader from "./MobileHeader";
 import Sidebar from "./Sidebar";
+import MobileSidebar from "./MobileSidebar";
 import navigation from "@/menu-items";
 import useConfig from "@/hooks/useConfig";
 import { drawerWidth, cartWidth, drawerWidthCollapsed } from "@/store/constant";
@@ -51,9 +52,9 @@ const Main = ({ open, openedcart, children }: any) => {
   const baseStyles = "transition-margin duration-400 pt-4";
   const commonStyles = "mt-[88px] min-h-[calc(-144px+100vh)]";
 
-  const openStyles = `ml-0 w-[calc(100%-260px)] sm:ml-2.5 md:ml-5`;
+  const openStyles = `w-full md:w-[calc(100%-260px)] ml-0 sm:ml-2.5 md:ml-5 px-3 md:px-0`;
 
-  const closedStyles = `md:w-[calc(100%-70px)] p-4  ml-[10px] sm:ml-[20px] md:ml-[-190px]`;
+  const closedStyles = `w-full md:w-[calc(100%-70px)] p-4 ml-[10px] sm:ml-[20px] md:ml-[-190px]`;
 
   const styles = `${baseStyles} ${open ? openStyles : closedStyles}`;
 
@@ -225,6 +226,16 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     .getElementById("root")
     ?.addEventListener("scroll", handleVideoScroll);
 
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+
+  const toggleMobileSidebar = () => {
+    setShowMobileSidebar(!showMobileSidebar);
+  };
+
+  const hideMobileSidebar = () => {
+    setShowMobileSidebar(false);
+  };
+
   return (
     <>
       <div
@@ -283,11 +294,23 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           {matchUpMd ? (
             header
           ) : (
-            <MobileHeader buttons={[<ProfileSection key="profile" />]} />
+            <MobileHeader
+              buttons={[<ProfileSection key="profile" />]}
+              toggleMobileSidebar={toggleMobileSidebar}
+              showMobileSidebar={showMobileSidebar}
+            />
           )}
         </header>
 
         {matchUpMd && <Sidebar sticky={sticky > 108} isPro={false} />}
+        {!matchUpMd && (
+          <MobileSidebar
+            sticky={sticky > 108}
+            isPro={false}
+            hideMobileSidebar={hideMobileSidebar}
+            showMobileSidebar={showMobileSidebar}
+          />
+        )}
 
         <Main
           open={drawerOpen}

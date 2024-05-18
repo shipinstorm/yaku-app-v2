@@ -11,7 +11,13 @@ const LOGO_LIGHT = `https://s3.amazonaws.com/img.yaku.ai/logos/X-YAKU.png`;
 const Logo = ({ withoutText = false }: any) => {
   if (withoutText) {
     return (
-      <img width={170} src={LOGO} className="m-auto pt-5 md:pt-0" alt="logo" />
+      <Image
+        width={170}
+        height={40}
+        src={LOGO}
+        className="m-auto pt-5 md:pt-0"
+        alt="logo"
+      />
     );
   }
 
