@@ -30,7 +30,7 @@ interface SidebarProps {
   window?: Window;
   sticky?: boolean;
   isPro?: boolean;
-  toggleMobileSidebar: () => void;
+  hideMobileSidebar: () => void;
   showMobileSidebar: boolean;
 }
 

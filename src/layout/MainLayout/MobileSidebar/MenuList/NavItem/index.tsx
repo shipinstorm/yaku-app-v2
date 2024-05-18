@@ -21,7 +21,7 @@ import themeTypography from "@/themes/typography";
 interface NavItemProps {
   item: NavItemType;
   level: number;
-  toggleMobileSidebar: () => void;
+  hideMobileSidebar: () => void;
 }
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
