@@ -23,6 +23,7 @@ const MenuList = ({ isPro, hideMobileSidebar }: any) => {
             item={item}
             openIdx={openIdx}
             setOpenIdx={setOpenIdx}
+            hideMobileSidebar={hideMobileSidebar}
           />
         );
       case "item":

@@ -35,9 +35,15 @@ export interface NavGroupProps {
   };
   openIdx: any;
   setOpenIdx: React.Dispatch<any>;
+  hideMobileSidebar: () => void;
 }
 
-const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
+const NavGroup = ({
+  item,
+  openIdx,
+  setOpenIdx,
+  hideMobileSidebar,
+}: NavGroupProps) => {
   const { checkAccess } = useAccess();
   const { publicKey } = useWallet();
   const [loading, setLoading] = useState(false);
@@ -54,7 +60,14 @@ const NavGroup = ({ item, openIdx, setOpenIdx }: NavGroupProps) => {
       // case "collapse":
       //   return <NavCollapse key={menu.id} menu={menu} level={1} />;
       case "item":
-        return <NavItem key={menu.id} item={menu} level={1} />;
+        return (
+          <NavItem
+            key={menu.id}
+            item={menu}
+            level={1}
+            hideMobileSidebar={hideMobileSidebar}
+          />
+        );
       default:
         return (
           <p
