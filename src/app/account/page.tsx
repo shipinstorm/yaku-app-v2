@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { filter, flatten, isEmpty, map, round } from "lodash";
 import { IconWallet } from "@tabler/icons-react";
+import dynamic from "next/dynamic";
 
 import { InfoCircleOutlined } from "@ant-design/icons";
 import {
@@ -23,11 +24,6 @@ import { PublicKey } from "@solana/web3.js";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 import MainCard from "@/components/MainCard";
-import ProfileBanner from "@/components/profile/ProfileBanner";
-import AvatarSection from "@/components/profile/AvatarSection";
-import NFTsDialog from "@/components/profile/NFTsDialog";
-import PortfolioChart from "@/components/profile/PortfolioChart";
-import NFTCollectionsView from "@/components/profile/NFTCollectionsView";
 
 import { IMAGE_PROXY, YAKU_TOKEN_ICON } from "@/config/config";
 
@@ -44,6 +40,41 @@ import useStaked from "@/hooks/useStaked";
 import { useRequests } from "@/hooks/useRequests";
 
 import { shortenAddress } from "@/utils/utils";
+
+const AvatarSectionNoSSR = dynamic(
+  () => import("@/components/profile/AvatarSection"),
+  {
+    ssr: false,
+  }
+);
+
+const NFTCollectionsViewNoSSR = dynamic(
+  () => import("@/components/profile/NFTCollectionsView"),
+  {
+    ssr: false,
+  }
+);
+
+const NFTsDialogNoSSR = dynamic(
+  () => import("@/components/profile/NFTsDialog"),
+  {
+    ssr: false,
+  }
+);
+
+const PortfolioChartNoSSR = dynamic(
+  () => import("@/components/profile/PortfolioChart"),
+  {
+    ssr: false,
+  }
+);
+
+const ProfileBannerNoSSR = dynamic(
+  () => import("@/components/profile/ProfileBanner"),
+  {
+    ssr: false,
+  }
+);
 
 const Profile = () => {
   const { connection } = useConnections();
@@ -279,11 +310,14 @@ const Profile = () => {
       getAvatar(auth.user);
     }
   }, [walletUser, walletAvatar]);
+
+  const isBrowser = typeof window !== "undefined";
+
   return (
     <>
-      <ProfileBanner />
+      <ProfileBannerNoSSR />
 
-      <AvatarSection
+      <AvatarSectionNoSSR
         src={profilePic}
         vanity={
           walletUser?.user?.vanity ||
@@ -616,12 +650,12 @@ const Profile = () => {
           </MainCard>
           <Box>
             <MainCard sx={{ border: "none", mt: 2 }} divider={false}>
-              <PortfolioChart wallet={wallet || ""} />
+              <PortfolioChartNoSSR wallet={wallet || ""} />
             </MainCard>
           </Box>
         </Grid>
         <Grid item xs={12} lg={5} xl={6}>
-          <NFTCollectionsView
+          <NFTCollectionsViewNoSSR
             wallet={wallet || ""}
             nfts={nfts}
             ethNfts={ethNfts}
@@ -632,7 +666,7 @@ const Profile = () => {
         </Grid>
       </Grid>
 
-      <NFTsDialog
+      <NFTsDialogNoSSR
         showItems={showSelectNft}
         setShowItems={setShowSelectNft}
         cItem={{
