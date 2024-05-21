@@ -21,9 +21,7 @@ const DomainItems = (props: {
               className="flex justify-between gap-1 hover:bg-purple-100 hover:bg-opacity-5"
               key={key}
             >
-              <p className="w-[1/3] break-words">
-                {item.name}
-              </p>
+              <p className="w-[1/3] break-words">{item.name}</p>
               <p className="w-[1/3] flex justify-center">
                 <CopyAddress address={item.address} length={5} />
               </p>
@@ -33,7 +31,10 @@ const DomainItems = (props: {
             </li>
           ))
         : [1, 2, 3, 4].map((item, key) => (
-            <li className="flex justify-between gap-1 hover:bg-d329ff15">
+            <li
+              className="flex justify-between gap-1 hover:bg-[#d329ff15]"
+              key={key}
+            >
               <div className="w-[30%] h-4 rounded"></div>
               <div className="w-[30%] h-4 rounded"></div>
               <div className="w-[40%] h-4 rounded"></div>

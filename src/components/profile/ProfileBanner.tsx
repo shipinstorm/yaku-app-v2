@@ -68,15 +68,11 @@ const CropDialogContent = ({
           max={3}
           step={0.1}
           aria-labelledby="Zoom"
-          color="secondary"
-          sx={{
-            root: {
-              padding: "22px 0px",
-              marginLeft: 32,
-            },
-          }}
-          className="sm:flex-row sm:items-center sm:mx-4"
-          onChange={(e, _zoom) => setZoom(_zoom)}
+          className="sm:flex-row sm:items-center sm:mx-4 py-[22px] ml-8"
+          // onChange={(e, _zoom) => setZoom(_zoom)}
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
         />
       </div>
     </div>
@@ -175,11 +171,16 @@ const ProfileBanner = ({
                 {imageList && imageList[0] && (
                   <Dialog
                     open={showCrop}
-                    onClose={() => setShowCrop(false)}
-                    fullWidth
-                    maxWidth="lg"
+                    handler={() => {}}
+                    placeholder=""
+                    onPointerEnterCapture={() => {}}
+                    onPointerLeaveCapture={() => {}}
                   >
-                    <DialogBody>
+                    <DialogBody
+                      placeholder=""
+                      onPointerEnterCapture={() => {}}
+                      onPointerLeaveCapture={() => {}}
+                    >
                       <CropDialogContent
                         image={imageList[0].dataURL}
                         onCropComplete={onCropComplete}

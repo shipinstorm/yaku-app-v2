@@ -45,17 +45,16 @@ const EditProfileDialog = ({
 }: any) => (
   <Dialog
     open={showEditProfile}
-    onClose={() => setShowEditProfile(false)}
-    fullWidth
-    maxWidth="lg"
+    handler={() => {}}
+    placeholder=""
+    onPointerEnterCapture={() => {}}
+    onPointerLeaveCapture={() => {}}
   >
     <DialogHeader
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 1,
-      }}
+      className="flex items-center justify-between gap-1"
+      placeholder=""
+      onPointerEnterCapture={() => {}}
+      onPointerLeaveCapture={() => {}}
     >
       <h2 className="text-2xl font-bold">Edit profile</h2>
       <button
@@ -66,7 +65,11 @@ const EditProfileDialog = ({
         Save
       </button>
     </DialogHeader>
-    <DialogBody>
+    <DialogBody
+      placeholder=""
+      onPointerEnterCapture={() => {}}
+      onPointerLeaveCapture={() => {}}
+    >
       <ProfileBanner height={240} editable upload={handleUploadBanner} />
       <div className="mt-[-40px] md:mt-[-75px] flex items-center relative">
         <img

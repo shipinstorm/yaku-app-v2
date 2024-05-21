@@ -366,30 +366,75 @@ const NFTCollectionsView = ({
   return (
     <Tabs value={tabIdx}>
       <TabsHeader
-        onChange={handleTabChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        sx={{
-          marginTop: 2,
-          mb: { xs: 2, md: 0 },
-          width: "100%",
-          ".MuiTabs-root": {
-            width: "100%",
-          },
-          ".MuiTabs-flexContainer": { borderBottom: "none" },
-        }}
-        textColor="secondary"
-        indicatorColor="secondary"
+        className="mt-2 xs:mb-2 md:mb-0 w-full"
+        placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
+        // onChange={handleTabChange}
+        // variant="scrollable"
+        // scrollButtons="auto"
+        // textColor="secondary"
+        // indicatorColor="secondary"
       >
-        <Tab label="Collections" id="collectionsTab" value="Collections" />
-        <Tab label="Items" id="itemsTab" value="Items" />
-        <Tab label="Domains" id="domainsTab" value="Domains" />
-        <Tab label="Listings" id="listingsTab" value="Listings" />
-        <Tab label="Portfolio" id="portfolioTab" value="Portfolio" />
-        <Tab label="Tokens" id="tokensTab" value="Tokens" />
-        <Tab label="Activities" id="activitiesTab" value="Activities" />
+        <Tab
+          key="Collections"
+          value="Collections"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          Collections
+        </Tab>
+        <Tab
+          value="Items"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          Items
+        </Tab>
+        <Tab
+          value="Domains"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          Domains
+        </Tab>
+        <Tab
+          value="Listings"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          Listings
+        </Tab>
+        <Tab
+          value="Portfolio"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          Portfolio
+        </Tab>
+        <Tab
+          value="Tokens"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          Tokens
+        </Tab>
+        <Tab
+          value="Activities"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          Activities
+        </Tab>
       </TabsHeader>
-      <TabPanel value="Collections" sx={{ p: 0, mt: 2 }}>
+      <TabPanel value="Collections" className="p-0 mt-2">
         {!isLoading || (collections && collections.length > 0) ? (
           <TitlebarImageList
             items={map(
@@ -465,7 +510,7 @@ const NFTCollectionsView = ({
           )}
         </div>
       </TabPanel>
-      <TabPanel value="Items" sx={{ p: 0, mt: 2 }}>
+      <TabPanel value="Items" className="p-0 mt-2">
         {!isLoading || (nftList && nftList.length > 0) ? (
           <TitlebarImageList
             items={map(
@@ -506,10 +551,10 @@ const NFTCollectionsView = ({
           </div>
         )}
       </TabPanel>
-      <TabPanel value="Domains" sx={{ p: 0, mt: 2 }}>
+      <TabPanel value="Domains" className="p-0 mt-2">
         <DomainItems domains={domainList} isLoading={isLoading} />
       </TabPanel>
-      <TabPanel value="Listings" sx={{ p: 0, mt: 2 }}>
+      <TabPanel value="Listings" className="p-0 mt-2">
         {!isLoading || (listings && listings.length > 0) ? (
           <TitlebarImageList
             items={map(

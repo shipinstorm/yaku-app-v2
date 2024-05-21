@@ -515,7 +515,7 @@ const MPActionButton = ({
                         List
                       </p>
                     </button>
-                    <NumberInput
+                    {/* <NumberInput
                       value={listPrice}
                       min={0}
                       step={0.001}
@@ -526,7 +526,7 @@ const MPActionButton = ({
                           setListPrice(value);
                         }
                       }}
-                    />
+                    /> */}
                     <p className="text-base" data-font-size="16">
                       {" "}
                       {chain}{" "}
@@ -585,8 +585,18 @@ const MPActionButton = ({
               </button>
             </div>
           ))}
-        <Dialog open={showListDialog} onClose={() => setShowListDialog(false)}>
-          <DialogBody>
+        <Dialog
+          open={showListDialog}
+          handler={() => {}}
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          <DialogBody
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
             <div className="flex gap-1 items-center mt-2">
               <button
                 className="rounded-full min-w-[120px] bg-secondary text-white px-4 py-2"
@@ -596,7 +606,7 @@ const MPActionButton = ({
               >
                 <p className="text-base">List</p>
               </button>
-              <NumberInput
+              {/* <NumberInput
                 value={listPrice}
                 min={0}
                 step={0.001}
@@ -607,7 +617,7 @@ const MPActionButton = ({
                     setListPrice(value);
                   }
                 }}
-              />
+              /> */}
               <p className="text-base" data-chain="{chain}" data-font-size="16">
                 {" "}
                 {chain}{" "}
@@ -615,8 +625,18 @@ const MPActionButton = ({
             </div>
           </DialogBody>
         </Dialog>
-        <Dialog open={showBidDialog} onClose={() => setShowBidDialog(false)}>
-          <DialogBody>
+        <Dialog
+          open={showBidDialog}
+          handler={() => {}}
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          <DialogBody
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
             <div className="flex gap-1 items-center mt-2">
               <button
                 className="rounded-lg min-w-[120px] bg-secondary text-white"
@@ -624,7 +644,7 @@ const MPActionButton = ({
               >
                 <p className="text-base whitespace-nowrap">Make an offer</p>
               </button>
-              <NumberInput
+              {/* <NumberInput
                 value={bidPrice}
                 min={0}
                 step={0.001}
@@ -635,16 +655,23 @@ const MPActionButton = ({
                     setBidPrice(value);
                   }
                 }}
-              />
+              /> */}
               <p className="text-base whitespace-nowrap">{chain}</p>
             </div>
           </DialogBody>
         </Dialog>
         <Dialog
           open={showChangeBidDialog}
-          onClose={() => setShowChangeBidDialog(false)}
+          handler={() => {}}
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
         >
-          <DialogBody>
+          <DialogBody
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
             <p className="whitespace-nowrap">
               Original bid price: {myBid?.price}
             </p>
@@ -655,7 +682,7 @@ const MPActionButton = ({
               >
                 <p className="text-xl truncate">Change offered price</p>
               </button>
-              <NumberInput
+              {/* <NumberInput
                 value={newBidPrice}
                 min={0}
                 step={0.001}
@@ -666,7 +693,7 @@ const MPActionButton = ({
                     setNewBidPrice(value);
                   }
                 }}
-              />
+              /> */}
               <p className="text-base truncate">{chain}</p>
             </div>
           </DialogBody>

@@ -36,9 +36,20 @@ const NFTsDialog = ({
     innerNav(`/explore/collection/${chain}/${projectId}/${mint}`);
   };
   return (
-    <Dialog open={showItems} onClose={() => setShowItems(false)} maxWidth="xl">
+    <Dialog
+      open={showItems}
+      handler={() => {}}
+      placeholder=""
+      onPointerEnterCapture={() => {}}
+      onPointerLeaveCapture={() => {}}
+    >
       {!hideTitle && (
-        <DialogHeader sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+        <DialogHeader
+          className="flex gap-1 items-center"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
           <img
             src="${IMAGE_PROXY}${cItem.img}"
             className="w-full h-full bg-transparent"
@@ -47,7 +58,11 @@ const NFTsDialog = ({
           {cItem.title} ({cItem.count})
         </DialogHeader>
       )}
-      <DialogBody>
+      <DialogBody
+        placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
+      >
         {!isLoading ? (
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 w-full overflow-y-hidden">
             {map(cItem.items, (item: any, idx: number) => (

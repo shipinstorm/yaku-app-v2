@@ -11,16 +11,19 @@ const ConfirmDialog = ({
   confirmBtnColor = "error",
 }: any) => (
   <Dialog
-    sx={{
-      ".MuiPaper-root": {
-        backgroundColor: "transparent",
-      },
-    }}
     open={open}
-    onClose={() => setOpen(false)}
     aria-labelledby="confirm-dialog"
+    handler={() => {}}
+    placeholder=""
+    onPointerEnterCapture={() => {}}
+    onPointerLeaveCapture={() => {}}
   >
-    <DialogBody className="card">
+    <DialogBody
+      className="card"
+      placeholder=""
+      onPointerEnterCapture={() => {}}
+      onPointerLeaveCapture={() => {}}
+    >
       <div className="create-box-header">
         <h3 className="secondary-title">{title}</h3>
       </div>
