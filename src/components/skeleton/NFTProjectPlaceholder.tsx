@@ -1,20 +1,8 @@
-import { Box, Skeleton } from "@mui/material";
-
 const NFTProjectPlaceholder = () => (
-  <Box
-    sx={{
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      gap: 2,
-      my: "4px",
-    }}
-  >
-    <Skeleton variant="rounded" width={48} height={51} />
-    <Skeleton variant="rounded" width="100%" height={51} />
-  </Box>
+  <div className="flex justify-between items-center w-full flex-row gap-2 my-1">
+    <div className="w-12 h-12 rounded bg-gray-300"></div>
+    <div className="w-full h-12 rounded bg-gray-300"></div>
+  </div>
 );
 
 export default NFTProjectPlaceholder;

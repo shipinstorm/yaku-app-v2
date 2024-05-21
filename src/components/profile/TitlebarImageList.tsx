@@ -3,16 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { filter, map, round } from "lodash";
 
-import {
-  Avatar,
-  Box,
-  Chip,
-  IconButton,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  ListSubheader,
-} from "@mui/material";
 import { EyeOutlined } from "@ant-design/icons";
 
 import MPActionButton from "@/components/MPActionButton";
@@ -55,29 +45,18 @@ const TitlebarImageList = ({
   };
 
   return (
-    <ImageList sx={{ width: "100%" }} cols={4} gap={4}>
-      <ImageListItem key="Subheader" cols={4}>
-        <ListSubheader
-          component="div"
-          sx={{
-            borderRadius: ".75rem",
-            px: 3,
-            fontSize: 16,
-            fontWeight: 700,
-            display: "flex",
-            gap: 0.5,
-            alignItems: "center",
-          }}
-        >
+    <div className="grid grid-cols-4 gap-4 w-full">
+      <div className="col-span-4">
+        <div className="rounded-lg px-3 text-xl font-bold flex gap-1 items-center">
           {icon || <></>} {items.length} {title}
-        </ListSubheader>
-      </ImageListItem>
+        </div>
+      </div>
       {map(
         filter(items, ({ img }) => !!img),
         (item, idx) => (
-          <ImageListItem
+          <div
             key={`${item.img}+${idx}`}
-            sx={{ borderRadius: 4, position: "relative", cursor: "pointer" }}
+            className="relative cursor-pointer"
             onMouseEnter={() => setShow(idx)}
             onMouseLeave={() => setShow(false)}
             onClick={() => showSubItems && showCollectionItemsDialog(item)}
@@ -87,47 +66,37 @@ const TitlebarImageList = ({
                 src={`${IMAGE_PROXY}${item.img}`}
                 srcSet={`${IMAGE_PROXY}${item.img}`}
                 alt={item.title}
-                style={{
-                  borderRadius: 16,
-                  aspectRatio: "1 / 1",
-                  objectFit: "cover",
-                  width: "100%",
-                  minHeight: 80,
-                  maxHeight: 367,
-                }}
+                // style={{
+                //   borderRadius: 16,
+                //   aspectRatio: "1 / 1",
+                //   objectFit: "cover",
+                //   width: "100%",
+                //   minHeight: 80,
+                //   maxHeight: 367,
+                // }}
                 loading="lazy"
               />
             )}
             {item.video && (
-              <Box
-                sx={{
-                  aspectRatio: "1 / 1",
-                  width: "100%",
-                  display: "flex",
-                  minHeight: 80,
-                  maxHeight: 367,
-                }}
+              <div
+                className="aspect-w-1 aspect-h-1 w-full flex"
+                // style={{ minHeight: "80px", maxHeight: "367px" }}
               >
-                <video autoPlay loop muted style={{ width: "100%" }}>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  // style={{ width: "100%" }}
+                >
                   <source src={item.video} />
                 </video>
-              </Box>
+              </div>
             )}
             {showActionButton && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  top: 0,
-                  right: 0,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  p: 1.5,
-                  display: show !== false && show === idx ? "flex" : "none",
-                  flexDirection: "column",
-                  gap: 0.5,
-                }}
+              <div
+                className={`absolute bottom-0 left-0 top-0 right-0 ${
+                  show !== false && show === idx ? "flex" : "hidden"
+                } justify-center items-center p-6 flex-col gap-2`}
               >
                 {showAvatarButton && !item.listed && (
                   <SetAvatarButton item={item} />
@@ -148,62 +117,47 @@ const TitlebarImageList = ({
                 {showSendAndBurnButton && !item.listed && !item.staked && (
                   <SendAndBurnButton item={item} updateView={updateView} />
                 )}
-              </Box>
+              </div>
             )}
             {item.staked && (
-              <Chip
-                label="Staked"
-                sx={{
-                  position: "absolute",
-                  top: 4,
-                  left: 4,
-                  backgroundColor: "#22222288",
-                }}
-              />
+              <div className="relative">
+                <span className="absolute top-4 left-4 bg-opacity-70 bg-black rounded px-2 py-1">
+                  Staked
+                </span>
+              </div>
             )}
             {!item.staked && item.listed && (
-              <Chip
-                label="Listed"
-                sx={{
-                  position: "absolute",
-                  top: 4,
-                  left: 4,
-                  backgroundColor: "#22222288",
-                }}
-              />
+              <div className="relative">
+                <span className="absolute top-4 left-4 bg-opacity-70 bg-black rounded px-2 py-1">
+                  Listed
+                </span>
+              </div>
             )}
             {item.price && (
-              <Chip
-                label={`${!item.listed ? "FP: " : ""}${round(
-                  item.price,
-                  3
-                ).toLocaleString()}◎`}
-                sx={{
-                  position: "absolute",
-                  top: 4,
-                  right: 4,
-                  backgroundColor: "#22222288",
-                }}
-              />
+              <div className="relative">
+                <span className="absolute top-4 right-4 bg-opacity-70 bg-black rounded px-2 py-1">
+                  {!item.listed ? "FP: " : ""}
+                  {round(item.price, 3).toLocaleString()}◎
+                </span>
+              </div>
             )}
-            <ImageListItemBar
-              title={item.title}
-              actionIcon={
-                navigate ? (
-                  <IconButton
-                    size="small"
-                    onClick={() => navigateWithProjectId(item)}
-                  >
-                    <EyeOutlined />
-                  </IconButton>
-                ) : (
-                  <Avatar sx={{ width: 24, height: 24, fontSize: 14, mr: 1 }}>
-                    {item.count}
-                  </Avatar>
-                )
-              }
-            />
-          </ImageListItem>
+            <div className="relative">
+              <div className="absolute bottom-0 left-0 w-full p-4 bg-black bg-opacity-75 text-white flex justify-between items-center rounded-b">
+                <span className="text-lg font-bold truncate">{item.title}</span>
+                <div>
+                  {navigate ? (
+                    <button onClick={() => navigateWithProjectId(item)}>
+                      <EyeOutlined />
+                    </button>
+                  ) : (
+                    <div className="w-6 h-6 text-sm mr-1 flex items-center justify-center rounded-full bg-gray-500">
+                      {item.count}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         )
       )}
       <NFTsDialog
@@ -214,7 +168,7 @@ const TitlebarImageList = ({
         canView
         updateView={updateView}
       />
-    </ImageList>
+    </div>
   );
 };
 

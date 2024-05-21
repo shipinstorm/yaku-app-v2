@@ -1,5 +1,3 @@
-import { Button, Tab, Typography } from "@mui/material";
-import { TabList } from "@mui/lab";
 import { map } from "lodash";
 
 interface SwitchListProps {
@@ -27,66 +25,47 @@ const SwitchList = ({
 }: SwitchListProps) => (
   <>
     {!matchUpMd && (
-      <TabList
+      <div
+        className="flex overflow-x-auto scrollbar-hidden w-full"
         onChange={() => handleTabChange()}
-        variant="scrollable"
-        scrollButtons="auto"
-        sx={{
-          ...sx,
-          width: "100%",
-          ".MuiTabs-root": {
-            width: "100%",
-          },
-          ".MuiTabs-flexContainer": { borderBottom: "none" },
-        }}
-        textColor="secondary"
-        indicatorColor="secondary"
       >
         {map(tabList, (tab) => (
-          <Tab
-            label={tab}
-            id={`${tab}-tab`}
-            value={tab}
-            sx={{ minWidth: "auto" }}
-          />
+          <button
+            id="{tab}-tab"
+            value="{tab}"
+            className="px-4 py-2 min-w-auto"
+            onClick={() => handleTabChange()}
+          >
+            {tab}
+          </button>
         ))}
-      </TabList>
+      </div>
     )}
     {matchUpMd && (
       <div className="nft-collection">
-        <Typography
+        <div
           className={`${
             bgcolor || "bg-surface"
           } p-1 border border-line flex rounded-full max-h-9`}
-          sx={{
-            ...sx,
-            ".MuiButton-contained": {
-              backgroundColor: selectedBg || "rgb(45, 47, 51)",
-            },
-          }}
+          // style={{
+          //   ...sx,
+          //   backgroundColor: selectedBg || "rgb(45, 47, 51)",
+          // }}
         >
           {map(tabList, (tab) => (
-            <Button
-              key={tab}
-              className="rounded-full font-thin"
-              sx={{
-                ...contentSX,
-                p: "4px 18px",
-                minWidth: "auto",
-                lineHeight: "auto",
-                color: "rgba(255, 255, 255, 0.87)",
-                fontSize: "0.775rem",
-                ".MuiButton-startIcon": { marginRight: "5px", marginLeft: 0 },
-              }}
-              variant={tabIdx === tab ? "contained" : "text"}
-              color="secondary"
+            <button
+              className={`rounded-full font-thin p-[4px_18px] min-w-auto leading-none text-[rgba(255,255,255,0.87)] text-[0.775rem] flex items-center justify-center ${
+                tabIdx === tab ? "bg-secondary" : "bg-transparent"
+              }`}
               onClick={(e) => handleTabChange(e, tab)}
-              startIcon={icon && icon[tab]}
             >
+              {icon && icon[tab] && (
+                <span className="mr-1 ml-0">{icon[tab]}</span>
+              )}
               {tab}
-            </Button>
+            </button>
           ))}
-        </Typography>
+        </div>
       </div>
     )}
   </>

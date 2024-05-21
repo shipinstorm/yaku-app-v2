@@ -1,19 +1,26 @@
-import { Box, Button, Dialog, DialogContent, Typography } from "@mui/material";
-import { mutations } from "../graphql/graphql";
-import useAuthMutation from "@/hooks/useAuthMutation";
-import { useMeta } from "@/contexts/meta/meta";
-import { useEthcontext } from "@/contexts/EthWalletProvider";
+import { useState } from "react";
+import { isNumber, isObject } from "lodash";
+
+import { Dialog, DialogBody } from "@material-tailwind/react";
+
 import { Message, Transaction } from "@solana/web3.js";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useToasts } from "@/hooks/useToasts";
-import { isNumber, isObject } from "lodash";
-import NumberInput from "@/components/inputs/NumberInput";
-import { useState } from "react";
-import useConnections from "@/hooks/useConnetions";
+
 import {
   DEFAULT_BUYER_BROKER,
   USE_ME_API_FOR_COLLECTION_BUY,
 } from "@/config/config";
+
+import { useMeta } from "@/contexts/meta/meta";
+import { useEthcontext } from "@/contexts/EthWalletProvider";
+
+import NumberInput from "@/components/inputs/NumberInput";
+
+import { mutations } from "@/graphql/graphql";
+
+import useAuthMutation from "@/hooks/useAuthMutation";
+import { useToasts } from "@/hooks/useToasts";
+import useConnections from "@/hooks/useConnetions";
 import { useRequests } from "@/hooks/useRequests";
 
 const MPActionButton = ({
@@ -104,16 +111,14 @@ const MPActionButton = ({
         });
         if (isObject(getTransResp) && getTransResp?.meta?.err === null) {
           showSuccessToast(
-            <Typography
-              component="a"
-              sx={{ color: "#fff" }}
+            <a
               href={`https://solscan.io/tx/${res}`}
               target="_blank"
               rel="noreferrer"
-              className="m-auto"
+              className="text-white m-auto"
             >
               Successfully bought {name}.
-            </Typography>
+            </a>
           );
         } else {
           showErrorToast("Fail to purchase.");
@@ -210,16 +215,14 @@ const MPActionButton = ({
         });
         if (isObject(getTransResp) && getTransResp?.meta?.err === null) {
           showSuccessToast(
-            <Typography
-              component="a"
-              sx={{ color: "#fff" }}
-              href={`https://solscan.io/tx/${res}`}
+            <a
+              href="https://solscan.io/tx/${res}"
               target="_blank"
               rel="noreferrer"
-              className="m-auto"
+              className="text-white m-auto"
             >
               Successfully Delist {name}.
-            </Typography>
+            </a>
           );
         } else {
           showErrorToast("Fail to delist.");
@@ -268,16 +271,14 @@ const MPActionButton = ({
         });
         if (isObject(getTransResp) && getTransResp?.meta?.err === null) {
           showSuccessToast(
-            <Typography
-              component="a"
-              sx={{ color: "#fff" }}
-              href={`https://solscan.io/tx/${res}`}
+            <a
+              href="https://solscan.io/tx/${res}"
               target="_blank"
               rel="noreferrer"
-              className="m-auto"
+              className="text-white m-auto"
             >
               Successfully list {name}.
-            </Typography>
+            </a>
           );
         } else {
           showErrorToast("Fail to list.");
@@ -327,16 +328,14 @@ const MPActionButton = ({
         });
         if (isObject(getTransResp) && getTransResp?.meta?.err === null) {
           showSuccessToast(
-            <Typography
-              component="a"
-              sx={{ color: "#fff" }}
-              href={`https://solscan.io/tx/${res}`}
+            <a
+              href="https://solscan.io/tx/${res}"
               target="_blank"
               rel="noreferrer"
-              className="m-auto"
+              className="text-white m-auto"
             >
               Successfully bid {name} with {bidPrice} SOL.
-            </Typography>
+            </a>
           );
         } else {
           showErrorToast("Fail to bid.");
@@ -391,16 +390,14 @@ const MPActionButton = ({
         });
         if (isObject(getTransResp) && getTransResp?.meta?.err === null) {
           showSuccessToast(
-            <Typography
-              component="a"
-              sx={{ color: "#fff" }}
-              href={`https://solscan.io/tx/${res}`}
+            <a
+              href="https://solscan.io/tx/${res}"
               target="_blank"
               rel="noreferrer"
-              className="m-auto"
+              className="text-white m-auto"
             >
               Successfully bid {name} with {newBidPrice} SOL.
-            </Typography>
+            </a>
           );
         } else {
           showErrorToast("Fail to bid.");
@@ -442,16 +439,14 @@ const MPActionButton = ({
         });
         if (isObject(getTransResp) && getTransResp?.meta?.err === null) {
           showSuccessToast(
-            <Typography
-              component="a"
-              sx={{ color: "#fff" }}
-              href={`https://solscan.io/tx/${res}`}
+            <a
+              href="https://solscan.io/tx/${res}"
               target="_blank"
               rel="noreferrer"
-              className="m-auto"
+              className="text-white m-auto"
             >
               Successfully cancel bid on {name}.
-            </Typography>
+            </a>
           );
         } else {
           showErrorToast("Fail to bid.");
@@ -477,33 +472,29 @@ const MPActionButton = ({
         {listed ? (
           <>
             {!isOwner ? (
-              <Button
-                sx={{ borderRadius: 30, mt: 2 }}
-                fullWidth
-                color="secondary"
-                variant="contained"
-                onClick={() =>
-                  chain === "SOL" ? buyNowInSOL() : buyNowInETH()
+              <button
+                className="rounded-full mt-2 w-full bg-secondary text-white"
+                onClick={
+                  chain === "SOL" ? () => buyNowInSOL() : () => buyNowInETH()
                 }
               >
-                <Typography component="p" fontSize={20} noWrap>
-                  Buy Now
-                </Typography>
-              </Button>
+                <p className="text-base" data-font-size="20">
+                  {" "}
+                  Buy Now{" "}
+                </p>
+              </button>
             ) : (
-              <Button
-                sx={{ borderRadius: 30, mt: 2 }}
-                fullWidth
-                color="secondary"
-                variant="contained"
-                onClick={() =>
-                  chain === "SOL" ? delistInSOL() : delistInETH()
+              <button
+                className="rounded-full mt-2 w-full bg-secondary text-white"
+                onClick={
+                  chain === "SOL" ? () => delistInSOL() : () => delistInETH()
                 }
               >
-                <Typography component="p" fontSize={20} noWrap>
-                  Delist
-                </Typography>
-              </Button>
+                <p className="text-base" data-font-size="20">
+                  {" "}
+                  Delist{" "}
+                </p>
+              </button>
             )}
           </>
         ) : (
@@ -511,30 +502,19 @@ const MPActionButton = ({
             {!noListing ? (
               <>
                 {!isOwner ? (
-                  <Typography component="p" color="primary">
-                    Not Listed
-                  </Typography>
+                  <p className="text-primary">Not Listed</p>
                 ) : (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: 1,
-                      alignItems: "center",
-                      mt: 2,
-                    }}
-                  >
-                    <Button
-                      sx={{ borderRadius: 30, minWidth: 120 }}
-                      color="secondary"
-                      variant="contained"
-                      onClick={() =>
-                        chain === "SOL" ? listInSOL() : listInETH()
+                  <div className="flex items-center gap-4 mt-8">
+                    <button
+                      className="rounded-full min-w-[120px] text-white bg-secondary-main"
+                      onClick={
+                        chain === "SOL" ? () => listInSOL() : () => listInETH()
                       }
                     >
-                      <Typography component="p" fontSize={20} noWrap>
+                      <p className="text-lg" data-font-size="20">
                         List
-                      </Typography>
-                    </Button>
+                      </p>
+                    </button>
                     <NumberInput
                       value={listPrice}
                       min={0}
@@ -547,26 +527,25 @@ const MPActionButton = ({
                         }
                       }}
                     />
-                    <Typography component="p" fontSize={16} noWrap>
-                      {chain}
-                    </Typography>
-                  </Box>
+                    <p className="text-base" data-font-size="16">
+                      {" "}
+                      {chain}{" "}
+                    </p>
+                  </div>
                 )}
               </>
             ) : (
               <>
                 {isOwner && (
-                  <Button
-                    sx={{ borderRadius: 30, mt: 2 }}
-                    fullWidth
-                    color="secondary"
-                    variant="contained"
+                  <button
+                    className="rounded-full mt-2 w-full bg-secondary text-white"
                     onClick={() => setShowListDialog(true)}
                   >
-                    <Typography component="p" fontSize={20} noWrap>
-                      List
-                    </Typography>
-                  </Button>
+                    <p className="text-base" data-font-size="20">
+                      {" "}
+                      List{" "}
+                    </p>
+                  </button>
                 )}
               </>
             )}
@@ -575,56 +554,48 @@ const MPActionButton = ({
 
         {!noListing &&
           (!myBid ? (
-            <Button
-              sx={{ borderRadius: 30, mt: 2 }}
-              fullWidth
-              color="secondary"
-              variant="outlined"
+            <button
+              className="rounded-full mt-2 w-full text-secondary border-secondary border"
               onClick={() => setShowBidDialog(true)}
             >
-              <Typography component="p" fontSize={20} noWrap>
-                Make an offer
-              </Typography>
-            </Button>
+              <p className="text-base" data-font-size="20">
+                {" "}
+                Make an offer{" "}
+              </p>
+            </button>
           ) : (
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-              <Button
-                sx={{ borderRadius: 30, mt: 2 }}
-                fullWidth
-                color="secondary"
-                variant="outlined"
+            <div className="flex items-center gap-1">
+              <button
+                className="rounded-full mt-2 w-full text-secondary border-secondary border"
                 onClick={() => setShowChangeBidDialog(true)}
               >
-                <Typography component="p" fontSize={20} noWrap>
-                  Change offered price
-                </Typography>
-              </Button>
-              <Button
-                sx={{ borderRadius: 30, mt: 2 }}
-                fullWidth
-                color="error"
-                variant="outlined"
+                <p className="text-base" data-font-size="20">
+                  {" "}
+                  Change offered price{" "}
+                </p>
+              </button>
+              <button
+                className="rounded-full mt-2 w-full text-error border-error border"
                 onClick={() => cancelBid()}
               >
-                <Typography component="p" fontSize={20} noWrap>
-                  Cancel offer
-                </Typography>
-              </Button>
-            </Box>
+                <p className="text-base" data-font-size="20">
+                  {" "}
+                  Cancel offer{" "}
+                </p>
+              </button>
+            </div>
           ))}
         <Dialog open={showListDialog} onClose={() => setShowListDialog(false)}>
-          <DialogContent>
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 2 }}>
-              <Button
-                sx={{ borderRadius: 30, minWidth: 120 }}
-                color="secondary"
-                variant="contained"
-                onClick={() => (chain === "SOL" ? listInSOL() : listInETH())}
+          <DialogBody>
+            <div className="flex gap-1 items-center mt-2">
+              <button
+                className="rounded-full min-w-[120px] bg-secondary text-white px-4 py-2"
+                onClick={
+                  chain === "SOL" ? () => listInSOL() : () => listInETH()
+                }
               >
-                <Typography component="p" fontSize={20} noWrap>
-                  List
-                </Typography>
-              </Button>
+                <p className="text-base">List</p>
+              </button>
               <NumberInput
                 value={listPrice}
                 min={0}
@@ -637,25 +608,22 @@ const MPActionButton = ({
                   }
                 }}
               />
-              <Typography component="p" fontSize={16} noWrap>
-                {chain}
-              </Typography>
-            </Box>
-          </DialogContent>
+              <p className="text-base" data-chain="{chain}" data-font-size="16">
+                {" "}
+                {chain}{" "}
+              </p>
+            </div>
+          </DialogBody>
         </Dialog>
         <Dialog open={showBidDialog} onClose={() => setShowBidDialog(false)}>
-          <DialogContent>
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 2 }}>
-              <Button
-                sx={{ borderRadius: 30, minWidth: 120 }}
-                color="secondary"
-                variant="contained"
-                onClick={() => (chain === "SOL" ? bidInSOL() : bidInETH())}
+          <DialogBody>
+            <div className="flex gap-1 items-center mt-2">
+              <button
+                className="rounded-lg min-w-[120px] bg-secondary text-white"
+                onClick={chain === "SOL" ? () => bidInSOL() : () => bidInETH()}
               >
-                <Typography component="p" fontSize={20} noWrap>
-                  Make an offer
-                </Typography>
-              </Button>
+                <p className="text-base whitespace-nowrap">Make an offer</p>
+              </button>
               <NumberInput
                 value={bidPrice}
                 min={0}
@@ -668,31 +636,25 @@ const MPActionButton = ({
                   }
                 }}
               />
-              <Typography component="p" fontSize={16} noWrap>
-                {chain}
-              </Typography>
-            </Box>
-          </DialogContent>
+              <p className="text-base whitespace-nowrap">{chain}</p>
+            </div>
+          </DialogBody>
         </Dialog>
         <Dialog
           open={showChangeBidDialog}
           onClose={() => setShowChangeBidDialog(false)}
         >
-          <DialogContent>
-            <Typography component="p" noWrap>
+          <DialogBody>
+            <p className="whitespace-nowrap">
               Original bid price: {myBid?.price}
-            </Typography>
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 2 }}>
-              <Button
-                sx={{ borderRadius: 30, minWidth: 120 }}
-                color="secondary"
-                variant="contained"
+            </p>
+            <div className="flex items-center gap-1 mt-2">
+              <button
+                className="rounded-full min-w-[120px] bg-secondary text-base px-4 py-2"
                 onClick={() => changeBid()}
               >
-                <Typography component="p" fontSize={20} noWrap>
-                  Change offered price
-                </Typography>
-              </Button>
+                <p className="text-xl truncate">Change offered price</p>
+              </button>
               <NumberInput
                 value={newBidPrice}
                 min={0}
@@ -705,11 +667,9 @@ const MPActionButton = ({
                   }
                 }}
               />
-              <Typography component="p" fontSize={16} noWrap>
-                {chain}
-              </Typography>
-            </Box>
-          </DialogContent>
+              <p className="text-base truncate">{chain}</p>
+            </div>
+          </DialogBody>
         </Dialog>
       </>
     );

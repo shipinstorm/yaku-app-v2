@@ -3,25 +3,14 @@ import copy from "copy-to-clipboard";
 import { filter, find } from "lodash";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
 
 import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  Button,
   Dialog,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-  Skeleton,
-  TextField,
+  DialogHeader,
+  DialogBody,
   Tooltip,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+} from "@material-tailwind/react";
 import {
   IconBrandDiscord,
   IconBrandTwitter,
@@ -60,7 +49,7 @@ const EditProfileDialog = ({
     fullWidth
     maxWidth="lg"
   >
-    <DialogTitle
+    <DialogHeader
       sx={{
         display: "flex",
         alignItems: "center",
@@ -68,99 +57,60 @@ const EditProfileDialog = ({
         gap: 1,
       }}
     >
-      <Typography component="h2" fontSize={24} fontWeight={800}>
-        Edit profile
-      </Typography>
-      <LoadingButton
-        variant="contained"
-        color="secondary"
-        sx={{ backgroundColor: "#fff", color: "#000", borderRadius: 30000 }}
+      <h2 className="text-2xl font-bold">Edit profile</h2>
+      <button
+        className="bg-white text-black rounded-full"
         onClick={() => handleSave()}
-        loading={isLoading}
+        disabled={isLoading}
       >
         Save
-      </LoadingButton>
-    </DialogTitle>
-    <DialogContent>
+      </button>
+    </DialogHeader>
+    <DialogBody>
       <ProfileBanner height={240} editable upload={handleUploadBanner} />
-      <Box
-        sx={{
-          mt: { xs: "-40px", md: "-75px" },
-          display: "flex",
-          alignItems: "center",
-          position: "relative",
-        }}
-      >
-        <Avatar
-          src={src}
-          sx={{
-            width: { xs: 60, md: 150 },
-            height: { xs: 60, md: 150 },
-            objectFit: "contain",
-            border: "none",
-            backgroundColor: "#000",
-            zIndex: 20,
-          }}
+      <div className="mt-[-40px] md:mt-[-75px] flex items-center relative">
+        <img
+          src="{src}"
+          className="w-[60px] md:w-[150px] h-[60px] md:h-[150px] object-contain border-none bg-black z-20"
         />
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            top: 0,
-            right: 0,
-            backgroundColor: "#00000066",
-            width: { xs: 60, md: 150 },
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "50%",
-            display: "flex",
-            p: 2,
-            zIndex: 21,
-          }}
-        >
-          <IconButton
-            sx={{
-              backgroundColor: "#00000066",
-            }}
-            onClick={() => handleShowSelectNft()}
-          >
-            <IconUpload />
-          </IconButton>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          mt: 4,
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          alignItems: "center",
-        }}
-      >
-        <TextField
-          fullWidth
-          inputProps={{ maxLength: 30 }}
-          label="Vanity"
-          value={username}
+        <div className="relative">
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-full">
+            <button
+              className="bg-black bg-opacity-50"
+              onClick={() => handleShowSelectNft()}
+            >
+              <IconUpload />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mt-4 flex flex-col gap-2 items-center">
+        <input
+          type="text"
+          className="w-full"
+          maxLength={30}
+          placeholder="Vanity"
+          value="{username}"
           onChange={(e) => handleUsername(e.target.value)}
         />
-        <TextField
-          fullWidth
-          inputProps={{ maxLength: 600 }}
-          label="Bio"
-          value={bio}
+        <input
+          type="text"
+          className="w-full"
+          maxLength={600}
+          placeholder="Bio"
+          value="{bio}"
           onChange={(e) => handleBio(e.target.value)}
         />
-        <TextField
-          fullWidth
-          inputProps={{ maxLength: 30 }}
-          label="Location"
-          value={locale}
+        <input
+          type="text"
+          className="w-full"
+          maxLength={30}
+          placeholder="Location"
+          value="{locale}"
           onChange={(e) => handleLocale(e.target.value)}
         />
-      </Box>
-    </DialogContent>
+      </div>
+    </DialogBody>
   </Dialog>
 );
 
@@ -186,8 +136,7 @@ const AvatarSection = ({
   const [username, setUsername] = useState(user?.vanity || "");
   const [bio, setBio] = useState(user?.bio || "");
   const [locale, setLocale] = useState(user?.location || "");
-  const theme = useTheme();
-  const matchUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const matchUpMd = useMediaQuery({ query: "(min-width: 900px)" });
   const [updateProfile] = useAuthMutation(mutations.UPDATE_PROFILE);
   const handleEditProfile = () => {
     setShowEditProfile(true);
@@ -247,147 +196,65 @@ const AvatarSection = ({
     }
   }, [user]);
   return (
-    <Box
-      sx={{
-        mt: { xs: "-40px", md: "-180px" },
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <div className="mt-[-40px] md:mt-[-180px] flex items-center">
       {src ? (
-        <Avatar
+        <img
           src={src}
-          sx={{
-            width: { xs: 60, md: 240 },
-            height: { xs: 60, md: 240 },
-            objectFit: "contain",
-            border: "none",
-            backgroundColor: "#000",
-            zIndex: 20,
-          }}
+          className="object-contain bg-black z-20 w-[60px] h-[60px] md:w-[240px] md:h-[240px]"
         />
       ) : (
-        <Skeleton
-          sx={{
-            width: { xs: 60, md: 240 },
-            height: { xs: 60, md: 240 },
-            zIndex: 20,
-            backgroundColor: "#111111ec",
-          }}
-          variant="circular"
-        />
+        <div className="bg-[#111111ec] z-20 rounded-full w-[60px] h-[60px] md:w-[240px] md:h-[240px]"></div>
       )}
-      <Box
-        sx={{
-          backgroundColor: "#111111ec",
-          width: { xs: "100%", md: "auto" },
-          minWidth: { xs: "80vw", md: 480 },
-          maxWidth: "80vw",
-          minHeight: 100,
-          maxHeight: 140,
-          zIndex: 19,
-          pl: 5,
-          pr: 2,
-          borderRadius: 4,
-          marginLeft: "-24px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <Grid
-          container
-          columnSpacing={1}
-          sx={{ justifyContent: "space-between", alignItems: "center" }}
-        >
-          <Grid item xs={!!handleFollow ? 7 : 12}>
-            <Box
-              sx={{ display: "flex", gap: 1, alignItems: "center", flex: 1 }}
-            >
-              <Typography noWrap fontSize={20} fontWeight={800}>
+      <div className="bg-opacity-70 bg-black w-full md:w-auto md:min-w-[480px] max-w-[80vw] min-h-[100px] max-h-[140px] z-19 pl-5 pr-2 rounded-lg ml-[-24px] flex flex-col justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-1 md:gap-x-0 justify-between items-center">
+          <div className="md:col-span-12">
+            <div className="flex gap-1 items-center flex-1">
+              <p className="whitespace-nowrap text-[20px] font-extrabold">
                 {mainWallet?.publicKey?.toBase58() === wallet && user
                   ? user.vanity
                   : vanity}{" "}
                 {sol_name && `| ${sol_name}`}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                columnGap: 1,
-                alignItems: "center",
-                flexWrap: "wrap",
-                flex: 1,
-              }}
-            >
+              </p>
+            </div>
+            <div className="flex gap-x-1 items-center flex-wrap flex-1">
               {discord && (
                 <Tooltip title="Click to copy">
-                  <Typography
-                    fontSize={14}
-                    fontWeight={800}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 0.5,
-                      cursor: "pointer",
-                    }}
-                    noWrap
+                  <div
+                    className="flex items-center gap-0.5 cursor-pointer"
                     onClick={() => {
-                      copy(`${discord?.name}#${discord?.discriminator}`);
+                      copy("${discord?.name}#${discord?.discriminator}");
                       showSuccessToast(
-                        `Copied discord id: ${discord?.name}#${discord?.discriminator}`
+                        "Copied discord id: ${discord?.name}#${discord?.discriminator}"
                       );
                     }}
                   >
                     <IconBrandDiscord style={{ height: 16, width: 14 }} />
-                    <Typography
-                      noWrap
-                    >{`${discord?.name}#${discord?.discriminator}`}</Typography>
-                  </Typography>
+                    <p className="overflow-hidden whitespace-nowrap">{`${discord?.name}#${discord?.discriminator}`}</p>
+                  </div>
                 </Tooltip>
               )}
               {twitter && (
-                <Typography
-                  fontSize={14}
-                  fontWeight={800}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 0.5,
-                    cursor: "pointer",
-                  }}
+                <div
+                  className="flex items-center gap-0.5 cursor-pointer"
                   onClick={() =>
                     window.open(
-                      `https://twitter.com/${twitter?.username}`,
+                      "https://twitter.com/${twitter?.username}",
                       "_blank"
                     )
                   }
-                  noWrap
                 >
-                  <IconBrandTwitter style={{ height: 16, width: 14 }} />
-                  <Typography noWrap>{twitter?.username}</Typography>
-                </Typography>
+                  <IconBrandTwitter
+                  // style={{ height: 16, width: 14 }}
+                  />
+                  <p className="overflow-hidden whitespace-nowrap">
+                    {twitter?.username}
+                  </p>
+                </div>
               )}
-            </Box>
+            </div>
 
-            <Box
-              sx={{ display: "flex", gap: 1, alignItems: "center", flex: 1 }}
-            >
-              <AvatarGroup
-                max={matchUpMd ? 6 : 4}
-                spacing="medium"
-                sx={{
-                  gap: 2,
-                  cursor: "pointer",
-                  ".MuiAvatarGroup-avatar": {
-                    width: 24,
-                    height: 24,
-                    border: "none",
-                    fontSize: 16,
-                  },
-                  ".MuiAvatar-root": { border: "none" },
-                }}
-              >
+            <div className="flex gap-1 items-center flex-1">
+              <div className="flex gap-2 cursor-pointer">
                 {stakedYakuNfts &&
                   stakedYakuNfts.length > 0 &&
                   filter(
@@ -415,101 +282,66 @@ const AvatarSection = ({
                   ).length > 9 && <Badges icon="BadgeIconWhale" alt="Whale" />}
                 {/* <Badges icon="BadgeIconTwitter" /> */}
                 {/* <Badges icon="BadgeIconGoldMedal" /> */}
-              </AvatarGroup>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={4.5}
-            sx={{
-              alignItems: "flex-end",
-              flexDirection: "column",
-              justifyContent: "space-bewteen",
-              height: "100%",
-              display: !!handleFollow ? "flex" : "none",
-            }}
+              </div>
+            </div>
+          </div>
+          <div
+            className={`grid-item xs:w-4.5 ${
+              !!handleFollow ? "flex" : "hidden"
+            }`}
+            // style={{
+            //   alignItems: "flex-end",
+            //   flexDirection: "column",
+            //   justifyContent: "space-between",
+            //   height: "100%",
+            // }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                gap: 1,
-              }}
-            >
+            <div className="flex items-center justify-end gap-1">
               {mainWallet?.publicKey?.toBase58() === wallet && user ? (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{
-                    backgroundColor: "#fff",
-                    color: "#000",
-                    borderRadius: 30000,
-                  }}
-                  onClick={handleEditProfile}
+                <button
+                  className="bg-secondary text-black rounded-full px-4 py-2"
+                  onClick={() => handleEditProfile()}
                 >
                   {matchUpMd ? "Edit Profile" : "Edit"}
-                </Button>
+                </button>
               ) : (
                 <></>
               )}
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                gap: 1,
-              }}
-            >
+            </div>
+            <div className="flex items-center justify-end gap-1">
               {mainWallet?.publicKey?.toBase58() !== wallet ? (
                 <>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{
-                      backgroundColor: "#fff",
-                      color: "#000",
-                      borderRadius: 30000,
-                    }}
-                    onClick={handleFollow}
+                  <button
+                    className="bg-secondary text-black rounded-full px-4 py-2"
+                    onClick={() => handleFollow()}
                   >
                     {isFollowed ? "Unfollow" : "Follow"}
-                  </Button>
+                  </button>
                 </>
               ) : (
                 <></>
               )}
-            </Box>
-            <Box
-              sx={{
-                mt: 1,
-                display: "flex",
-                alignItems: { xs: "flex-end", md: "center" },
-                justifyContent: { md: "flex-end", xs: "center" },
-                gap: 1,
-                flexDirection: { xs: "column", md: "row" },
-              }}
-            >
-              <Typography noWrap>
+            </div>
+            <div className="mt-1 flex flex-col md:flex-row gap-1 items-center md:items-center justify-center md:justify-end">
+              <p className="whitespace-nowrap">
                 {Intl.NumberFormat("en-US", {
                   notation: "compact",
                   maximumFractionDigits: 1,
                 }).format(followings || 0)}{" "}
                 Followings
-              </Typography>
+              </p>
 
-              <Typography noWrap>
+              <p className="whitespace-nowrap">
                 {Intl.NumberFormat("en-US", {
                   notation: "compact",
                   maximumFractionDigits: 1,
                 }).format(followers || 0)}{" "}
                 Followers
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <EditProfileDialog
         {...{
           src,
@@ -527,7 +359,7 @@ const AvatarSection = ({
           handleLocale,
         }}
       />
-    </Box>
+    </div>
   );
 };
 

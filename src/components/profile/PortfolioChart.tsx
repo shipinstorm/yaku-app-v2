@@ -5,8 +5,6 @@ import { isEmpty, map, sortBy } from "lodash";
 import dayjs from "dayjs";
 import ReactApexChart from "react-apexcharts";
 
-import { Box, Skeleton, Typography, useTheme } from "@mui/material";
-
 import AreaChart from "@/components/charts/AreaChart";
 import SwitchList from "@/components/lists/SwitchList";
 
@@ -15,6 +13,8 @@ import { queries } from "@/graphql/graphql";
 import useAuth from "@/hooks/useAuth";
 import useAuthQuery from "@/hooks/useAuthQuery";
 
+import { Palette } from "@/themes/palette";
+
 const PortfolioChart = ({ wallet }: any) => {
   const useLightWeightChart = true;
   const datebacks: Record<string, string> = {
@@ -22,7 +22,6 @@ const PortfolioChart = ({ wallet }: any) => {
     "30D": "MONTH",
   };
   const portfolioTabList = ["7D", "30D"];
-  const theme = useTheme();
   const auth = useAuth();
   const [walletHist, setWalletHist] = useState<any>([]);
   const [chartData, setChartData] = useState<any>({});
@@ -77,7 +76,7 @@ const PortfolioChart = ({ wallet }: any) => {
           },
         },
         grid: {
-          borderColor: theme.palette.mode === "dark" ? "#333333" : "#cccccc",
+          borderColor: Palette.mode === "dark" ? "#333333" : "#cccccc",
         },
         fill: {
           type: "gradient",
@@ -114,11 +113,11 @@ const PortfolioChart = ({ wallet }: any) => {
             min: 0,
           },
         ],
-        theme: { mode: theme.palette.mode },
+        theme: { mode: Palette.mode },
         tooltip: {
           shared: true,
           intersect: false,
-          theme: theme.palette.mode,
+          theme: Palette.mode,
           y: {
             formatter: (
               y: number,
@@ -173,7 +172,7 @@ const PortfolioChart = ({ wallet }: any) => {
 
   useEffect(() => {
     prepareChart1(histData?.getWalletStatsHist?.wallet_stats_history);
-  }, [theme.palette.mode]);
+  }, [Palette.mode]);
 
   useEffect(() => {
     setChartData({});
@@ -191,20 +190,8 @@ const PortfolioChart = ({ wallet }: any) => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          "& > *": {
-            m: 1,
-          },
-        }}
-      >
-        <Typography fontSize={16} fontWeight={700}>
-          NFT Portfolio Summary
-        </Typography>
+      <div className="flex flex-row justify-between items-center space-x-1">
+        <p className="text-lg font-semibold">NFT Portfolio Summary</p>
         <SwitchList
           handleTabChange={handlePortfolioTabChange}
           matchUpMd
@@ -213,7 +200,7 @@ const PortfolioChart = ({ wallet }: any) => {
           bgcolor="rgb(88, 101, 128)"
           contentSX={{ lineHeight: 1.75 }}
         />
-      </Box>
+      </div>
       <div id="chart1">
         {!isEmpty(chartData) ? (
           <>
@@ -235,7 +222,7 @@ const PortfolioChart = ({ wallet }: any) => {
             )}
           </>
         ) : (
-          <Skeleton width="100%" height={280} />
+          <div className="w-full h-[280px]"></div>
         )}
       </div>
     </>

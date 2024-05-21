@@ -76,10 +76,9 @@ const ProjectCard = ({
                 </div>
               )}
               <h6
-                className={`text-terciary text-center w-[90%] overflow-hidden text-xs ${
+                className={`text-terciary text-center w-[90%] overflow-hidden text-xs min-h-[19px] ${
                   truncate ? "truncate" : ""
                 }`}
-                style={{ minHeight: 19 }}
               >
                 {description}
               </h6>

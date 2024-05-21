@@ -3,21 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { map, round } from "lodash";
 
 import { EyeOutlined } from "@ant-design/icons";
-import {
-  Avatar,
-  Box,
-  Chip,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Skeleton,
-} from "@mui/material";
 import Image from "mui-image";
+import { Dialog, DialogHeader, DialogBody } from "@material-tailwind/react";
 
 import MPActionButton from "@/components/MPActionButton";
 
@@ -51,25 +38,22 @@ const NFTsDialog = ({
   return (
     <Dialog open={showItems} onClose={() => setShowItems(false)} maxWidth="xl">
       {!hideTitle && (
-        <DialogTitle sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-          <Avatar
-            sx={{ backgroundColor: "transparent" }}
-            src={`${IMAGE_PROXY}${cItem.img}`}
+        <DialogHeader sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <img
+            src="${IMAGE_PROXY}${cItem.img}"
+            className="w-full h-full bg-transparent"
+            alt=""
           />{" "}
           {cItem.title} ({cItem.count})
-        </DialogTitle>
+        </DialogHeader>
       )}
-      <DialogContent>
+      <DialogBody>
         {!isLoading ? (
-          <ImageList
-            sx={{ width: "100%", overflowY: "hidden" }}
-            cols={cols}
-            gap={gap}
-          >
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 w-full overflow-y-hidden">
             {map(cItem.items, (item: any, idx: number) => (
-              <ImageListItem
-                key={`${item.image}+${idx}`}
-                sx={{ borderRadius: 4, position: "relative" }}
+              <div
+                key="${item.image}+${idx}"
+                className="relative rounded-lg"
                 onMouseEnter={() => setShow(idx)}
                 onMouseLeave={() => setShow(false)}
               >
@@ -77,46 +61,28 @@ const NFTsDialog = ({
                   <Image
                     src={`${IMAGE_PROXY}${item.image}`}
                     alt={item.title}
-                    style={{
-                      borderRadius: 16,
-                      aspectRatio: "1 / 1",
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "auto",
-                      minHeight: 80,
-                      maxHeight: 367,
-                    }}
+                    // style={{
+                    //   borderRadius: 16,
+                    //   aspectRatio: "1 / 1",
+                    //   objectFit: "cover",
+                    //   width: "100%",
+                    //   height: "auto",
+                    //   minHeight: 80,
+                    //   maxHeight: 367,
+                    // }}
                   />
                 )}
                 {item.video && (
-                  <Box
-                    sx={{
-                      aspectRatio: "1 / 1",
-                      width: "100%",
-                      display: "flex",
-                      minHeight: 80,
-                      maxHeight: 367,
-                    }}
-                  >
-                    <video autoPlay loop muted style={{ width: "100%" }}>
+                  <div className="aspect-w-1 aspect-h-1 w-full flex min-h-[80px] max-h-[367px]">
+                    <video autoPlay loop muted className="w-full">
                       <source src={item.video} />
                     </video>
-                  </Box>
+                  </div>
                 )}
-                <Box
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    top: 0,
-                    right: 0,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    p: 2,
-                    display: show !== false && show === idx ? "flex" : "none",
-                    flexDirection: "column",
-                    gap: 0.5,
-                  }}
+                <div
+                  className={`absolute bottom-0 left-0 top-0 right-0 ${
+                    show !== false && show === idx ? "flex" : "hidden"
+                  } justify-center items-center p-8 flex-col gap-2`}
                 >
                   {!item.listed && <SetAvatarButton item={item} />}
                   {!noListing && (
@@ -137,93 +103,70 @@ const NFTsDialog = ({
                   {showSendAndBurnButton && !item.listed && !item.staked && (
                     <SendAndBurnButton item={item} updateView={updateView} />
                   )}
-                </Box>
+                </div>
                 {item.staked && (
-                  <Chip
-                    label="Staked"
-                    sx={{
-                      position: "absolute",
-                      top: 4,
-                      left: 4,
-                      backgroundColor: "#22222288",
-                    }}
-                  />
+                  <div className="relative">
+                    <span className="absolute top-4 left-4 bg-opacity-70 bg-black rounded px-2 py-1">
+                      Staked
+                    </span>
+                  </div>
                 )}
                 {!item.staked &&
                   (item.listStatus === "listed" || item.listed) && (
-                    <Chip
-                      label="Listed"
-                      sx={{
-                        position: "absolute",
-                        top: 4,
-                        left: 4,
-                        backgroundColor: "#22222288",
-                      }}
-                    />
+                    <div className="relative">
+                      <span className="absolute top-4 left-4 bg-opacity-70 bg-black rounded px-2 py-1">
+                        Listed
+                      </span>
+                    </div>
                   )}
                 {item.price && (
-                  <Chip
-                    label={`${
-                      !(item.listStatus === "listed" || item.listed)
+                  <div className="relative">
+                    <span className="absolute top-4 right-4 bg-opacity-70 bg-black rounded px-2 py-1">
+                      {!(item.listStatus === "listed" || item.listed)
                         ? "FP: "
-                        : ""
-                    }${round(item.price, 3).toLocaleString()}◎`}
-                    sx={{
-                      position: "absolute",
-                      top: 4,
-                      right: 4,
-                      backgroundColor: "#22222288",
-                    }}
-                  />
+                        : ""}
+                      {round(item.price, 3).toLocaleString()}◎
+                    </span>
+                  </div>
                 )}
                 {cItem.floor_price &&
                   !item.price &&
                   item.listStatus !== "listed" && (
-                    <Chip
-                      label={`${
-                        !(item.listStatus === "listed" || item.listed)
+                    <div className="relative">
+                      <span className="absolute top-4 right-4 bg-opacity-70 bg-black rounded px-2 py-1">
+                        {!(item.listStatus === "listed" || item.listed)
                           ? "FP: "
-                          : ""
-                      }${round(cItem.floor_price, 3).toLocaleString()}◎`}
-                      sx={{
-                        position: "absolute",
-                        top: 4,
-                        right: 4,
-                        backgroundColor: "#22222288",
-                      }}
-                    />
+                          : ""}
+                        {round(cItem.floor_price, 3).toLocaleString()}◎
+                      </span>
+                    </div>
                   )}
                 {canView && (
-                  <ImageListItemBar
-                    title={item.name}
-                    actionIcon={
-                      <IconButton
-                        size="small"
-                        onClick={() => navigateWithProjectId(item)}
-                      >
-                        <EyeOutlined />
-                      </IconButton>
-                    }
-                  />
+                  <div className="flex justify-between items-center p-2 bg-black bg-opacity-50 text-white">
+                    <span className="font-semibold">{item.name}</span>
+                    <button
+                      className="p-0 text-secondary"
+                      onClick={() => navigateWithProjectId(item)}
+                    >
+                      <EyeOutlined />
+                    </button>
+                  </div>
                 )}
-              </ImageListItem>
+              </div>
             ))}
-          </ImageList>
+          </div>
         ) : (
-          <Grid container gap={gap}>
+          <div className={`grid gap-${gap}`}>
             {map(Array(cols * 2), (col) => (
-              <Grid key={col} item xs={12 / cols}>
-                <Skeleton
-                  variant="rounded"
-                  width="100%"
-                  height="auto"
-                  sx={{ aspectRatio: "1 / 1", minHeight: 80, minWidth: 80 }}
-                />
-              </Grid>
+              <div key={col} className={`w-${12 / cols}`}>
+                <div className="aspect-w-1 aspect-h-1 min-w-[80px] min-h-[80px]">
+                  <div className="animate-pulse bg-gray-300 rounded-md"></div>
+                </div>
+              </div>
             ))}
-          </Grid>
+          </div>
         )}
-      </DialogContent>
+      </DialogBody>
     </Dialog>
   );
 };

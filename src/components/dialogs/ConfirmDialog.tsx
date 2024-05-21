@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, Button } from "@mui/material";
+import { Dialog, DialogBody } from "@material-tailwind/react";
 
 const ConfirmDialog = ({
   title,
@@ -20,33 +20,30 @@ const ConfirmDialog = ({
     onClose={() => setOpen(false)}
     aria-labelledby="confirm-dialog"
   >
-    <DialogContent className="card">
+    <DialogBody className="card">
       <div className="create-box-header">
         <h3 className="secondary-title">{title}</h3>
       </div>
       {children}
 
       <div className="flex mt-5 pt-3 px-2">
-        <Button
-          variant="contained"
-          className="dark-btn flex-1 mr-2"
+        <button
+          className="dark-btn flex-1 mr-2 bg-primary-600 text-white rounded-xl"
           onClick={() => setOpen(false)}
         >
           {cancelLabel}
-        </Button>
-        <Button
-          variant="contained"
-          color={confirmBtnColor}
-          className="flex-1 ml-2 !rounded-xl"
+        </button>
+        <button
+          className="flex-1 ml-2 bg-secondary-500 text-white rounded-xl"
           onClick={() => {
             setOpen(false);
             onConfirm();
           }}
         >
           {confirmLabel}
-        </Button>
+        </button>
       </div>
-    </DialogContent>
+    </DialogBody>
   </Dialog>
 );
 

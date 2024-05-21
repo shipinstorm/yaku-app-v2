@@ -19,21 +19,15 @@ import {
   uniqBy,
 } from "lodash";
 
+import { Tooltip } from "@material-tailwind/react";
 import {
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  LinearProgress,
-  List,
-  ListItem,
-  Skeleton,
+  Tabs,
+  TabsHeader,
+  TabsBody,
   Tab,
-  Tooltip,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+  TabPanel,
+} from "@material-tailwind/react";
+
 import { InfoCircleOutlined } from "@ant-design/icons";
 
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -73,7 +67,6 @@ const NFTCollectionsView = ({
   setNetWorth: Dispatch<SetStateAction<number>>;
   setOwnedCollections?: Dispatch<SetStateAction<any[]>>;
 }) => {
-  const theme = useTheme();
   const solPrice = useSolPrice();
   const { yakusFP, getStats } = useStaked();
   const auth = useAuth();
@@ -371,8 +364,8 @@ const NFTCollectionsView = ({
   }, [ethNfts]);
 
   return (
-    <TabContext value={tabIdx}>
-      <TabList
+    <Tabs value={tabIdx}>
+      <TabsHeader
         onChange={handleTabChange}
         variant="scrollable"
         scrollButtons="auto"
@@ -395,7 +388,7 @@ const NFTCollectionsView = ({
         <Tab label="Portfolio" id="portfolioTab" value="Portfolio" />
         <Tab label="Tokens" id="tokensTab" value="Tokens" />
         <Tab label="Activities" id="activitiesTab" value="Activities" />
-      </TabList>
+      </TabsHeader>
       <TabPanel value="Collections" sx={{ p: 0, mt: 2 }}>
         {!isLoading || (collections && collections.length > 0) ? (
           <TitlebarImageList
@@ -420,16 +413,9 @@ const NFTCollectionsView = ({
               })
             )}
             icon={
-              <Avatar
+              <img
                 src="/images/blockchains/solana-icon.svg"
-                sx={{
-                  width: 24,
-                  height: 24,
-                  objectFit: "contain",
-                  border: "none",
-                  background: "transparent",
-                }}
-                color="inherit"
+                className="w-6 h-6 object-contain border-none bg-transparent"
               />
             }
             title="Collections"
@@ -437,20 +423,15 @@ const NFTCollectionsView = ({
             showSubItems
           />
         ) : (
-          <Grid container spacing={1}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
-              <Grid key={v} item xs={3}>
-                <Skeleton
-                  variant="rounded"
-                  width="100%"
-                  height="100%"
-                  sx={{ aspectRatio: "1 / 1" }}
-                />
-              </Grid>
+              <div key={v} className="w-full h-full aspect-w-1 aspect-h-1">
+                <div className="w-full h-full bg-gray-200 rounded"></div>
+              </div>
             ))}
-          </Grid>
+          </div>
         )}
-        <Box sx={{ mt: 1 }}>
+        <div className="mt-1">
           {!isLoading || (ethCollections && ethCollections.length > 0) ? (
             <TitlebarImageList
               items={map(
@@ -464,16 +445,9 @@ const NFTCollectionsView = ({
                 })
               )}
               icon={
-                <Avatar
+                <img
                   src="/images/blockchains/ethereum-icon.svg"
-                  sx={{
-                    width: 24,
-                    height: 24,
-                    objectFit: "contain",
-                    border: "none",
-                    background: "transparent",
-                  }}
-                  color="inherit"
+                  className="w-6 h-6 object-contain border-none bg-transparent"
                 />
               }
               title="Collections"
@@ -481,20 +455,15 @@ const NFTCollectionsView = ({
               chain="ETH"
             />
           ) : (
-            <Grid container spacing={1}>
+            <div className="grid grid-cols-1 gap-1">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
-                <Grid key={v} item xs={3}>
-                  <Skeleton
-                    variant="rounded"
-                    width="100%"
-                    height="100%"
-                    sx={{ aspectRatio: "1 / 1" }}
-                  />
-                </Grid>
+                <div key={v} className="col-span-3">
+                  <div className="skeleton rounded-full w-full h-full aspect-square"></div>
+                </div>
               ))}
-            </Grid>
+            </div>
           )}
-        </Box>
+        </div>
       </TabPanel>
       <TabPanel value="Items" sx={{ p: 0, mt: 2 }}>
         {!isLoading || (nftList && nftList.length > 0) ? (
@@ -528,18 +497,13 @@ const NFTCollectionsView = ({
             showSendAndBurnButton
           />
         ) : (
-          <Grid container spacing={1} sx={{ mt: 2 }}>
+          <div className="grid grid-cols-3 gap-1 mt-2">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
-              <Grid key={v} item xs={3}>
-                <Skeleton
-                  variant="rounded"
-                  width="100%"
-                  height="100%"
-                  sx={{ aspectRatio: "1 / 1" }}
-                />
-              </Grid>
+              <div key={v} className="col-span-3">
+                <div className="skeleton rounded-full w-full h-full aspect-square"></div>
+              </div>
             ))}
-          </Grid>
+          </div>
         )}
       </TabPanel>
       <TabPanel value="Domains" sx={{ p: 0, mt: 2 }}>
@@ -579,158 +543,88 @@ const NFTCollectionsView = ({
             showActionButton
           />
         ) : (
-          <Grid container spacing={1} sx={{ mt: 2 }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-1 mt-8">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
-              <Grid key={v} item xs={3}>
-                <Skeleton
-                  variant="rounded"
-                  width="100%"
-                  height="100%"
-                  sx={{ aspectRatio: "1 / 1" }}
-                />
-              </Grid>
+              <div key={v} className="aspect-w-1 aspect-h-1">
+                <div className="bg-gray-200 rounded"></div>
+              </div>
             ))}
-          </Grid>
+          </div>
         )}
       </TabPanel>
       <TabPanel value="Portfolio">
-        <Grid container sx={{ justifyContent: "space-between" }}>
-          <Tooltip title="Net Worth is based on FP calculation.">
-            <Grid
-              item
-              xs={12}
-              sm={5.75}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                backgroundColor:
-                  theme.palette.mode === "dark"
-                    ? "rgba(36, 24, 47, 0.85)"
-                    : "primary.light",
-                borderRadius: ".75rem",
-                p: 2,
-              }}
-            >
-              <Typography>
+        <div className="grid grid-cols-2">
+          <Tooltip content="Net Worth is based on FP calculation.">
+            <div className="flex justify-between items-center p-2 bg-primary-light dark:bg-opacity-85 rounded">
+              <p>
                 Net Worth <InfoCircleOutlined />
-              </Typography>
-              <Box sx={{ display: "flex", gap: 1 }}>
-                <Avatar
+              </p>
+              <div className="flex gap-1">
+                <img
                   src="/images/blockchains/solana-icon.svg"
-                  sx={{
-                    width: 18,
-                    height: 18,
-                    objectFit: "contain",
-                    border: "none",
-                    background: "transparent",
-                  }}
-                  color="inherit"
+                  alt=""
+                  className="w-4 h-4 object-contain border-none bg-transparent"
                 />
-                <Typography noWrap>
+                <p>
                   {!isLoading || !isEmpty(nftList) ? (
                     `${round(
                       Number(
                         sum(
-                          map(
-                            nftList,
-                            ({ floor_price = 0 }: any) => floor_price
-                          ) || 0
+                          map(nftList, ({ floor_price = 0 }) => floor_price) ||
+                            0
                         )
                       ),
                       2
                     ).toLocaleString()}`
                   ) : (
-                    <Skeleton width={50} height={16} variant="rounded" />
+                    <span className="skeleton w-12 h-4"></span>
                   )}
-                </Typography>
-              </Box>
-            </Grid>
+                </p>
+              </div>
+            </div>
           </Tooltip>
-          <Grid
-            item
-            xs={12}
-            sm={5.75}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? "rgba(36, 24, 47, 0.85)"
-                  : "primary.light",
-              borderRadius: ".75rem",
-              p: 2,
-            }}
-          >
-            <Typography>Est. Net Worth (USD)</Typography>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <Typography noWrap>
+          <div className="w-full sm:w-[calc(460px/16*5.75)] flex justify-between items-center bg-primary-light dark:bg-[rgba(36, 24, 47, 0.85)] rounded-[.75rem] p-2">
+            <p className="text-base font-medium">Est. Net Worth (USD)</p>
+            <div className="flex gap-1">
+              <p className="whitespace-nowrap">
                 {!isLoading || !isEmpty(nftList) ? (
-                  `$${round(
+                  `\$${round(
                     Number(
-                      sum(
-                        map(
-                          nftList,
-                          ({ floor_price = 0 }: any) => floor_price
-                        ) || 0
-                      )
+                      sum(map(nftList, ({ floor_price = 0 }) => floor_price)) ||
+                        0
                     ) * solPrice,
                     2
                   ).toLocaleString()}`
                 ) : (
-                  <Skeleton width={50} height={16} variant="rounded" />
+                  <div className="w-16 h-4 rounded"></div>
                 )}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+              </p>
+            </div>
+          </div>
+        </div>
         {!isLoading || (nftList && nftList.length > 0) ? (
-          <List>
-            <ListItem sx={{ gap: 1, justifyContent: "space-between" }}>
-              <Box width={40} />
-              <Typography component="p" sx={{ width: "18%" }} noWrap>
-                Name
-              </Typography>
-              <Typography component="p" sx={{ width: "18%" }} noWrap>
-                Collection
-              </Typography>
-              <Typography
-                component="p"
-                sx={{ width: "12%", textAlign: "end" }}
-                noWrap
-              >
-                Buy In
-              </Typography>
-              <Typography
-                component="p"
-                sx={{ width: "12%", textAlign: "end" }}
-                noWrap
-              >
-                Buy In (USD)
-              </Typography>
-              <Typography
-                component="p"
-                sx={{ width: "12%", textAlign: "center" }}
-                noWrap
-              >
-                IRR
-              </Typography>
-              <Typography component="p" sx={{ width: "14%" }}>
-                Purchase time
-              </Typography>
-
-              <Box width={20} />
-            </ListItem>
+          <ul>
+            <li className="flex gap-1 justify-between">
+              <div className="w-10"></div>
+              <p className="w-[18%]">Name</p>
+              <p className="w-[18%]">Collection</p>
+              <p className="w-[12%] text-right">Buy In</p>
+              <p className="w-[12%] text-right">Buy In (USD)</p>
+              <p className="w-[12%] text-center">IRR</p>
+              <p className="w-[14%]">Purchase time</p>
+              <div className="w-5"></div>
+            </li>
             {map(tokensHist, (item: any, idx) => (
               <TokenPortfolioItem key={idx} {...item} />
             ))}
-            {isLoading && <LinearProgress color="secondary" />}
+            {isLoading && (
+              <div className="h-4 bg-primary-light rounded-full overflow-hidden">
+                <div className="h-full bg-secondary"></div>
+              </div>
+            )}
             {tokensHist && nftList && tokensHist.length < nftList.length && (
-              <Button
-                fullWidth
-                variant="outlined"
-                color="secondary"
+              <button
+                className="w-full bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white rounded-md px-4 py-2"
                 onClick={() =>
                   loadMoreTokensHist(
                     nftList,
@@ -740,11 +634,13 @@ const NFTCollectionsView = ({
                 }
               >
                 Load More
-              </Button>
+              </button>
             )}
-          </List>
+          </ul>
         ) : (
-          <LinearProgress color="secondary" />
+          <div className="h-4 bg-primary-light rounded-full overflow-hidden">
+            <div className="h-full bg-secondary"></div>
+          </div>
         )}
       </TabPanel>
       <TabPanel value="Tokens">
@@ -753,7 +649,7 @@ const NFTCollectionsView = ({
       <TabPanel value="Activities">
         <MEActivitiesList wallet={wallet} tabIdx={tabIdx} />
       </TabPanel>
-    </TabContext>
+    </Tabs>
   );
 };
 

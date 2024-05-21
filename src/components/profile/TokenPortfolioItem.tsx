@@ -4,8 +4,6 @@ import { get, isObject, round } from "lodash";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 
-import { Avatar, ListItem, Typography } from "@mui/material";
-
 import NFTProjectPlaceholder from "@/components/skeleton/NFTProjectPlaceholder";
 
 import { IMAGE_PROXY } from "@/config/config";
@@ -61,57 +59,36 @@ const TokenPortfolioItem = ({
     getPortfolioData();
   }, [txHash]);
   return (
-    <ListItem
-      sx={{
-        gap: 1,
-        justifyContent: "space-between",
-        "&:hover": {
-          backgroundColor: "#d329ff15",
-        },
-      }}
-    >
+    <div className="gap-1 justify-between hover:bg-opacity-20 hover:bg-purple-600">
       {itemData ? (
         <>
-          <Avatar
+          <img
             src={`${IMAGE_PROXY}${image}`}
-            sx={{ backgroundColor: "transparent" }}
+            alt="Avatar"
+            className="bg-transparent"
           />
-          <Typography component="p" sx={{ width: "18%" }} noWrap>
-            {name}
-          </Typography>
-          <Typography component="p" sx={{ width: "18%" }} noWrap>
+          <p className="w-[18%]">{name}</p>
+          <p className="w-[18%]">
             {isObject(collection) ? get(collection, "name") : collection}
-          </Typography>
-          <Typography
-            component="p"
-            sx={{ width: "12%", textAlign: "end" }}
-            noWrap
-          >
+          </p>
+          <p className="w-[12%] text-right">
             {round(Number(itemData.buyIn), 3).toLocaleString()} ◎
-          </Typography>
-          <Typography
-            component="p"
-            sx={{ width: "12%", textAlign: "end" }}
-            noWrap
-          >
+          </p>
+          <p className="w-[12%] text-right">
             ${round(Number(itemData.buyInUsd), 2).toLocaleString()}
-          </Typography>
-          <Typography
-            component="p"
-            sx={{
-              width: "12%",
-              textAlign: "end",
-            }}
-            color={
-              Number(
-                ((itemData.floor_price * solPrice - itemData.buyInUsd) /
-                  itemData.buyInUsd) *
-                  100
-              ) > 0
-                ? "success.dark"
-                : "error"
-            }
-            noWrap
+          </p>
+          <p
+            className="w-[12%] text-right"
+            // style={{
+            //   color:
+            //     Number(
+            //       ((itemData.floor_price * solPrice - itemData.buyInUsd) /
+            //         itemData.buyInUsd) *
+            //         100
+            //     ) > 0
+            //       ? "var(--success-dark)"
+            //       : "var(--error)",
+            // }}
           >
             {round(
               Number(
@@ -122,30 +99,20 @@ const TokenPortfolioItem = ({
               2
             ).toLocaleString()}{" "}
             %
-          </Typography>
-          <Typography component="p" sx={{ width: "14%" }}>
-            {dayjs.unix(itemData.blockTime).fromNow()}
-          </Typography>
-          <Typography
-            component="a"
-            href={`https://solscan.io/tx/${itemData.txHash}`}
-            target="_blank"
-          >
-            <Avatar
+          </p>
+          <p className="w-[14%]">{dayjs.unix(itemData.blockTime).fromNow()}</p>
+          <a href={`https://solscan.io/tx/${itemData.txHash}`} target="_blank">
+            <img
               src="/images/icons/solscan.png"
-              sx={{
-                width: 20,
-                height: 20,
-                border: "none",
-                backgroundColor: "transparent",
-              }}
+              alt="Solscan"
+              className="w-5 h-5 border-none bg-transparent"
             />
-          </Typography>
+          </a>
         </>
       ) : (
         <NFTProjectPlaceholder />
       )}
-    </ListItem>
+    </div>
   );
 };
 export default TokenPortfolioItem;

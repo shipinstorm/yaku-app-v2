@@ -3,15 +3,8 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import Cropper from "react-easy-crop";
 import Image from "mui-image";
 
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  IconButton,
-  Slider,
-} from "@mui/material";
+import { Dialog, DialogBody, Slider } from "@material-tailwind/react";
+
 import { IconUpload } from "@tabler/icons-react";
 
 import Loading from "@/components/loaders/Loading";
@@ -33,12 +26,12 @@ const CropDialogContent = ({
 }: any) => (
   <>
     <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: 400,
-        background: "#333",
-      }}
+      // style={{
+      //   position: "relative",
+      //   width: "100%",
+      //   height: 400,
+      //   background: "#333",
+      // }}
       className="sm:h-[600px]"
     >
       <Cropper
@@ -52,22 +45,22 @@ const CropDialogContent = ({
       />
     </div>
     <div
-      style={{
-        padding: 16,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "stretch",
-      }}
+      // style={{
+      //   padding: 16,
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   alignItems: "stretch",
+      // }}
       className="sm:flex-row sm:items-center"
     >
       <div
-        style={{
-          display: "flex",
-          flex: "1",
-          alignItems: "center",
-          marginTop: 8,
-          marginBottom: 8,
-        }}
+      // style={{
+      //   display: "flex",
+      //   flex: "1",
+      //   alignItems: "center",
+      //   marginTop: 8,
+      //   marginBottom: 8,
+      // }}
       >
         <Slider
           value={zoom}
@@ -134,41 +127,14 @@ const ProfileBanner = ({
     setShowCrop(true);
   };
   return (
-    <Box
-      sx={{
-        width: "calc(100% + 40px)",
-        m: "-20px",
-        backgroundColor: "#000",
-        zIndex: 1,
-        position: "relative",
-      }}
-    >
+    <div className="w-[calc(100% + 40px)] -m-20 bg-black z-1 relative">
       <Image
-        style={{ width: "100%", height }}
         src={user.banner || url || `${IMAGE_PROXY_BANNER}${DEFAULT_BANNER}`}
         fit="cover"
+        className="w-full"
       />
       {editable && (
-        <Box
-          sx={{
-            width: {
-              md: "calc(100% + 60px)",
-              sm: "calc(100% + 40px)",
-              xs: "calc(100% + 30px)",
-            },
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            top: 0,
-            right: 0,
-            backgroundColor: "#00000066",
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-            p: 2,
-            zIndex: 20,
-          }}
-        >
+        <div className="w-[calc(100% + 60px)] md:w-[calc(100% + 60px)] sm:w-[calc(100% + 40px)] xs:w-[calc(100% + 30px)] absolute bottom-0 left-0 top-0 right-0 bg-black bg-opacity-60 justify-center items-center flex p-8 z-20">
           <ImageUploading
             value={images}
             onChange={onChange}
@@ -188,15 +154,15 @@ const ProfileBanner = ({
               <>
                 {!isLoading ? (
                   <>
-                    <IconButton
-                      sx={{
-                        backgroundColor: "#00000066",
-                      }}
-                      onClick={onImageUpload}
+                    <button
+                      className="p-2 rounded-full bg-black bg-opacity-25"
+                      onClick={() => onImageUpload()}
                     >
                       <IconUpload />
-                    </IconButton>
-                    <div style={{ color: "red", marginLeft: 1 }}>
+                    </button>
+                    <div
+                    // style={{ color: "red", marginLeft: 1 }}
+                    >
                       {errors &&
                         errors.maxFileSize &&
                         "Image should be less than 3.5MB."}
@@ -213,7 +179,7 @@ const ProfileBanner = ({
                     fullWidth
                     maxWidth="lg"
                   >
-                    <DialogContent>
+                    <DialogBody>
                       <CropDialogContent
                         image={imageList[0].dataURL}
                         onCropComplete={onCropComplete}
@@ -222,28 +188,23 @@ const ProfileBanner = ({
                         setCrop={setCrop}
                         setZoom={setZoom}
                       />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button
-                        onClick={uploadImage}
-                        variant="contained"
-                        color="secondary"
-                        sx={{
-                          borderRadius: 30000,
-                          mr: 2,
-                        }}
+                    </DialogBody>
+                    <div>
+                      <button
+                        onClick={() => uploadImage()}
+                        className="bg-secondary text-white rounded-full px-4 py-2 mr-2"
                       >
                         Confirm
-                      </Button>
-                    </DialogActions>
+                      </button>
+                    </div>
                   </Dialog>
                 )}
               </>
             )}
           </ImageUploading>
-        </Box>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 

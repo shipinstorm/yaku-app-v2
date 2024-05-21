@@ -5,15 +5,7 @@ import { find, map, round, uniq } from "lodash";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-import {
-  Avatar,
-  Box,
-  LinearProgress,
-  List,
-  ListItem,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Tooltip } from "@material-tailwind/react";
 
 import { IMAGE_PROXY } from "@/config/config";
 
@@ -83,50 +75,18 @@ const MEActivitiesList = ({ wallet, tabIdx }: any) => {
   }, [wallet, tabIdx]);
 
   return (
-    <List>
-      <ListItem
-        sx={{
-          gap: 1,
-          justifyContent: "space-between",
-        }}
-      >
-        <Box sx={{ width: 40 }} />
-        <Typography component="p" sx={{ width: "18%" }} fontWeight={700} noWrap>
-          Name
-        </Typography>
-        <Typography
-          component="p"
-          sx={{ width: "12%", textAlign: "end" }}
-          fontWeight={700}
-          noWrap
-        >
-          Price
-        </Typography>
-        <Typography
-          component="p"
-          sx={{ width: "14%", textAlign: "start" }}
-          fontWeight={700}
-          noWrap
-        >
-          Buyer
-        </Typography>
-        <Typography
-          component="p"
-          sx={{ width: "14%", textAlign: "start" }}
-          fontWeight={700}
-          noWrap
-        >
-          Seller
-        </Typography>
-        <Box sx={{ width: 20 }} />
-        <Typography component="p" sx={{ width: "14%" }} fontWeight={700}>
-          Time
-        </Typography>
-        <Box sx={{ width: 20 }} />
-        <Typography component="p" sx={{ minWidth: "18%" }} fontWeight={700}>
-          Status
-        </Typography>
-      </ListItem>
+    <ul>
+      <li className="flex justify-between gap-1">
+        <div className="w-10"></div>
+        <p className="font-bold w-[18%]">Name</p>
+        <p className="font-bold w-[12%] text-right">Price</p>
+        <p className="font-bold w-[14%]">Buyer</p>
+        <p className="font-bold w-[14%]">Seller</p>
+        <div className="w-5"></div>
+        <p className="w-[14%] font-bold">Time</p>
+        <div className="w-5"></div>
+        <p className="min-w-[18%] font-bold">Status</p>
+      </li>
       {!isLoading ? (
         map(
           list,
@@ -141,81 +101,39 @@ const MEActivitiesList = ({ wallet, tabIdx }: any) => {
             seller,
             price,
           }) => (
-            <ListItem
-              sx={{
-                gap: 1,
-                justifyContent: "space-between",
-                "&:hover": {
-                  backgroundColor: "#d329ff15",
-                },
-              }}
-            >
-              <Avatar src={`${IMAGE_PROXY}${image}`} />
-              <Typography component="p" sx={{ width: "18%" }} noWrap>
-                {name}
-              </Typography>
-              <Typography
-                component="p"
-                sx={{ width: "12%", textAlign: "end" }}
-                noWrap
-              >
+            <li className="flex justify-between gap-1 hover:bg-purple-100">
+              <img src={`${IMAGE_PROXY}${image}`} className="w-full h-full" />
+              <p className="w-[18%] break-words">{name}</p>
+              <p className="w-[12%] text-right break-words">
                 {round(Number(price), 3).toLocaleString()} ◎
-              </Typography>
+              </p>
 
-              <Typography
-                component="p"
-                sx={{ width: "14%", textAlign: "start" }}
-                noWrap
-              >
+              <p className="w-[14%] break-words text-start">
                 {shortenAddress(buyer || "")}
-              </Typography>
-              <Typography
-                component="p"
-                sx={{ width: "14%", textAlign: "start" }}
-                noWrap
-              >
+              </p>
+              <p className="w-[14%] break-words text-start">
                 {shortenAddress(seller || "")}
-              </Typography>
+              </p>
 
-              <Tooltip title={source}>
-                <Avatar
-                  src={getMarketplaceIcon(source)}
-                  sx={{
-                    width: 20,
-                    height: 20,
-                    border: "none",
-                    backgroundColor: "transparent",
-                  }}
-                />
+              <Tooltip content={source}>
+                <img src={getMarketplaceIcon(source)} className="w-5 h-5" />
               </Tooltip>
-              <Typography component="p" sx={{ width: "14%" }}>
-                {dayjs.unix(blockTime).fromNow()}
-              </Typography>
-              <Typography
-                component="a"
-                href={`https://solscan.io/tx/${signature}`}
-                target="_blank"
-              >
-                <Avatar
-                  src="/images/icons/solscan.png"
-                  sx={{
-                    width: 20,
-                    height: 20,
-                    border: "none",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              </Typography>
-              <Typography component="p" sx={{ minWidth: "18%" }}>
-                {getStatusLabel(type)}
-              </Typography>
-            </ListItem>
+              <p className="w-[14%]">{dayjs.unix(blockTime).fromNow()}</p>
+              <div className="flex items-center">
+                <a href="https://solscan.io/tx/${signature}" target="_blank">
+                  <img src="/images/icons/solscan.png" className="w-5 h-5" />
+                </a>
+                <p className="min-w-[18%]">${getStatusLabel(type)}</p>
+              </div>
+            </li>
           )
         )
       ) : (
-        <LinearProgress color="secondary" />
+        <div className="h-4 bg-primary-light rounded-full overflow-hidden">
+          <div className="h-full bg-secondary"></div>
+        </div>
       )}
-    </List>
+    </ul>
   );
 };
 export default MEActivitiesList;

@@ -9,15 +9,8 @@ import { IconWallet } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 
 import { InfoCircleOutlined } from "@ant-design/icons";
-import {
-  Avatar,
-  Box,
-  Grid,
-  Skeleton,
-  Tooltip,
-  Typography,
-  useTheme,
-} from "@mui/material";
+
+import { Tooltip } from "@material-tailwind/react";
 
 import Web3 from "web3";
 import { PublicKey } from "@solana/web3.js";
@@ -79,7 +72,6 @@ const ProfileBannerNoSSR = dynamic(
 const Profile = () => {
   const { connection } = useConnections();
   const { getWalletNfts } = useEthcontext();
-  const theme = useTheme();
   const auth = useAuth();
 
   const { getStakedList, stakedYakuNfts: hookedYakuNfts } = useStaked();
@@ -337,324 +329,147 @@ const Profile = () => {
         handleShowSelectNft={handleShowSelectNft}
       />
 
-      <Grid container spacing={2} sx={{ mt: { xs: 1, md: "-80px" } }}>
-        <Grid item xs={12} lg={7} xl={6}>
+      <div className="grid gap-2 mt-1 md:mt-[-80px]">
+        <div className="col-span-12 lg:col-span-7 xl:col-span-6">
           <MainCard sx={{ border: "none", mt: 2 }} divider={false}>
-            <Typography
-              fontSize={18}
-              fontWeight={700}
-              sx={{
-                justifyContent: "flex-end",
-                alignItems: "center",
-                display: "flex",
-                gap: 1,
-              }}
-            >
+            <p className="flex items-center justify-end gap-1 text-lg font-bold">
               <IconWallet /> Wallet Overview
-            </Typography>
-            <Grid container sx={{ mt: 2, justifyContent: "space-between" }}>
-              <Grid
-                item
-                xs={12}
-                sx={{
-                  mb: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor:
-                    theme.palette.mode === "dark" ? "#09080d" : "primary.light",
-                  borderRadius: ".75rem",
-                  p: 2,
-                }}
-              >
-                <Typography>Wallet</Typography>
-                <Typography noWrap>
+            </p>
+            <div className="mt-2 flex justify-between">
+              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2">
+                <p>Wallet</p>
+                <p className="truncate">
                   {wallet && shortenAddress(wallet, 7)}
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={5.75}
-                sx={{
-                  mb: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor:
-                    theme.palette.mode === "dark" ? "#09080d" : "primary.light",
-                  borderRadius: ".75rem",
-                  p: 2,
-                }}
-              >
-                <Typography>Balance</Typography>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <Avatar
+                </p>
+              </div>
+              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 w-[19rem]">
+                <p>Balance</p>
+                <div className="flex gap-1">
+                  <img
                     src="/images/blockchains/solana-icon.svg"
-                    sx={{
-                      width: 18,
-                      height: 18,
-                      objectFit: "contain",
-                      border: "none",
-                      background: "transparent",
-                    }}
-                    color="inherit"
+                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
+                    alt="Solana Icon"
                   />
-                  <Typography noWrap>
+                  <p className="truncate">
                     {round(Number(balance || 0), 2).toLocaleString()}
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={5.75}
-                sx={{
-                  mb: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor:
-                    theme.palette.mode === "dark" ? "#09080d" : "primary.light",
-                  borderRadius: ".75rem",
-                  p: 2,
-                }}
-              >
-                <Typography>$YAKU Balance</Typography>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <Avatar
+                  </p>
+                </div>
+              </div>
+              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-5/6">
+                <p>$YAKU Balance</p>
+                <div className="flex gap-1">
+                  <img
                     src={YAKU_TOKEN_ICON}
-                    sx={{
-                      width: 18,
-                      height: 18,
-                      objectFit: "contain",
-                      border: "none",
-                      background: "transparent",
-                    }}
-                    color="inherit"
+                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
+                    alt="YAKU Token Icon"
                   />
-                  <Typography noWrap>
+                  <p className="truncate">
                     {round(Number(tokenBalance || 0), 2).toLocaleString()}
-                  </Typography>
-                </Box>
-              </Grid>
+                  </p>
+                </div>
+              </div>
               <Tooltip title="NFT Portfolio Value is based on FP calculation.">
-                <Grid
-                  item
-                  xs={12}
-                  sm={5.75}
-                  sx={{
-                    mb: 2,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    backgroundColor:
-                      theme.palette.mode === "dark"
-                        ? "#09080d"
-                        : "primary.light",
-                    borderRadius: ".75rem",
-                    p: 2,
-                  }}
-                >
-                  <Typography>
+                <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-5/6">
+                  <p>
                     NFT Portfolio Value <InfoCircleOutlined />
-                  </Typography>
-                  <Box sx={{ display: "flex", gap: 1 }}>
-                    <Avatar
+                  </p>
+                  <div className="flex gap-1">
+                    <img
                       src="/images/blockchains/solana-icon.svg"
-                      sx={{
-                        width: 18,
-                        height: 18,
-                        objectFit: "contain",
-                        border: "none",
-                        background: "transparent",
-                      }}
-                      color="inherit"
+                      className="w-4.5 h-4.5 object-contain border-none bg-transparent"
+                      alt="Solana Icon"
                     />
-                    <Typography noWrap>
+                    <p className="truncate">
                       {round(netWorth, 2).toLocaleString()}
-                    </Typography>
-                  </Box>
-                </Grid>
+                    </p>
+                  </div>
+                </div>
               </Tooltip>
-              <Grid
-                item
-                xs={12}
-                sm={5.75}
-                sx={{
-                  mb: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor:
-                    theme.palette.mode === "dark" ? "#09080d" : "primary.light",
-                  borderRadius: ".75rem",
-                  p: 2,
-                }}
-              >
-                <Typography>Owned NFT</Typography>
-                <Typography noWrap>
+              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-[5.75rem]">
+                <p>Owned NFT</p>
+                <p className="truncate">
                   {Number(ownedNftCount).toLocaleString()}
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={5.75}
-                sx={{
-                  mb: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor:
-                    theme.palette.mode === "dark" ? "#09080d" : "primary.light",
-                  borderRadius: ".75rem",
-                  p: 2,
-                }}
-              >
-                <Typography>Total Volume Bought</Typography>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <Avatar
+                </p>
+              </div>
+              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-[5.75rem]">
+                <p>Total Volume Bought</p>
+                <div className="flex gap-1">
+                  <img
                     src="/images/blockchains/solana-icon.svg"
-                    sx={{
-                      width: 18,
-                      height: 18,
-                      objectFit: "contain",
-                      border: "none",
-                      background: "transparent",
-                    }}
-                    color="inherit"
+                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
                   />
-                  <Typography noWrap>
+                  <p className="truncate">
                     {!isEmpty(walletStats) ? (
                       `${round(
                         Number(walletStats?.volume_bought || 0),
                         2
                       ).toLocaleString()}`
                     ) : (
-                      <Skeleton width={50} height={16} variant="rounded" />
+                      <div className="w-12 h-4 rounded bg-gray-200"></div>
                     )}
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={5.75}
-                sx={{
-                  mb: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor:
-                    theme.palette.mode === "dark" ? "#09080d" : "primary.light",
-                  borderRadius: ".75rem",
-                  p: 2,
-                }}
-              >
-                <Typography>Total Volume Sold</Typography>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                  <Avatar
+                  </p>
+                </div>
+              </div>
+              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-[5.75rem]">
+                <p>Total Volume Sold</p>
+                <div className="flex gap-1">
+                  <img
                     src="/images/blockchains/solana-icon.svg"
-                    sx={{
-                      width: 18,
-                      height: 18,
-                      objectFit: "contain",
-                      border: "none",
-                      background: "transparent",
-                    }}
-                    color="inherit"
+                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
                   />
-                  <Typography noWrap>
+                  <p className="truncate">
                     {!isEmpty(walletStats) ? (
                       `${round(
                         Number(walletStats?.volume_sold || 0),
                         2
                       ).toLocaleString()}`
                     ) : (
-                      <Skeleton width={50} height={16} variant="rounded" />
+                      <div className="w-12 h-4 rounded bg-gray-200"></div>
                     )}
-                  </Typography>
-                </Box>
-              </Grid>
+                  </p>
+                </div>
+              </div>
               {(wallet !== mainWallet.publicKey?.toBase58()
                 ? walletUser?.user?.ethAddress
                 : auth?.user?.ethAddress) && (
                 <>
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{
-                      mb: 2,
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      backgroundColor:
-                        theme.palette.mode === "dark"
-                          ? "#09080d"
-                          : "primary.light",
-                      borderRadius: ".75rem",
-                      p: 2,
-                    }}
-                  >
-                    <Typography>ETH Wallet</Typography>
-                    <Typography noWrap>
+                  <div className="mb-2 flex justify-between items-center bg-primary-light rounded-xl p-2">
+                    <p>ETH Wallet</p>
+                    <p className="truncate">
                       {shortenAddress(
                         wallet !== mainWallet.publicKey?.toBase58()
                           ? walletUser?.user?.ethAddress
                           : auth?.user?.ethAddress,
                         7
                       )}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sx={{
-                      mb: 2,
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      backgroundColor:
-                        theme.palette.mode === "dark"
-                          ? "#09080d"
-                          : "primary.light",
-                      borderRadius: ".75rem",
-                      p: 2,
-                    }}
-                  >
-                    <Typography>Balance</Typography>
-                    <Box sx={{ display: "flex", gap: 1 }}>
-                      <Avatar
+                    </p>
+                  </div>
+                  <div className="mb-2 flex justify-between items-center bg-primary-light rounded-xl p-2">
+                    <p>Balance</p>
+                    <div className="flex gap-1">
+                      <img
                         src="/images/blockchains/ethereum-icon.svg"
-                        sx={{
-                          width: 18,
-                          height: 18,
-                          objectFit: "contain",
-                          border: "none",
-                          background: "transparent",
-                        }}
-                        color="inherit"
+                        className="w-4.5 h-4.5 object-contain border-none bg-transparent"
                       />
-                      <Typography noWrap>
+                      <p className="truncate">
                         {round(
                           Number(ethBalance || 0) / ETH_WEI,
                           4
                         ).toLocaleString()}
-                      </Typography>
-                    </Box>
-                  </Grid>
+                      </p>
+                    </div>
+                  </div>
                 </>
               )}
-            </Grid>
+            </div>
           </MainCard>
-          <Box>
+          <div>
             <MainCard sx={{ border: "none", mt: 2 }} divider={false}>
               <PortfolioChartNoSSR wallet={wallet || ""} />
             </MainCard>
-          </Box>
-        </Grid>
-        <Grid item xs={12} lg={5} xl={6}>
+          </div>
+        </div>
+        <div className="lg:col-span-5 xl:col-span-6">
           <NFTCollectionsViewNoSSR
             wallet={wallet || ""}
             nfts={nfts}
@@ -663,8 +478,8 @@ const Profile = () => {
             setNetWorth={setNetWorth}
             setOwnedCollections={setCollections}
           />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
       <NFTsDialogNoSSR
         showItems={showSelectNft}

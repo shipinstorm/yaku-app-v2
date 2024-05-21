@@ -3,15 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, includes, map, orderBy, round, toLower } from "lodash";
 
-import {
-  Avatar,
-  Box,
-  List,
-  ListItem,
-  Skeleton,
-  Typography,
-} from "@mui/material";
-import { ArrowDownwardOutlined } from "@mui/icons-material";
+// import { ArrowDownwardOutlined } from "@mui/icons-material";
 
 import TokenChart from "@/components/charts/TokenChart";
 
@@ -26,17 +18,19 @@ import useAuthLazyQuery from "@/hooks/useAuthLazyQuery";
 const SortingArrow = ({ fieldNames, orderField, ordering }: any) => (
   <>
     {includes(fieldNames, orderField) ? (
-      <ArrowDownwardOutlined
-        sx={{
-          fontSize: 14,
-          transform: ordering === "ASC" ? "rotate(180deg)" : "none",
-        }}
-      />
+      // <ArrowDownwardOutlined
+      //   sx={{
+      //     fontSize: 14,
+      //     transform: ordering === "ASC" ? "rotate(180deg)" : "none",
+      //   }}
+      // />
+      <></>
     ) : (
       <></>
     )}
   </>
 );
+
 const TokensView = ({ wallet, tabIdx }: any) => {
   const navigate = useNavigate();
   const yakuUSDCPrice = useYakuUSDCPrice();
@@ -133,106 +127,63 @@ const TokensView = ({ wallet, tabIdx }: any) => {
     }
   }, [wallet, tabIdx]);
   return (
-    <List>
-      <ListItem
-        sx={{
-          gap: 1,
-          justifyContent: "space-between",
-        }}
-      >
-        <Box sx={{ width: 40 }} />
-        <Typography component="p" sx={{ width: "18%" }} fontWeight={700} noWrap>
-          Name
-        </Typography>
-        <Typography
-          component="p"
-          sx={{ width: "40%", textAlign: "end" }}
-          fontWeight={700}
-          noWrap
-        />
-        <Typography
-          component="p"
-          sx={{ width: "18%", textAlign: "end" }}
-          fontWeight={700}
-          noWrap
+    <ul>
+      <li className="flex justify-between gap-1">
+        <div className="w-10"></div>
+        <p className="font-bold w-18">Name</p>
+        <p className="font-bold w-40 text-right"></p>
+        <p
+          className="font-bold w-18 text-right cursor-pointer"
           onClick={() => handleFilterChange({ target: { value: "amount" } })}
         >
           Amount{" "}
           <SortingArrow {...{ orderField, fieldNames: ["amount"], ordering }} />
-        </Typography>
-        <Typography
-          component="p"
-          sx={{ width: "24%", textAlign: "end" }}
-          fontWeight={700}
-          noWrap
+        </p>
+        <p
+          className="font-bold w-24 text-right cursor-pointer"
           onClick={() => handleFilterChange({ target: { value: "estValue" } })}
         >
           Est. Value (USD){" "}
           <SortingArrow
             {...{ orderField, fieldNames: ["estValue"], ordering }}
           />
-        </Typography>
-      </ListItem>
+        </p>
+      </li>
       {!isLoading
         ? map(
             tokenList,
             ({ coinId, tokenIcon, tokenName, amount, estValue }) => (
-              <ListItem
-                sx={{
-                  gap: 1,
-                  justifyContent: "space-between",
-                  "&:hover": {
-                    backgroundColor: "#d329ff15",
-                  },
-                  //   cursor: 'pointer'
-                }}
-                //   onClick={() =>
-                //       navigate(`/explore/token/${coinIdSymbols[toLower(tokenSymbol)] || toLower(tokenSymbol)}`)
-                //   }
-              >
-                <Avatar src={`${IMAGE_PROXY}${tokenIcon}`} />
-                <Typography component="p" sx={{ width: "18%" }} noWrap>
-                  {tokenName}
-                </Typography>
-                <Box sx={{ width: "40%" }}>
+              <li className="flex justify-between gap-1 hover:bg-opacity-20 hover:bg-purple-500">
+                <img
+                  src={`${IMAGE_PROXY}${tokenIcon}`}
+                  className="w-full h-full object-cover"
+                />
+                <p className="w-18">{tokenName}</p>
+                <div className="w-40">
                   <TokenChart coinId={coinId} />
-                </Box>
-                <Typography
-                  component="p"
-                  sx={{ width: "18%", textAlign: "end" }}
-                  noWrap
-                >
+                </div>
+                <p className="w-18 text-right">
                   {round(amount, 4).toLocaleString()}
-                </Typography>
-                <Typography
-                  component="p"
-                  sx={{ width: "18%", textAlign: "end" }}
-                  noWrap
-                >
+                </p>
+                <p className="w-18 text-right">
                   ${round(estValue, 4).toLocaleString()}
-                </Typography>
-              </ListItem>
+                </p>
+              </li>
             )
           )
         : map([1, 2, 3, 4, 5, 6, 7, 8], (idx, key) => (
-            <ListItem
+            <li
               key={key}
-              sx={{
-                gap: 1,
-                justifyContent: "space-between",
-                "&:hover": {
-                  backgroundColor: "#d329ff15",
-                },
-              }}
+              className="flex items-center justify-between gap-1 hover:bg-d329ff15"
             >
-              <Skeleton variant="circular" width={24} height={24} />
-              <Skeleton variant="rounded" sx={{ width: "18%" }} />
-              <Skeleton variant="rounded" sx={{ width: "40%" }} />
-              <Skeleton variant="rounded" sx={{ width: "18%" }} />
-              <Skeleton variant="rounded" sx={{ width: "18%" }} />
-            </ListItem>
+              <div className="w-6 h-6 rounded-full"></div>
+              <div className="w-[18%] h-4 rounded"></div>
+              <div className="w-[40%] h-4 rounded"></div>
+              <div className="w-[18%] h-4 rounded"></div>
+              <div className="w-[18%] h-4 rounded"></div>
+            </li>
           ))}
-    </List>
+    </ul>
   );
 };
 

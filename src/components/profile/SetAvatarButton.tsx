@@ -1,5 +1,3 @@
-import { Button, Typography } from "@mui/material";
-
 import { useWallet } from "@solana/wallet-adapter-react";
 
 import { useMeta } from "@/contexts/meta/meta";
@@ -43,17 +41,12 @@ const SetAvatarButton = ({ item }: any) => {
   return (
     <>
       {item.owner === wallet?.publicKey?.toBase58() && !item.listed && (
-        <Button
-          sx={{ borderRadius: 30, mt: 2 }}
-          fullWidth
-          color="secondary"
-          variant="contained"
+        <button
+          className="w-full bg-secondary text-white rounded-full mt-2 py-2"
           onClick={() => setAsAvatar()}
         >
-          <Typography component="p" fontSize={20} noWrap>
-            Set as Avatar
-          </Typography>
-        </Button>
+          <p className="text-lg truncate">Set as Avatar</p>
+        </button>
       )}
     </>
   );

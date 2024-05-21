@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { List, ListItem, Skeleton, Typography } from "@mui/material";
-
 import CopyAddress from "@/components/buttons/CopyAddress";
 
 import { DomainByWallet } from "@/utils/bonfida";
@@ -11,79 +9,37 @@ const DomainItems = (props: {
 }) => {
   const { domains, isLoading } = props;
   return (
-    <List>
-      <ListItem
-        sx={{
-          gap: 1,
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography component="p" sx={{ width: "30%" }} fontWeight={700} noWrap>
-          Domain Name
-        </Typography>
-        <Typography
-          component="p"
-          sx={{ width: "30%", textAlign: "center" }}
-          fontWeight={700}
-          noWrap
-        >
-          Domain Address
-        </Typography>
-        <Typography
-          component="p"
-          sx={{ width: "40%", textAlign: "center" }}
-          fontWeight={700}
-          noWrap
-        >
-          Domain Class Address
-        </Typography>
-      </ListItem>
+    <ul>
+      <li className="flex justify-between gap-1">
+        <p className="w-[1/3] font-bold">Domain Name</p>
+        <p className="w-[1/3] text-center font-bold">Domain Address</p>
+        <p className="w-[2/5] text-center font-bold">Domain Class Address</p>
+      </li>
       {!isLoading
         ? domains.map((item, key) => (
-            <ListItem
+            <li
+              className="flex justify-between gap-1 hover:bg-purple-100 hover:bg-opacity-5"
               key={key}
-              sx={{
-                gap: 1,
-                justifyContent: "space-between",
-                "&:hover": {
-                  backgroundColor: "#d329ff15",
-                },
-              }}
             >
-              <Typography component="p" sx={{ width: "30%" }} noWrap>
+              <p className="w-[1/3] break-words">
                 {item.name}
-              </Typography>
-              <Typography
-                component="p"
-                sx={{ width: "30%", display: "flex", justifyContent: "center" }}
-              >
+              </p>
+              <p className="w-[1/3] flex justify-center">
                 <CopyAddress address={item.address} length={5} />
-              </Typography>
-              <Typography
-                component="p"
-                sx={{ width: "40%", display: "flex", justifyContent: "center" }}
-              >
+              </p>
+              <p className="w-[2/5] flex justify-center">
                 <CopyAddress address={item.class} length={5} />
-              </Typography>
-            </ListItem>
+              </p>
+            </li>
           ))
         : [1, 2, 3, 4].map((item, key) => (
-            <ListItem
-              key={key}
-              sx={{
-                gap: 1,
-                justifyContent: "space-between",
-                "&:hover": {
-                  backgroundColor: "#d329ff15",
-                },
-              }}
-            >
-              <Skeleton variant="rounded" sx={{ width: "30%" }} />
-              <Skeleton variant="rounded" sx={{ width: "30%" }} />
-              <Skeleton variant="rounded" sx={{ width: "40%" }} />
-            </ListItem>
+            <li className="flex justify-between gap-1 hover:bg-d329ff15">
+              <div className="w-[30%] h-4 rounded"></div>
+              <div className="w-[30%] h-4 rounded"></div>
+              <div className="w-[40%] h-4 rounded"></div>
+            </li>
           ))}
-    </List>
+    </ul>
   );
 };
 export default DomainItems;
