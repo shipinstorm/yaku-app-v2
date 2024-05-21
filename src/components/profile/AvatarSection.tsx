@@ -199,7 +199,7 @@ const AvatarSection = ({
     }
   }, [user]);
   return (
-    <div className="mt-[-40px] md:mt-[-180px] flex items-center">
+    <>
       {src ? (
         <img
           src={src}
@@ -362,7 +362,7 @@ const AvatarSection = ({
           handleLocale,
         }}
       />
-    </div>
+    </>
   );
 };
 

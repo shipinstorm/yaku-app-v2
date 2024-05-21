@@ -307,133 +307,138 @@ const Profile = () => {
 
   return (
     <>
-      <ProfileBannerNoSSR />
+      <div className="grid grid-cols-1 xl:grid-cols-4 mx-auto container xl:gap-5">
+        {/* <ProfileBannerNoSSR /> */}
 
-      <AvatarSectionNoSSR
-        src={profilePic}
-        vanity={
-          walletUser?.user?.vanity ||
-          displayName ||
-          (wallet && shortenAddress(wallet))
-        }
-        sol_name={walletStats?.sol_name}
-        discord={walletUser?.user?.discord}
-        twitter={walletUser?.user?.twitter}
-        stakedYakuNfts={nfts?.staked}
-        wallet={wallet}
-        mainWallet={mainWallet}
-        handleFollow={handleFollow}
-        isFollowed={followed && followed.isFollowed}
-        followers={followers?.getUserFollowers?.length}
-        followings={followings?.getUserFollowings?.length}
-        handleShowSelectNft={handleShowSelectNft}
-      />
+        <aside className="col-span-1 w-full">
+          <AvatarSectionNoSSR
+            src={profilePic}
+            vanity={
+              walletUser?.user?.vanity ||
+              displayName ||
+              (wallet && shortenAddress(wallet))
+            }
+            sol_name={walletStats?.sol_name}
+            discord={walletUser?.user?.discord}
+            twitter={walletUser?.user?.twitter}
+            stakedYakuNfts={nfts?.staked}
+            wallet={wallet}
+            mainWallet={mainWallet}
+            handleFollow={handleFollow}
+            isFollowed={followed && followed.isFollowed}
+            followers={followers?.getUserFollowers?.length}
+            followings={followings?.getUserFollowings?.length}
+            handleShowSelectNft={handleShowSelectNft}
+          />
+        </aside>
 
-      <div className="grid gap-2 mt-1 md:mt-[-80px]">
-        <div className="col-span-12 lg:col-span-7 xl:col-span-6">
-          <MainCard sx={{ border: "none", mt: 2 }} divider={false}>
-            <p className="flex items-center justify-end gap-1 text-lg font-bold">
-              <IconWallet /> Wallet Overview
-            </p>
-            <div className="mt-2 flex justify-between">
-              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2">
+        <aside className="col-span-1 xl:col-span-2">
+          <div className="col-span-12 lg:col-span-7 xl:col-span-6">
+            <div className="card mb-5 p-6 flex flex-col gap-4">
+              <div className="mb-2 flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
                 <p>Wallet</p>
                 <p className="truncate">
                   {wallet && shortenAddress(wallet, 7)}
                 </p>
               </div>
-              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 w-[19rem]">
-                <p>Balance</p>
-                <div className="flex gap-1">
-                  <img
-                    src="/images/blockchains/solana-icon.svg"
-                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
-                    alt="Solana Icon"
-                  />
-                  <p className="truncate">
-                    {round(Number(balance || 0), 2).toLocaleString()}
-                  </p>
-                </div>
-              </div>
-              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-5/6">
-                <p>$YAKU Balance</p>
-                <div className="flex gap-1">
-                  <img
-                    src={YAKU_TOKEN_ICON}
-                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
-                    alt="YAKU Token Icon"
-                  />
-                  <p className="truncate">
-                    {round(Number(tokenBalance || 0), 2).toLocaleString()}
-                  </p>
-                </div>
-              </div>
-              <Tooltip title="NFT Portfolio Value is based on FP calculation.">
-                <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-5/6">
-                  <p>
-                    NFT Portfolio Value <InfoCircleOutlined />
-                  </p>
-                  <div className="flex gap-1">
+              <div className="flex flex-col gap-4 lg:flex-row">
+                <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
+                  <p>Balance</p>
+                  <div className="flex gap-1 items-center">
                     <img
                       src="/images/blockchains/solana-icon.svg"
-                      className="w-4.5 h-4.5 object-contain border-none bg-transparent"
+                      className="w-[18px] h-[18px] object-contain border-none bg-transparent"
                       alt="Solana Icon"
                     />
                     <p className="truncate">
-                      {round(netWorth, 2).toLocaleString()}
+                      {round(Number(balance || 0), 2).toLocaleString()}
                     </p>
                   </div>
                 </div>
-              </Tooltip>
-              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-[5.75rem]">
-                <p>Owned NFT</p>
-                <p className="truncate">
-                  {Number(ownedNftCount).toLocaleString()}
-                </p>
+                <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
+                  <p>$YAKU Balance</p>
+                  <div className="flex gap-1 items-center">
+                    <img
+                      src={YAKU_TOKEN_ICON}
+                      className="w-[18px] h-[18px] object-contain border-none bg-transparent"
+                      alt="YAKU Token Icon"
+                    />
+                    <p className="truncate">
+                      {round(Number(tokenBalance || 0), 2).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-[5.75rem]">
-                <p>Total Volume Bought</p>
-                <div className="flex gap-1">
-                  <img
-                    src="/images/blockchains/solana-icon.svg"
-                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
-                  />
+              <div className="flex flex-col gap-4 lg:flex-row">
+                <Tooltip title="NFT Portfolio Value is based on FP calculation.">
+                  <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
+                    <p>
+                      NFT Portfolio Value <InfoCircleOutlined />
+                    </p>
+                    <div className="flex gap-1 items-center">
+                      <img
+                        src="/images/blockchains/solana-icon.svg"
+                        className="w-[18px] h-[18px] object-contain border-none bg-transparent"
+                        alt="Solana Icon"
+                      />
+                      <p className="truncate">
+                        {round(netWorth, 2).toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                </Tooltip>
+                <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
+                  <p>Owned NFT</p>
                   <p className="truncate">
-                    {!isEmpty(walletStats) ? (
-                      `${round(
-                        Number(walletStats?.volume_bought || 0),
-                        2
-                      ).toLocaleString()}`
-                    ) : (
-                      <div className="w-12 h-4 rounded bg-gray-200"></div>
-                    )}
+                    {Number(ownedNftCount).toLocaleString()}
                   </p>
                 </div>
               </div>
-              <div className="mb-2 flex justify-between items-center bg-primary-light dark:bg-gray-900 rounded-lg p-2 sm:w-[5.75rem]">
-                <p>Total Volume Sold</p>
-                <div className="flex gap-1">
-                  <img
-                    src="/images/blockchains/solana-icon.svg"
-                    className="w-4.5 h-4.5 object-contain border-none bg-transparent"
-                  />
-                  <p className="truncate">
-                    {!isEmpty(walletStats) ? (
-                      `${round(
-                        Number(walletStats?.volume_sold || 0),
-                        2
-                      ).toLocaleString()}`
-                    ) : (
-                      <div className="w-12 h-4 rounded bg-gray-200"></div>
-                    )}
-                  </p>
+              <div className="flex flex-col gap-4 lg:flex-row">
+                <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
+                  <p>Total Volume Bought</p>
+                  <div className="flex gap-1 items-center">
+                    <img
+                      src="/images/blockchains/solana-icon.svg"
+                      className="w-[18px] h-[18px] object-contain border-none bg-transparent"
+                    />
+                    <p className="truncate">
+                      {!isEmpty(walletStats) ? (
+                        `${round(
+                          Number(walletStats?.volume_bought || 0),
+                          2
+                        ).toLocaleString()}`
+                      ) : (
+                        <div className="w-12 h-4 rounded bg-gray-200"></div>
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
+                  <p>Total Volume Sold</p>
+                  <div className="flex gap-1 items-center">
+                    <img
+                      src="/images/blockchains/solana-icon.svg"
+                      className="w-[18px] h-[18px] object-contain border-none bg-transparent"
+                    />
+                    <p className="truncate">
+                      {!isEmpty(walletStats) ? (
+                        `${round(
+                          Number(walletStats?.volume_sold || 0),
+                          2
+                        ).toLocaleString()}`
+                      ) : (
+                        <div className="w-12 h-4 rounded bg-gray-200"></div>
+                      )}
+                    </p>
+                  </div>
                 </div>
               </div>
               {(wallet !== mainWallet.publicKey?.toBase58()
                 ? walletUser?.user?.ethAddress
                 : auth?.user?.ethAddress) && (
-                <>
-                  <div className="mb-2 flex justify-between items-center bg-primary-light rounded-xl p-2">
+                <div className="flex flex-col gap-4 lg:flex-row">
+                  <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
                     <p>ETH Wallet</p>
                     <p className="truncate">
                       {shortenAddress(
@@ -444,12 +449,12 @@ const Profile = () => {
                       )}
                     </p>
                   </div>
-                  <div className="mb-2 flex justify-between items-center bg-primary-light rounded-xl p-2">
+                  <div className="mb-2 w-full flex justify-between items-center bg-[#2d2f33] rounded-2xl p-4">
                     <p>Balance</p>
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 items-center">
                       <img
                         src="/images/blockchains/ethereum-icon.svg"
-                        className="w-4.5 h-4.5 object-contain border-none bg-transparent"
+                        className="w-[18px] h-[18px] object-contain border-none bg-transparent"
                       />
                       <p className="truncate">
                         {round(
@@ -459,46 +464,48 @@ const Profile = () => {
                       </p>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </div>
-          </MainCard>
-          <div>
-            <MainCard sx={{ border: "none", mt: 2 }} divider={false}>
-              <PortfolioChartNoSSR wallet={wallet || ""} />
-            </MainCard>
+            <div>
+              <MainCard sx={{ border: "none", mt: 2 }} divider={false}>
+                <PortfolioChartNoSSR wallet={wallet || ""} />
+              </MainCard>
+            </div>
           </div>
-        </div>
-        <div className="lg:col-span-5 xl:col-span-6">
-          <NFTCollectionsViewNoSSR
-            wallet={wallet || ""}
-            nfts={nfts}
-            ethNfts={ethNfts}
-            setOwnedNftCount={setOwnedNftCount}
-            setNetWorth={setNetWorth}
-            setOwnedCollections={setCollections}
-          />
-        </div>
-      </div>
+          <div className="lg:col-span-5 xl:col-span-6">
+            <NFTCollectionsViewNoSSR
+              wallet={wallet || ""}
+              nfts={nfts}
+              ethNfts={ethNfts}
+              setOwnedNftCount={setOwnedNftCount}
+              setNetWorth={setNetWorth}
+              setOwnedCollections={setCollections}
+            />
+          </div>
+        </aside>
 
-      <NFTsDialogNoSSR
-        showItems={showSelectNft}
-        setShowItems={setShowSelectNft}
-        cItem={{
-          items:
-            collections && collections.length > 0
-              ? filter(
-                  flatten(map(collections, ({ items }) => items)),
-                  ({ listed }) => !listed
-                )
-              : [],
-        }}
-        canView={false}
-        hideTitle
-        noListing
-        showSendAndBurnButton={false}
-        cols={6}
-      />
+        <aside className="col-span-1 w-full"></aside>
+
+        <NFTsDialogNoSSR
+          showItems={showSelectNft}
+          setShowItems={setShowSelectNft}
+          cItem={{
+            items:
+              collections && collections.length > 0
+                ? filter(
+                    flatten(map(collections, ({ items }) => items)),
+                    ({ listed }) => !listed
+                  )
+                : [],
+          }}
+          canView={false}
+          hideTitle
+          noListing
+          showSendAndBurnButton={false}
+          cols={6}
+        />
+      </div>
     </>
   );
 };

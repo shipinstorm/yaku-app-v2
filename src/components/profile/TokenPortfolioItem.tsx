@@ -59,13 +59,13 @@ const TokenPortfolioItem = ({
     getPortfolioData();
   }, [txHash]);
   return (
-    <div className="gap-1 justify-between hover:bg-opacity-20 hover:bg-purple-600">
+    <div className="flex gap-1 justify-between hover:bg-opacity-20 hover:bg-purple-600">
       {itemData ? (
         <>
           <img
             src={`${IMAGE_PROXY}${image}`}
             alt="Avatar"
-            className="bg-transparent"
+            className="bg-transparent w-10"
           />
           <p className="w-[18%]">{name}</p>
           <p className="w-[18%]">

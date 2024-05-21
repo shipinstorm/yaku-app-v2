@@ -385,15 +385,17 @@ const NFTCollectionsView = ({
         >
           Collections
         </Tab>
-        <Tab
+        {/* <Tab
+          key="Items"
           value="Items"
           placeholder=""
           onPointerEnterCapture={() => {}}
           onPointerLeaveCapture={() => {}}
         >
           Items
-        </Tab>
+        </Tab> */}
         <Tab
+          key="Domains"
           value="Domains"
           placeholder=""
           onPointerEnterCapture={() => {}}
@@ -401,15 +403,17 @@ const NFTCollectionsView = ({
         >
           Domains
         </Tab>
-        <Tab
+        {/* <Tab
+          key="Listings"
           value="Listings"
           placeholder=""
           onPointerEnterCapture={() => {}}
           onPointerLeaveCapture={() => {}}
         >
           Listings
-        </Tab>
+        </Tab> */}
         <Tab
+          key="Portfolio"
           value="Portfolio"
           placeholder=""
           onPointerEnterCapture={() => {}}
@@ -418,6 +422,7 @@ const NFTCollectionsView = ({
           Portfolio
         </Tab>
         <Tab
+          key="Tokens"
           value="Tokens"
           placeholder=""
           onPointerEnterCapture={() => {}}
@@ -425,82 +430,130 @@ const NFTCollectionsView = ({
         >
           Tokens
         </Tab>
-        <Tab
+        {/* <Tab
+          key="Activities"
           value="Activities"
           placeholder=""
           onPointerEnterCapture={() => {}}
           onPointerLeaveCapture={() => {}}
         >
           Activities
-        </Tab>
+        </Tab> */}
       </TabsHeader>
-      <TabPanel value="Collections" className="p-0 mt-2">
-        {!isLoading || (collections && collections.length > 0) ? (
-          <TitlebarImageList
-            items={map(
-              collections,
-              ({
-                collection,
-                count,
-                items,
-                image,
-                symbol,
-                floor_price,
-                staked,
-              }: any) => ({
-                title: collection,
-                img: image,
-                count,
-                items,
-                floor_price,
-                staked,
-                owner: wallet,
-              })
-            )}
-            icon={
-              <img
-                src="/images/blockchains/solana-icon.svg"
-                className="w-6 h-6 object-contain border-none bg-transparent"
-              />
-            }
-            title="Collections"
-            updateView={getNFTs}
-            showSubItems
-          />
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
-              <div key={v} className="w-full h-full aspect-w-1 aspect-h-1">
-                <div className="w-full h-full bg-gray-200 rounded"></div>
-              </div>
-            ))}
-          </div>
-        )}
-        <div className="mt-1">
-          {!isLoading || (ethCollections && ethCollections.length > 0) ? (
+      <TabsBody
+        placeholder=""
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
+      >
+        <TabPanel value="Collections" className="p-0 mt-2">
+          {!isLoading || (collections && collections.length > 0) ? (
             <TitlebarImageList
               items={map(
-                ethCollections,
-                ({ collection, count, items, image }: any) => ({
+                collections,
+                ({
+                  collection,
+                  count,
+                  items,
+                  image,
+                  symbol,
+                  floor_price,
+                  staked,
+                }: any) => ({
                   title: collection,
                   img: image,
                   count,
                   items,
-                  chain: "ETH",
+                  floor_price,
+                  staked,
+                  owner: wallet,
                 })
               )}
               icon={
                 <img
-                  src="/images/blockchains/ethereum-icon.svg"
+                  src="/images/blockchains/solana-icon.svg"
                   className="w-6 h-6 object-contain border-none bg-transparent"
                 />
               }
               title="Collections"
+              updateView={getNFTs}
               showSubItems
-              chain="ETH"
             />
           ) : (
-            <div className="grid grid-cols-1 gap-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
+                <div key={v} className="w-full h-full aspect-w-1 aspect-h-1">
+                  <div className="w-full h-full bg-gray-200 rounded"></div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="mt-1">
+            {!isLoading || (ethCollections && ethCollections.length > 0) ? (
+              <TitlebarImageList
+                items={map(
+                  ethCollections,
+                  ({ collection, count, items, image }: any) => ({
+                    title: collection,
+                    img: image,
+                    count,
+                    items,
+                    chain: "ETH",
+                  })
+                )}
+                icon={
+                  <img
+                    src="/images/blockchains/ethereum-icon.svg"
+                    className="w-6 h-6 object-contain border-none bg-transparent"
+                  />
+                }
+                title="Collections"
+                showSubItems
+                chain="ETH"
+              />
+            ) : (
+              <div className="grid grid-cols-1 gap-1">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
+                  <div key={v} className="col-span-3">
+                    <div className="skeleton rounded-full w-full h-full aspect-square"></div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </TabPanel>
+        {/* <TabPanel value="Items" className="p-0 mt-2">
+          {!isLoading || (nftList && nftList.length > 0) ? (
+            <TitlebarImageList
+              items={map(
+                nftList,
+                ({
+                  name,
+                  image,
+                  mint,
+                  project_id = "project",
+                  floor_price = 0,
+                  staked,
+                  listStatus,
+                }: any) => ({
+                  title: name,
+                  name,
+                  img: image,
+                  mint,
+                  project_id,
+                  price: floor_price,
+                  staked,
+                  listed: listStatus === "listed",
+                  owner: wallet,
+                })
+              )}
+              title="NFT"
+              navigate={navigate}
+              updateView={getNFTs}
+              showActionButton
+              showSendAndBurnButton
+            />
+          ) : (
+            <div className="grid grid-cols-3 gap-1 mt-2">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
                 <div key={v} className="col-span-3">
                   <div className="skeleton rounded-full w-full h-full aspect-square"></div>
@@ -508,192 +561,154 @@ const NFTCollectionsView = ({
               ))}
             </div>
           )}
-        </div>
-      </TabPanel>
-      <TabPanel value="Items" className="p-0 mt-2">
-        {!isLoading || (nftList && nftList.length > 0) ? (
-          <TitlebarImageList
-            items={map(
-              nftList,
-              ({
-                name,
-                image,
-                mint,
-                project_id = "project",
-                floor_price = 0,
-                staked,
-                listStatus,
-              }: any) => ({
-                title: name,
-                name,
-                img: image,
-                mint,
-                project_id,
-                price: floor_price,
-                staked,
-                listed: listStatus === "listed",
-                owner: wallet,
-              })
-            )}
-            title="NFT"
-            navigate={navigate}
-            updateView={getNFTs}
-            showActionButton
-            showSendAndBurnButton
-          />
-        ) : (
-          <div className="grid grid-cols-3 gap-1 mt-2">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
-              <div key={v} className="col-span-3">
-                <div className="skeleton rounded-full w-full h-full aspect-square"></div>
-              </div>
-            ))}
-          </div>
-        )}
-      </TabPanel>
-      <TabPanel value="Domains" className="p-0 mt-2">
-        <DomainItems domains={domainList} isLoading={isLoading} />
-      </TabPanel>
-      <TabPanel value="Listings" className="p-0 mt-2">
-        {!isLoading || (listings && listings.length > 0) ? (
-          <TitlebarImageList
-            items={map(
-              listings,
-              ({
-                meta_data_img,
-                name,
-                token_address,
-                project_id = "project",
-                market_place_state,
-              }: any) => ({
-                title: name,
-                name,
-                img: get(
-                  find(nftList, ({ mint }) => token_address === mint) || {},
-                  "image",
-                  meta_data_img
-                ),
-                mint: token_address,
-                project_id,
-                price: market_place_state.price,
-                owner: wallet,
-                listed: true,
-                marketplace_program_id:
-                  market_place_state.marketplace_program_id,
-              })
-            )}
-            title="Listings"
-            navigate={navigate}
-            updateView={getNFTs}
-            showActionButton
-          />
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-1 mt-8">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
-              <div key={v} className="aspect-w-1 aspect-h-1">
-                <div className="bg-gray-200 rounded"></div>
-              </div>
-            ))}
-          </div>
-        )}
-      </TabPanel>
-      <TabPanel value="Portfolio">
-        <div className="grid grid-cols-2">
-          <Tooltip content="Net Worth is based on FP calculation.">
-            <div className="flex justify-between items-center p-2 bg-primary-light dark:bg-opacity-85 rounded">
-              <p>
-                Net Worth <InfoCircleOutlined />
-              </p>
-              <div className="flex gap-1">
-                <img
-                  src="/images/blockchains/solana-icon.svg"
-                  alt=""
-                  className="w-4 h-4 object-contain border-none bg-transparent"
-                />
+        </TabPanel> */}
+        <TabPanel value="Domains" className="p-0 mt-2">
+          <DomainItems domains={domainList} isLoading={isLoading} />
+        </TabPanel>
+        {/* <TabPanel value="Listings" className="p-0 mt-2">
+          {!isLoading || (listings && listings.length > 0) ? (
+            <TitlebarImageList
+              items={map(
+                listings,
+                ({
+                  meta_data_img,
+                  name,
+                  token_address,
+                  project_id = "project",
+                  market_place_state,
+                }: any) => ({
+                  title: name,
+                  name,
+                  img: get(
+                    find(nftList, ({ mint }) => token_address === mint) || {},
+                    "image",
+                    meta_data_img
+                  ),
+                  mint: token_address,
+                  project_id,
+                  price: market_place_state.price,
+                  owner: wallet,
+                  listed: true,
+                  marketplace_program_id:
+                    market_place_state.marketplace_program_id,
+                })
+              )}
+              title="Listings"
+              navigate={navigate}
+              updateView={getNFTs}
+              showActionButton
+            />
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-1 mt-8">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((v) => (
+                <div key={v} className="aspect-w-1 aspect-h-1">
+                  <div className="bg-gray-200 rounded"></div>
+                </div>
+              ))}
+            </div>
+          )}
+        </TabPanel> */}
+        <TabPanel value="Portfolio">
+          <div className="grid grid-cols-2">
+            <Tooltip content="Net Worth is based on FP calculation.">
+              <div className="flex justify-between items-center p-2 bg-primary-light dark:bg-opacity-85 rounded">
                 <p>
+                  Net Worth <InfoCircleOutlined />
+                </p>
+                <div className="flex gap-1">
+                  <img
+                    src="/images/blockchains/solana-icon.svg"
+                    alt=""
+                    className="w-4 h-4 object-contain border-none bg-transparent"
+                  />
+                  <p>
+                    {!isLoading || !isEmpty(nftList) ? (
+                      `${round(
+                        Number(
+                          sum(
+                            map(
+                              nftList,
+                              ({ floor_price = 0 }) => floor_price
+                            ) || 0
+                          )
+                        ),
+                        2
+                      ).toLocaleString()}`
+                    ) : (
+                      <span className="skeleton w-12 h-4"></span>
+                    )}
+                  </p>
+                </div>
+              </div>
+            </Tooltip>
+            <div className="w-full sm:w-[calc(460px/16*5.75)] flex justify-between items-center bg-primary-light dark:bg-[rgba(36, 24, 47, 0.85)] rounded-[.75rem] p-2">
+              <p className="text-base font-medium">Est. Net Worth (USD)</p>
+              <div className="flex gap-1">
+                <p className="whitespace-nowrap">
                   {!isLoading || !isEmpty(nftList) ? (
-                    `${round(
+                    `\$${round(
                       Number(
                         sum(
-                          map(nftList, ({ floor_price = 0 }) => floor_price) ||
-                            0
-                        )
-                      ),
+                          map(nftList, ({ floor_price = 0 }) => floor_price)
+                        ) || 0
+                      ) * solPrice,
                       2
                     ).toLocaleString()}`
                   ) : (
-                    <span className="skeleton w-12 h-4"></span>
+                    <div className="w-16 h-4 rounded"></div>
                   )}
                 </p>
               </div>
             </div>
-          </Tooltip>
-          <div className="w-full sm:w-[calc(460px/16*5.75)] flex justify-between items-center bg-primary-light dark:bg-[rgba(36, 24, 47, 0.85)] rounded-[.75rem] p-2">
-            <p className="text-base font-medium">Est. Net Worth (USD)</p>
-            <div className="flex gap-1">
-              <p className="whitespace-nowrap">
-                {!isLoading || !isEmpty(nftList) ? (
-                  `\$${round(
-                    Number(
-                      sum(map(nftList, ({ floor_price = 0 }) => floor_price)) ||
-                        0
-                    ) * solPrice,
-                    2
-                  ).toLocaleString()}`
-                ) : (
-                  <div className="w-16 h-4 rounded"></div>
-                )}
-              </p>
+          </div>
+          {!isLoading || (nftList && nftList.length > 0) ? (
+            <ul>
+              <li className="flex gap-1 justify-between">
+                <div className="w-10"></div>
+                <p className="w-[18%]">Name</p>
+                <p className="w-[18%]">Collection</p>
+                <p className="w-[12%] text-right">Buy In</p>
+                <p className="w-[12%] text-right">Buy In (USD)</p>
+                <p className="w-[12%] text-center">IRR</p>
+                <p className="w-[14%]">Purchase time</p>
+                <div className="w-5"></div>
+              </li>
+              {map(tokensHist, (item: any, idx) => (
+                <TokenPortfolioItem key={idx} {...item} />
+              ))}
+              {isLoading && (
+                <div className="h-4 bg-primary-light rounded-full overflow-hidden">
+                  <div className="h-full bg-secondary"></div>
+                </div>
+              )}
+              {tokensHist && nftList && tokensHist.length < nftList.length && (
+                <button
+                  className="w-full bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white rounded-md px-4 py-2"
+                  onClick={() =>
+                    loadMoreTokensHist(
+                      nftList,
+                      tokensHist.length,
+                      tokensHist.length + 30
+                    )
+                  }
+                >
+                  Load More
+                </button>
+              )}
+            </ul>
+          ) : (
+            <div className="h-4 bg-primary-light rounded-full overflow-hidden">
+              <div className="h-full bg-secondary"></div>
             </div>
-          </div>
-        </div>
-        {!isLoading || (nftList && nftList.length > 0) ? (
-          <ul>
-            <li className="flex gap-1 justify-between">
-              <div className="w-10"></div>
-              <p className="w-[18%]">Name</p>
-              <p className="w-[18%]">Collection</p>
-              <p className="w-[12%] text-right">Buy In</p>
-              <p className="w-[12%] text-right">Buy In (USD)</p>
-              <p className="w-[12%] text-center">IRR</p>
-              <p className="w-[14%]">Purchase time</p>
-              <div className="w-5"></div>
-            </li>
-            {map(tokensHist, (item: any, idx) => (
-              <TokenPortfolioItem key={idx} {...item} />
-            ))}
-            {isLoading && (
-              <div className="h-4 bg-primary-light rounded-full overflow-hidden">
-                <div className="h-full bg-secondary"></div>
-              </div>
-            )}
-            {tokensHist && nftList && tokensHist.length < nftList.length && (
-              <button
-                className="w-full bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white rounded-md px-4 py-2"
-                onClick={() =>
-                  loadMoreTokensHist(
-                    nftList,
-                    tokensHist.length,
-                    tokensHist.length + 30
-                  )
-                }
-              >
-                Load More
-              </button>
-            )}
-          </ul>
-        ) : (
-          <div className="h-4 bg-primary-light rounded-full overflow-hidden">
-            <div className="h-full bg-secondary"></div>
-          </div>
-        )}
-      </TabPanel>
-      <TabPanel value="Tokens">
-        <TokensView wallet={wallet} tabIdx={tabIdx} />
-      </TabPanel>
-      <TabPanel value="Activities">
-        <MEActivitiesList wallet={wallet} tabIdx={tabIdx} />
-      </TabPanel>
+          )}
+        </TabPanel>
+        <TabPanel value="Tokens">
+          <TokensView wallet={wallet} tabIdx={tabIdx} />
+        </TabPanel>
+        {/* <TabPanel value="Activities">
+          <MEActivitiesList wallet={wallet} tabIdx={tabIdx} />
+        </TabPanel> */}
+      </TabsBody>
     </Tabs>
   );
 };
