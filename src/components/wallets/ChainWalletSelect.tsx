@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useMemo } from "react";
 import { isMobile } from "react-device-detect";
+
 import { WalletReadyState } from "@solana/wallet-adapter-base";
 import { useWallet, Wallet } from "@solana/wallet-adapter-react";
 

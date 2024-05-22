@@ -72,7 +72,7 @@ const WalletValueSection = ({
           )}
         </div>
       </div>
-      <hr />
+      <hr className="my-2 flex-shrink-0 border-t border-solid border-[#d5d9e9] opacity-20" />
       {showEscrow && (
         <div className="flex items-center justify-between p-1 mt-1">
           <div className="flex gap-1">

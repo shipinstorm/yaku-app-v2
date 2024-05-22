@@ -39,6 +39,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
       <div
         className="md:hidden"
         onMouseEnter={(e) => {
+          console.log("---Navbar Mouse Enter---");
           e.preventDefault();
           dispatch(openDrawer(!drawerOpen));
           setOpen(true);
@@ -82,6 +83,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
           paddingRight: "10px",
         }}
         onMouseEnter={(e) => {
+          console.log("---Navbar Mouse Enter---");
           e.preventDefault();
           dispatch(openDrawer(!drawerOpen));
           setOpen(true);
@@ -115,7 +117,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
           (open ? "left-0" : "left-[-260px]")
         }
         onMouseLeave={(e) => {
-          console.log("leave");
+          console.log("---Navbar Mouse Leave---");
           e.preventDefault();
           setTimeout(() => {
             dispatch(openDrawer(!drawerOpen));
@@ -144,6 +146,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
         <div
           className="relative flex items-center justify-center flex-shrink-0 font-inter rounded-full overflow-hidden select-none text-gray-900 bg-transparent w-6 h-6 text-3xl cursor-pointer mx-auto"
           onMouseEnter={(e) => {
+            console.log("---Navbar Mouse Enter---");
             e.preventDefault();
             dispatch(openDrawer(!drawerOpen));
             setOpen(true);

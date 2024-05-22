@@ -80,8 +80,6 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
 
   const {
     getSubwallet,
-    getAllWorkspaces,
-    getAllWorkspacesByUser,
     login,
     connectDiscord,
     connectTwitter,
@@ -185,7 +183,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
   };
 
   const handleClose = (caller?: string) => {
-    console.debug("handleClose", caller);
+    console.log("handleClose", caller);
     setOpen(false);
     auth.attempting(false);
     if (caller !== "self" && !publicKey) {
@@ -270,11 +268,11 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
     setOpen(true);
     setAddressType(addressType);
     setStepNumber(stepNumber);
-    console.debug({ needSign, canDismiss, open, hideEthButton });
+    console.log({ needSign, canDismiss, open, hideEthButton, addressType, stepNumber });
   };
 
   useEffect(() => {
-    console.debug({ needSign, canDismiss, open });
+    console.log({ needSign, canDismiss, open });
   }, [open]);
 
   return (
@@ -293,7 +291,7 @@ export const WalletHandlerProvider: FC<{ children: ReactNode }> = ({
       <Dialog
         open={open}
         className="bg-transparent"
-        size="sm"
+        size="xs"
         handler={() => {}}
         placeholder=""
         onPointerEnterCapture={() => {}}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import LogoSection from "../LogoSection";
+import ProfileSection from "./ProfileSection";
 
 interface MobilePopoverProps {
   buttons: any[];
@@ -34,6 +35,8 @@ const MobileHeader = ({
       <span className="xs:hidden md:flex items-center flex-grow">
         <LogoSection />
       </span>
+
+      <ProfileSection />
     </div>
   );
 };

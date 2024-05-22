@@ -64,7 +64,7 @@ const PlayerSection = ({
     <Dialog
       open={open}
       className="w-full p-2 bg-transparent"
-      size="sm"
+      size="xs"
       handler={() => {}}
       placeholder=""
       onPointerEnterCapture={() => {}}

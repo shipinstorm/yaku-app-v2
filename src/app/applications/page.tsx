@@ -1,29 +1,30 @@
 "use client";
 
 import { redirect } from "next/navigation";
-
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+
 import YakuIcon from "@/components/icons/YakuIcon";
+
 import { LOGO } from "@/config/config";
 
 const AppstoreData = [
-  {
-    id: "mint-calendar",
-    title: <FormattedMessage id="mint-calendar" />,
-    url: "/applications/calendar",
-    icon: LOGO,
-    description: "Upcoming mint for your reminder",
-    coming: false,
-  },
-  {
-    id: "raffles",
-    title: <FormattedMessage id="raffles" />,
-    url: "/applications/raffles",
-    icon: LOGO,
-    description: "Raffles rewards for Yaku holders",
-    coming: false,
-  },
+  // {
+  //   id: "mint-calendar",
+  //   title: <FormattedMessage id="mint-calendar" />,
+  //   url: "/applications/calendar",
+  //   icon: LOGO,
+  //   description: "Upcoming mint for your reminder",
+  //   coming: false,
+  // },
+  // {
+  //   id: "raffles",
+  //   title: <FormattedMessage id="raffles" />,
+  //   url: "/applications/raffles",
+  //   icon: LOGO,
+  //   description: "Raffles rewards for Yaku holders",
+  //   coming: false,
+  // },
   {
     id: "staking",
     title: <FormattedMessage id="staking" />,

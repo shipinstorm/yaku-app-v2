@@ -125,11 +125,11 @@ const WalletLogin = ({
     setShowPlayerView(true);
   };
 
-  useEffect(() => {
-    if (playerAddress) {
-      dismiss("");
-    }
-  }, [playerAddress]);
+  // useEffect(() => {
+  //   if (playerAddress) {
+  //     dismiss("");
+  //   }
+  // }, [playerAddress]);
 
   // new functions
   const handleClick = useCallback(

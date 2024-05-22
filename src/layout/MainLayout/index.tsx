@@ -4,6 +4,7 @@ import { Outlet, useSearchParams } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useMediaQuery } from "react-responsive";
+import { usePathname } from "next/navigation";
 
 // project imports
 import Header from "./Header";
@@ -236,16 +237,16 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     setShowMobileSidebar(false);
   };
 
+  const pathname = usePathname();
+
   return (
     <>
       <div
-        className={`flex mb-4 ${
-          window.location.pathname === "/home" ? "video-main" : ""
-        } ${scrolling ? "scrolling" : "init"}`}
+        className={`flex mb-4 ${pathname === "/home" ? "video-main" : ""} ${
+          scrolling ? "scrolling" : "init"
+        }`}
       >
-        {window.location.pathname === "/home" && (
-          <VideoSlidesBackground {...dashboardSlides} />
-        )}
+        {pathname === "/home" && <VideoSlidesBackground {...dashboardSlides} />}
         <div className="font-sans antialiased text-gray-900 bg-white"></div>
 
         <header

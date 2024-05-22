@@ -420,13 +420,13 @@ const ProfilePopperContext = ({ showProfile }: any) => {
         sx={{ backgroundColor: "transparent" }}
       >
         {(mainWallet.connected || ethConnected || playerAddress) && (
-          <div className="p-4 pt-4 w-full min-w-[260px] text-gray-400">
+          <div className="p-4 pt-0 w-full min-w-[260px] text-gray-400">
             {auth.user?.vanity && (
-              <div className="flex items-center space-x-1 p-2 max-w-full">
+              <div className="flex items-center space-x-1 p-2 w-full">
                 {/* <Tooltip title="View Wallet Portfolio"> */}
-                <div className="mt-1 justify-between">
+                <div className="justify-between w-full">
                   <div
-                    className="w-full mb-4 flex justify-center items-center bg-[#09080d] rounded-[0.75rem] p-4 cursor-pointer gap-4"
+                    className="w-full flex justify-center items-center bg-[#09080d] rounded-[0.75rem] p-4 cursor-pointer gap-4"
                     onClick={() => router.push(`/account/${auth.user?.wallet}`)}
                   >
                     <IconEye />
@@ -459,9 +459,12 @@ const ProfilePopperContext = ({ showProfile }: any) => {
                     {!isSolLinked && (
                       <button
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded gap-1"
-                        onClick={() =>
-                          showLoginDialog(true, true, false, true, 2)
-                        }
+                        onClick={() => {
+                          console.log(
+                            "---Select Sol Link To Blockus Account---"
+                          );
+                          showLoginDialog(true, true, false, true, 1);
+                        }}
                       >
                         Link To Blockus Account
                       </button>
@@ -508,9 +511,12 @@ const ProfilePopperContext = ({ showProfile }: any) => {
                     {!isEthLinked && (
                       <button
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded gap-1"
-                        onClick={() =>
-                          showLoginDialog(true, true, false, false, 2)
-                        }
+                        onClick={() => {
+                          console.log(
+                            "---Select Eth Link To Blockus Account---"
+                          );
+                          showLoginDialog(true, true, false, false, 1);
+                        }}
                       >
                         Link To Blockus Account
                       </button>
