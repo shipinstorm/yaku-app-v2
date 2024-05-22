@@ -127,20 +127,20 @@ const TokensView = ({ wallet, tabIdx }: any) => {
     }
   }, [wallet, tabIdx]);
   return (
-    <ul>
+    <ul className="text-[#d5d9e9]">
       <li className="flex justify-between gap-1">
         <div className="w-10"></div>
-        <p className="font-bold w-18">Name</p>
-        <p className="font-bold w-40 text-right"></p>
+        <p className="font-bold w-[30%]">Name</p>
+        <p className="font-bold w-[18%] text-right"></p>
         <p
-          className="font-bold w-18 text-right cursor-pointer"
+          className="font-bold w-[18%] text-right cursor-pointer"
           onClick={() => handleFilterChange({ target: { value: "amount" } })}
         >
           Amount{" "}
           <SortingArrow {...{ orderField, fieldNames: ["amount"], ordering }} />
         </p>
         <p
-          className="font-bold w-24 text-right cursor-pointer"
+          className="font-bold w-[40%] text-right cursor-pointer"
           onClick={() => handleFilterChange({ target: { value: "estValue" } })}
         >
           Est. Value (USD){" "}

@@ -200,14 +200,51 @@ const AvatarSection = ({
   }, [user]);
   return (
     <>
-      {src ? (
-        <img
-          src={src}
-          className="object-contain bg-black z-20 w-[60px] h-[60px] md:w-[240px] md:h-[240px]"
-        />
-      ) : (
-        <div className="bg-[#111111ec] z-20 rounded-full w-[60px] h-[60px] md:w-[240px] md:h-[240px]"></div>
-      )}
+      <section className="profile-box bg-surface mb-5 p-0 card overflow-hidden">
+        <div className="p-4 text-center pt-20">
+          <div className="flex justify-center">
+            <div>
+              <button className="text-primary mb-1 bg-transparent text-xl font-bold">
+                {Intl.NumberFormat("en-US", {
+                  notation: "compact",
+                  maximumFractionDigits: 1,
+                }).format(followers || 0)}{" "}
+              </button>
+              <p className="text-terciary text-xs font-medium">Followers</p>
+            </div>
+
+            <div className="avatar relative z-10 flex-shrink-0 -mt-14 mx-2 rounded-3xl shadow-sm overflow-hidden">
+              {src ? (
+                <img src={src} className="icon-lg w-full object-cover" />
+              ) : (
+                <div className="bg-[#111111ec] z-20 rounded-full w-[60px] h-[60px] md:w-[240px] md:h-[240px]"></div>
+              )}
+            </div>
+
+            <div>
+              <button className="text-primary mb-1 bg-transparent text-xl font-bold">
+                {Intl.NumberFormat("en-US", {
+                  notation: "compact",
+                  maximumFractionDigits: 1,
+                }).format(followings || 0)}{" "}
+              </button>
+              <p className="text-terciary text-xs font-medium">Followings</p>
+            </div>
+          </div>
+
+          {mainWallet?.publicKey?.toBase58() === wallet && user ? (
+            <button
+              className="bg-[#2D2F33] text-[#d5d9e9] rounded-2xl w-full px-4 py-2 mt-6"
+              onClick={() => handleEditProfile()}
+            >
+              {matchUpMd ? "Edit Profile" : "Edit"}
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
+      </section>
+
       <div className="bg-opacity-70 bg-black w-full md:w-auto md:min-w-[480px] max-w-[80vw] min-h-[100px] max-h-[140px] z-19 pl-5 pr-2 rounded-lg ml-[-24px] flex flex-col justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-1 md:gap-x-0 justify-between items-center">
           <div className="md:col-span-12">
@@ -288,29 +325,12 @@ const AvatarSection = ({
               </div>
             </div>
           </div>
+
           <div
             className={`grid-item xs:w-4.5 ${
               !!handleFollow ? "flex" : "hidden"
-            }`}
-            // style={{
-            //   alignItems: "flex-end",
-            //   flexDirection: "column",
-            //   justifyContent: "space-between",
-            //   height: "100%",
-            // }}
+            } flex flex-col justify-between items-end h-full`}
           >
-            <div className="flex items-center justify-end gap-1">
-              {mainWallet?.publicKey?.toBase58() === wallet && user ? (
-                <button
-                  className="bg-secondary text-black rounded-full px-4 py-2"
-                  onClick={() => handleEditProfile()}
-                >
-                  {matchUpMd ? "Edit Profile" : "Edit"}
-                </button>
-              ) : (
-                <></>
-              )}
-            </div>
             <div className="flex items-center justify-end gap-1">
               {mainWallet?.publicKey?.toBase58() !== wallet ? (
                 <>
@@ -324,23 +344,6 @@ const AvatarSection = ({
               ) : (
                 <></>
               )}
-            </div>
-            <div className="mt-1 flex flex-col md:flex-row gap-1 items-center md:items-center justify-center md:justify-end">
-              <p className="whitespace-nowrap">
-                {Intl.NumberFormat("en-US", {
-                  notation: "compact",
-                  maximumFractionDigits: 1,
-                }).format(followings || 0)}{" "}
-                Followings
-              </p>
-
-              <p className="whitespace-nowrap">
-                {Intl.NumberFormat("en-US", {
-                  notation: "compact",
-                  maximumFractionDigits: 1,
-                }).format(followers || 0)}{" "}
-                Followers
-              </p>
             </div>
           </div>
         </div>

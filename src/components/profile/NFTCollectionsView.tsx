@@ -444,6 +444,7 @@ const NFTCollectionsView = ({
         placeholder=""
         onPointerEnterCapture={() => {}}
         onPointerLeaveCapture={() => {}}
+        className="p-6 pt-5 text-[#D5D9E9]"
       >
         <TabPanel value="Collections" className="p-0 mt-2">
           {!isLoading || (collections && collections.length > 0) ? (
@@ -608,10 +609,10 @@ const NFTCollectionsView = ({
             </div>
           )}
         </TabPanel> */}
-        <TabPanel value="Portfolio">
-          <div className="grid grid-cols-2">
+        <TabPanel value="Portfolio" className="text-[#D5D9E9]">
+          <div className="flex flex-col gap-4 lg:flex-row">
             <Tooltip content="Net Worth is based on FP calculation.">
-              <div className="flex justify-between items-center p-2 bg-primary-light dark:bg-opacity-85 rounded">
+              <div className="w-full flex justify-between items-center bg-elevation1 rounded-2xl shadow-sm p-4">
                 <p>
                   Net Worth <InfoCircleOutlined />
                 </p>
@@ -641,7 +642,7 @@ const NFTCollectionsView = ({
                 </div>
               </div>
             </Tooltip>
-            <div className="w-full sm:w-[calc(460px/16*5.75)] flex justify-between items-center bg-primary-light dark:bg-[rgba(36, 24, 47, 0.85)] rounded-[.75rem] p-2">
+            <div className="w-full flex justify-between items-center bg-elevation1 rounded-2xl shadow-sm p-4">
               <p className="text-base font-medium">Est. Net Worth (USD)</p>
               <div className="flex gap-1">
                 <p className="whitespace-nowrap">
@@ -662,8 +663,8 @@ const NFTCollectionsView = ({
             </div>
           </div>
           {!isLoading || (nftList && nftList.length > 0) ? (
-            <ul>
-              <li className="flex gap-1 justify-between">
+            <ul className="py-2">
+              <li className="flex gap-1 justify-between px-4 py-2">
                 <div className="w-10"></div>
                 <p className="w-[18%]">Name</p>
                 <p className="w-[18%]">Collection</p>
@@ -697,7 +698,7 @@ const NFTCollectionsView = ({
               )}
             </ul>
           ) : (
-            <div className="h-4 bg-primary-light rounded-full overflow-hidden">
+            <div className="h-4 bg-primary-light rounded-full overflow-hidden py-2">
               <div className="h-full bg-secondary"></div>
             </div>
           )}
