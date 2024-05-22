@@ -49,7 +49,7 @@ const MenuListCollapsed = ({ isPro }: any) => {
         !isEmpty(auth.user) &&
         (wallet.connected || ethConnected) && (
           <div
-            className={`p-2.5 rounded-lg ${
+            className={`py-3 my-[10px] rounded-lg ${
               openItem.findIndex((el: any) => el === "profile") > -1
                 ? "bg-[#f38aff15]"
                 : ""
@@ -58,7 +58,7 @@ const MenuListCollapsed = ({ isPro }: any) => {
             <img
               src={getAvatar()}
               alt="Avatar"
-              className="w-6 h-6 mx-auto bg-transparent"
+              className="w-6 h-6 mx-auto bg-transparent rounded-full"
             />
           </div>
         )}

@@ -42,7 +42,7 @@ const SetAvatarButton = ({ item }: any) => {
     <>
       {item.owner === wallet?.publicKey?.toBase58() && !item.listed && (
         <button
-          className="w-full bg-secondary text-white rounded-full mt-2 py-2"
+          className="w-full bg-[#f38aff] hover:bg-[#d329ff] text-white rounded-full mt-2 py-2"
           onClick={() => setAsAvatar()}
         >
           <p className="text-lg truncate">Set as Avatar</p>

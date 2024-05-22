@@ -4,6 +4,7 @@ import { map, round } from "lodash";
 
 import { EyeOutlined } from "@ant-design/icons";
 import Image from "mui-image";
+import { IconX } from "@tabler/icons-react";
 import { Dialog, DialogHeader, DialogBody } from "@material-tailwind/react";
 
 import MPActionButton from "@/components/MPActionButton";
@@ -42,20 +43,43 @@ const NFTsDialog = ({
       placeholder=""
       onPointerEnterCapture={() => {}}
       onPointerLeaveCapture={() => {}}
+      className="bg-[#1f1f23] text-[#d5d9e9] transition-shadow duration-300 ease-in-out shadow-[rgba(0,0,0,0.2)_0px_11px_15px_-7px,rgba(0,0,0,0.14)_0px_24px_38px_3px,rgba(0,0,0,0.12)_0px_9px_46px_8px] bg-none rounded-lg m-8 relative overflow-y-auto flex flex-col max-h-[calc(100%-64px)] !max-w-[1536px] py-3 !w-full"
     >
-      {!hideTitle && (
+      {!hideTitle ? (
         <DialogHeader
-          className="flex gap-1 items-center"
+          className="flex gap-1 items-center justify-between text-[#e4e7ec]"
           placeholder=""
           onPointerEnterCapture={() => {}}
           onPointerLeaveCapture={() => {}}
         >
-          <img
-            src="${IMAGE_PROXY}${cItem.img}"
-            className="w-full h-full bg-transparent"
-            alt=""
-          />{" "}
-          {cItem.title} ({cItem.count})
+          <div className="flex gap-1 items-center">
+            <img
+              src={`${IMAGE_PROXY}${cItem.img}`}
+              className="w-10 h-10 bg-transparent rounded-full"
+              alt=""
+            />{" "}
+            {cItem.title} ({cItem.count})
+          </div>
+          <button
+            className="button-small items-center p-0 relative flex justify-center flex-shrink-0 text-xl leading-none overflow-hidden select-none bg-[#d5d9e9]"
+            onClick={() => setShowItems(false)}
+          >
+            <IconX className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+        </DialogHeader>
+      ) : (
+        <DialogHeader
+          className="flex gap-1 items-center justify-end text-[#e4e7ec]"
+          placeholder=""
+          onPointerEnterCapture={() => {}}
+          onPointerLeaveCapture={() => {}}
+        >
+          <button
+            className="button-small items-center p-0 relative flex justify-center flex-shrink-0 text-xl leading-none overflow-hidden select-none bg-[#d5d9e9]"
+            onClick={() => setShowItems(false)}
+          >
+            <IconX className="h-5 w-5" strokeWidth={1.5} />
+          </button>
         </DialogHeader>
       )}
       <DialogBody
@@ -64,11 +88,11 @@ const NFTsDialog = ({
         onPointerLeaveCapture={() => {}}
       >
         {!isLoading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 w-full overflow-y-hidden">
+          <ul className="grid grid-cols-4 p-0 gap-1 w-full overflow-y-hidden">
             {map(cItem.items, (item: any, idx: number) => (
-              <div
-                key="${item.image}+${idx}"
-                className="relative rounded-lg"
+              <li
+                key={`${item.image}+${idx}`}
+                className="relative flex flex-col rounded-2xl h-auto col-span-1 row-span-1"
                 onMouseEnter={() => setShow(idx)}
                 onMouseLeave={() => setShow(false)}
               >
@@ -76,15 +100,7 @@ const NFTsDialog = ({
                   <Image
                     src={`${IMAGE_PROXY}${item.image}`}
                     alt={item.title}
-                    // style={{
-                    //   borderRadius: 16,
-                    //   aspectRatio: "1 / 1",
-                    //   objectFit: "cover",
-                    //   width: "100%",
-                    //   height: "auto",
-                    //   minHeight: 80,
-                    //   maxHeight: 367,
-                    // }}
+                    className="rounded-2xl w-full h-full flex items-center justify-center"
                   />
                 )}
                 {item.video && (
@@ -100,7 +116,7 @@ const NFTsDialog = ({
                   } justify-center items-center p-8 flex-col gap-2`}
                 >
                   {!item.listed && <SetAvatarButton item={item} />}
-                  {!noListing && (
+                  {/* {!noListing && (
                     <MPActionButton
                       price={item.price}
                       owner={item.owner}
@@ -114,7 +130,7 @@ const NFTsDialog = ({
                       noListing
                       updateView={updateView}
                     />
-                  )}
+                  )} */}
                   {showSendAndBurnButton && !item.listed && !item.staked && (
                     <SendAndBurnButton item={item} updateView={updateView} />
                   )}
@@ -144,7 +160,7 @@ const NFTsDialog = ({
                     </span>
                   </div>
                 )}
-                {cItem.floor_price &&
+                {cItem.floor_price !== 0 &&
                   !item.price &&
                   item.listStatus !== "listed" && (
                     <div className="relative">
@@ -157,19 +173,25 @@ const NFTsDialog = ({
                     </div>
                   )}
                 {canView && (
-                  <div className="flex justify-between items-center p-2 bg-black bg-opacity-50 text-white">
-                    <span className="font-semibold">{item.name}</span>
-                    <button
-                      className="p-0 text-secondary"
-                      onClick={() => navigateWithProjectId(item)}
-                    >
-                      <EyeOutlined />
-                    </button>
+                  <div className="absolute left-0 right-0 bottom-0 bg-black bg-opacity-50 flex items-center">
+                    <div className="flex-grow p-3 pl-4 text-white overflow-hidden">
+                      <div className="text-base leading-6 overflow-hidden text-ellipsis whitespace-nowrap">
+                        {item.name}
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        className="inline-flex items-center justify-center relative box-border bg-transparent outline-none border-none m-0 cursor-pointer user-select-none align-middle text-center text-white flex-shrink-0 rounded-full overflow-visible transition-bg duration-150 ease-in-out p-1 text-lg"
+                        onClick={() => navigateWithProjectId(item)}
+                      >
+                        <EyeOutlined />
+                      </button>
+                    </div>
                   </div>
                 )}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
           <div className={`grid gap-${gap}`}>
             {map(Array(cols * 2), (col) => (

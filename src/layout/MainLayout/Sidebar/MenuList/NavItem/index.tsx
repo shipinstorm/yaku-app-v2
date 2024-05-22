@@ -92,8 +92,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
       onClick={() => itemHandler(item.id!, item.title as string)}
     >
       {level === 0 && item?.icon && (
-        <Icon stroke="1.5" className="ml-1" />
-        // <Icon stroke="1.5" className="ml-1" size="24px" />
+        <Icon stroke="1.5" className="ml-1 w-6 h-6" />
       )}
       {item.hidden ? (
         <p

@@ -49,6 +49,8 @@ const EditProfileDialog = ({
     placeholder=""
     onPointerEnterCapture={() => {}}
     onPointerLeaveCapture={() => {}}
+    size="sm"
+    className="bg-[#1f1f23] text-[#d5d9e9] transition-shadow duration-300 ease-in-out shadow-[rgba(0,0,0,0.2)_0px_11px_15px_-7px,rgba(0,0,0,0.14)_0px_24px_38px_3px,rgba(0,0,0,0.12)_0px_9px_46px_8px] bg-none rounded-lg m-8 relative overflow-y-auto flex flex-col max-h-[calc(100%-64px)] py-3 !w-full"
   >
     <DialogHeader
       className="flex items-center justify-between gap-1"
@@ -56,30 +58,23 @@ const EditProfileDialog = ({
       onPointerEnterCapture={() => {}}
       onPointerLeaveCapture={() => {}}
     >
-      <h2 className="text-2xl font-bold">Edit profile</h2>
-      <button
-        className="bg-white text-black rounded-full"
-        onClick={() => handleSave()}
-        disabled={isLoading}
-      >
-        Save
-      </button>
+      <h2 className="text-2xl font-bold text-white">Edit profile</h2>
     </DialogHeader>
     <DialogBody
       placeholder=""
       onPointerEnterCapture={() => {}}
       onPointerLeaveCapture={() => {}}
     >
-      <ProfileBanner height={240} editable upload={handleUploadBanner} />
-      <div className="mt-[-40px] md:mt-[-75px] flex items-center relative">
+      {/* <ProfileBanner height={240} editable upload={handleUploadBanner} /> */}
+      <div className="flex items-center relative justify-center">
         <img
-          src="{src}"
-          className="w-[60px] md:w-[150px] h-[60px] md:h-[150px] object-contain border-none bg-black z-20"
+          src={src}
+          className="w-[60px] md:w-[150px] h-[60px] md:h-[150px] object-contain border-none bg-black z-20 rounded-2xl"
         />
         <div className="relative">
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-full">
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-full left-[-60px] md:left-[-150px] z-30">
             <button
-              className="bg-black bg-opacity-50"
+              className="bg-transparent bg-opacity-50 text-white"
               onClick={() => handleShowSelectNft()}
             >
               <IconUpload />
@@ -90,28 +85,44 @@ const EditProfileDialog = ({
       <div className="mt-4 flex flex-col gap-2 items-center">
         <input
           type="text"
-          className="w-full"
+          className="w-full bg-[#e0e0ff08] border-2 border-[#0000] text-white h-12 pr-4 py-2 pl-10 transition-all duration-300 rounded-2xl"
           maxLength={30}
           placeholder="Vanity"
-          value="{username}"
+          value={username}
           onChange={(e) => handleUsername(e.target.value)}
         />
         <input
           type="text"
-          className="w-full"
+          className="w-full bg-[#e0e0ff08] border-2 border-[#0000] text-white h-12 pr-4 py-2 pl-10 transition-all duration-300 rounded-2xl"
           maxLength={600}
           placeholder="Bio"
-          value="{bio}"
+          value={bio}
           onChange={(e) => handleBio(e.target.value)}
         />
         <input
           type="text"
-          className="w-full"
+          className="w-full bg-[#e0e0ff08] border-2 border-[#0000] text-white h-12 pr-4 py-2 pl-10 transition-all duration-300 rounded-2xl"
           maxLength={30}
           placeholder="Location"
-          value="{locale}"
+          value={locale}
           onChange={(e) => handleLocale(e.target.value)}
         />
+        <div className="flex w-full gap-2">
+          <button
+            className="mt-3 h-11 w-full rounded-xl bg-elevation2 text-sm font-medium text-secondary duration-300"
+            onClick={() => handleSave()}
+            disabled={isLoading}
+          >
+            Save
+          </button>
+          <button
+            className="mt-3 h-11 w-full rounded-xl bg-elevation2 text-sm font-medium text-secondary duration-300"
+            onClick={() => setShowEditProfile(false)}
+            disabled={isLoading}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </DialogBody>
   </Dialog>
@@ -245,6 +256,38 @@ const AvatarSection = ({
         </div>
       </section>
 
+      <section className="mb-5">
+        <h2 className="text-primary mb-3 text-lg font-bold">Badges</h2>
+        <div className="flex items-center flex-wrap gap-3">
+          <div className="flex gap-2 cursor-pointer">
+            {stakedYakuNfts &&
+              stakedYakuNfts.length > 0 &&
+              filter(
+                stakedYakuNfts,
+                ({ amount }: any) => amount === 36000000000
+              ).length > 0 && (
+                <Badges icon="BadgeIconDiamond" alt="Mansion Owner" />
+              )}
+            {/* <Badges icon="BadgeIconDiploma" /> */}
+            {stakedYakuNfts && stakedYakuNfts.length > 0 && (
+              <Badges icon="BadgeIconLemon" alt="Yaku Holder" />
+            )}
+            {stakedYakuNfts &&
+              stakedYakuNfts.length > 0 &&
+              !!find(
+                stakedYakuNfts,
+                ({ amount }: any) => amount >= 2000000000 && amount < 4000000000
+              ) && <Badges icon="BadgeIconMotor" alt="Bike Holder" />}
+            {stakedYakuNfts &&
+              stakedYakuNfts.length > 0 &&
+              filter(stakedYakuNfts, ({ amount }: any) => amount === 4000000000)
+                .length > 9 && <Badges icon="BadgeIconWhale" alt="Whale" />}
+            {/* <Badges icon="BadgeIconTwitter" /> */}
+            {/* <Badges icon="BadgeIconGoldMedal" /> */}
+          </div>
+        </div>
+      </section>
+
       <div className="bg-opacity-70 bg-black w-full md:w-auto md:min-w-[480px] max-w-[80vw] min-h-[100px] max-h-[140px] z-19 pl-5 pr-2 rounded-lg ml-[-24px] flex flex-col justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-1 md:gap-x-0 justify-between items-center">
           <div className="md:col-span-12">
@@ -256,6 +299,7 @@ const AvatarSection = ({
                 {sol_name && `| ${sol_name}`}
               </p>
             </div>
+
             <div className="flex gap-x-1 items-center flex-wrap flex-1">
               {discord && (
                 <Tooltip title="Click to copy">
@@ -292,38 +336,6 @@ const AvatarSection = ({
                 </div>
               )}
             </div>
-
-            <div className="flex gap-1 items-center flex-1">
-              <div className="flex gap-2 cursor-pointer">
-                {stakedYakuNfts &&
-                  stakedYakuNfts.length > 0 &&
-                  filter(
-                    stakedYakuNfts,
-                    ({ amount }: any) => amount === 36000000000
-                  ).length > 0 && (
-                    <Badges icon="BadgeIconDiamond" alt="Mansion Owner" />
-                  )}
-                {/* <Badges icon="BadgeIconDiploma" /> */}
-                {stakedYakuNfts && stakedYakuNfts.length > 0 && (
-                  <Badges icon="BadgeIconLemon" alt="Yaku Holder" />
-                )}
-                {stakedYakuNfts &&
-                  stakedYakuNfts.length > 0 &&
-                  !!find(
-                    stakedYakuNfts,
-                    ({ amount }: any) =>
-                      amount >= 2000000000 && amount < 4000000000
-                  ) && <Badges icon="BadgeIconMotor" alt="Bike Holder" />}
-                {stakedYakuNfts &&
-                  stakedYakuNfts.length > 0 &&
-                  filter(
-                    stakedYakuNfts,
-                    ({ amount }: any) => amount === 4000000000
-                  ).length > 9 && <Badges icon="BadgeIconWhale" alt="Whale" />}
-                {/* <Badges icon="BadgeIconTwitter" /> */}
-                {/* <Badges icon="BadgeIconGoldMedal" /> */}
-              </div>
-            </div>
           </div>
 
           <div
@@ -348,6 +360,7 @@ const AvatarSection = ({
           </div>
         </div>
       </div>
+
       <EditProfileDialog
         {...{
           src,

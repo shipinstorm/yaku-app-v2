@@ -1,28 +1,15 @@
 import { memo, useMemo, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-
-import { Drawer } from "@material-tailwind/react";
-
 import { useMediaQuery } from "react-responsive";
-
-// third-party
 import PerfectScrollbar from "react-perfect-scrollbar";
+
 import { useWallet } from "@solana/wallet-adapter-react";
+
 import { useDispatch, useSelector } from "@/store";
 
-// project imports
 import MenuList from "./MenuList";
-import MenuListCollapsed from "./MenuListCollapsed";
-import Logo from "@/components/icons/Logo";
-import MainCard from "@/components/cards/MainCard";
+import Profile from "./Profile";
 import SocialSection from "./SocialSection";
-import { openDrawer, activeItem } from "@/store/slices/menu";
-import { drawerWidth, drawerWidthCollapsed } from "@/store/constant";
-import { setPage } from "@/store/slices/subpageSlice";
-import { LOGO_BLACK } from "@/config/config";
-
-import { Palette } from "@/themes/palette";
-import themeTypography from "@/themes/typography";
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -69,6 +56,7 @@ const Sidebar = ({
         className="flex flex-col items-center justify-center"
       >
         <>
+          <Profile noPopper />
           <MenuList hideMobileSidebar={hideMobileSidebar} />
         </>
       </PerfectScrollbar>

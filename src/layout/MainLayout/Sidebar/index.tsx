@@ -1,28 +1,18 @@
 import { memo, useMemo, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
-
-import { Drawer } from "@material-tailwind/react";
-
-import { useMediaQuery } from "react-responsive";
-
-// third-party
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { useDispatch, useSelector } from "@/store";
 
-// project imports
-import MenuList from "./MenuList";
-import MenuListCollapsed from "./MenuListCollapsed";
+import { useWallet } from "@solana/wallet-adapter-react";
+
 import Logo from "@/components/icons/Logo";
 import MainCard from "@/components/cards/MainCard";
-import SocialSection from "./SocialSection";
-import { openDrawer, activeItem } from "@/store/slices/menu";
-import { drawerWidth, drawerWidthCollapsed } from "@/store/constant";
-import { setPage } from "@/store/slices/subpageSlice";
-import { LOGO_BLACK } from "@/config/config";
 
-import { Palette } from "@/themes/palette";
-import themeTypography from "@/themes/typography";
+import { useDispatch, useSelector } from "@/store";
+import { openDrawer } from "@/store/slices/menu";
+
+import MenuList from "./MenuList";
+import MenuListCollapsed from "./MenuListCollapsed";
+import Profile from "./Profile";
+import SocialSection from "./SocialSection";
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -33,16 +23,11 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
-  const matchUpMd = useMediaQuery({ query: "(min-width: 900px)" });
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<any>(null);
   const wallet = useWallet();
-
-  const router = useRouter();
   const dispatch = useDispatch();
 
-  const workspace = JSON.parse(localStorage.getItem("workspace") || "{}");
-  const avatar = workspace?.image;
   const { drawerOpen, hasWorkspace } = useSelector<any>(
     (state: any) => state.menu
   );
@@ -78,6 +63,7 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
         }}
       >
         <>
+          <Profile noPopper />
           <MenuList />
         </>
       </PerfectScrollbar>
@@ -107,9 +93,6 @@ const Sidebar = ({ window, sticky, isPro }: SidebarProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isPro]
   );
-
-  const container =
-    window !== undefined ? () => window.document.body : undefined;
 
   const handleClose = (
     event: React.MouseEvent<HTMLDivElement> | MouseEvent | TouchEvent

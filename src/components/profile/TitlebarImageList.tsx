@@ -47,7 +47,10 @@ const TitlebarImageList = ({
   return (
     <div className="grid grid-cols-4 gap-4 w-full">
       <div className="col-span-4">
-        <div className="rounded-lg px-3 text-xl font-bold flex gap-1 items-center">
+        <div
+          className="box-border list-none text-[#d8ddf0] sticky top-0 z-10 bg-[#1f1f23] rounded-lg my-2 px-6 text-lg font-bold flex gap-1 items-center"
+          style={{ lineHeight: "48px" }}
+        >
           {icon || <></>} {items.length} {title}
         </div>
       </div>
@@ -66,22 +69,12 @@ const TitlebarImageList = ({
                 src={`${IMAGE_PROXY}${item.img}`}
                 srcSet={`${IMAGE_PROXY}${item.img}`}
                 alt={item.title}
-                // style={{
-                //   borderRadius: 16,
-                //   aspectRatio: "1 / 1",
-                //   objectFit: "cover",
-                //   width: "100%",
-                //   minHeight: 80,
-                //   maxHeight: 367,
-                // }}
+                className="rounded-2xl min-h-[80px] max-h-[367px] w-full"
                 loading="lazy"
               />
             )}
             {item.video && (
-              <div
-                className="aspect-w-1 aspect-h-1 w-full flex"
-                // style={{ minHeight: "80px", maxHeight: "367px" }}
-              >
+              <div className="aspect-w-1 aspect-h-1 w-full flex min-h-[80px] max-h-[367px]">
                 <video
                   autoPlay
                   loop
@@ -142,7 +135,7 @@ const TitlebarImageList = ({
               </div>
             )}
             <div className="relative">
-              <div className="absolute bottom-0 left-0 w-full p-4 bg-black bg-opacity-75 text-white flex justify-between items-center rounded-b">
+              <div className="absolute bottom-0 left-0 w-full px-4 py-3 bg-black bg-opacity-75 text-white flex justify-between items-center rounded-b">
                 <span className="text-lg font-bold truncate">{item.title}</span>
                 <div>
                   {navigate ? (
