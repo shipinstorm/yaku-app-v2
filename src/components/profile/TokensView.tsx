@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, includes, map, orderBy, round, toLower } from "lodash";
 
-// import { ArrowDownwardOutlined } from "@mui/icons-material";
-
 import TokenChart from "@/components/charts/TokenChart";
 
 import { IMAGE_PROXY } from "@/config/config";
