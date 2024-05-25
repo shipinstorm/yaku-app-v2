@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, PointerLockControls } from "@react-three/drei";
 import * as THREE from "three";
 import * as d3 from "d3";
 import { Vector3 } from "three";
+import { RootState } from "@/store";
 
 interface Point {
   x: number;
@@ -37,7 +39,7 @@ const Map = ({ data }: { data: Point[] }) => {
   useEffect(() => {
     camera.position.setX(0);
     camera.position.setY(-3);
-    camera.position.setZ(2);
+    camera.position.setZ(3);
   }, []);
 
   return (
@@ -54,22 +56,7 @@ const Map = ({ data }: { data: Point[] }) => {
 };
 
 const Explore = () => {
-  const [data, setData] = useState<Point[]>([]);
-
-  useEffect(() => {
-    d3.csv("/coordinates.csv")
-      .then((data) => {
-        const parsedData = data.map((d) => ({
-          x: +d.x / 2000,
-          y: +d.y / 1333,
-          z: +d.z,
-        }));
-        setData(parsedData);
-      })
-      .catch((error) => {
-        console.error("Error loading or parsing CSV file:", error);
-      });
-  }, []);
+  const { data } = useSelector((state: RootState) => state.map);
 
   return (
     <div style={{ height: "100vh" }}>

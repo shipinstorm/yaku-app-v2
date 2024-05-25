@@ -30,6 +30,7 @@ import { get } from "lodash";
 import { useRequests } from "@/hooks/useRequests";
 import ProfileSection from "./Header/ProfileSection";
 import { setPage } from "@/store/slices/subpageSlice";
+import { setMapData } from "@/store/map";
 import VideoSlidesBackground from "./VideoSlidesBackground";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useRequest } from "ahooks";
@@ -38,6 +39,8 @@ import YakuBuyLink from "./YakuBuyLink";
 
 import { Palette } from "@/themes/palette";
 import { match } from "assert";
+
+import * as d3 from "d3";
 
 const BreadcrumbsNoSSR = dynamic(() => import("@/components/Breadcrumbs"), {
   ssr: false,
@@ -198,6 +201,24 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       dispatch(activeItem(["home"]));
     }
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    d3.csv("/coordinates.csv")
+  .then((data) => {
+    console.log("--------");
+    console.log(data);
+    const parsedData = data.map((d) => ({
+      x: +d.x / 2000,
+      y: +d.y / 1333,
+      z: +d.z,
+    }));
+    console.log(parsedData);
+    dispatch(setMapData(parsedData));
+  })
+  .catch((error) => {
+    console.error("Error loading or parsing CSV file:", error);
+  });
+  }, [])
 
   const header = useMemo(
     () => (
